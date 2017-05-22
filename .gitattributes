@@ -1,3 +1,8 @@
+production-settings.json
+AuditTool/
+PASSWORD.txt
+*.log
+
 # Auto detect text files and perform LF normalization
 * text=auto
 
