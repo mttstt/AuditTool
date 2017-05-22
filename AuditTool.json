@@ -1,0 +1,2966 @@
+{
+	"application": {
+		"title": "AuditTool",
+		"meta_description": "AuditTool",
+		"meta_title": "AuditTool",
+		"theme": "bootswatch-spacelab",
+		"animate": true,
+		"footer_text": "AuditTool Banca IFIS - Copyright (c) 2017, MIT License, release 0.0.1",
+		"roles": [
+			"admin",
+			"user"
+		],
+		"default_role": "user",
+		"use_collection2": true,
+		"collections": [
+			{
+				"name": "activities",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "status",
+						"title": "Status",
+						"type": "string",
+						"default": "Avviato",
+						"exportable": true,
+						"input": "select",
+						"input_items": [
+							{
+								"value": "Avviato",
+								"title": "Avviato"
+							},
+							{
+								"value": "In corso",
+								"title": "In corso"
+							},
+							{
+								"value": "Completato",
+								"title": "Completato"
+							},
+							{
+								"value": "Archiviato",
+								"title": "Archiviato"
+							}
+						],
+						"array_item_type": "object",
+						"show_in_insert_form": false,
+						"show_in_update_form": false
+					},
+					{
+						"name": "tipo",
+						"title": "Tipo attività",
+						"type": "string",
+						"required": true,
+						"exportable": true,
+						"input": "radio",
+						"input_items": [
+							{
+								"value": "Audit Filiale",
+								"title": "Audit Filiale"
+							},
+							{
+								"value": "Audit",
+								"title": "Audit"
+							},
+							{
+								"value": "Informativa",
+								"title": "Informativa"
+							},
+							{
+								"value": "Altre attività",
+								"title": "Altre attività"
+							}
+						],
+						"array_item_type": "object",
+						"show_in_update_form": false
+					},
+					{
+						"name": "titolo",
+						"title": "Titolo",
+						"type": "string",
+						"required": true,
+						"exportable": true
+					},
+					{
+						"name": "data",
+						"title": "Data avvio attività",
+						"type": "date",
+						"default": "today",
+						"format": "DD/MM/YYYY",
+						"exportable": true,
+						"input": "datepicker"
+					},
+					{
+						"name": "auditors",
+						"title": "Nominativo auditor",
+						"type": "string",
+						"default": "{{userFullName}}",
+						"exportable": true
+					},
+					{
+						"name": "obiettivo",
+						"title": "Obiettivi dell'attività",
+						"type": "string",
+						"exportable": true,
+						"input": "textarea",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "areeRischio",
+						"title": "Aree di rischio (ICAAP)",
+						"type": "array",
+						"exportable": true,
+						"input": "select-multiple",
+						"lookup_query_name": "rischi_all",
+						"lookup_key": "ICAAP",
+						"lookup_field": "ICAAP",
+						"show_in_insert_form": false,
+						"show_in_update_form": false
+					},
+					{
+						"name": "rischiEsaminati",
+						"title": "Principali rischi esaminati",
+						"type": "array",
+						"exportable": true,
+						"input": "select-multiple",
+						"lookup_query_name": "rischi_all",
+						"lookup_key": "rischio",
+						"lookup_field": "rischio",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "strutture",
+						"title": "Strutture coinvolte",
+						"type": "array",
+						"exportable": true,
+						"input": "select-multiple",
+						"lookup_query_name": "strutture_all",
+						"lookup_key": "uo",
+						"lookup_field": "uo",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "numero",
+						"title": "Numero",
+						"type": "string",
+						"default": "*",
+						"exportable": true,
+						"show_in_insert_form": false
+					},
+					{
+						"name": "normative",
+						"title": "Riferimenti normativi",
+						"type": "array",
+						"input": "select-multiple",
+						"lookup_query_name": "normative_all",
+						"lookup_key": "norma",
+						"lookup_field": "norma",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "memo",
+						"title": "Executive Summary",
+						"type": "string",
+						"input": "textarea",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "filiale",
+						"title": "Filiale",
+						"type": "string",
+						"input": "select",
+						"lookup_query_name": "filiali_all",
+						"lookup_key": "filiale",
+						"lookup_field": "filiale",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "sci",
+						"title": "Valutazione SCI",
+						"type": "string",
+						"input": "select",
+						"input_items": [
+							{
+								"value": "Positiva",
+								"title": "Positiva"
+							},
+							{
+								"value": "Parzialmente positiva +",
+								"title": "Parzialmente positiva +"
+							},
+							{
+								"value": "Parzialmente positiva",
+								"title": "Parzialmente positiva"
+							},
+							{
+								"value": "Parzialmente positiva -",
+								"title": "Parzialmente positiva -"
+							},
+							{
+								"value": "Negativa",
+								"title": "Negativa"
+							}
+						],
+						"show_in_insert_form": false
+					},
+					{
+						"name": "rischioResiduo",
+						"title": "Valutazione rischio residuo",
+						"type": "string",
+						"input": "select",
+						"input_items": [
+							{
+								"value": "Alto",
+								"title": "Alto"
+							},
+							{
+								"value": "Medio",
+								"title": "Medio"
+							},
+							{
+								"value": "Basso",
+								"title": "Basso"
+							},
+							{
+								"value": "Non significativo",
+								"title": "Non significativo"
+							}
+						],
+						"show_in_insert_form": false
+					},
+					{
+						"name": "datachiusura",
+						"title": "Data chiusura attività",
+						"type": "date",
+						"default": "today",
+						"format": "DD-MM-YYYY",
+						"input": "datepicker",
+						"show_in_insert_form": false
+					}
+				],
+				"owner_field": "ownerId",
+				"roles_allowed_to_read": [
+					"admin",
+					"owner"
+				],
+				"roles_allowed_to_insert": [
+					"admin",
+					"user"
+				],
+				"roles_allowed_to_update": [
+					"admin",
+					"owner"
+				],
+				"roles_allowed_to_delete": [
+					"admin"
+				],
+				"after_insert_code": "Meteor.call(\"NextAuditNumber\");\n",
+				"after_remove_code": "//ToDo: dopo la rimozione di Activities vanno rimosse \"carenze\", \"fieldwork\", file."
+			},
+			{
+				"name": "rischi",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "rischio",
+						"title": "Principali aree di rischio",
+						"type": "string",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "ICAAP",
+						"title": "Principali rischi ICAAP",
+						"type": "string",
+						"show_in_insert_form": false,
+						"show_in_update_form": false
+					}
+				]
+			},
+			{
+				"name": "strutture",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "uo",
+						"title": "Unità organizzative",
+						"type": "string",
+						"input": "select-multiple"
+					},
+					{
+						"name": "livello",
+						"title": "Livello U.O.",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "carenze",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "activityId",
+						"title": "Activity Id",
+						"type": "string",
+						"required": true,
+						"searchable": false,
+						"sortable": false,
+						"show_in_dataview": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false,
+						"show_in_read_only_form": false
+					},
+					{
+						"name": "carenzaId",
+						"title": "Numero carenza",
+						"type": "string",
+						"default": "{{nextCarenzaNumber}}",
+						"required": true,
+						"exportable": true,
+						"show_in_update_form": false
+					},
+					{
+						"name": "titolo",
+						"title": "Titolo carenza",
+						"type": "string",
+						"required": true
+					},
+					{
+						"name": "data",
+						"title": "Data carenza",
+						"type": "date",
+						"default": "today",
+						"required": true,
+						"format": "DD-MM-YYYY",
+						"exportable": true,
+						"input": "datepicker"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione carenza",
+						"type": "string",
+						"required": true,
+						"exportable": true,
+						"input": "textarea",
+						"show_in_dataview": false
+					},
+					{
+						"name": "livello",
+						"title": "Livello criticità",
+						"type": "string",
+						"required": true,
+						"exportable": true,
+						"input": "select",
+						"input_items": [
+							{
+								"value": "ridotto",
+								"title": "Ridotto"
+							},
+							{
+								"value": "medio",
+								"title": "Medio"
+							},
+							{
+								"value": "alto",
+								"title": "Alto"
+							},
+							{
+								"value": "moltoalto",
+								"title": "Molto Alto"
+							}
+						],
+						"lookup_query_params": [
+							{
+								"name": "Ridotto",
+								"value": "Ridotto"
+							},
+							{
+								"name": "Basso",
+								"value": "Basso"
+							},
+							{
+								"name": "Medio",
+								"value": "Medio"
+							},
+							{
+								"name": "Alto",
+								"value": "Alto"
+							},
+							{
+								"name": "MoltoAlto",
+								"value": "MoltoAlto"
+							}
+						]
+					},
+					{
+						"name": "owner",
+						"title": "U.O. responsabile",
+						"type": "string",
+						"required": true,
+						"exportable": true
+					},
+					{
+						"name": "tipo",
+						"title": "Natura della carenza",
+						"type": "string",
+						"input": "select",
+						"input_items": [
+							{
+								"value": "CarenzaDocumentale",
+								"title": "Carenza Documentale"
+							},
+							{
+								"value": "ErroreUmano",
+								"title": "Errore Umano"
+							}
+						]
+					},
+					{
+						"name": "dbi",
+						"title": "Banca d'Italia",
+						"type": "bool",
+						"input": "checkbox"
+					}
+				],
+				"owner_field": "ownerId"
+			},
+			{
+				"name": "files",
+				"type": "file_collection",
+				"storage_adapters": [
+					"gridfs"
+				],
+				"fields": [
+					{
+						"name": "newField",
+						"type": "string",
+						"input": "custom"
+					}
+				],
+				"owner_field": "ownerId"
+			},
+			{
+				"name": "fieldworks",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "verificaId",
+						"title": "Numero",
+						"type": "string",
+						"default": "{{nextAttivitaNumber}}",
+						"show_in_dataview": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false
+					},
+					{
+						"name": "titolo",
+						"title": "Titolo",
+						"type": "string"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione verifica",
+						"type": "string",
+						"input": "textarea"
+					},
+					{
+						"name": "activityId",
+						"title": "Id Activity",
+						"type": "string",
+						"show_in_dataview": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false,
+						"show_in_read_only_form": false
+					},
+					{
+						"name": "esito",
+						"title": "Esito",
+						"type": "string",
+						"input": "select",
+						"input_items": [
+							{
+								"value": "null"
+							},
+							{
+								"value": "fail",
+								"title": "FAIL"
+							},
+							{
+								"value": "pass",
+								"title": "PASS"
+							}
+						],
+						"show_in_insert_form": false
+					}
+				],
+				"owner_field": "ownerId"
+			},
+			{
+				"name": "normative",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "norma",
+						"title": "Normativa",
+						"type": "string"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "libtest",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "titolo",
+						"title": "Titolo",
+						"type": "string"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione",
+						"type": "string",
+						"input": "textarea"
+					},
+					{
+						"name": "area",
+						"title": "Area",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "filiali",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "filiale",
+						"title": "Filiale",
+						"type": "string",
+						"input": "select"
+					}
+				],
+				"owner_field": "ownerId"
+			}
+		],
+		"queries": [
+			{
+				"name": "admin_users",
+				"collection": "users",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "admin_user",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": \":userId\" }",
+				"options": "{}"
+			},
+			{
+				"name": "users_null",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": null }",
+				"options": "{}"
+			},
+			{
+				"name": "current_user_data",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": \"Meteor.userId()\" }",
+				"options": "{}"
+			},
+			{
+				"name": "rischio_residuo_lista",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "edit_lista",
+				"find_one": true,
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "files_all",
+				"collection": "files",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "strutture_all",
+				"collection": "strutture",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "rischi_all",
+				"collection": "rischi",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "carenza_all",
+				"collection": "carenze",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "carenza_null",
+				"collection": "carenze",
+				"find_one": true,
+				"filter": "{\"_Id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "carenza",
+				"collection": "carenze",
+				"find_one": true,
+				"filter": "{\"_id\":\":carenzaId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "activities_list",
+				"collection": "activities",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "activities_null",
+				"collection": "activities",
+				"find_one": true,
+				"filter": "{\"_id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "activity",
+				"collection": "activities",
+				"find_one": true,
+				"filter": "{\"_id\":\":activityId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "carenze",
+				"collection": "carenze",
+				"filter": "{\"activityId\":\":activityId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "normative_all",
+				"collection": "normative",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "singola_attivita_list",
+				"collection": "fieldworks",
+				"filter": "{\"activityId\":\":singolaAttivitaId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "tutte_attivita_null",
+				"collection": "fieldworks",
+				"find_one": true,
+				"filter": "{\"_id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "singola_attivita",
+				"collection": "fieldworks",
+				"find_one": true,
+				"filter": "{\"_id\":\":singolaAttivitaId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "libtest",
+				"collection": "libtest",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "filiali_all",
+				"collection": "filiali",
+				"filter": "{}",
+				"options": "{}"
+			}
+		],
+		"public_zone": {
+			"type": "zone",
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"dest_selector": "#menu",
+					"class": "nav navbar-nav",
+					"title_icon_class": "fa fa-home",
+					"items": [
+						{
+							"title": "Dashboard",
+							"route": "dashboard",
+							"icon_class": "fa fa-tachometer"
+						},
+						{
+							"title": "Docs",
+							"route": "docs",
+							"icon_class": "fa fa-book"
+						},
+						{
+							"title": "Search",
+							"route": "search",
+							"icon_class": "fa fa-search"
+						}
+					],
+					"object_type": "menu"
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"dest_selector": "#menu",
+					"class": "nav navbar-nav navbar-right",
+					"items": [
+						{
+							"title": "Register",
+							"route": "register"
+						},
+						{
+							"title": "Login",
+							"route": "login"
+						}
+					],
+					"object_type": "menu"
+				}
+			],
+			"pages": [
+				{
+					"name": "home_public",
+					"type": "page",
+					"components": [
+						{
+							"name": "jumbotron",
+							"type": "jumbotron",
+							"title": "Audit Tool",
+							"text": "Web Application for audits, the main function are:<br />- Track audits activities<br />- Monitoring progress<br />- Archiving documentation<br /><br /> This application is implmented with the support of Group Banca IFIS Internal Audit. The application is realized with the Meteor-Kitchen framework.<br />",
+							"button_title": "Continue &raquo;",
+							"button_route": "dashboard",
+							"object_type": "jumbotron"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"type": "page",
+					"template": "login"
+				},
+				{
+					"name": "register",
+					"type": "page",
+					"template": "register"
+				},
+				{
+					"name": "verify_email",
+					"type": "page",
+					"template": "verify_email",
+					"route_params": [
+						"verifyEmailToken"
+					]
+				},
+				{
+					"name": "forgot_password",
+					"type": "page",
+					"template": "forgot_password"
+				},
+				{
+					"name": "reset_password",
+					"type": "page",
+					"template": "reset_password",
+					"route_params": [
+						"resetPasswordToken"
+					]
+				},
+				{
+					"name": "docs",
+					"type": "page",
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-pills nav-stacked",
+							"items": [
+								{
+									"title": "Audit Tool",
+									"route": "docs.audit_tool"
+								},
+								{
+									"title": "Workflow",
+									"route": "docs.audit_execution"
+								},
+								{
+									"title": "Framework",
+									"route": "docs.framework"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"pages": [
+						{
+							"name": "audit_tool",
+							"type": "page",
+							"title": "Introduzione all' Audit Tool",
+							"components": [
+								{
+									"name": "audit_tool",
+									"type": "markdown",
+									"source": "Le attività di audit possono essere classificate in:\n\n1) Audit\n2) Audit di filiali\n3) Informativa\n4) Altro\n\nL'Audit Tool supporta le suddette suddette attività e prevede workflow distinti per ciascuna di esse.\n\n\nTo Do List:\n\n1) LOW - creare variabili di sessioni persistenti (ad es: activityId)\n2) LOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n3) MEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n4) MEDIUM - aggiungere librerie per le attività di test inclusi quelli di filali \n5) HIGH - analizzare impostazione test di filiale\n6) LOW - funzionalità di stampa\n7) LOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n8) LOW - utilizzare lo skeen office 2013 per ckeditor\n9) LOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n10) MEDIUM - funzionalità di stampa\n11) LOW - funzionalità di ricerca delle attività\n12) LOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n13) LOW - arrichire funzionalità dell'admin per amministrare le basi dati \n14) LOW - funzionalità per assicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza\n15) LOW - prevedere che al momneot dela definizione della data di chiusura sia state completati tutti i requirement:\n\t\t\ta - tutte le verifiche hanno un esito FAIL/PASS\n            b - non ci sono buchi nella numerazione degli audit \n            c - non ci siano buchi nella numerazione delle attività\n            d - non ci siano buchi nella numerazione delle carenze\n\n\n\n\n",
+									"object_type": "markdown"
+								}
+							]
+						},
+						{
+							"name": "audit_execution",
+							"type": "page",
+							"title": "Workflow attività di audit",
+							"components": [
+								{
+									"name": "audit_execution_menu",
+									"type": "menu",
+									"class": "nav nav-tabs",
+									"items": [
+										{
+											"title": "Plan",
+											"route": "docs.audit_execution.plan"
+										},
+										{
+											"title": "Fieldwork",
+											"route": "docs.audit_execution.fieldwork"
+										},
+										{
+											"title": "Issues",
+											"route": "docs.audit_execution.issues"
+										},
+										{
+											"title": "Executive Summary",
+											"route": "docs.audit_execution.executive_summary"
+										},
+										{
+											"title": "Scoring",
+											"route": "docs.audit_execution.scorring"
+										}
+									],
+									"object_type": "menu"
+								}
+							],
+							"text": "Di seguito sono rappresentate diverse le fasi di svolgimento della singola attività di \"Audit\".",
+							"pages": [
+								{
+									"name": "plan",
+									"type": "page",
+									"components": [
+										{
+											"name": "plan",
+											"type": "markdown",
+											"source": "On Windows:\n\n    cd Domotica\n    meteor build --architecture=os.linux.x86_64 --directory ../Domoticasite-node\n    \n    \nMove Domoticasite-node/ on Raspberry     \n    \n    cd ../Domoticasite-node/programs/server\n    npm install\n    npm wiring-pi\n    npm install git+https://github.com/HardwareProjects/node-dht-sensor.git (trick)\n    \n\n\n    \n    \n\n\n\n\n\n",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "fieldwork",
+									"type": "page",
+									"components": [
+										{
+											"name": "fieldwork",
+											"type": "markdown",
+											"source": "There are problems with sslh to automatically renew the certificate, see:\n\nhttps://github.com/certbot/certbot/issues/341 \n\n\nSo, mannualy make these commands:\n\n    modify /etc/apache2/site\n    modify /etc/apache2/site-enables/defaul.conf 4443 --> 433\n    sudo /etc/init.d/apache2 stop\n    sudo ./letsencrypt-auto certonly --standalone --email mtt_stt@yahoo.it -d matteosetti.noip.me",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "issues",
+									"type": "page",
+									"components": [
+										{
+											"name": "issues",
+											"type": "markdown",
+											"source": "\n",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "executive_summary",
+									"type": "page",
+									"components": [
+										{
+											"name": "executive_summary",
+											"type": "markdown",
+											"source": "\n\n\n\n\n\n\n     \n     \n\n",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "scorring",
+									"type": "page",
+									"components": [
+										{
+											"name": "scorring",
+											"type": "markdown",
+											"source": "\n\n",
+											"object_type": "markdown"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "framework",
+							"type": "page",
+							"title": "Framework metodologico",
+							"components": [
+								{
+									"name": "framework_menu",
+									"type": "menu",
+									"class": "nav nav-tabs",
+									"items": [
+										{
+											"title": "Audit universe",
+											"route": "docs.framework.audit_universe"
+										},
+										{
+											"title": "Risk Assessmnet",
+											"route": "docs.framework.risk_assessmnet"
+										},
+										{
+											"title": "Audi Plan",
+											"route": "docs.framework.audit_plan"
+										},
+										{
+											"title": "Esecuzione Audit",
+											"route": "docs.framework.esecuzione_audit"
+										},
+										{
+											"title": "Gestione Carenze",
+											"route": "docs.framework.esecuzione_audit"
+										}
+									],
+									"object_type": "menu"
+								}
+							],
+							"text": "Di seguito sono accenati i punti cardine della metodologia di Audit.",
+							"pages": [
+								{
+									"name": "audit_universe",
+									"type": "page",
+									"components": [
+										{
+											"name": "audit_universe_mkdown",
+											"type": "markdown",
+											"source": "### Audit Universe\n\n",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "risk_assessmnet",
+									"type": "page",
+									"components": [
+										{
+											"name": "risk_universe_mkdown",
+											"type": "markdown",
+											"source": "### Risk Universe",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "audit_plan",
+									"type": "page",
+									"components": [
+										{
+											"name": "audit_plan_markdown",
+											"type": "markdown",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "esecuzione_audit",
+									"type": "page",
+									"components": [
+										{
+											"name": "esecuzione_audit_markdown",
+											"type": "markdown",
+											"object_type": "markdown"
+										}
+									]
+								},
+								{
+									"name": "gestione_carenze",
+									"type": "page",
+									"components": [
+										{
+											"name": "gestione_carenze_markdown",
+											"type": "markdown",
+											"object_type": "markdown"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "dashboard",
+					"type": "page",
+					"text": "working in progress"
+				},
+				{
+					"name": "search",
+					"type": "page",
+					"text": "Working in progress"
+				}
+			]
+		},
+		"private_zone": {
+			"type": "zone",
+			"components": [
+				{
+					"name": "left_menu",
+					"type": "menu",
+					"dest_selector": "#menu",
+					"class": "nav navbar-nav",
+					"items": [
+						{
+							"title": "Home",
+							"route": "home_private",
+							"icon_class": "fa fa-home"
+						},
+						{
+							"title": "Monitoring",
+							"route": "monitoring",
+							"icon_class": "fa fa-edit"
+						}
+					],
+					"object_type": "menu"
+				},
+				{
+					"name": "right_menu",
+					"type": "menu",
+					"dest_selector": "#menu",
+					"class": "nav navbar-nav navbar-right",
+					"items": [
+						{
+							"title": "Admin",
+							"route": "admin",
+							"icon_class": "fa fa-wrench"
+						},
+						{
+							"title": "{{userEmail}}",
+							"icon_class": "fa fa-cog",
+							"items": [
+								{
+									"title": "Settings",
+									"route": "user_settings"
+								},
+								{
+									"title": "Logout",
+									"route": "logout"
+								}
+							]
+						}
+					],
+					"object_type": "menu"
+				}
+			],
+			"pages": [
+				{
+					"name": "home_private",
+					"type": "page",
+					"title": "Welcome {{userFullName}}!",
+					"components": [
+						{
+							"name": "audit_view",
+							"type": "data_view",
+							"title": "Elenco attività",
+							"query_name": "activities_list",
+							"insert_route": "home_private.insert",
+							"details_route_params": [
+								{
+									"name": "activityId",
+									"value": "this._id"
+								}
+							],
+							"edit_route_params": [
+								{
+									"name": "activityId",
+									"value": "this._id"
+								}
+							],
+							"insert_button_title": "Crea nuova attività",
+							"on_item_clicked_code": "Session.set(\"activityId\",this._id);console.log(\"sessione corrente:\",this._id,\" - \",this.tipo);switch(this.tipo) { case \"Audit\": Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Informativa\": Router.go(\"informativa.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", { id: this._id, tipo: this.tipo}); break; }",
+							"fields": [
+								{
+									"name": "titolo",
+									"title": "Titolo Audit",
+									"type": "string",
+									"exportable": true
+								},
+								{
+									"name": "numero",
+									"title": "Numero Audit",
+									"type": "string",
+									"default": "{{nextAuditNumber}}",
+									"exportable": true,
+									"show_in_update_form": false
+								},
+								{
+									"name": "tipo",
+									"title": "Tipo attività",
+									"type": "string",
+									"required": true,
+									"exportable": true,
+									"input": "radio",
+									"input_items": [
+										{
+											"value": "auditFiliale",
+											"title": "Audit Filiale"
+										},
+										{
+											"value": "audit",
+											"title": "Audit"
+										},
+										{
+											"value": "informativa",
+											"title": "Informativa"
+										},
+										{
+											"value": "altreattività",
+											"title": "Altre attività"
+										}
+									],
+									"array_item_type": "object"
+								},
+								{
+									"name": "auditors",
+									"title": "Lista auditors",
+									"type": "string",
+									"default": "{{userMeteor}}",
+									"exportable": true
+								},
+								{
+									"name": "data",
+									"title": "Data avvio audit",
+									"type": "date",
+									"default": "today",
+									"format": "DD/MM/YYYY",
+									"exportable": true,
+									"input": "datepicker"
+								},
+								{
+									"name": "status",
+									"title": "Status",
+									"type": "string",
+									"exportable": true,
+									"input": "select",
+									"input_items": [
+										{
+											"value": "Avviato",
+											"title": "Avviato"
+										},
+										{
+											"value": "In corso",
+											"title": "In corso"
+										},
+										{
+											"value": "Completato",
+											"title": "Completato"
+										},
+										{
+											"value": "Archiviato",
+											"title": "Archiviato"
+										}
+									],
+									"array_item_type": "object",
+									"show_in_insert_form": false,
+									"show_in_update_form": false
+								}
+							],
+							"object_type": "data_view"
+						}
+					],
+					"text": "Questa è la home page dell'utente, da qui può:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
+					"pages": [
+						{
+							"name": "insert",
+							"type": "page",
+							"query_name": "activities_list",
+							"components": [
+								{
+									"name": "insert_audit",
+									"type": "form",
+									"title": "Nuova attività",
+									"query_name": "activities_null",
+									"mode": "insert",
+									"submit_route": "home_private",
+									"submit_button_title": "Salva",
+									"object_type": "form"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "admin",
+					"type": "page",
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-stacked nav-pills",
+							"items": [
+								{
+									"title": "Users",
+									"route": "admin.users"
+								},
+								{
+									"title": "Config lib",
+									"route": "admin.config"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"roles": [
+						"admin"
+					],
+					"pages": [
+						{
+							"name": "users",
+							"type": "page",
+							"components": [
+								{
+									"name": "view",
+									"type": "data_view",
+									"title": "Users",
+									"query_name": "admin_users",
+									"text_if_empty": "No users yet",
+									"insert_route": "admin.users.insert",
+									"details_route": "admin.users.details",
+									"edit_route": "admin.users.edit",
+									"details_route_params": [
+										{
+											"name": "userId",
+											"value": "this._id"
+										}
+									],
+									"edit_route_params": [
+										{
+											"name": "userId",
+											"value": "this._id"
+										}
+									],
+									"fields": [
+										{
+											"name": "profile.name",
+											"title": "Name",
+											"type": "string"
+										},
+										{
+											"name": "profile.email",
+											"title": "E-mail",
+											"type": "string"
+										},
+										{
+											"name": "roles",
+											"title": "Role",
+											"type": "string"
+										}
+									],
+									"object_type": "data_view"
+								}
+							],
+							"pages": [
+								{
+									"name": "details",
+									"type": "page",
+									"components": [
+										{
+											"name": "details_form",
+											"type": "form",
+											"title": "User details",
+											"query_name": "admin_user",
+											"mode": "read_only",
+											"close_route": "admin.users",
+											"back_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string"
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email"
+												},
+												{
+													"name": "roles",
+													"title": "Role",
+													"type": "string"
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"route_params": [
+										"userId"
+									]
+								},
+								{
+									"name": "insert",
+									"type": "page",
+									"components": [
+										{
+											"name": "insert_form",
+											"type": "form",
+											"title": "Add new user",
+											"query_name": "users_null",
+											"mode": "insert",
+											"submit_route": "admin.users",
+											"cancel_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string",
+													"required": true
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email",
+													"required": true
+												},
+												{
+													"name": "password",
+													"title": "Password",
+													"type": "string",
+													"required": true,
+													"input": "password"
+												}
+											],
+											"object_type": "form"
+										}
+									]
+								},
+								{
+									"name": "edit",
+									"type": "page",
+									"components": [
+										{
+											"name": "edit_form",
+											"type": "form",
+											"title": "Edit user",
+											"query_name": "admin_user",
+											"mode": "update",
+											"submit_route": "admin.users",
+											"cancel_route": "admin.users",
+											"fields": [
+												{
+													"name": "profile.name",
+													"title": "Name",
+													"type": "string",
+													"required": true
+												},
+												{
+													"name": "profile.email",
+													"title": "E-mail",
+													"type": "email",
+													"required": true
+												},
+												{
+													"name": "roles",
+													"title": "Role",
+													"type": "array",
+													"input": "radio",
+													"input_items": [
+														{
+															"value": "user",
+															"title": "User"
+														},
+														{
+															"value": "admin",
+															"title": "Admin"
+														},
+														{
+															"value": "blocked",
+															"title": "Blocked"
+														}
+													]
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"route_params": [
+										"userId"
+									]
+								}
+							]
+						},
+						{
+							"name": "config",
+							"type": "page",
+							"text": "Qui l'amministratore può:\n\n- modificare attività le già archiviate\n\n- modificare le librerie\n\n- ...\n"
+						}
+					]
+				},
+				{
+					"name": "user_settings",
+					"type": "page",
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-stacked nav-pills",
+							"items": [
+								{
+									"title": "Profile",
+									"route": "user_settings.profile"
+								},
+								{
+									"title": "Change password",
+									"route": "user_settings.change_pass"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"roles": [
+						"user",
+						"admin"
+					],
+					"pages": [
+						{
+							"name": "profile",
+							"type": "page",
+							"components": [
+								{
+									"name": "edit_form",
+									"type": "form",
+									"title": "Edit your profile",
+									"query_name": "current_user_data",
+									"mode": "update",
+									"submit_route": "user_settings.profile",
+									"fields": [
+										{
+											"name": "profile.name",
+											"title": "Name",
+											"type": "string",
+											"required": true
+										},
+										{
+											"name": "profile.email",
+											"title": "E-mail",
+											"type": "email",
+											"required": true
+										},
+										{
+											"name": "profile.facebook",
+											"title": "Facebook URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.google",
+											"title": "Google+ URL",
+											"type": "string"
+										},
+										{
+											"name": "profile.twitter",
+											"title": "Twitter ID",
+											"type": "string"
+										},
+										{
+											"name": "profile.website",
+											"title": "Website URL",
+											"type": "string"
+										}
+									],
+									"object_type": "form"
+								}
+							]
+						},
+						{
+							"name": "change_pass",
+							"type": "page",
+							"template": "change_pass"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"type": "page",
+					"template": "logout"
+				},
+				{
+					"name": "audits",
+					"type": "page",
+					"template_rendered_code": "console.log('audits==>', Session.get( \"activityId\")); \n",
+					"pages": [
+						{
+							"name": "workflow",
+							"type": "page",
+							"query_params": [
+								{
+									"name": "activityId",
+									"value": "Session.get('activityId');"
+								}
+							],
+							"components": [
+								{
+									"name": "side_menu",
+									"type": "menu",
+									"class": "nav nav-stacked nav-pills",
+									"items": [
+										{
+											"title": "Ambito",
+											"route": "audits.workflow.plan"
+										},
+										{
+											"title": "Verifiche",
+											"route": "audits.workflow.fieldworks"
+										},
+										{
+											"title": "Carenze",
+											"route": "audits.workflow.issues"
+										},
+										{
+											"title": "Ex. summary",
+											"route": "audits.workflow.exsummary"
+										},
+										{
+											"title": "Valutazioni",
+											"route": "audits.workflow.scoring"
+										}
+									],
+									"object_type": "menu"
+								}
+							],
+							"pages": [
+								{
+									"name": "plan",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-university",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "plan",
+											"type": "form",
+											"query_name": "activity",
+											"query_params": [
+												{
+													"name": "activityId",
+													"value": "Session.get('activityId')"
+												}
+											],
+											"mode": "update",
+											"submit_route": "audits.workflow",
+											"fields": [
+												{
+													"name": "status",
+													"title": "Status",
+													"type": "string",
+													"exportable": true,
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Avviato",
+															"title": "Avviato"
+														},
+														{
+															"value": "In corso",
+															"title": "In corso"
+														},
+														{
+															"value": "Completato",
+															"title": "Completato"
+														},
+														{
+															"value": "Archiviato",
+															"title": "Archiviato"
+														}
+													],
+													"array_item_type": "object",
+													"show_in_insert_form": false,
+													"show_in_update_form": false
+												},
+												{
+													"name": "tipo",
+													"title": "Tipo attività",
+													"type": "string",
+													"required": true,
+													"exportable": true,
+													"input": "radio",
+													"input_items": [
+														{
+															"value": "Audit Filiale",
+															"title": "Audit Filiale"
+														},
+														{
+															"value": "Audit",
+															"title": "Audit"
+														},
+														{
+															"value": "Informativa",
+															"title": "Informativa"
+														},
+														{
+															"value": "Altre attività",
+															"title": "Altre attività"
+														}
+													],
+													"array_item_type": "object",
+													"show_in_update_form": false
+												},
+												{
+													"name": "titolo",
+													"title": "Titolo Audit",
+													"type": "string",
+													"exportable": true
+												},
+												{
+													"name": "obiettivo",
+													"title": "Obiettivo di Audit",
+													"type": "string",
+													"exportable": true,
+													"input": "textarea",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "areeRischio",
+													"title": "Principali aree di rischio interessate (ICAAP)",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "rischi_all",
+													"lookup_key": "ICAAP",
+													"lookup_field": "ICAAP",
+													"show_in_insert_form": false,
+													"show_in_update_form": false
+												},
+												{
+													"name": "rischiEsaminati",
+													"title": "Principali rischi esaminati",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "rischi_all",
+													"lookup_key": "rischio",
+													"lookup_field": "rischio",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "strutture",
+													"title": "Strutture coinvolte",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "strutture_all",
+													"lookup_key": "uo",
+													"lookup_field": "uo",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "numero",
+													"title": "Numero Audit",
+													"type": "string",
+													"default": "{{nextAuditNumber}}",
+													"exportable": true,
+													"show_in_update_form": false
+												},
+												{
+													"name": "auditors",
+													"title": "Lista auditors",
+													"type": "string",
+													"default": "{{userMeteor}}",
+													"exportable": true
+												},
+												{
+													"name": "data",
+													"title": "Data avvio audit",
+													"type": "date",
+													"default": "today",
+													"format": "DD/MM/YYYY",
+													"exportable": true,
+													"input": "datepicker"
+												},
+												{
+													"name": "normative",
+													"title": "Riferimenti normativi",
+													"type": "array",
+													"input": "select-multiple",
+													"lookup_query_name": "normative_all",
+													"lookup_key": "norma",
+													"lookup_field": "norma",
+													"show_in_insert_form": false
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"template_rendered_code": " "
+								},
+								{
+									"name": "fieldworks",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-database",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"query_name": "singola_attivita_list",
+											"query_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "Session.get('activityId')"
+												}
+											],
+											"text_if_empty": "Nessuna verifica",
+											"insert_route": "audits.workflow.fieldworks.insert",
+											"details_route": "audits.workflow.fieldworks.update",
+											"details_route_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Aggiungi verifica",
+											"object_type": "data_view"
+										}
+									],
+									"pages": [
+										{
+											"name": "details",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Singola Attivita Details",
+													"query_name": "singola_attivita",
+													"mode": "read_only",
+													"close_route": "audits.workflow.fieldworks",
+													"back_route": "audits.workflow.fieldworks",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"singolaAttivitaId"
+											]
+										},
+										{
+											"name": "insert",
+											"type": "page",
+											"components": [
+												{
+													"name": "insert",
+													"type": "form",
+													"class": "col-sm-8 col-md-9",
+													"title": "Aggiungi verifica",
+													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"query_name": "tutte_attivita_null",
+													"mode": "insert",
+													"submit_route": "audits.workflow.fieldworks",
+													"cancel_route": "audits.workflow.fieldworks",
+													"hidden_fields": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"object_type": "form"
+												},
+												{
+													"name": "div",
+													"type": "div",
+													"class": "col-sm-4 col-md-3",
+													"components": [
+														{
+															"name": "lib",
+															"type": "custom_component",
+															"query_name": "libtest",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n",
+															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+															"object_type": "custom_component"
+														}
+													],
+													"object_type": "div"
+												}
+											]
+										},
+										{
+											"name": "update",
+											"type": "page",
+											"query_name": "singola_attivita",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"class": "col-sm-8 col-md-9",
+													"title": "Aggiorna verifica",
+													"query_name": "singola_attivita",
+													"mode": "update",
+													"submit_route": "audits.workflow.fieldworks",
+													"cancel_route": "audits.workflow.fieldworks",
+													"object_type": "form"
+												},
+												{
+													"name": "attachments_div",
+													"type": "div",
+													"class": "col-sm-4 col-md-3",
+													"components": [
+														{
+															"name": "attachments",
+															"type": "custom_component",
+															"query_name": "files_all",
+															"html": "<template name=\"TEMPLATE_NAME\">\n  <br><br>\n\n\t<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\"></i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t</label>\n\t\t</div>\n  \n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n</template>",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n      console.log('=>',Files.find()); \n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'fieldwork', 'metadata.carenza': Fieldworks.findOne()._id}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork', carenza: Fieldworks.findOne()._id};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork',carenza: Fieldworks.findOne()._id};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
+															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+															"object_type": "custom_component"
+														}
+													],
+													"object_type": "div"
+												}
+											],
+											"route_params": [
+												"singolaAttivitaId"
+											],
+											"force_yield_subpages": true
+										}
+									]
+								},
+								{
+									"name": "issues",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-bomb",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"template": "page_subcontent_tabnav",
+									"pages": [
+										{
+											"name": "carenze",
+											"type": "page",
+											"helpers_code": "'title': function() { return Activities.findOne({_id, activityId}).titolo}",
+											"query_name": "carenza_all",
+											"components": [
+												{
+													"name": "view",
+													"type": "data_view",
+													"query_name": "carenze",
+													"query_params": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId');"
+														}
+													],
+													"insert_route": "audits.workflow.issues.insert",
+													"details_route": "audits.workflow.issues.edit",
+													"details_route_params": [
+														{
+															"name": "carenzaId",
+															"value": "this._id"
+														}
+													],
+													"edit_route_params": [
+														{
+															"name": "carenzaId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"insert_button_title": "Aggiungi carenza",
+													"object_type": "data_view"
+												}
+											]
+										},
+										{
+											"name": "insert",
+											"type": "page",
+											"components": [
+												{
+													"name": "insert",
+													"type": "form",
+													"title": "Aggiungi carenza",
+													"helpers_code": "\"nextCarenzaNumber\": function() { \n  var max = 0;\n  var carenzaNumbers = Carenze.find({activityId: Session.get('activityId')}, {fields: {carenzaId:1}}).fetch();\n  _.each(carenzaNumbers, function(doc) { var intNum = parseInt(doc.carenzaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"query_name": "carenza_null",
+													"mode": "insert",
+													"submit_route": "audits.workflow.issues",
+													"cancel_route": "audits.workflow.issues",
+													"submit_button_title": "Crea una nuova carenza",
+													"submit_route_params": [
+														{
+															"name": "activityId",
+															"value": "this.params.activityId"
+														}
+													],
+													"cancel_route_params": [
+														{
+															"name": "activityId",
+															"value": "this.params.activityId"
+														}
+													],
+													"hidden_fields": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"object_type": "form"
+												}
+											]
+										},
+										{
+											"name": "edit",
+											"type": "page",
+											"components": [
+												{
+													"name": "edit",
+													"type": "form",
+													"query_name": "carenza",
+													"mode": "update",
+													"submit_route": "audits.workflow.issues",
+													"submit_route_params": [
+														{
+															"name": "activityId",
+															"value": "this._id"
+														}
+													],
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"carenzaId"
+											]
+										}
+									],
+									"force_yield_subpages": true
+								},
+								{
+									"name": "exsummary",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-edit",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "edit_div",
+											"type": "div",
+											"class": "col-sm-8 col-md-9",
+											"components": [
+												{
+													"name": "edit",
+													"type": "custom_component",
+													"query_name": "activities_list",
+													"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>",
+													"js": "Template.TEMPLATE_NAME.created = function() { };\n\nTemplate.TEMPLATE_NAME.destroyed = function() {};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n\t\t\t\t\t\tvar exsum = evt.editor.name;\t\t\t\t\t\t\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(Activities.findOne({ _id: Session.get('activityId')}).memo);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;                      \n\n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tMeteor.call(\"ExSumUpdate\", CKEDITOR.instances.exsum.getData(),Session.get('activityId'), function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\nTemplate.TEMPLATE_NAME.helpers({});\n\n  \nTemplate.TEMPLATE_NAME.events({});\n\n",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										},
+										{
+											"name": "attachment_div",
+											"type": "div",
+											"class": "col-sm-4 col-md-3",
+											"components": [
+												{
+													"name": "attachment",
+													"type": "custom_component",
+													"query_name": "files_all",
+													"html": "<template name=\"TEMPLATE_NAME\">\n  \n<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t\t</label>\n\n\t\t</div>\n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n\n\n</template>",
+													"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'exsummary'}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        COLLECTION_VAR.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n        var id = COLLECTION_VAR.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										}
+									]
+								},
+								{
+									"name": "scoring",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-balance-scale",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activities_list",
+									"components": [
+										{
+											"name": "scoring",
+											"type": "form",
+											"query_name": "activity",
+											"query_params": [
+												{
+													"name": "activityId",
+													"value": "Session.get('activityId');"
+												}
+											],
+											"mode": "update",
+											"submit_route": "audits.workflow",
+											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
+											"submit_route_params": [
+												{
+													"name": "activityId",
+													"value": "activityId"
+												}
+											],
+											"fields": [
+												{
+													"name": "sci",
+													"title": "Valutazione SCI",
+													"type": "string",
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Positiva",
+															"title": "Positiva"
+														},
+														{
+															"value": "Parzialmente positiva +",
+															"title": "Parzialmente positiva +"
+														},
+														{
+															"value": "Parzialmente positiva",
+															"title": "Parzialmente positiva"
+														},
+														{
+															"value": "Parzialmente positiva -",
+															"title": "Parzialmente positiva -"
+														},
+														{
+															"value": "Negativa",
+															"title": "Negativa"
+														}
+													],
+													"show_in_insert_form": false
+												},
+												{
+													"name": "rischioResiduo",
+													"title": "Valutazione rischio residuo",
+													"type": "string",
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Alto",
+															"title": "Alto"
+														},
+														{
+															"value": "Medio",
+															"title": "Medio"
+														},
+														{
+															"value": "Basso",
+															"title": "Basso"
+														},
+														{
+															"value": "Non significativo",
+															"title": "Non significativo"
+														}
+													],
+													"show_in_insert_form": false
+												},
+												{
+													"name": "datachiusura",
+													"title": "Data fine Audit",
+													"type": "date",
+													"default": "today",
+													"format": "DD-MM-YYYY",
+													"input": "datepicker",
+													"show_in_insert_form": false
+												}
+											],
+											"object_type": "form"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "audit_filiale",
+					"type": "page",
+					"template_rendered_code": "console.log('audits==>', Session.get( \"activityId\")); \n",
+					"pages": [
+						{
+							"name": "workflow",
+							"type": "page",
+							"query_params": [
+								{
+									"name": "activityId",
+									"value": "Session.get('activityId');"
+								}
+							],
+							"components": [
+								{
+									"name": "side_menu",
+									"type": "menu",
+									"class": "nav nav-stacked nav-pills",
+									"items": [
+										{
+											"title": "Ambito",
+											"route": "audit_filiale.workflow.plan"
+										},
+										{
+											"title": "Verifiche",
+											"route": "audit_filiale.workflow.fieldworks"
+										},
+										{
+											"title": "Carenze",
+											"route": "audit_filiale.workflow.issues"
+										},
+										{
+											"title": "Ex. summary",
+											"route": "audit_filiale.workflow.exsummary"
+										},
+										{
+											"title": "Valutazioni",
+											"route": "audit_filiale.workflow.scoring"
+										}
+									],
+									"object_type": "menu"
+								}
+							],
+							"pages": [
+								{
+									"name": "plan",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-university",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "plan",
+											"type": "form",
+											"query_name": "activity",
+											"query_params": [
+												{
+													"name": "activityId",
+													"value": "Session.get('activityId')"
+												}
+											],
+											"mode": "update",
+											"submit_route": "audit_filiale.workflow",
+											"submit_button_title": "Salva",
+											"fields": [
+												{
+													"name": "status",
+													"title": "Status",
+													"type": "string",
+													"exportable": true,
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Avviato",
+															"title": "Avviato"
+														},
+														{
+															"value": "In corso",
+															"title": "In corso"
+														},
+														{
+															"value": "Completato",
+															"title": "Completato"
+														},
+														{
+															"value": "Archiviato",
+															"title": "Archiviato"
+														}
+													],
+													"array_item_type": "object",
+													"show_in_insert_form": false,
+													"show_in_update_form": false
+												},
+												{
+													"name": "tipo",
+													"title": "Tipo attività",
+													"type": "string",
+													"required": true,
+													"exportable": true,
+													"input": "radio",
+													"input_items": [
+														{
+															"value": "Audit Filiale",
+															"title": "Audit Filiale"
+														},
+														{
+															"value": "Audit",
+															"title": "Audit"
+														},
+														{
+															"value": "Informativa",
+															"title": "Informativa"
+														},
+														{
+															"value": "Altre attività",
+															"title": "Altre attività"
+														}
+													],
+													"array_item_type": "object",
+													"show_in_update_form": false
+												},
+												{
+													"name": "titolo",
+													"title": "Titolo",
+													"type": "string",
+													"exportable": true
+												},
+												{
+													"name": "filiale",
+													"title": "Filiale",
+													"type": "string",
+													"input": "select",
+													"lookup_query_name": "filiali_all",
+													"lookup_key": "filiale",
+													"lookup_field": "filiale"
+												},
+												{
+													"name": "obiettivo",
+													"title": "Obiettivi",
+													"type": "string",
+													"exportable": true,
+													"input": "textarea",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "areeRischio",
+													"title": "Principali aree di rischio interessate (ICAAP)",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "rischi_all",
+													"lookup_key": "ICAAP",
+													"lookup_field": "ICAAP",
+													"show_in_insert_form": false,
+													"show_in_update_form": false
+												},
+												{
+													"name": "rischiEsaminati",
+													"title": "Principali rischi esaminati",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "rischi_all",
+													"lookup_key": "rischio",
+													"lookup_field": "rischio",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "strutture",
+													"title": "Strutture coinvolte",
+													"type": "array",
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "strutture_all",
+													"lookup_key": "uo",
+													"lookup_field": "uo",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "numero",
+													"title": "Numero",
+													"type": "string",
+													"default": "{{nextAuditNumber}}",
+													"exportable": true,
+													"show_in_update_form": false
+												},
+												{
+													"name": "auditors",
+													"title": "Nominativi auditors",
+													"type": "string",
+													"default": "{{userMeteor}}",
+													"exportable": true
+												},
+												{
+													"name": "data",
+													"title": "Data avvio",
+													"type": "date",
+													"default": "today",
+													"format": "DD/MM/YYYY",
+													"exportable": true,
+													"input": "datepicker"
+												},
+												{
+													"name": "normative",
+													"title": "Riferimenti normativi",
+													"type": "array",
+													"input": "select-multiple",
+													"lookup_query_name": "normative_all",
+													"lookup_key": "norma",
+													"lookup_field": "norma",
+													"show_in_insert_form": false
+												}
+											],
+											"object_type": "form"
+										}
+									],
+									"template_rendered_code": " "
+								},
+								{
+									"name": "fieldworks",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-database",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"query_name": "singola_attivita_list",
+											"query_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "Session.get('activityId')"
+												}
+											],
+											"text_if_empty": "Nessuna verifica",
+											"insert_route": "audit_filiale.workflow.fieldworks.insert",
+											"details_route": "audit_filiale.workflow.fieldworks.update",
+											"details_route_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "singolaAttivitaId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Aggiungi verifica",
+											"object_type": "data_view"
+										}
+									],
+									"pages": [
+										{
+											"name": "details",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Singola Attivita Details",
+													"query_name": "singola_attivita",
+													"mode": "read_only",
+													"close_route": "audits.workflow.fieldworks",
+													"back_route": "audits.workflow.fieldworks",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"singolaAttivitaId"
+											]
+										},
+										{
+											"name": "insert",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"class": "col-sm-8 col-md-9",
+													"title": "Aggiungi verifica",
+													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"query_name": "tutte_attivita_null",
+													"mode": "insert",
+													"submit_route": "audit_filiale.workflow.fieldworks",
+													"cancel_route": "audit_filiale.workflow.fieldworks",
+													"hidden_fields": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"object_type": "form"
+												},
+												{
+													"name": "div",
+													"type": "div",
+													"class": "col-sm-4 col-md-3",
+													"query_name": "libtest",
+													"object_type": "div"
+												}
+											]
+										},
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"class": "col-sm-8 col-md-9",
+													"title": "Aggiorna verifica",
+													"query_name": "singola_attivita",
+													"mode": "update",
+													"submit_route": "audit_filiale.workflow.fieldworks",
+													"cancel_route": "audit_filiale.workflow.fieldworks",
+													"object_type": "form"
+												},
+												{
+													"name": "attachments_div",
+													"type": "div",
+													"class": "col-sm-4 col-md-3",
+													"components": [
+														{
+															"name": "attachment",
+															"type": "custom_component",
+															"query_name": "files_all",
+															"html": "<template name=\"TEMPLATE_NAME\">\n  <br><br>\n\n\t<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\"></i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t</label>\n\t\t</div>\n  \n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n</template>",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n      console.log('=>',Files.find()); \n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'fieldwork', 'metadata.carenza': Fieldworks.findOne()._id}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork', carenza: Fieldworks.findOne()._id};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork',carenza: Fieldworks.findOne()._id};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
+															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+															"object_type": "custom_component"
+														}
+													],
+													"object_type": "div"
+												}
+											],
+											"route_params": [
+												"singolaAttivitaId"
+											]
+										}
+									]
+								},
+								{
+									"name": "issues",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-bomb",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"template": "page_subcontent_tabnav",
+									"pages": [
+										{
+											"name": "carenze",
+											"type": "page",
+											"helpers_code": "'title': function() { return Activities.findOne({_id, activityId}).titolo}",
+											"query_name": "carenza_all",
+											"components": [
+												{
+													"name": "view",
+													"type": "data_view",
+													"query_name": "carenze",
+													"query_params": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId');"
+														}
+													],
+													"insert_route": "audit_filiale.workflow.issues.insert",
+													"details_route": "audit_filiale.workflow.issues.edit",
+													"details_route_params": [
+														{
+															"name": "carenzaId",
+															"value": "this._id"
+														}
+													],
+													"edit_route_params": [
+														{
+															"name": "carenzaId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"insert_button_title": "Aggiungi carenza",
+													"object_type": "data_view"
+												}
+											]
+										},
+										{
+											"name": "insert",
+											"type": "page",
+											"components": [
+												{
+													"name": "insert",
+													"type": "form",
+													"title": "Aggiungi carenza",
+													"helpers_code": "\"nextCarenzaNumber\": function() { \n  var max = 0;\n  var carenzaNumbers = Carenze.find({activityId: Session.get('activityId')}, {fields: {carenzaId:1}}).fetch();\n  _.each(carenzaNumbers, function(doc) { var intNum = parseInt(doc.carenzaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"query_name": "carenza_null",
+													"mode": "insert",
+													"submit_route": "audit_filiale.workflow.issues",
+													"cancel_route": "audit_filiale.workflow.issues",
+													"submit_button_title": "Crea una nuova carenza",
+													"submit_route_params": [
+														{
+															"name": "activityId",
+															"value": "this.params.activityId"
+														}
+													],
+													"cancel_route_params": [
+														{
+															"name": "activityId",
+															"value": "this.params.activityId"
+														}
+													],
+													"hidden_fields": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"object_type": "form"
+												}
+											]
+										},
+										{
+											"name": "edit",
+											"type": "page",
+											"components": [
+												{
+													"name": "edit",
+													"type": "form",
+													"query_name": "carenza",
+													"mode": "update",
+													"submit_route": "audit_filiale.workflow.issues",
+													"submit_route_params": [
+														{
+															"name": "activityId",
+															"value": "this._id"
+														}
+													],
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"carenzaId"
+											]
+										}
+									],
+									"force_yield_subpages": true
+								},
+								{
+									"name": "exsummary",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-edit",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "edit_div",
+											"type": "div",
+											"class": "col-sm-8 col-md-9",
+											"components": [
+												{
+													"name": "edit",
+													"type": "custom_component",
+													"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>\n",
+													"js": "Template.TEMPLATE_NAME.created = function() { };\n\nTemplate.TEMPLATE_NAME.destroyed = function() {};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n\t\t\t\t\t\tvar exsum = evt.editor.name;\t\t\t\t\t\t\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(Activities.findOne({ _id: Session.get('activityId')}).memo);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;                      \n\n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tMeteor.call(\"ExSumUpdate\", CKEDITOR.instances.exsum.getData(),Session.get('activityId'), function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\n\n\nTemplate.TEMPLATE_NAME.helpers({});\n\n  \nTemplate.TEMPLATE_NAME.events({});\n",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										},
+										{
+											"name": "attachment_div",
+											"type": "div",
+											"class": "col-sm-4 col-md-3",
+											"components": [
+												{
+													"name": "attachment",
+													"type": "custom_component",
+													"query_name": "files_all",
+													"html": "<template name=\"TEMPLATE_NAME\"><br>\n  \n<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t</div>\n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n\n</template>\n",
+													"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'exsummary'}).fetch();\n\t}\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      console.log('files changed');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n        console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n     console.log('files droped');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n        var id = Files.insert(fileObj);\n        console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n    'click .btnRemove': function(event, temp) {\n      this.remove();\n    }\n});\n",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										}
+									]
+								},
+								{
+									"name": "scoring",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-balance-scale",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activities_list",
+									"components": [
+										{
+											"name": "scoring",
+											"type": "form",
+											"query_name": "activity",
+											"query_params": [
+												{
+													"name": "activityId",
+													"value": "Session.get('activityId');"
+												}
+											],
+											"mode": "update",
+											"submit_route": "audit_filiale.workflow",
+											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
+											"submit_route_params": [
+												{
+													"name": "activityId",
+													"value": "activityId"
+												}
+											],
+											"fields": [
+												{
+													"name": "sci",
+													"title": "Valutazione SCI",
+													"type": "string",
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Positiva",
+															"title": "Positiva"
+														},
+														{
+															"value": "Parzialmente positiva +",
+															"title": "Parzialmente positiva +"
+														},
+														{
+															"value": "Parzialmente positiva",
+															"title": "Parzialmente positiva"
+														},
+														{
+															"value": "Parzialmente positiva -",
+															"title": "Parzialmente positiva -"
+														},
+														{
+															"value": "Negativa",
+															"title": "Negativa"
+														}
+													],
+													"show_in_insert_form": false
+												},
+												{
+													"name": "rischioResiduo",
+													"title": "Valutazione rischio residuo",
+													"type": "string",
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Alto",
+															"title": "Alto"
+														},
+														{
+															"value": "Medio",
+															"title": "Medio"
+														},
+														{
+															"value": "Basso",
+															"title": "Basso"
+														},
+														{
+															"value": "Non significativo",
+															"title": "Non significativo"
+														}
+													],
+													"show_in_insert_form": false
+												},
+												{
+													"name": "datachiusura",
+													"title": "Data fine Audit",
+													"type": "date",
+													"default": "today",
+													"format": "DD-MM-YYYY",
+													"input": "datepicker",
+													"show_in_insert_form": false
+												}
+											],
+											"object_type": "form"
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "monitoring",
+					"type": "page",
+					"text": "working in progress"
+				},
+				{
+					"name": "informativa",
+					"type": "page",
+					"query_name": "activity",
+					"query_params": [
+						{
+							"name": "activityId",
+							"value": "Session.get('activityId');"
+						}
+					],
+					"pages": [
+						{
+							"name": "workflow",
+							"type": "page",
+							"components": [
+								{
+									"name": "side_menu",
+									"type": "menu",
+									"class": "nav nav-stacked nav-pills",
+									"items": [
+										{
+											"title": "Ambito",
+											"route": "informativa.workflow.plan"
+										},
+										{
+											"title": "Memo",
+											"route": "informativa.workflow.memo"
+										}
+									],
+									"object_type": "menu"
+								}
+							],
+							"pages": [
+								{
+									"name": "plan",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-university",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"components": [
+										{
+											"name": "info",
+											"type": "form",
+											"query_name": "activity",
+											"query_params": [
+												{
+													"name": "activityId",
+													"value": "Session.get('activityId')"
+												}
+											],
+											"mode": "update",
+											"submit_route": "informativa.workflow",
+											"submit_button_title": "Salva",
+											"fields": [
+												{
+													"name": "status",
+													"title": "Status",
+													"type": "string",
+													"default": "Avviato",
+													"exportable": true,
+													"input": "select",
+													"input_items": [
+														{
+															"value": "Avviato",
+															"title": "Avviato"
+														},
+														{
+															"value": "In corso",
+															"title": "In corso"
+														},
+														{
+															"value": "Completato",
+															"title": "Completato"
+														},
+														{
+															"value": "Archiviato",
+															"title": "Archiviato"
+														}
+													],
+													"array_item_type": "object",
+													"show_in_insert_form": false,
+													"show_in_update_form": false
+												},
+												{
+													"name": "titolo",
+													"title": "Titolo",
+													"type": "string",
+													"required": true,
+													"exportable": true
+												},
+												{
+													"name": "numero",
+													"title": "Numero",
+													"type": "string",
+													"default": "*",
+													"exportable": true,
+													"show_in_insert_form": false
+												},
+												{
+													"name": "auditors",
+													"title": "Lista auditors",
+													"type": "string",
+													"default": "{{userFullName}}",
+													"exportable": true
+												},
+												{
+													"name": "data",
+													"title": "Data avvio audit",
+													"type": "date",
+													"default": "today",
+													"format": "DD/MM/YYYY",
+													"exportable": true,
+													"input": "datepicker"
+												}
+											],
+											"object_type": "form"
+										}
+									]
+								},
+								{
+									"name": "memo",
+									"type": "page",
+									"title": "{{title}}",
+									"title_icon_class": "fa fa-edit",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId",
+											"value": "Session.get('activityId');"
+										}
+									],
+									"components": [
+										{
+											"name": "edit_div",
+											"type": "div",
+											"class": "col-sm-8 col-md-9",
+											"components": [
+												{
+													"name": "edit",
+													"type": "custom_component",
+													"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>",
+													"js": "Template.TEMPLATE_NAME.created = function() { };\n\nTemplate.TEMPLATE_NAME.destroyed = function() {};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n\t\t\t\t\t\tvar exsum = evt.editor.name;           \t\t\t\t\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(Activities.findOne({ _id: Session.get('activityId')}).memo);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;                      \n\n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tMeteor.call(\"ExSumUpdate\", CKEDITOR.instances.exsum.getData(),Session.get('activityId'), function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\n\nTemplate.TEMPLATE_NAME.helpers({});\n\n  \nTemplate.TEMPLATE_NAME.events({});\n",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										},
+										{
+											"name": "attachment_div",
+											"type": "div",
+											"class": "col-sm-4 col-md-3",
+											"components": [
+												{
+													"name": "attachments",
+													"type": "custom_component",
+													"html": "<template name=\"TEMPLATE_NAME\"><br>\n  <br><br>\n  \n<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t</div>\n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n\n</template>\n",
+													"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'),'metadata.section':'informativa'}).fetch();\n\t}\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      console.log('files changed');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'informativa'};\n        console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n     console.log('files droped');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'informativa'};\n        var id = Files.insert(fileObj);\n        console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n    'click .btnRemove': function(event, temp) {\n      this.remove();\n    }\n});",
+													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+													"object_type": "custom_component"
+												}
+											],
+											"object_type": "div"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: \"Matteo Setti\",\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n              \tFiber(function(){\n\t\t\t\t\tMongo.Collection.get(file).remove({});\n                  \tvar t = Mongo.Collection.get(file).batchInsert(p);\n                  \tconsole.log('Data uploaded:',file,' (',t.length,')');\n               }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
+		"stylesheet": ".dashboardNOT {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
+		"copy_files": [
+			{
+				"source": "files/favicon.ico",
+				"dest": "PUBLIC_DIR/favicon.ico"
+			},
+			{
+				"source": "files\\ckeditor",
+				"dest": "PUBLIC_DIR/"
+			},
+			{
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t}\n});\n",
+				"dest": "SERVER_METHODS_DIR/mymethods.js"
+			}
+		],
+		"packages": {
+			"meteor": [
+				"percolate:synced-cron",
+				"perak:c3",
+				"raix:ui-dropped-event",
+				"mikowals:batch-insert",
+				"session",
+				"msavin:mongol",
+				"dburles:mongo-collection-instances"
+			],
+			"npm": [
+				"babel-runtime",
+				"bcrypt",
+				"fibers",
+				"csv-parser"
+			]
+		}
+	}
+}
