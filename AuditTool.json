@@ -429,13 +429,6 @@
 				"storage_adapters": [
 					"gridfs"
 				],
-				"fields": [
-					{
-						"name": "newField",
-						"type": "string",
-						"input": "custom"
-					}
-				],
 				"owner_field": "ownerId"
 			},
 			{
@@ -1043,8 +1036,7 @@
 						},
 						{
 							"title": "Monitoring",
-							"route": "monitoring",
-							"icon_class": "fa fa-edit"
+							"route": "monitoring"
 						}
 					],
 					"object_type": "menu"
@@ -2752,11 +2744,6 @@
 					]
 				},
 				{
-					"name": "monitoring",
-					"type": "page",
-					"text": "working in progress"
-				},
-				{
 					"name": "informativa",
 					"type": "page",
 					"query_name": "activity",
@@ -2926,6 +2913,10 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "monitoring",
+					"type": "page"
 				}
 			]
 		},
