@@ -509,19 +509,35 @@
 				"fields": [
 					{
 						"name": "titolo",
-						"title": "Titolo",
-						"type": "string"
+						"title": "Libreria",
+						"type": "string",
+						"searchable": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false,
+						"show_in_read_only_form": false
 					},
 					{
 						"name": "descrizione",
 						"title": "Descrizione",
 						"type": "string",
-						"input": "textarea"
+						"searchable": false,
+						"sortable": false,
+						"input": "textarea",
+						"show_in_dataview": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false,
+						"show_in_read_only_form": false
 					},
 					{
 						"name": "area",
 						"title": "Area",
-						"type": "string"
+						"type": "string",
+						"searchable": false,
+						"sortable": false,
+						"show_in_dataview": false,
+						"show_in_insert_form": false,
+						"show_in_update_form": false,
+						"show_in_read_only_form": false
 					}
 				]
 			},
@@ -2439,6 +2455,23 @@
 													"type": "div",
 													"class": "col-sm-4 col-md-3",
 													"query_name": "libtest",
+													"components": [
+														{
+															"name": "form_libtest",
+															"type": "data_view",
+															"class": "divlib",
+															"query_name": "libtest",
+															"object_type": "data_view"
+														},
+														{
+															"name": "libtest",
+															"type": "custom_component",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n  \n<div class=\"dropdown\">\n  <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n   Libreria verifiche \n    <span class=\"caret\"></span>\n  </button>\n  <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n   {{#each area}}\n    <li class=\"area\"><a href=\"#\">{{this._id}}</a></li>\n   \t{{/each}} \n  </ul>\n</div>\n  \n  \n  \n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nfunction distinct(collection, field) {\n  \n  console.log ('oo',collection.find({}, {sort: {[field]:1}, fields: {[field]:1}}).fetch().map(x => x[field]));\n  \n  return _.uniq(collection.find({}, {\n    sort: {[field]:1}, fields: {[field]: 1}\n  }).fetch().map(x => x[field]), true);\n}\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n     var arrResults = distinct(Libtest, 'area'); \n      \n      console.log('=>',arrResults);\n      return arrResults;\n       \n    //console.log('===>',Meteor.call(\"ObtainArea\"));\n\t\n    // return Meteor.call(\"ObtainArea\");\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  \n  'click .area': function(event, temp) {\n    console.log('<',this);\n\tconsole.log('>',event,\" -- \",temp);\n}\n  \n});\n",
+															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+															"object_type": "custom_component"
+														}
+													],
 													"object_type": "div"
 												}
 											]
@@ -2468,7 +2501,7 @@
 															"type": "custom_component",
 															"query_name": "files_all",
 															"html": "<template name=\"TEMPLATE_NAME\">\n  <br><br>\n\n\t<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\"></i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t</label>\n\t\t</div>\n  \n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n</template>",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n      console.log('=>',Files.find()); \n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'fieldwork', 'metadata.carenza': Fieldworks.findOne()._id}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork', carenza: Fieldworks.findOne()._id};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork',carenza: Fieldworks.findOne()._id};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'fieldwork', 'metadata.carenza': Fieldworks.findOne()._id}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork', carenza: Fieldworks.findOne()._id};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork',carenza: Fieldworks.findOne()._id};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
 															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
 															"object_type": "custom_component"
 														}
@@ -2932,7 +2965,7 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t}\n});\n",
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t},\n\t\"ObtainArea\": function() { \n\t\treturn Libtest.aggregate({$match: {}, $group: { _id: '$area'}});\n  }\n});\n",
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			}
 		],
@@ -2944,7 +2977,8 @@
 				"mikowals:batch-insert",
 				"session",
 				"msavin:mongol",
-				"dburles:mongo-collection-instances"
+				"dburles:mongo-collection-instances",
+				"meteorhacks:aggregate"
 			],
 			"npm": [
 				"babel-runtime",
