@@ -508,7 +508,7 @@
 				"type": "collection",
 				"fields": [
 					{
-						"name": "titolo",
+						"name": "libreria",
 						"title": "Libreria",
 						"type": "string",
 						"searchable": false,
@@ -553,6 +553,88 @@
 					}
 				],
 				"owner_field": "ownerId"
+			},
+			{
+				"name": "libmonitoring",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "numero",
+						"title": "Cod. Interno controllo",
+						"type": "string"
+					},
+					{
+						"name": "ambito",
+						"title": "Ambito di intervento",
+						"type": "string"
+					},
+					{
+						"name": "titolo",
+						"title": "Titolo controllo",
+						"type": "string"
+					},
+					{
+						"name": "periodicita",
+						"title": "Periodicità",
+						"type": "string",
+						"input": "radio",
+						"input_items": [
+							{
+								"value": "trimestrale",
+								"title": "trimestrale"
+							},
+							{
+								"value": "semestrale",
+								"title": "semestrale"
+							},
+							{
+								"value": "annuale",
+								"title": "annuale"
+							}
+						]
+					},
+					{
+						"name": "referente",
+						"title": "Referente",
+						"type": "string"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione controllo",
+						"type": "string"
+					},
+					{
+						"name": "strumenti",
+						"title": "Strumenti",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "monitoring",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "idcontrollo",
+						"title": "Numero controllo",
+						"type": "string"
+					},
+					{
+						"name": "annomese",
+						"title": "Data",
+						"type": "string"
+					},
+					{
+						"name": "verificaeffettuata",
+						"title": "Si-No",
+						"type": "string"
+					},
+					{
+						"name": "note",
+						"title": "Note",
+						"type": "string"
+					}
+				]
 			}
 		],
 		"queries": [
@@ -752,7 +834,7 @@
 							"name": "jumbotron",
 							"type": "jumbotron",
 							"title": "Audit Tool",
-							"text": "Web Application for audits, the main function are:<br />- Track audits activities<br />- Monitoring progress<br />- Archiving documentation<br /><br /> This application is implmented with the support of Group Banca IFIS Internal Audit. The application is realized with the Meteor-Kitchen framework.<br />",
+							"text": "Web Application for audits, the main function are:<br />- Track audits activities<br />- Monitoring progress<br />- Archiving documentation<br /><br /> This application is implemented with the support of Group Banca IFIS Internal Audit. The application is realized with the Meteor-Kitchen framework.<br />",
 							"button_title": "Continue &raquo;",
 							"button_route": "dashboard",
 							"object_type": "jumbotron"
@@ -810,6 +892,10 @@
 								{
 									"title": "Framework",
 									"route": "docs.framework"
+								},
+								{
+									"title": "Controlli Continuativi",
+									"route": "docs.controlli_continuativi"
 								}
 							],
 							"object_type": "menu"
@@ -1021,12 +1107,36 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "controlli_continuativi",
+							"type": "page",
+							"components": [
+								{
+									"name": "controlli_continuativi",
+									"type": "markdown",
+									"source": "# Controlli continuativi\n\nL’attività di monitoraggio / controllo continuativo ha l’obiettivo di contribuire a fornire all’Internal Audit una visione aggiornata di eventuali situazioni problematiche, anche qualora le stesse risultino già note e seguite dalle competenti strutture aziendali.\nIn tale ambito l’Internal Audit valuta eventuali interventi diretti riconducibili a approfondimenti su singole situazioni che, ove è il caso, possono dar luogo a specifiche verifiche di audit (nell’ambito di quanto già programmato, anticipando attività, o effettuando attività non programmate).\n",
+									"object_type": "markdown"
+								}
+							]
 						}
 					]
 				},
 				{
 					"name": "dashboard",
 					"type": "page",
+					"components": [
+						{
+							"name": "activities",
+							"type": "div",
+							"object_type": "div"
+						},
+						{
+							"name": "controlli_continuativi",
+							"type": "div",
+							"object_type": "div"
+						}
+					],
 					"text": "working in progress"
 				},
 				{
@@ -1051,8 +1161,8 @@
 							"icon_class": "fa fa-home"
 						},
 						{
-							"title": "Monitoring",
-							"route": "monitoring"
+							"title": "Controlli continuativi",
+							"route": "controlli_continuativi"
 						}
 					],
 					"object_type": "menu"
@@ -1202,7 +1312,7 @@
 							"object_type": "data_view"
 						}
 					],
-					"text": "Questa è la home page dell'utente, da qui può:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
+					"text": "Questa è la tua home page personale, da qui puoi:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
 					"pages": [
 						{
 							"name": "insert",
@@ -2431,6 +2541,7 @@
 										{
 											"name": "insert",
 											"type": "page",
+											"title": "{{title}}",
 											"components": [
 												{
 													"name": "form",
@@ -2457,19 +2568,19 @@
 													"query_name": "libtest",
 													"components": [
 														{
-															"name": "form_libtest",
-															"type": "data_view",
-															"class": "divlib",
-															"query_name": "libtest",
-															"object_type": "data_view"
-														},
-														{
 															"name": "libtest",
 															"type": "custom_component",
-															"html": "<template name=\"TEMPLATE_NAME\">\n\n  \n<div class=\"dropdown\">\n  <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n   Libreria verifiche \n    <span class=\"caret\"></span>\n  </button>\n  <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n   {{#each area}}\n    <li class=\"area\"><a href=\"#\">{{this._id}}</a></li>\n   \t{{/each}} \n  </ul>\n</div>\n  \n  \n  \n</template>\n",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nfunction distinct(collection, field) {\n  \n  console.log ('oo',collection.find({}, {sort: {[field]:1}, fields: {[field]:1}}).fetch().map(x => x[field]));\n  \n  return _.uniq(collection.find({}, {\n    sort: {[field]:1}, fields: {[field]: 1}\n  }).fetch().map(x => x[field]), true);\n}\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n     var arrResults = distinct(Libtest, 'area'); \n      \n      console.log('=>',arrResults);\n      return arrResults;\n       \n    //console.log('===>',Meteor.call(\"ObtainArea\"));\n\t\n    // return Meteor.call(\"ObtainArea\");\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  \n  'click .area': function(event, temp) {\n    console.log('<',this);\n\tconsole.log('>',event,\" -- \",temp);\n}\n  \n});\n",
+															"query_name": "libtest",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n  \n<div class=\"dropdown\">\n  <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n   Libreria verifiche \n    <span class=\"caret\"></span>\n  </button>\n  \n  <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n   {{#each area}} \n    <li class=\"area\"><a href=\"#\">{{this}}</a> </li>\n   \t{{/each}} \n  </ul>\n</div>\n\n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n      var myArray = Libtest.find().fetch();\n      var distinctArray = _.uniq(myArray, false, function(d) {return d.area;});\n      var disctinctValues = _.pluck(distinctArray, 'area');\n      return disctinctValues;  \n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  \n  'click .area': function(e, t) {\n    console.log(e.target);\n\t}\n  \n});\n\n",
 															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
 															"object_type": "custom_component"
+														},
+														{
+															"name": "form",
+															"type": "data_view",
+															"query_name": "libtest",
+															"object_type": "data_view"
 														}
 													],
 													"object_type": "div"
@@ -2479,6 +2590,7 @@
 										{
 											"name": "update",
 											"type": "page",
+											"title": "{{title}}",
 											"components": [
 												{
 													"name": "form",
@@ -2948,12 +3060,12 @@
 					]
 				},
 				{
-					"name": "monitoring",
+					"name": "controlli_continuativi",
 					"type": "page"
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: \"Matteo Setti\",\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n              \tFiber(function(){\n\t\t\t\t\tMongo.Collection.get(file).remove({});\n                  \tvar t = Mongo.Collection.get(file).batchInsert(p);\n                  \tconsole.log('Data uploaded:',file,' (',t.length,')');\n               }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: \"Matteo Setti\",\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
 		"stylesheet": ".dashboardNOT {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
@@ -2965,7 +3077,7 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t},\n\t\"ObtainArea\": function() { \n\t\treturn Libtest.aggregate({$match: {}, $group: { _id: '$area'}});\n  }\n});\n",
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t}\n});\n",
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			}
 		],
@@ -2977,8 +3089,7 @@
 				"mikowals:batch-insert",
 				"session",
 				"msavin:mongol",
-				"dburles:mongo-collection-instances",
-				"meteorhacks:aggregate"
+				"dburles:mongo-collection-instances"
 			],
 			"npm": [
 				"babel-runtime",
