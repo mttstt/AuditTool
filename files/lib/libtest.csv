@@ -1,4 +1,7 @@
-libreria, descrizione, area
-process mapping, Descrizione del processo delle principali fasi del processo nonché descrizione dei sistemi informativi a supporto, All Audits
-quadrature, quadratura con le principali voci del bilancio, ICAAP
-analisi posizioni critiche,"analisi delle posizioni della filiale che presentano più problematiche", filiale
+libreria,descrizione,area
+process mapping,"Descrizione del processo delle principali fasi del processo nonché descrizione dei sistemi informativi a supporto",Processo
+quadrature,"quadratura con le principali voci del bilancio",ICAAP
+analisi posizioni ,"analisi delle posizioni della filiale che presentano più problematiche 1",Filiale
+analisi clienti,"analisi delle posizioni della filiale che presentano più problematiche 2",Filiale
+analisi posizioni critiche,"analisi delle posizioni della filiale che presentano più problematiche 3",Filiale
+analisi scaduto,"analisi delle posizioni della filiale che presentano più problematiche 4",Filiale

@@ -93,9 +93,13 @@
 					{
 						"name": "auditors",
 						"title": "Nominativo auditor",
-						"type": "string",
+						"type": "array",
 						"default": "{{userFullName}}",
-						"exportable": true
+						"exportable": true,
+						"input": "select-multiple",
+						"lookup_query_name": "auditors_all",
+						"lookup_key": "auditor",
+						"lookup_field": "auditor"
 					},
 					{
 						"name": "obiettivo",
@@ -445,14 +449,16 @@
 						"show_in_update_form": false
 					},
 					{
-						"name": "titolo",
+						"name": "libreria",
 						"title": "Titolo",
-						"type": "string"
+						"type": "string",
+						"default": "{{titleVerifica}}"
 					},
 					{
 						"name": "descrizione",
 						"title": "Descrizione verifica",
 						"type": "string",
+						"default": "{{descriptionVerifica}}",
 						"input": "textarea"
 					},
 					{
@@ -508,7 +514,7 @@
 				"type": "collection",
 				"fields": [
 					{
-						"name": "titolo",
+						"name": "libreria",
 						"title": "Libreria",
 						"type": "string",
 						"searchable": false,
@@ -553,6 +559,108 @@
 					}
 				],
 				"owner_field": "ownerId"
+			},
+			{
+				"name": "libmonitoring",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "numero",
+						"title": "Cod. Interno controllo",
+						"type": "string"
+					},
+					{
+						"name": "ambito",
+						"title": "Ambito di intervento",
+						"type": "string"
+					},
+					{
+						"name": "titolo",
+						"title": "Titolo controllo",
+						"type": "string"
+					},
+					{
+						"name": "periodicita",
+						"title": "Periodicità",
+						"type": "string",
+						"input": "radio",
+						"input_items": [
+							{
+								"value": "trimestrale",
+								"title": "trimestrale"
+							},
+							{
+								"value": "semestrale",
+								"title": "semestrale"
+							},
+							{
+								"value": "annuale",
+								"title": "annuale"
+							}
+						]
+					},
+					{
+						"name": "referente",
+						"title": "Referente",
+						"type": "string"
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione controllo",
+						"type": "string"
+					},
+					{
+						"name": "strumenti",
+						"title": "Strumenti",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "monitoring",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "idcontrollo",
+						"title": "Numero controllo",
+						"type": "string"
+					},
+					{
+						"name": "annomese",
+						"title": "Data",
+						"type": "string"
+					},
+					{
+						"name": "verificaeffettuata",
+						"title": "Si-No",
+						"type": "string"
+					},
+					{
+						"name": "note",
+						"title": "Note",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "auditors",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "auditor",
+						"title": "Auditor",
+						"type": "string",
+						"input": "select-multiple",
+						"lookup_query_name": "auditors_all",
+						"lookup_key": "auditor",
+						"lookup_field": "auditor"
+					},
+					{
+						"name": "ruolo",
+						"title": "Ruolo",
+						"type": "string"
+					}
+				]
 			}
 		],
 		"queries": [
@@ -695,6 +803,12 @@
 				"collection": "filiali",
 				"filter": "{}",
 				"options": "{}"
+			},
+			{
+				"name": "auditors_all",
+				"collection": "auditors",
+				"filter": "{}",
+				"options": "{}"
 			}
 		],
 		"public_zone": {
@@ -752,7 +866,7 @@
 							"name": "jumbotron",
 							"type": "jumbotron",
 							"title": "Audit Tool",
-							"text": "Web Application for audits, the main function are:<br />- Track audits activities<br />- Monitoring progress<br />- Archiving documentation<br /><br /> This application is implmented with the support of Group Banca IFIS Internal Audit. The application is realized with the Meteor-Kitchen framework.<br />",
+							"text": "Web Application for audits, the main function are:<br />- Track audits activities<br />- Monitoring progress<br />- Archiving documentation<br /><br /> This application is implemented with the support of Group Banca IFIS Internal Audit. The application is realized with the Meteor-Kitchen framework.<br />",
 							"button_title": "Continue &raquo;",
 							"button_route": "dashboard",
 							"object_type": "jumbotron"
@@ -810,6 +924,10 @@
 								{
 									"title": "Framework",
 									"route": "docs.framework"
+								},
+								{
+									"title": "Controlli Continuativi",
+									"route": "docs.controlli_continuativi"
 								}
 							],
 							"object_type": "menu"
@@ -824,7 +942,7 @@
 								{
 									"name": "audit_tool",
 									"type": "markdown",
-									"source": "Le attività di audit possono essere classificate in:\n\n1) Audit\n2) Audit di filiali\n3) Informativa\n4) Altro\n\nL'Audit Tool supporta le suddette suddette attività e prevede workflow distinti per ciascuna di esse.\n\n\nTo Do List:\n\n1) LOW - creare variabili di sessioni persistenti (ad es: activityId)\n2) LOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n3) MEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n4) MEDIUM - aggiungere librerie per le attività di test inclusi quelli di filali \n5) HIGH - analizzare impostazione test di filiale\n6) LOW - funzionalità di stampa\n7) LOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n8) LOW - utilizzare lo skeen office 2013 per ckeditor\n9) LOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n10) MEDIUM - funzionalità di stampa\n11) LOW - funzionalità di ricerca delle attività\n12) LOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n13) LOW - arrichire funzionalità dell'admin per amministrare le basi dati \n14) LOW - funzionalità per assicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza\n15) LOW - prevedere che al momneot dela definizione della data di chiusura sia state completati tutti i requirement:\n\t\t\ta - tutte le verifiche hanno un esito FAIL/PASS\n            b - non ci sono buchi nella numerazione degli audit \n            c - non ci siano buchi nella numerazione delle attività\n            d - non ci siano buchi nella numerazione delle carenze\n\n\n\n\n",
+									"source": "Le attività di audit possono essere classificate in:\n\n1) Audit\n2) Audit di filiali\n3) Informativa\n4) Altro\n\nL'Audit Tool supporta le suddette suddette attività e prevede workflow distinti per ciascuna di esse.\n\n\nTo Do List:\n\n1) LOW - creare variabili di sessioni persistenti (ad es: activityId)\n2) LOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n3) MEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n5) HIGH - analizzare impostazione test di filiale\n7) LOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n8) LOW - utilizzare lo skeen office 2013 per ckeditor\n9) LOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n10) MEDIUM - funzionalità di stampa\n11) LOW - funzionalità di ricerca delle attività\n12) LOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n13) LOW - arrichire funzionalità dell'admin per:\n\t\t-\telminare aggiungere elementi dalle librerie\n15) LOW - prevedere che al momento dela definizione della data di chiusura siano state completati tutti i requirement:\n\t\t\ta - tutte le verifiche hanno un esito FAIL o PASS\n            b - non ci sono buchi nella numerazione degli audit \n            c - non ci siano buchi nella numerazione delle attività\n            d - non ci siano buchi nella numerazione delle carenze\n            e - assicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza\n\n\n\n\n",
 									"object_type": "markdown"
 								}
 							]
@@ -1021,12 +1139,36 @@
 									]
 								}
 							]
+						},
+						{
+							"name": "controlli_continuativi",
+							"type": "page",
+							"components": [
+								{
+									"name": "controlli_continuativi",
+									"type": "markdown",
+									"source": "# Controlli continuativi\n\nL’attività di monitoraggio / controllo continuativo ha l’obiettivo di contribuire a fornire all’Internal Audit una visione aggiornata di eventuali situazioni problematiche, anche qualora le stesse risultino già note e seguite dalle competenti strutture aziendali.\nIn tale ambito l’Internal Audit valuta eventuali interventi diretti riconducibili a approfondimenti su singole situazioni che, ove è il caso, possono dar luogo a specifiche verifiche di audit (nell’ambito di quanto già programmato, anticipando attività, o effettuando attività non programmate).\n",
+									"object_type": "markdown"
+								}
+							]
 						}
 					]
 				},
 				{
 					"name": "dashboard",
 					"type": "page",
+					"components": [
+						{
+							"name": "activities",
+							"type": "div",
+							"object_type": "div"
+						},
+						{
+							"name": "controlli_continuativi",
+							"type": "div",
+							"object_type": "div"
+						}
+					],
 					"text": "working in progress"
 				},
 				{
@@ -1051,8 +1193,8 @@
 							"icon_class": "fa fa-home"
 						},
 						{
-							"title": "Monitoring",
-							"route": "monitoring"
+							"title": "Controlli continuativi",
+							"route": "controlli_continuativi"
 						}
 					],
 					"object_type": "menu"
@@ -1202,7 +1344,7 @@
 							"object_type": "data_view"
 						}
 					],
-					"text": "Questa è la home page dell'utente, da qui può:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
+					"text": "Questa è la tua home page personale, da qui puoi:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
 					"pages": [
 						{
 							"name": "insert",
@@ -1239,6 +1381,9 @@
 								{
 									"title": "Config lib",
 									"route": "admin.config"
+								},
+								{
+									"title": "Roles"
 								}
 							],
 							"object_type": "menu"
@@ -1800,11 +1945,11 @@
 											"type": "page",
 											"components": [
 												{
-													"name": "insert",
+													"name": "form",
 													"type": "form",
 													"class": "col-sm-8 col-md-9",
 													"title": "Aggiungi verifica",
-													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t},\n'titleVerifica': function() { return  Session.get('titleVerifica'); },\n \n'descriptionVerifica': function() { return  Session.get('descriptionVerifica'); }\n",
 													"query_name": "tutte_attivita_null",
 													"mode": "insert",
 													"submit_route": "audits.workflow.fieldworks",
@@ -1821,20 +1966,22 @@
 													"name": "div",
 													"type": "div",
 													"class": "col-sm-4 col-md-3",
+													"query_name": "libtest",
 													"components": [
 														{
-															"name": "lib",
+															"name": "lib_collapse",
 															"type": "custom_component",
 															"query_name": "libtest",
-															"html": "<template name=\"TEMPLATE_NAME\">\n\n</template>\n",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n",
 															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
 															"object_type": "custom_component"
 														}
 													],
 													"object_type": "div"
 												}
-											]
+											],
+											"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');\n"
 										},
 										{
 											"name": "update",
@@ -2431,13 +2578,14 @@
 										{
 											"name": "insert",
 											"type": "page",
+											"title": "{{title}}",
 											"components": [
 												{
 													"name": "form",
 													"type": "form",
 													"class": "col-sm-8 col-md-9",
 													"title": "Aggiungi verifica",
-													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
+													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t},\n'titleVerifica': function() { return  Session.get('titleVerifica'); },\n \n'descriptionVerifica': function() { return  Session.get('descriptionVerifica'); }\n",
 													"query_name": "tutte_attivita_null",
 													"mode": "insert",
 													"submit_route": "audit_filiale.workflow.fieldworks",
@@ -2457,28 +2605,25 @@
 													"query_name": "libtest",
 													"components": [
 														{
-															"name": "form_libtest",
-															"type": "data_view",
-															"class": "divlib",
-															"query_name": "libtest",
-															"object_type": "data_view"
-														},
-														{
-															"name": "libtest",
+															"name": "lib_collapse",
 															"type": "custom_component",
-															"html": "<template name=\"TEMPLATE_NAME\">\n\n  \n<div class=\"dropdown\">\n  <button class=\"btn btn-default dropdown-toggle\" type=\"button\" id=\"dropdownMenu1\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\">\n   Libreria verifiche \n    <span class=\"caret\"></span>\n  </button>\n  <ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu1\">\n   {{#each area}}\n    <li class=\"area\"><a href=\"#\">{{this._id}}</a></li>\n   \t{{/each}} \n  </ul>\n</div>\n  \n  \n  \n</template>\n",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nfunction distinct(collection, field) {\n  \n  console.log ('oo',collection.find({}, {sort: {[field]:1}, fields: {[field]:1}}).fetch().map(x => x[field]));\n  \n  return _.uniq(collection.find({}, {\n    sort: {[field]:1}, fields: {[field]: 1}\n  }).fetch().map(x => x[field]), true);\n}\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n     var arrResults = distinct(Libtest, 'area'); \n      \n      console.log('=>',arrResults);\n      return arrResults;\n       \n    //console.log('===>',Meteor.call(\"ObtainArea\"));\n\t\n    // return Meteor.call(\"ObtainArea\");\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  \n  'click .area': function(event, temp) {\n    console.log('<',this);\n\tconsole.log('>',event,\" -- \",temp);\n}\n  \n});\n",
+															"query_name": "libtest",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n\n",
 															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
 															"object_type": "custom_component"
 														}
 													],
+													"text": "Libreria",
 													"object_type": "div"
 												}
-											]
+											],
+											"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');\n"
 										},
 										{
 											"name": "update",
 											"type": "page",
+											"title": "{{title}}",
 											"components": [
 												{
 													"name": "form",
@@ -2948,12 +3093,12 @@
 					]
 				},
 				{
-					"name": "monitoring",
+					"name": "controlli_continuativi",
 					"type": "page"
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: \"Matteo Setti\",\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n              \tFiber(function(){\n\t\t\t\t\tMongo.Collection.get(file).remove({});\n                  \tvar t = Mongo.Collection.get(file).batchInsert(p);\n                  \tconsole.log('Data uploaded:',file,' (',t.length,')');\n               }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: [{nome:'Matteo Setti'},{nome:'Maria Chiara Russo'}],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
 		"stylesheet": ".dashboardNOT {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
@@ -2965,8 +3110,12 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t},\n\t\"ObtainArea\": function() { \n\t\treturn Libtest.aggregate({$match: {}, $group: { _id: '$area'}});\n  }\n});\n",
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function() { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update({numero: '*'}, {$set:{ numero: numero } });\n\t}\n});\n",
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
+			},
+			{
+				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\tconsole.log('name:',name);\n // return Activities.find({ownerId:this.userId}, {});\n console.log('auditors',Activities.find({auditors:name}, {}).fetch());\nreturn Activities.find({auditors:name}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});",
+				"dest": "SERVER_PUBLISH_DIR/activities.js"
 			}
 		],
 		"packages": {
@@ -2977,8 +3126,7 @@
 				"mikowals:batch-insert",
 				"session",
 				"msavin:mongol",
-				"dburles:mongo-collection-instances",
-				"meteorhacks:aggregate"
+				"dburles:mongo-collection-instances"
 			],
 			"npm": [
 				"babel-runtime",
