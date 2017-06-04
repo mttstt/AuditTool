@@ -1,7 +1,28 @@
 libreria,descrizione,area
+<<<<<<< HEAD
 process mapping,"Descrizione del processo delle principali fasi del processo nonché descrizione dei sistemi informativi a supporto",Processo
 quadrature,"quadratura con le principali voci del bilancio",ICAAP
 analisi posizioni ,"analisi delle posizioni della filiale che presentano più problematiche 1",Filiale
 analisi clienti,"analisi delle posizioni della filiale che presentano più problematiche 2",Filiale
 analisi posizioni critiche,"analisi delle posizioni della filiale che presentano più problematiche 3",Filiale
 analisi scaduto,"analisi delle posizioni della filiale che presentano più problematiche 4",Filiale
+=======
+"Process mapping","Descrizione del processo delle principali fasi del processo nonché descrizione dei sistemi informativi a supporto",Processo
+Quadrature,"Quadratura con le principali voci del bilancio",ICAAP
+"Panoramica filiale","Personale della filiale, sintesi dati statistici e dorganizzazione interna e logistica",Filiale
+"C\C (cat.151)","Analisi conto correnti ordinari",Filiale
+"C\C con saldo avere","Analisi dei Conti correnti ordinari aventi saldo avere che non cedono da oltre sei mesi",Filiale
+"LIR scadute","Analisi delle conferme di cessione continuativa (LIR) scadute",Filiale
+"Portafogli crediti","Analisi a campione del portafolgio crediti",Filiale
+"Rapporti recenti","Analisi andamento rapporti di recente accensione",Filiale
+"Dossier clienti(contratto)","Analisi della documentazione contratuale",Filiale
+"Dossier clienti(documentazione)","Documentazione a supporto delle singole operazioni (richiesta anticipo, richiesta trasferimento fondi, ecc.)",Filiale
+"Dossier clienti(non operativi)","Analisi con rapporti di conto non resi operativi",Filiale
+"Crediti poblematici (Contenzioso)","Analisi delle posizioni in carico al Contenzioso",Filiale
+"Partite sorvegliate","Analisi delle partite sorveglaite e dei piani transattivi",Filiale
+Reclami,"Verifica dei reclami riconducibili alla posizioni in carico alla filiale",Filiale
+"Antiriciclaggio","Verifiche volte a verificare il rispetto della normativa",Filiale
+Privacy,"Verifiche volte a verificare il rispetto della normativa",Filiale
+"D.lgs 231/01","Verifiche volte a verificare il rispetto della normativa",Filiale
+"Conservazione dei libri","Verifica aulla coretta conservazione dei libri presso la filiale",Filiale
+>>>>>>> origin/master
