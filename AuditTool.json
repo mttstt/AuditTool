@@ -92,7 +92,7 @@
 					},
 					{
 						"name": "auditors",
-						"title": "Nominativo auditor",
+						"title": "Auditors",
 						"type": "array",
 						"default": "{{userFullName}}",
 						"exportable": true,
@@ -928,6 +928,10 @@
 								{
 									"title": "Controlli Continuativi",
 									"route": "docs.controlli_continuativi"
+								},
+								{
+									"title": "Technical",
+									"route": "docs.technical"
 								}
 							],
 							"object_type": "menu"
@@ -1151,6 +1155,18 @@
 									"object_type": "markdown"
 								}
 							]
+						},
+						{
+							"name": "technical",
+							"type": "page",
+							"components": [
+								{
+									"name": "make_server",
+									"type": "markdown",
+									"source": "### Start Linux server\n\n1) Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2) Install meteor (curl https://install.meteor.com/ | sh)\n\n3) Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n4) Install GIT (e.g. Centos sudo yum install git)\n\n5) Configure Git:\n\tgit config --global user.name \"Your Name\"\n\tgit config --global user.email \"you@example.com\"\n6) git clone https://github.com/mttstt/AuditTool.git\n7) install node-gyp:\n\tsudo npm install -g node-gyp\n8) On Centos. In order to connect from outside stop the firewall\n\tsudo systemctl stop firewalld.service\n9) Install node (non mandatory)\n\tfor centos:\n    su\n    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n    yum -y install nodej\n",
+									"object_type": "markdown"
+								}
+							]
 						}
 					]
 				},
@@ -1161,6 +1177,15 @@
 						{
 							"name": "activities",
 							"type": "div",
+							"components": [
+								{
+									"name": "activities",
+									"type": "data_view",
+									"class": "col-sm-8 col-md-9",
+									"query_name": "activities_list",
+									"object_type": "data_view"
+								}
+							],
 							"object_type": "div"
 						},
 						{
@@ -1847,10 +1872,14 @@
 												},
 												{
 													"name": "auditors",
-													"title": "Lista auditors",
-													"type": "string",
+													"title": "Auditors",
+													"type": "array",
 													"default": "{{userMeteor}}",
-													"exportable": true
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "auditors_all",
+													"lookup_key": "auditor",
+													"lookup_field": "auditor"
 												},
 												{
 													"name": "data",
@@ -2482,10 +2511,14 @@
 												},
 												{
 													"name": "auditors",
-													"title": "Nominativi auditors",
-													"type": "string",
+													"title": "Auditors",
+													"type": "array",
 													"default": "{{userMeteor}}",
-													"exportable": true
+													"exportable": true,
+													"input": "select-multiple",
+													"lookup_query_name": "auditors_all",
+													"lookup_key": "auditor",
+													"lookup_field": "auditor"
 												},
 												{
 													"name": "data",
@@ -3098,7 +3131,7 @@
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: [{nome:'Matteo Setti'},{nome:'Maria Chiara Russo'}],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
 		"stylesheet": ".dashboardNOT {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
@@ -3114,7 +3147,7 @@
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			},
 			{
-				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\tconsole.log('name:',name);\n // return Activities.find({ownerId:this.userId}, {});\n console.log('auditors',Activities.find({auditors:name}, {}).fetch());\nreturn Activities.find({auditors:name}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});",
+				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\t//console.log('name:',name);\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});",
 				"dest": "SERVER_PUBLISH_DIR/activities.js"
 			}
 		],
@@ -3130,8 +3163,6 @@
 			],
 			"npm": [
 				"babel-runtime",
-				"bcrypt",
-				"fibers",
 				"csv-parser"
 			]
 		}
