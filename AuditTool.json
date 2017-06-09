@@ -152,14 +152,20 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "normative",
-						"title": "Riferimenti normativi",
+						"name": "normativeint",
+						"title": "Riferimenti normativa interna",
 						"type": "array",
 						"input": "select-multiple",
-						"lookup_query_name": "normative_all",
+						"lookup_query_name": "normativeext",
 						"lookup_key": "norma",
 						"lookup_field": "norma",
 						"show_in_insert_form": false
+					},
+					{
+						"name": "normativeext",
+						"title": "Riferimenti normativa esterna",
+						"type": "array",
+						"input": "select-multiple"
 					},
 					{
 						"name": "memo",
@@ -793,9 +799,9 @@
 				"options": "{}"
 			},
 			{
-				"name": "normative_all",
+				"name": "normativeext",
 				"collection": "normative",
-				"filter": "{}",
+				"filter": "{\"descrizione\":\"normativa esterna\"}",
 				"options": "{}"
 			},
 			{
@@ -840,6 +846,12 @@
 				"name": "activity_all",
 				"collection": "activities",
 				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "normativeint",
+				"collection": "normative",
+				"filter": "{\"descrizione\":\"normativa interna\"}",
 				"options": "{}"
 			}
 		],
@@ -962,7 +974,7 @@
 									"route": "docs.controlli_continuativi"
 								},
 								{
-									"title": "Technical",
+									"title": "IT notes",
 									"route": "docs.it_notes"
 								}
 							],
@@ -1108,7 +1120,7 @@
 										},
 										{
 											"title": "Gestione Carenze",
-											"route": "docs.framework.esecuzione_audit"
+											"route": "docs.framework.gestione_carenze"
 										}
 									],
 									"object_type": "menu"
@@ -1197,7 +1209,7 @@
 								{
 									"name": "make_server",
 									"type": "markdown",
-									"source": "### Start Linux Server\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Install meteor (curl https://install.meteor.com/ | sh)\n\n3.  Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n4. Install GIT (e.g. Centos sudo yum install git)\n\n5. Configure Git:\n\tgit config --global user.name \"Your Name\"\n\tgit config --global user.email \"you@example.com\"\n6. git clone https://github.com/mttstt/AuditTool.git\n7. install node-gyp:\n\tsudo npm install -g node-gyp\n8. On Centos. In order to connect from outside stop the firewall\n\tsudo systemctl stop firewalld.service\n9. Install node (non mandatory)\n\tfor centos:\n    su\n    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n    yum -y install nodej\n    \n    \n\n### To Do List\n\nAttività di sviluppo in corso:\n\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n*\tMEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n*\tHIGH - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n*\tLOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n*\tMEDIUM - funzionalità di stampa\n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n\t\t-\telminare aggiungere elementi dalle librerie\n*\tLOW - prevedere che al momento dela definizione della data di chiusura siano state completati tutti i requirement:\n\t\t*\ttutte le verifiche hanno un esito FAIL o PASS\n\t\t*\tnon ci sono buchi nella numerazione degli audit \n\t\t*\tnon ci siano buchi nella numerazione delle attività\n\t\t*\tnon ci siano buchi nella numerazione delle carenze\n\t\t*\tassicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza",
+									"source": "### Start Linux Server\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Install meteor (curl https://install.meteor.com/ | sh)\n\n3.  Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n4. Install GIT (e.g. Centos sudo yum install git)\n\n5. Configure Git:\n\tgit config --global user.name \"Your Name\"\n\tgit config --global user.email \"you@example.com\"\n6. git clone https://github.com/mttstt/AuditTool.git\n7. install node-gyp:\n\tsudo npm install -g node-gyp\n8. On Centos. In order to connect from outside stop the firewall\n\tsudo systemctl stop firewalld.service\n9. Install node (non mandatory)\n\tfor centos:\n    su\n    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n    yum -y install nodej\n    \n    \n\n### To Do List\n\nAttività di sviluppo in corso:\n\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n*\tHIGH - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n*\tLOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n*\tMEDIUM - funzionalità di stampa\n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n\t\t-\telminare aggiungere elementi dalle librerie\n*\tLOW - prevedere che al momento dela definizione della data di chiusura siano state completati tutti i requirement:\n\t\t*\ttutte le verifiche hanno un esito FAIL o PASS\n\t\t*\tnon ci sono buchi nella numerazione degli audit \n\t\t*\tnon ci siano buchi nella numerazione delle attività\n\t\t*\tnon ci siano buchi nella numerazione delle carenze\n\t\t*\tassicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza",
 									"object_type": "markdown"
 								}
 							]
@@ -1962,6 +1974,7 @@
 										{
 											"name": "plan",
 											"type": "form",
+											"class": "row no-border",
 											"query_name": "activity",
 											"query_params": [
 												{
@@ -2060,6 +2073,7 @@
 													"type": "array",
 													"exportable": true,
 													"input": "select-multiple",
+													"input_group_class": "col-sm-6 col-md-6",
 													"lookup_query_name": "rischi_all",
 													"lookup_key": "rischio",
 													"lookup_field": "rischio",
@@ -2071,6 +2085,7 @@
 													"type": "array",
 													"exportable": true,
 													"input": "select-multiple",
+													"input_group_class": "col-sm-6 col-md-6",
 													"lookup_query_name": "strutture_all",
 													"lookup_key": "uo",
 													"lookup_field": "uo",
@@ -2085,12 +2100,35 @@
 													"show_in_update_form": false
 												},
 												{
+													"name": "normativeint",
+													"title": "Riferimenti normativa interna",
+													"type": "array",
+													"input": "select-multiple",
+													"input_group_class": "col-sm-6 col-md-6",
+													"lookup_query_name": "normativeint",
+													"lookup_key": "norma",
+													"lookup_field": "norma",
+													"show_in_insert_form": false
+												},
+												{
+													"name": "normativeext",
+													"title": "Riferimenti normativa esterna",
+													"type": "array",
+													"input": "select-multiple",
+													"input_group_class": "col-sm-6 col-md-6",
+													"lookup_query_name": "normativeext",
+													"lookup_key": "norma",
+													"lookup_field": "norma",
+													"show_in_insert_form": false
+												},
+												{
 													"name": "auditors",
 													"title": "Auditors",
 													"type": "array",
 													"default": "{{userMeteor}}",
 													"exportable": true,
 													"input": "select-multiple",
+													"input_group_class": "col-sm-6 col-md-6",
 													"lookup_query_name": "auditors_all",
 													"lookup_key": "auditor",
 													"lookup_field": "auditor"
@@ -2102,17 +2140,8 @@
 													"default": "today",
 													"format": "DD/MM/YYYY",
 													"exportable": true,
-													"input": "datepicker"
-												},
-												{
-													"name": "normative",
-													"title": "Riferimenti normativi",
-													"type": "array",
-													"input": "select-multiple",
-													"lookup_query_name": "normative_all",
-													"lookup_key": "norma",
-													"lookup_field": "norma",
-													"show_in_insert_form": false
+													"input": "datepicker",
+													"input_group_class": "col-sm-3 col-md-3"
 												}
 											],
 											"object_type": "form"
@@ -2448,7 +2477,7 @@
 												}
 											],
 											"mode": "update",
-											"submit_route": "audits.workflow",
+											"submit_route": "home_private",
 											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
 											"submit_route_params": [
 												{
@@ -2744,11 +2773,20 @@
 													"input": "datepicker"
 												},
 												{
-													"name": "normative",
-													"title": "Riferimenti normativi",
+													"name": "normativeint",
+													"title": "Riferimento normativa interna",
 													"type": "array",
 													"input": "select-multiple",
-													"lookup_query_name": "normative_all",
+													"lookup_query_name": "normativeint",
+													"lookup_key": "norma",
+													"lookup_field": "norma"
+												},
+												{
+													"name": "normativeext",
+													"title": "Riferimenti normativa esterna",
+													"type": "array",
+													"input": "select-multiple",
+													"lookup_query_name": "normativeext",
 													"lookup_key": "norma",
 													"lookup_field": "norma",
 													"show_in_insert_form": false
@@ -3087,7 +3125,7 @@
 												}
 											],
 											"mode": "update",
-											"submit_route": "audit_filiale.workflow",
+											"submit_route": "home_private",
 											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
 											"submit_route_params": [
 												{
@@ -3346,7 +3384,7 @@
 			]
 		},
 		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
-		"stylesheet": ".dashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
+		"stylesheet": ".dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
 				"source": "files/favicon.ico",
