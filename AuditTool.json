@@ -561,7 +561,7 @@
 				"owner_field": "ownerId"
 			},
 			{
-				"name": "libmonitoring",
+				"name": "monitoringcontrol",
 				"type": "collection",
 				"fields": [
 					{
@@ -658,6 +658,32 @@
 					{
 						"name": "ruolo",
 						"title": "Ruolo",
+						"type": "string"
+					}
+				]
+			},
+			{
+				"name": "processi",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "settore",
+						"title": "Settore",
+						"type": "string"
+					},
+					{
+						"name": "processo",
+						"title": "Processo",
+						"type": "string"
+					},
+					{
+						"name": "sottoprocesso",
+						"title": "Sotto processo",
+						"type": "string"
+					},
+					{
+						"name": "fase",
+						"title": "Fase",
 						"type": "string"
 					}
 				]
@@ -809,6 +835,12 @@
 				"collection": "auditors",
 				"filter": "{}",
 				"options": "{}"
+			},
+			{
+				"name": "activity_all",
+				"collection": "activities",
+				"filter": "{}",
+				"options": "{}"
 			}
 		],
 		"public_zone": {
@@ -931,7 +963,7 @@
 								},
 								{
 									"title": "Technical",
-									"route": "docs.technical"
+									"route": "docs.it_notes"
 								}
 							],
 							"object_type": "menu"
@@ -941,12 +973,11 @@
 						{
 							"name": "audit_tool",
 							"type": "page",
-							"title": "Introduzione all' Audit Tool",
 							"components": [
 								{
 									"name": "audit_tool",
 									"type": "markdown",
-									"source": "Le attività di audit possono essere classificate in:\n\n1) Audit\n2) Audit di filiali\n3) Informativa\n4) Altro\n\nL'Audit Tool supporta le suddette suddette attività e prevede workflow distinti per ciascuna di esse.\n\n\nTo Do List:\n\n1) LOW - creare variabili di sessioni persistenti (ad es: activityId)\n2) LOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n3) MEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n5) HIGH - analizzare impostazione test di filiale\n7) LOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n8) LOW - utilizzare lo skeen office 2013 per ckeditor\n9) LOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n10) MEDIUM - funzionalità di stampa\n11) LOW - funzionalità di ricerca delle attività\n12) LOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n13) LOW - arrichire funzionalità dell'admin per:\n\t\t-\telminare aggiungere elementi dalle librerie\n15) LOW - prevedere che al momento dela definizione della data di chiusura siano state completati tutti i requirement:\n\t\t\ta - tutte le verifiche hanno un esito FAIL o PASS\n            b - non ci sono buchi nella numerazione degli audit \n            c - non ci siano buchi nella numerazione delle attività\n            d - non ci siano buchi nella numerazione delle carenze\n            e - assicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza\n\n\n\n\n",
+									"source": "### Attività di audit\n\nL'AuditTool supporta la formalizzazione delle princiapli attività svolte dall'Internal Audit con specifici workflow distinti:\n\n*\tAudit\n*\tAudit di filiali\n*\tInformativa\n*\tAltro\n\n\n\n##### Funzionalità\n\nGli obiettivi di alto livello dell'applicativo sono:\n\n* Automatizzazione del piano di audit\n*  Strutturazione delle informazioni, oggi destrutturate all’interno in documenti word.\n* Per gli audit di filiale automatizzare la sezione Fieldwork con le casistiche da esaminare secondo le estrazioni di “Alessandro”.\n* Classificare gli interventi di audit, secondo specifici attributi (anno, area/processo ricoperto, autore,…)\n* Fornire lo stato avanzamento delle attività in corso\n* Archiviare i verbali di audit e le relative carte di lavoro a supporto;\n\nCiò detto le funzionalità attese sono:\n\n* Dashboard SAL attività in corso\n* Stampa del verbale di audit\n* Strumenti di ricerca delle attività di audit secondo determinati campi\n* Sistema per tracciare le status della singola attività di audit più rilevanti (completed, reviewed,…)\n* eccanismo di approvazione delle attività svolte e “congelamento” delle carte di lavoro.\n* n’area di amministrazione per manutenere l’applicativo.\n\nInoltre:\n\n* Applicazione web, user friendly\n* Applicazione modulare (ad esempio per ricomprendere le specificità gli audit di filiali)\n* Dovrà essere integrata con Car.sci, per limitare gli interventi manuali e garantire un costante allineamento tra i differenti tool di Internal Audit\n* Dovrà fornire due interfacce grafiche, una dedicata alla manutenzione della parte alta del processo ed un’interfaccia utile all’auditor per tracciare le proprie attività.\n\n\n\n\n\n### Controlli continuativi\n\nL'auditTool prevede anche una sessione per documentare le attività dei controlli peirodici.\n\n\n\n\n\n\n",
 									"object_type": "markdown"
 								}
 							]
@@ -994,7 +1025,7 @@
 										{
 											"name": "plan",
 											"type": "markdown",
-											"source": "On Windows:\n\n    cd Domotica\n    meteor build --architecture=os.linux.x86_64 --directory ../Domoticasite-node\n    \n    \nMove Domoticasite-node/ on Raspberry     \n    \n    cd ../Domoticasite-node/programs/server\n    npm install\n    npm wiring-pi\n    npm install git+https://github.com/HardwareProjects/node-dht-sensor.git (trick)\n    \n\n\n    \n    \n\n\n\n\n\n",
+											"source": "In questa sezione vengono registrate le informazioni preliminari dell'attività ad esempio:\n    \n    Titolo\n    Numero identiifcazioned dell'attività\n    Auditors\n    Data inizio\n    ....\n    \n     \n\n    \n\n\n    \n    \n\n\n\n\n\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1006,7 +1037,7 @@
 										{
 											"name": "fieldwork",
 											"type": "markdown",
-											"source": "There are problems with sslh to automatically renew the certificate, see:\n\nhttps://github.com/certbot/certbot/issues/341 \n\n\nSo, mannualy make these commands:\n\n    modify /etc/apache2/site\n    modify /etc/apache2/site-enables/defaul.conf 4443 --> 433\n    sudo /etc/init.d/apache2 stop\n    sudo ./letsencrypt-auto certonly --standalone --email mtt_stt@yahoo.it -d matteosetti.noip.me",
+											"source": "In questa sezione sono inserite le singole attività di verifica svolte, definendo per ciascuna il relativo esito\n\nIl tool fornisce una libreria di potenziali attività da svolgere.\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1018,7 +1049,7 @@
 										{
 											"name": "issues",
 											"type": "markdown",
-											"source": "\n",
+											"source": "In questa sezione sono registrate le carenze. Il tool consente inoltre di:\n\n    allegare le documenti\n    classificare le carenze  \n    ....\n    \n",
 											"object_type": "markdown"
 										}
 									]
@@ -1030,7 +1061,7 @@
 										{
 											"name": "executive_summary",
 											"type": "markdown",
-											"source": "\n\n\n\n\n\n\n     \n     \n\n",
+											"source": "In questa sezione l'auditor è chiamato a formalizzare l'executive summary con la possibilità di allegare evenutali documenti.\n    \n\n\n\n\n\n\n     \n     \n\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1042,7 +1073,7 @@
 										{
 											"name": "scorring",
 											"type": "markdown",
-											"source": "\n\n",
+											"source": "In questa sezione viene formalizzata la valutazione sintetica dell'attività svolta.\n\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1092,7 +1123,7 @@
 										{
 											"name": "audit_universe_mkdown",
 											"type": "markdown",
-											"source": "### Audit Universe\n\n",
+											"source": "### Audit Universe\n\nLa struttura organizzativa contiene tutti gli elementi operativi, geografici, legali e di prodotto oggetto di audit.\n\nIl perimetro dell’audit è la base dal quale sono sviluppati il risk assessment, il piano di audit annuale e le attività di audit.\n\n** Ruoli coinvolti: RIA **\n\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1104,7 +1135,7 @@
 										{
 											"name": "risk_universe_mkdown",
 											"type": "markdown",
-											"source": "### Risk Universe",
+											"source": "### Risk Universe\n\nL’attività top-down di Risk Assessment e svolta per valutare il rischio inerente, il sistema dei controlli interni e il rischio residuo di tutti gli elementi individuati nel perimetro di audit.\nIl risultato dell’attività di Risk Assessment è necessario per definire il piano di audit annuale. \n\n** Ruoli coinvolti: RIA **",
 											"object_type": "markdown"
 										}
 									]
@@ -1116,6 +1147,7 @@
 										{
 											"name": "audit_plan_markdown",
 											"type": "markdown",
+											"source": "### Piano di Audit\n\nIl piano di audit annuale è predisposto in base ai risultati dell’attività di Risk Assessment, sulla copertura degli audit passati, le attività dei controlli continuativi e il confronto con le altre strutture di controllo della Banca\n\nIl processo di pianificazione è svolto durante il quarto trimestre ed è finalizzato prima dell’inizio dell’anno successivo.\n\nIl piano di audit consiste di tutti gli audit da svolgersi per ciascuna entità “auditabile” durante il successivo. Auditors e managers sono assegnati con le relative responsabilità.  \n\n** Ruoli coinvolti: RIA **",
 											"object_type": "markdown"
 										}
 									]
@@ -1127,6 +1159,7 @@
 										{
 											"name": "esecuzione_audit_markdown",
 											"type": "markdown",
+											"source": "### Esecuzione audit\n\nLo svolgimento dell’audit si divide in quattro sotto-fasi:\n\n1.\tnotifica dell’audit, \n2.\tpianificazione, \n3.\tlavoro sul campo\n4.\treporting. \n\n** Ruoli coinvolti: Auditor **\n",
 											"object_type": "markdown"
 										}
 									]
@@ -1138,6 +1171,7 @@
 										{
 											"name": "gestione_carenze_markdown",
 											"type": "markdown",
+											"source": "### Gestione Carenze\n\nDurante l’attività di audit, le carenze sono identificate e discusse con il business. Se concordate le carenze sono registrate e documentate nelle carte di lavoro. L’auditor è responsabile per assicurare che le carenze aperte siano risolte in coerenza con l’action plan approvato. L’auditor aggiorna il sistema delle carenze con le attività di follow-up.\n\nNon appena il business chiude la carenza e ne fornisce adeguata evidenza, l’auditor dovrebbe schedulare del tempo per rivedere la documentazione e validare che la carenza è stata rimediata, attraverso addizionali attività di test. Una volta che la carenza è validata l’auditor chiude definitivamente la carenza. \n",
 											"object_type": "markdown"
 										}
 									]
@@ -1157,13 +1191,13 @@
 							]
 						},
 						{
-							"name": "technical",
+							"name": "it_notes",
 							"type": "page",
 							"components": [
 								{
 									"name": "make_server",
 									"type": "markdown",
-									"source": "### Start Linux server\n\n1) Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2) Install meteor (curl https://install.meteor.com/ | sh)\n\n3) Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n4) Install GIT (e.g. Centos sudo yum install git)\n\n5) Configure Git:\n\tgit config --global user.name \"Your Name\"\n\tgit config --global user.email \"you@example.com\"\n6) git clone https://github.com/mttstt/AuditTool.git\n7) install node-gyp:\n\tsudo npm install -g node-gyp\n8) On Centos. In order to connect from outside stop the firewall\n\tsudo systemctl stop firewalld.service\n9) Install node (non mandatory)\n\tfor centos:\n    su\n    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n    yum -y install nodej\n",
+									"source": "### Start Linux Server\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Install meteor (curl https://install.meteor.com/ | sh)\n\n3.  Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n4. Install GIT (e.g. Centos sudo yum install git)\n\n5. Configure Git:\n\tgit config --global user.name \"Your Name\"\n\tgit config --global user.email \"you@example.com\"\n6. git clone https://github.com/mttstt/AuditTool.git\n7. install node-gyp:\n\tsudo npm install -g node-gyp\n8. On Centos. In order to connect from outside stop the firewall\n\tsudo systemctl stop firewalld.service\n9. Install node (non mandatory)\n\tfor centos:\n    su\n    curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n    yum -y install nodej\n    \n    \n\n### To Do List\n\nAttività di sviluppo in corso:\n\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - perfeziona le logiche di funzionamento degli status avanzamento lavori\n*\tMEDIUM - abilitare le modifiche da parte auditor inseriti nella lista\n*\tHIGH - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n*\tLOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n*\tMEDIUM - funzionalità di stampa\n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n\t\t-\telminare aggiungere elementi dalle librerie\n*\tLOW - prevedere che al momento dela definizione della data di chiusura siano state completati tutti i requirement:\n\t\t*\ttutte le verifiche hanno un esito FAIL o PASS\n\t\t*\tnon ci sono buchi nella numerazione degli audit \n\t\t*\tnon ci siano buchi nella numerazione delle attività\n\t\t*\tnon ci siano buchi nella numerazione delle carenze\n\t\t*\tassicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza",
 									"object_type": "markdown"
 								}
 							]
@@ -1177,12 +1211,162 @@
 						{
 							"name": "activities",
 							"type": "div",
+							"class": "col-sm-8 col-md-9 dashboard",
 							"components": [
 								{
 									"name": "activities",
 									"type": "data_view",
-									"class": "col-sm-8 col-md-9",
-									"query_name": "activities_list",
+									"query_name": "activity_all",
+									"details_route": "dashboard.detailactivity",
+									"details_route_params": [
+										{
+											"name": "singolaAttivitaId",
+											"value": "this._id"
+										}
+									],
+									"fields": [
+										{
+											"name": "numero",
+											"title": "Numero",
+											"type": "string",
+											"default": "*",
+											"exportable": true,
+											"show_in_insert_form": false
+										},
+										{
+											"name": "tipo",
+											"title": "Tipo attività",
+											"type": "string",
+											"required": true,
+											"exportable": true,
+											"input": "radio",
+											"input_items": [
+												{
+													"value": "Audit Filiale",
+													"title": "Audit Filiale"
+												},
+												{
+													"value": "Audit",
+													"title": "Audit"
+												},
+												{
+													"value": "Informativa",
+													"title": "Informativa"
+												},
+												{
+													"value": "Altre attività",
+													"title": "Altre attività"
+												}
+											],
+											"array_item_type": "object",
+											"show_in_update_form": false
+										},
+										{
+											"name": "titolo",
+											"title": "Titolo",
+											"type": "string",
+											"required": true,
+											"exportable": true
+										},
+										{
+											"name": "data",
+											"title": "Data avvio attività",
+											"type": "date",
+											"default": "today",
+											"format": "DD/MM/YYYY",
+											"exportable": true,
+											"input": "datepicker"
+										},
+										{
+											"name": "auditors",
+											"title": "Auditors",
+											"type": "array",
+											"default": "{{userFullName}}",
+											"exportable": true,
+											"input": "select-multiple",
+											"lookup_query_name": "auditors_all",
+											"lookup_key": "auditor",
+											"lookup_field": "auditor"
+										},
+										{
+											"name": "rischiEsaminati",
+											"title": "Principali rischi esaminati",
+											"type": "array",
+											"exportable": true,
+											"input": "select-multiple",
+											"lookup_query_name": "rischi_all",
+											"lookup_key": "rischio",
+											"lookup_field": "rischio",
+											"show_in_insert_form": false
+										},
+										{
+											"name": "sci",
+											"title": "Valutazione SCI",
+											"type": "string",
+											"input": "select",
+											"input_items": [
+												{
+													"value": "Positiva",
+													"title": "Positiva"
+												},
+												{
+													"value": "Parzialmente positiva +",
+													"title": "Parzialmente positiva +"
+												},
+												{
+													"value": "Parzialmente positiva",
+													"title": "Parzialmente positiva"
+												},
+												{
+													"value": "Parzialmente positiva -",
+													"title": "Parzialmente positiva -"
+												},
+												{
+													"value": "Negativa",
+													"title": "Negativa"
+												}
+											],
+											"show_in_insert_form": false
+										},
+										{
+											"name": "datachiusura",
+											"title": "Data chiusura attività",
+											"type": "date",
+											"default": "today",
+											"format": "DD-MM-YYYY",
+											"input": "datepicker",
+											"show_in_insert_form": false
+										},
+										{
+											"name": "status",
+											"title": "Status",
+											"type": "string",
+											"default": "Avviato",
+											"exportable": true,
+											"input": "select",
+											"input_items": [
+												{
+													"value": "Avviato",
+													"title": "Avviato"
+												},
+												{
+													"value": "In corso",
+													"title": "In corso"
+												},
+												{
+													"value": "Completato",
+													"title": "Completato"
+												},
+												{
+													"value": "Archiviato",
+													"title": "Archiviato"
+												}
+											],
+											"array_item_type": "object",
+											"show_in_insert_form": false,
+											"show_in_update_form": false
+										}
+									],
 									"object_type": "data_view"
 								}
 							],
@@ -1191,10 +1375,40 @@
 						{
 							"name": "controlli_continuativi",
 							"type": "div",
+							"class": "col-sm-3 col-md-2 subdashboard",
+							"text": "Control Monitoring\n\nWorking in progress",
 							"object_type": "div"
 						}
 					],
-					"text": "working in progress"
+					"pages": [
+						{
+							"name": "detailactivity",
+							"type": "page",
+							"query_params": [
+								{
+									"name": "activityId"
+								}
+							],
+							"components": [
+								{
+									"name": "detailactivity",
+									"type": "form",
+									"query_name": "activity",
+									"query_params": [
+										{
+											"name": "activityId"
+										}
+									],
+									"mode": "read_only",
+									"close_route": "dashboard",
+									"object_type": "form"
+								}
+							],
+							"route_params": [
+								"singolaAttivitaId"
+							]
+						}
+					]
 				},
 				{
 					"name": "search",
@@ -3131,8 +3345,8 @@
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
-		"stylesheet": ".dashboardNOT {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
+		"stylesheet": ".dashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.subdashboard {\n  \tborder-radius: 25px;\n  \tborder: 2px solid #73AD21;\n  \tmargin: 10px;\n  \tpadding: 10px;\n    height: 50%;\n  \tfont-size: small;\n}\n\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
 				"source": "files/favicon.ico",
@@ -3147,7 +3361,7 @@
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			},
 			{
-				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\t//console.log('name:',name);\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});",
+				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\t//console.log('name:',name);\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});\n\n\nMeteor.publish(\"activity_all\", function() {\n//        if(Users.isInRoles(this.userId, [\"admin\"])) {\n//                return Activities.find({}, {});\n//        }\n//\treturn Activities.find({ownerId:this.userId}, {});\n\treturn Activities.find({}, {});\n});\n\n",
 				"dest": "SERVER_PUBLISH_DIR/activities.js"
 			}
 		],
