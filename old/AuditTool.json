@@ -49,7 +49,6 @@
 						"name": "tipo",
 						"title": "Tipo attività",
 						"type": "string",
-						"required": true,
 						"exportable": true,
 						"input": "radio",
 						"input_items": [
@@ -77,8 +76,7 @@
 						"name": "titolo",
 						"title": "Titolo",
 						"type": "string",
-						"exportable": true,
-						"show_in_insert_form": false
+						"exportable": true
 					},
 					{
 						"name": "data",
@@ -87,8 +85,7 @@
 						"default": "today",
 						"format": "DD/MM/YYYY",
 						"exportable": true,
-						"input": "datepicker",
-						"show_in_insert_form": false
+						"input": "datepicker"
 					},
 					{
 						"name": "auditors",
@@ -99,8 +96,7 @@
 						"input": "select-multiple",
 						"lookup_query_name": "auditors_all",
 						"lookup_key": "auditor",
-						"lookup_field": "auditor",
-						"show_in_insert_form": false
+						"lookup_field": "auditor"
 					},
 					{
 						"name": "obiettivo",
@@ -148,6 +144,7 @@
 						"name": "numero",
 						"title": "Numero",
 						"type": "string",
+						"default": "*",
 						"exportable": true,
 						"show_in_insert_form": false
 					},
@@ -754,13 +751,13 @@
 				"name": "strutture_all",
 				"collection": "strutture",
 				"filter": "{}",
-				"options": "{\"sort\":{\"uo\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "rischi_all",
 				"collection": "rischi",
 				"filter": "{}",
-				"options": "{\"sort\":{\"rischio\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "carenza_all",
@@ -812,7 +809,7 @@
 				"name": "normativeext",
 				"collection": "normative",
 				"filter": "{\"descrizione\":\"normativa esterna\"}",
-				"options": "{\"sort\":{\"norma\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "singola_attivita_list",
@@ -844,13 +841,13 @@
 				"name": "filiali_all",
 				"collection": "filiali",
 				"filter": "{}",
-				"options": "{\"sort\":{\"filiale\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "auditors_all",
 				"collection": "auditors",
 				"filter": "{}",
-				"options": "{\"sort\":{\"auditor\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "activity_all",
@@ -862,7 +859,7 @@
 				"name": "normativeint",
 				"collection": "normative",
 				"filter": "{\"descrizione\":\"normativa interna\"}",
-				"options": "{\"sort\":{\"norma\":1}}"
+				"options": "{}"
 			},
 			{
 				"name": "processi",
@@ -1502,8 +1499,7 @@
 							"type": "data_view",
 							"title": "Elenco attività",
 							"query_name": "activities_list",
-							"insert_route": "home_private.insert",
-							"edit_route": "audit_filiale.workflow",
+							"insert_route": "audits.workflow",
 							"details_route_params": [
 								{
 									"name": "activityId",
@@ -1517,7 +1513,7 @@
 								}
 							],
 							"insert_button_title": "Crea nuova attività",
-							"on_item_clicked_code": "Session.set(\"activityId\",this._id);console.log(\"sessione corrente:\",this._id,\" - \",this.tipo);switch(this.tipo) { case \"Audit\": Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Informativa\": Router.go(\"informativa.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", { id: this._id, tipo: this.tipo}); break; }",
+							"on_item_clicked_code": "Session.set(\"activityId\",this._id); console.log(\"sessione corrente:\",this._id);}",
 							"fields": [
 								{
 									"name": "titolo",
@@ -1622,27 +1618,7 @@
 									"query_name": "activities_null",
 									"mode": "insert",
 									"submit_route": "home_private",
-									"close_route": "home_private",
 									"submit_button_title": "Salva",
-									"close_button_title": "Chiudi (non salvare)",
-									"hidden_fields": [
-										{
-											"name": "data",
-											"value": "today"
-										},
-										{
-											"name": "auditors",
-											"value": "Meteor.user()"
-										},
-										{
-											"name": "status",
-											"value": "Avviato"
-										},
-										{
-											"name": "sci",
-											"value": "sci"
-										}
-									],
 									"object_type": "form"
 								}
 							]
@@ -2016,7 +1992,7 @@
 												}
 											],
 											"mode": "update",
-											"submit_route": "audits.workflow.fieldworks",
+											"submit_route": "audits.workflow",
 											"fields": [
 												{
 													"name": "status",
@@ -2075,10 +2051,18 @@
 													"show_in_update_form": false
 												},
 												{
+													"name": "filiale",
+													"title": "Filiale",
+													"type": "string",
+													"input": "select",
+													"lookup_query_name": "filiali_all",
+													"lookup_key": "filiale",
+													"lookup_field": "filiale"
+												},
+												{
 													"name": "titolo",
 													"title": "Titolo Audit",
 													"type": "string",
-													"required": true,
 													"exportable": true
 												},
 												{
@@ -2160,7 +2144,6 @@
 													"title": "Auditors",
 													"type": "array",
 													"default": "{{userMeteor}}",
-													"required": true,
 													"exportable": true,
 													"input": "select-multiple",
 													"input_group_class": "col-sm-6 col-md-6",
@@ -2514,6 +2497,12 @@
 											"mode": "update",
 											"submit_route": "home_private",
 											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
+											"submit_route_params": [
+												{
+													"name": "activityId",
+													"value": "activityId"
+												}
+											],
 											"fields": [
 												{
 													"name": "sci",
@@ -2720,7 +2709,6 @@
 													"name": "titolo",
 													"title": "Titolo",
 													"type": "string",
-													"required": true,
 													"exportable": true
 												},
 												{
@@ -2787,7 +2775,6 @@
 													"title": "Auditors",
 													"type": "array",
 													"default": "{{userMeteor}}",
-													"required": true,
 													"exportable": true,
 													"input": "select-multiple",
 													"lookup_query_name": "auditors_all",
@@ -3426,11 +3413,11 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"Print\": function(id) {\n\t\tvar pdf = require('html-pdf');\n\t\tvar html = 'http://localhost:5000/dashboard/detailactivity/'+id;\n      \n\t\tvar options = { format: 'Letter' };\n\t\tvar pdf1 = 'C:\\\\Users\\\\matteo\\\\Documents\\\\GitHub\\\\AuditTool\\\\AuditTool\\\\public\\\\'+id+'.pdf';\n           \n      \n\t\tpdf.create(url, options).toFile(pdf1, function(err, res) {\n\t\t\tif (err) return console.log(err);\n\t\t\tconsole.log(res); // { filename: '/app/businesscard.pdf' }\n\t\t});\n\t}\n});\n",
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"NextAuditNumber\": function(id) { \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n      console.log('00',auditNumbers);\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n\t\tActivities.update(id, {$set:{ numero: numero } });\n\t},\n\t\"Print\": function(id) {\n\t\tvar pdf = require('html-pdf');\n\t\tvar html = 'http://localhost:5000/dashboard/detailactivity/'+id;\n      \n\t\tvar options = { format: 'Letter' };\n\t\tvar pdf1 = 'C:\\\\Users\\\\matteo\\\\Documents\\\\GitHub\\\\AuditTool\\\\AuditTool\\\\public\\\\'+id+'.pdf';\n           \n      \n\t\tpdf.create(url, options).toFile(pdf1, function(err, res) {\n\t\t\tif (err) return console.log(err);\n\t\t\tconsole.log(res); // { filename: '/app/businesscard.pdf' }\n\t\t});\n\t}\n});\n",
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			},
 			{
-				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\t\n\tvar name='';\n\tif (this.userId) { name = Users.findOne({_id:this.userId},{}).profile.name;};\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});\n\n\nMeteor.publish(\"activity_all\", function() {\n//        if(Users.isInRoles(this.userId, [\"admin\"])) {\n//                return Activities.find({}, {});\n//        }\n//\treturn Activities.find({ownerId:this.userId}, {});\n\treturn Activities.find({}, {});\n});\n\n",
+				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\n\n\tvar name = Users.findOne({_id:this.userId},{}).profile.name;\n\t//console.log('name:',name);\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\treturn Activities.find({_id:activityId,ownerId:this.userId}, {});\n});\n\n\nMeteor.publish(\"activity_all\", function() {\n//        if(Users.isInRoles(this.userId, [\"admin\"])) {\n//                return Activities.find({}, {});\n//        }\n//\treturn Activities.find({ownerId:this.userId}, {});\n\treturn Activities.find({}, {});\n});\n\n",
 				"dest": "SERVER_PUBLISH_DIR/activities.js"
 			},
 			{
@@ -3442,16 +3429,12 @@
 				"dest": "CLIENT_VIEWS_DIR/dashboard/dashboard.js"
 			},
 			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivateInsert.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateInsert.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateInsert.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivateInsert.events({\n\t\n});\n\nTemplate.HomePrivateInsert.helpers({\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onRendered(function() {\n\t\n\n\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", \"\");\n\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", \"\");\n\n\t$(\".input-group.date\").each(function() {\n\t\tvar format = $(this).find(\"input[type='text']\").attr(\"data-format\");\n\n\t\tif(format) {\n\t\t\tformat = format.toLowerCase();\n\t\t}\n\t\telse {\n\t\t\tformat = \"mm/dd/yyyy\";\n\t\t}\n\n\t\t$(this).datepicker({\n\t\t\tautoclose: true,\n\t\t\ttodayHighlight: true,\n\t\t\ttodayBtn: true,\n\t\t\tforceParse: false,\n\t\t\tkeyboardNavigation: false,\n\t\t\tformat: format\n\t\t});\n\t});\n\n\t$(\"input[type='file']\").fileinput();\n\t$(\"select[data-role='tagsinput']\").tagsinput();\n\t$(\".bootstrap-tagsinput\").addClass(\"form-control\");\n\t$(\"input[autofocus]\").focus();\n});\n\nTemplate.HomePrivateInsertInsertAudit.events({\n\t\"submit\": function(e, t) {\n\t\te.preventDefault();\n      \n\t\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", \"\");\n\t\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", \"\");\n\n\t\tvar self = this;\n\n\t\tfunction submitAction(result, msg) {\n\t\t\tvar homePrivateInsertInsertAuditMode = \"insert\";\n\t\t\tif(!t.find(\"#form-cancel-button\")) {\n\t\t\t\tswitch(homePrivateInsertInsertAuditMode) {\n\t\t\t\t\tcase \"insert\": {\n\t\t\t\t\t\t$(e.target)[0].reset();\n\t\t\t\t\t}; break;\n\n\t\t\t\t\tcase \"update\": {\n\t\t\t\t\t\tvar message = msg || \"Saved.\";\n\t\t\t\t\t\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", message);\n\t\t\t\t\t}; break;\n\t\t\t\t}\n\t\t\t}\n          \n          \tSession.set('activityId',result);\n            switch(Activities.findOne({_id:result}).tipo) {\n              \t\tcase \"Audit\": Router.go(\"audits.workflow\", mergeObjects(Router.currentRouteParams(), {})); break; \n              \t\tcase \"Informativa\": Router.go(\"informativa.workflow\", mergeObjects(Router.currentRouteParams(), {})); break; \n              \t\tcase \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {})); break;\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t}\n\n\t\tfunction errorAction(msg) {\n\t\t\tmsg = msg || \"\";\n\t\t\tvar message = msg.message || msg || \"Error.\";\n\t\t\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", message);\n\t\t}\n\n\t\tvalidateForm(\n\t\t\t$(e.target),\n\t\t\tfunction(fieldName, fieldValue) {\n\n\t\t\t},\n\t\t\tfunction(msg) {\n\n\t\t\t},\n\t\t\tfunction(values) {\n             \t            values.data = moment().format('MM/DD/YYYY');              \t\t\t\t\n                            values.auditors = Meteor.user().profile.name;\n                            values.status = \"Avviato\";\n              \t\t\t\tvar max = 0;\n                            var auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n                            _.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);if(!isNaN(intNum) && intNum > max) max = intNum;}); \n                            values.numero = (max + 1)+\"/\"+moment().format('YYYY');\n\n                            Meteor.call(\"activitiesInsert\", values, function(e, r) {console.log(\"activitiesInsert\",r); if(e) errorAction(e); else submitAction(r); });\n\t\t\t}\n\t\t);\n\n\t\treturn false;\n\t},\n\t\"click #form-cancel-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t\n\n\t\t/*CANCEL_REDIRECT*/\n\t},\n\t\"click #form-close-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t/*CLOSE_REDIRECT*/\n\t},\n\t\"click #form-back-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t/*BACK_REDIRECT*/\n\t}\n\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.helpers({\n\t\"infoMessage\": function() {\n\t\treturn pageSession.get(\"homePrivateInsertInsertAuditInfoMessage\");\n\t},\n\t\"errorMessage\": function() {\n\t\treturn pageSession.get(\"homePrivateInsertInsertAuditErrorMessage\");\n\t}\n\t\n});",
-				"dest": "CLIENT_VIEWS_DIR/home_private/insert/insert.js"
-			},
-			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivate.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivate.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivate.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivate.events({\n\t\n});\n\nTemplate.HomePrivate.helpers({\n\t\n});\n\nvar HomePrivateAuditViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"HomePrivateAuditViewSearchString\");\n\tvar sortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t})\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar HomePrivateAuditViewExport = function(cursor, fileType) {\n\tvar data = HomePrivateAuditViewItems(cursor);\n\tvar exportFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n}\n\nTemplate.HomePrivateAuditView.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onRendered(function() {\n\tpageSession.set(\"HomePrivateAuditViewStyle\", \"table\");\n\t\n});\n\nTemplate.HomePrivateAuditView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tRouter.go(\"home_private.insert\", mergeObjects(Router.currentRouteParams(), {}));\n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.HomePrivateAuditView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Activities.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.activities_list || this.activities_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.activities_list && this.activities_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.activities_list && pageSession.get(\"HomePrivateAuditViewSearchString\") && HomePrivateAuditViewItems(this.activities_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.HomePrivateAuditViewTable.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"HomePrivateAuditViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\") || false;\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.HomePrivateAuditViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn HomePrivateAuditViewItems(this.activities_list);\n\t}\n});\n\n\nTemplate.HomePrivateAuditViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\tswitch(this.tipo) { \n          case \"Audit\": Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo}); break; \n          case \"Informativa\": Router.go(\"informativa.workflow\", { id: this._id, tipo: this.tipo}); break; \n          case \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", { id: this._id, tipo: this.tipo}); break; }\n\t\t/**/\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"activitiesUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Vuoi cancellare definitivamente? Sei sicuro?\",\n\t\t\ttitle: \"Cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"activitiesRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\tswitch(Activities.findOne({_id:this._id}).tipo) {\n\t\t\tcase \"Audit\": Router.go(\"audits.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break; \n\t\t\tcase \"Informativa\": Router.go(\"informativa.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break; \n\t\t\tcase \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break;}\n\t\t// Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id}));\n\t\treturn false;\n\t}\n});\n\nTemplate.HomePrivateAuditViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Activities.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Activities.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});",
+				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivate.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivate.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivate.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivate.events({\n\t\n});\n\nTemplate.HomePrivate.helpers({\n\t\n});\n\nvar HomePrivateAuditViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"HomePrivateAuditViewSearchString\");\n\tvar sortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t})\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar HomePrivateAuditViewExport = function(cursor, fileType) {\n\tvar data = HomePrivateAuditViewItems(cursor);\n\tvar exportFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n}\n\nTemplate.HomePrivateAuditView.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onRendered(function() {\n\tpageSession.set(\"HomePrivateAuditViewStyle\", \"table\");\n\t\n});\n\nTemplate.HomePrivateAuditView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n      \n\t\tMeteor.call(\"activitiesInsert\", '{}');\n        console.log('activitiesInsert!');\n\t\t//Meteor.call(\"activitiesInsert\", values);\n\t\t//Router.go(\"home_private.insert\", mergeObjects(Router.currentRouteParams(), {}));\n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.HomePrivateAuditView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Activities.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.activities_list || this.activities_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.activities_list && this.activities_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.activities_list && pageSession.get(\"HomePrivateAuditViewSearchString\") && HomePrivateAuditViewItems(this.activities_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.HomePrivateAuditViewTable.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"HomePrivateAuditViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\") || false;\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.HomePrivateAuditViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn HomePrivateAuditViewItems(this.activities_list);\n\t}\n});\n\n\nTemplate.HomePrivateAuditViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);console.log(\"sessione corrente:\",this._id,\" - \",this.tipo);switch(this.tipo) { case \"Audit\": Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Informativa\": Router.go(\"informativa.workflow\", { id: this._id, tipo: this.tipo}); break; case \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", { id: this._id, tipo: this.tipo}); break; }\n\t\t/**/\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"activitiesUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Delete? Are you sure?\",\n\t\t\ttitle: \"Delete\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tActivities.remove({ _id: me._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t/**/\n\t\treturn false;\n\t}\n});\n\nTemplate.HomePrivateAuditViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Activities.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Activities.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});\n",
 				"dest": "CLIENT_VIEWS_DIR/home_private/home_private.js"
 			},
 			{
-				"source_content": "this.Activities = new Mongo.Collection(\"activities\");\n\nthis.Activities.userCanInsert = function(userId, doc) {\n\treturn Users.isInRoles(userId, [\"admin\",\"user\"]);\n};\n\nthis.Activities.userCanUpdate = function(userId, doc) {\n\tvar name = Users.findOne({_id:userId},{}).profile.name;\n  \n\t//console.log('name',name);\n\t//console.log('auditors',doc.auditors);    \n    //console.log('array',_.contains(doc.auditors, name));    \n\t//console.log('yes/no', userId && (doc.ownerId == userId || Users.isInRoles(userId, [\"admin\"])) || _.contains(doc.auditors, name));\n  \n\treturn userId && (doc.ownerId == userId || Users.isInRoles(userId, [\"admin\"]) || _.contains(doc.auditors, name));\n};\n\nthis.Activities.userCanRemove = function(userId, doc) {\n\treturn userId && Users.isInRoles(userId, [\"admin\"]);\n};",
-				"dest": "BOTH_COLLECTIONS_DIR/activities.js"
+				"source_content": "Meteor.methods({\n        \"activitiesInsert\": function(data) {\n                if(!Activities.userCanInsert(this.userId, data)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n\n                //return Activities.insert(data);\n          \t\tconsole.log('data',data);\n          \n\t\tvar max = 0;\n\t\tvar auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n      \tconsole.log('00',auditNumbers);\n\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);\n\t\t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; \n\t\t\t\t\t\t\t\t\t\t\t}); \n\t\tvar numero = (max + 1)+\"/\"+moment().format('YYYY');\n        return Activities.insert({numero: numero});\n          \n        },\n\n\t\"activitiesUpdate\": function(id, data) {\n                var doc = Activities.findOne({ _id: id });\n                if(!Activities.userCanUpdate(this.userId, doc)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n\n                Activities.update({ _id: id }, { $set: data });\n        },\n\n\t\"activitiesRemove\": function(id) {\n                var doc = Activities.findOne({ _id: id });\n                if(!Activities.userCanRemove(this.userId, doc)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n\n                Activities.remove({ _id: id });\n        }\n});\n",
+				"dest": "SERVER_METHODS_DIR/activities.js"
 			}
 		],
 		"packages": {
