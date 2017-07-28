@@ -1,5 +1,11 @@
 #!/bin/bash
 
+jsreport init &
+
+jsreport start &
+
+sudo systemctl stop firewalld.service
+
 cp -R files/ /tmp
 
 rm -fR AuditTool

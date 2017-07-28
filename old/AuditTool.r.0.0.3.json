@@ -5,7 +5,7 @@
 		"meta_title": "AuditTool",
 		"theme": "bootswatch-spacelab",
 		"animate": true,
-		"footer_text": "AuditTool Banca IFIS - Copyright (c) 2017, MIT License, release 0.0.3",
+		"footer_text": "AuditTool Banca IFIS - Copyright (c) 2017, MIT License, release 0.0.1",
 		"roles": [
 			"admin",
 			"user"
@@ -169,26 +169,6 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "processi",
-						"title": "Processi",
-						"type": "array",
-						"input": "select-multiple",
-						"lookup_query_name": "processi",
-						"lookup_key": "processo",
-						"lookup_field": "processo",
-						"show_in_insert_form": false
-					},
-					{
-						"name": "sottoprocessi",
-						"title": "SottoProcessi",
-						"type": "array",
-						"input": "select-multiple",
-						"lookup_query_name": "sottoprocessi",
-						"lookup_key": "sottoprocesso",
-						"lookup_field": "sottoprocesso",
-						"show_in_insert_form": false
-					},
-					{
 						"name": "memo",
 						"title": "Executive Summary",
 						"type": "string",
@@ -266,6 +246,16 @@
 						"default": "today",
 						"format": "DD-MM-YYYY",
 						"input": "datepicker",
+						"show_in_insert_form": false
+					},
+					{
+						"name": "processi",
+						"title": "Processi",
+						"type": "array",
+						"input": "select-multiple",
+						"lookup_query_name": "processi",
+						"lookup_key": "processo",
+						"lookup_field": "processo",
 						"show_in_insert_form": false
 					}
 				],
@@ -435,11 +425,11 @@
 						"input": "select",
 						"input_items": [
 							{
-								"value": "Carenza Documentale",
+								"value": "CarenzaDocumentale",
 								"title": "Carenza Documentale"
 							},
 							{
-								"value": "Errore Umano",
+								"value": "ErroreUmano",
 								"title": "Errore Umano"
 							}
 						]
@@ -491,9 +481,7 @@
 						"name": "descrizione",
 						"title": "Descrizione Verifica",
 						"type": "string",
-						"input": "textarea",
-						"show_in_dataview": false,
-						"show_in_insert_form": false
+						"input": "textarea"
 					},
 					{
 						"name": "activityId",
@@ -887,12 +875,6 @@
 				"collection": "processi",
 				"filter": "{}",
 				"options": "{}"
-			},
-			{
-				"name": "sottoprocessi",
-				"collection": "processi",
-				"filter": "{}",
-				"options": "{}"
 			}
 		],
 		"public_zone": {
@@ -1006,7 +988,7 @@
 									"route": "docs.audit_execution"
 								},
 								{
-									"title": "Audit Framework",
+									"title": "Framework",
 									"route": "docs.framework"
 								},
 								{
@@ -1045,15 +1027,15 @@
 									"class": "nav nav-tabs",
 									"items": [
 										{
-											"title": "Ambito",
+											"title": "Plan",
 											"route": "docs.audit_execution.plan"
 										},
 										{
-											"title": "Verifiche",
+											"title": "Fieldwork",
 											"route": "docs.audit_execution.fieldwork"
 										},
 										{
-											"title": "Carenze",
+											"title": "Issues",
 											"route": "docs.audit_execution.issues"
 										},
 										{
@@ -1061,7 +1043,7 @@
 											"route": "docs.audit_execution.executive_summary"
 										},
 										{
-											"title": "Valutazioni",
+											"title": "Scoring",
 											"route": "docs.audit_execution.scorring"
 										}
 									],
@@ -1249,7 +1231,7 @@
 								{
 									"name": "it_notes",
 									"type": "markdown",
-									"source": "### Getting Started on Linux Server\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Obtain sudo privileges for your accounts. As root Add the following line in /etc/sudoers:\n\t\t<account> ALL=(ALL)   NOPASSWD: ALL\n\n3. Install meteor (curl https://install.meteor.com/ | sh)\n\n4. Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n5. Install GIT:\n\t\tsudo yum install git (on CentosOS)\n\n6. Configure Git:\n\t\tgit config --global user.name \"Your Name\"\n\t\tgit config --global user.email \"you@example.com\"\n        \n7. Clone the project:\n\t\tgit clone https://github.com/mttstt/AuditTool.git\n\n8. In order to connect from outside stop the firewall\n\t\tsudo systemctl stop firewalld.service (On CentOS) \n\n9. Install node-gyp (non mandatory !):\n\t\tsudo npm install -g node-gyp\n                \n10. Install node (non mandatory !):\n\tfor centos:\n    \tsu\n\t\tcurl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n\t\tyum -y install nodej\n    \n\n### Getting Started JSReport\n\nJsreport is the application for the PDF file creation.\n\n\n1. Enable EPEL repositor :\n\t\tsudo yum-config-manager --enable epel-testing\n\n1. Install npm:\n\n\n\n\n\n### To Do List\n\nAttività di sviluppo in corso:\n\n* \tMEDIUM - () bypassare la fase di insert\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - meccanismo di upload automatico delle carenze Car.sci\n*\tLOW - perfeziona le logiche di funzionamento degli status avanzamento lavori (review, archived)\n*\tMEDIUM - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n*\tLOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n*\tHIGH - funzionalità di stampa\n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n\t\t-\teliminare aggiungere elementi nelle librerie\n*\tLOW - prevedere che al momento della definizione della data di chiusura siano stati completati tutti i requirement:\n\t\t*\ttutte le verifiche hanno un esito FAIL o PASS\n\t\t*\tnon ci sono buchi nella numerazione degli audit \n\t\t*\tnon ci siano buchi nella numerazione delle attività\n\t\t*\tnon ci siano buchi nella numerazione delle carenze\n\t\t*\tassicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza",
+									"source": "### Start Linux Server\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Obtain sudo privileges for your accounts. As root Add the following line in /etc/sudoers:\n\t\t<account> ALL=(ALL)   NOPASSWD: ALL\n\n3. Install meteor (curl https://install.meteor.com/ | sh)\n\n4. Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n5. Install GIT:\n\t\tsudo yum install git (on CentosOS)\n\n6. Configure Git:\n\t\tgit config --global user.name \"Your Name\"\n\t\tgit config --global user.email \"you@example.com\"\n        \n7. Clone the project:\n\t\tgit clone https://github.com/mttstt/AuditTool.git\n\n8. In order to connect from outside stop the firewall\n\t\tsudo systemctl stop firewalld.service (On CentOS) \n\n9. Install node-gyp (non mandatory !):\n\t\tsudo npm install -g node-gyp\n                \n10. Install node (non mandatory !):\n\tfor centos:\n    \tsu\n\t\tcurl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n\t\tyum -y install nodej\n    \n    \n### To Do List\n\nAttività di sviluppo in corso:\n\n* \tMEDIUM - () bypassare la fase di insert\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - meccanismo di upload automatico delle carenze Car.sci\n*\tLOW - perfeziona le logiche di funzionamento degli status avanzamento lavori (review, archived)\n*\tMEDIUM - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno elimiati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n*\tLOW - utilizzare la numerazione delle carenze usate in carsci ad es.: IA_017_013_002\n*\tHIGH - funzionalità di stampa\n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n\t\t-\teliminare aggiungere elementi nelle librerie\n*\tLOW - prevedere che al momento della definizione della data di chiusura siano stati completati tutti i requirement:\n\t\t*\ttutte le verifiche hanno un esito FAIL o PASS\n\t\t*\tnon ci sono buchi nella numerazione degli audit \n\t\t*\tnon ci siano buchi nella numerazione delle attività\n\t\t*\tnon ci siano buchi nella numerazione delle carenze\n\t\t*\tassicurarsi che ogni activity FAIL sia stata indirizzata ad una carenza",
 									"object_type": "markdown"
 								}
 							]
@@ -1429,7 +1411,7 @@
 							"name": "controlli_continuativi",
 							"type": "div",
 							"class": "col-sm-4 col-md-3 dashboard",
-							"text": "Controlli continuativi - Working in progress",
+							"text": "Control Monitoring\n\nWorking in progress",
 							"object_type": "div"
 						}
 					],
@@ -1646,7 +1628,9 @@
 									"query_name": "activities_null",
 									"mode": "insert",
 									"submit_route": "home_private",
+									"cancel_route": "home_private",
 									"submit_button_title": "Salva",
+									"cancel_button_title": "Chiudi (non salvare)",
 									"hidden_fields": [
 										{
 											"name": "data",
@@ -1989,15 +1973,15 @@
 									"items": [
 										{
 											"title": "Ambito",
-											"route": "audits.workflow.ambito"
+											"route": "audits.workflow.plan"
 										},
 										{
 											"title": "Verifiche",
-											"route": "audits.workflow.verifiche"
+											"route": "audits.workflow.fieldworks"
 										},
 										{
 											"title": "Carenze",
-											"route": "audits.workflow.carenze"
+											"route": "audits.workflow.issues"
 										},
 										{
 											"title": "Ex. summary",
@@ -2005,7 +1989,7 @@
 										},
 										{
 											"title": "Valutazioni",
-											"route": "audits.workflow.valutazioni"
+											"route": "audits.workflow.scoring"
 										}
 									],
 									"object_type": "menu"
@@ -2013,11 +1997,11 @@
 							],
 							"pages": [
 								{
-									"name": "ambito",
+									"name": "plan",
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-university",
-									"helpers_code": "'title': function() { if (Activities.findOne({_id: Session.get('activityId')}))  {return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}}\n",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -2027,7 +2011,7 @@
 									],
 									"components": [
 										{
-											"name": "ambito",
+											"name": "plan",
 											"type": "form",
 											"class": "row",
 											"query_name": "activity",
@@ -2038,8 +2022,7 @@
 												}
 											],
 											"mode": "update",
-											"submit_route": "audits.workflow.verifiche",
-											"submit_button_title": "Salva",
+											"submit_route": "audits.workflow.fieldworks",
 											"fields": [
 												{
 													"name": "status",
@@ -2179,28 +2162,6 @@
 													"show_in_insert_form": false
 												},
 												{
-													"name": "processi",
-													"title": "Processi",
-													"type": "array",
-													"input": "select-multiple",
-													"input_group_class": "col-sm-6 col-md-6",
-													"lookup_query_name": "processi",
-													"lookup_key": "processo",
-													"lookup_field": "processo",
-													"show_in_insert_form": false
-												},
-												{
-													"name": "sottoprocessi",
-													"title": "Sotto Processi",
-													"type": "array",
-													"input": "select-multiple",
-													"input_group_class": "col-sm-6 col-md-6",
-													"lookup_query_name": "sottoprocessi",
-													"lookup_key": "sottoprocesso",
-													"lookup_field": "sottoprocesso",
-													"show_in_insert_form": false
-												},
-												{
 													"name": "auditors",
 													"title": "Auditors",
 													"type": "array",
@@ -2230,7 +2191,7 @@
 									"template_rendered_code": " "
 								},
 								{
-									"name": "verifiche",
+									"name": "fieldworks",
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-database",
@@ -2278,8 +2239,69 @@
 											"object_type": "data_view"
 										}
 									],
-									"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');",
 									"pages": [
+										{
+											"name": "details",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Singola Attivita Details",
+													"query_name": "singola_attivita",
+													"mode": "read_only",
+													"close_route": "audits.workflow.fieldworks",
+													"back_route": "audits.workflow.fieldworks",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"singolaAttivitaId"
+											]
+										},
+										{
+											"name": "insert",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"class": "col-sm-8 col-md-9",
+													"title": "Aggiungi verifica",
+													"helpers_code": "'nextVerificaNumber': function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {numero:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; });\n  console.log('nextVerificaNumber',max+1);\n  return (max + 1);},\n'titleVerifica': function() { return  Session.get('titleVerifica'); },\n \n'descriptionVerifica': function() { return  Session.get('descriptionVerifica'); }\n",
+													"query_name": "tutte_attivita_null",
+													"mode": "insert",
+													"submit_route": "audits.workflow.fieldworks",
+													"cancel_route": "audits.workflow.fieldworks",
+													"hidden_fields": [
+														{
+															"name": "activityId",
+															"value": "Session.get('activityId')"
+														}
+													],
+													"object_type": "form"
+												},
+												{
+													"name": "div",
+													"type": "div",
+													"class": "col-sm-4 col-md-3",
+													"query_name": "libtest",
+													"components": [
+														{
+															"name": "lib_collapse",
+															"type": "custom_component",
+															"query_name": "libtest",
+															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n",
+															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
+															"object_type": "custom_component"
+														}
+													],
+													"object_type": "div"
+												}
+											],
+											"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');\n"
+										},
 										{
 											"name": "update",
 											"type": "page",
@@ -2289,74 +2311,11 @@
 													"name": "form",
 													"type": "form",
 													"class": "col-sm-8 col-md-9",
-													"title": "Creazione di una nuova verifica",
-													"helpers_code": "\"nextAttivitaNumber\": function() {\n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n                                                                               \tif(!isNaN(intNum) && intNum > max) max = intNum; });\n                                                                              return (max + 1);\n                                                                               \t},\n'singola_attivita':  function() { \n\tif (Session.get('titleVerifica'))\n\t\t\t{var x = ({\"titolo\":Session.get('titleVerifica'),\"obiettivo\":Session.get('descriptionVerifica')});return x;}\n\telse {return Fieldworks.findOne({_id:this.params.singolaAttivitaId})};}\n",
+													"title": "Aggiorna verifica",
 													"query_name": "singola_attivita",
 													"mode": "update",
-													"submit_route": "audits.workflow.verifiche",
-													"submit_button_title": "Salva",
-													"fields": [
-														{
-															"name": "numero",
-															"title": "Numero",
-															"type": "string",
-															"default": "{{nextVerificaNumber}}",
-															"show_in_dataview": false,
-															"show_in_insert_form": false,
-															"show_in_update_form": false
-														},
-														{
-															"name": "titolo",
-															"title": "Titolo verifica",
-															"type": "string",
-															"default": "{{titleVerifica}}",
-															"required": true
-														},
-														{
-															"name": "obiettivo",
-															"title": "Obiettivo verifica",
-															"type": "string",
-															"default": "{{descriptionVerifica}}",
-															"input": "textarea"
-														},
-														{
-															"name": "descrizione",
-															"title": "Descrizione verifica",
-															"type": "string",
-															"input": "textarea",
-															"show_in_dataview": false,
-															"show_in_insert_form": false
-														},
-														{
-															"name": "activityId",
-															"title": "ActivityId",
-															"type": "string",
-															"show_in_dataview": false,
-															"show_in_insert_form": false,
-															"show_in_update_form": false,
-															"show_in_read_only_form": false
-														},
-														{
-															"name": "esito",
-															"title": "Esito",
-															"type": "string",
-															"input": "select",
-															"input_items": [
-																{
-																	"value": "null"
-																},
-																{
-																	"value": "fail",
-																	"title": "FAIL"
-																},
-																{
-																	"value": "pass",
-																	"title": "PASS"
-																}
-															],
-															"show_in_insert_form": false
-														}
-													],
+													"submit_route": "audits.workflow.fieldworks",
+													"cancel_route": "audits.workflow.fieldworks",
 													"object_type": "form"
 												},
 												{
@@ -2378,7 +2337,7 @@
 															"type": "custom_component",
 															"query_name": "libtest",
 															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);      \n\t}\n});\n",
+															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n",
 															"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});",
 															"gasoline": {
 																"type": "gasoline",
@@ -2395,7 +2354,6 @@
 													"object_type": "div"
 												}
 											],
-											"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');",
 											"route_params": [
 												"singolaAttivitaId"
 											],
@@ -2404,7 +2362,7 @@
 									]
 								},
 								{
-									"name": "carenze",
+									"name": "issues",
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-bomb",
@@ -2434,9 +2392,8 @@
 															"value": "Session.get('activityId');"
 														}
 													],
-													"text_if_empty": "Nessuna carenza",
-													"insert_route": "audits.workflow.carenze.insert",
-													"details_route": "audits.workflow.carenze.edit",
+													"insert_route": "audits.workflow.issues.insert",
+													"details_route": "audits.workflow.issues.edit",
 													"details_route_params": [
 														{
 															"name": "carenzaId",
@@ -2465,8 +2422,8 @@
 													"helpers_code": "\"nextCarenzaNumber\": function() { \n  var max = 0;\n  var carenzaNumbers = Carenze.find({activityId: Session.get('activityId')}, {fields: {carenzaId:1}}).fetch();\n  _.each(carenzaNumbers, function(doc) { var intNum = parseInt(doc.carenzaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
 													"query_name": "carenza_null",
 													"mode": "insert",
-													"submit_route": "audits.workflow.carenze",
-													"cancel_route": "audits.workflow.carenze",
+													"submit_route": "audits.workflow.issues",
+													"cancel_route": "audits.workflow.issues",
 													"submit_button_title": "Crea una nuova carenza",
 													"submit_route_params": [
 														{
@@ -2499,7 +2456,7 @@
 													"type": "form",
 													"query_name": "carenza",
 													"mode": "update",
-													"submit_route": "audits.workflow.carenze",
+													"submit_route": "audits.workflow.issues",
 													"submit_route_params": [
 														{
 															"name": "activityId",
@@ -2567,7 +2524,7 @@
 									]
 								},
 								{
-									"name": "valutazioni",
+									"name": "scoring",
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-balance-scale",
@@ -2955,8 +2912,8 @@
 													"title": "Singola Attivita Details",
 													"query_name": "singola_attivita",
 													"mode": "read_only",
-													"close_route": "audits.workflow.verifiche",
-													"back_route": "audits.workflow.verifiche",
+													"close_route": "audits.workflow.fieldworks",
+													"back_route": "audits.workflow.fieldworks",
 													"object_type": "form"
 												}
 											],
@@ -3487,7 +3444,7 @@
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in Meteoer un API per recuperare la collection a partire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol','processi'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\nif (Activities.find().count() === 0) {\n    \n\tActivities.insert({\n      tipo: \"Audit\",\n      activityId: \"1\",\n      status:\"Avviato\",\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      numAllegati: 99,\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n//  Accounts.createUser({\tusername: 'mtt', email: 'mttstt@yhaoo.it', password: 'password', profile: {} }); \n\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(1).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in mEteoer un API per recuperare la collection a aprtire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol','processi'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n\n",
 		"stylesheet": ".dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}",
 		"copy_files": [
 			{
@@ -3499,7 +3456,7 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"Print\": function(id) {\n\t\tconsole.log('ora stampo:',id);\n\n\n      \n      \n\t\tvar pdf = require('phantom-html-to-pdf');\n\t\tvar options =   {\n          \"url\" : \"http://192.168.140.32:3000/dashboard/detailactivity/\"+id,         \n          //\"css\" : \"Path to additional CSS file\",\n          //\"js\" : \"Path to additional JavaScript file\",\n          //\"runnings\" : \"Path to runnings file. Check further below for explanation.\",\n          \"paperSize\" : {format: 'A4', orientation: 'landscape', border: '1cm'},\n          \"deleteOnAction\" : false,\n          \"runningsArgs\": ''\n\t\t};\n            \n      \tconsole.log(\"Ora converto, http://192.168.140.32:3000/dashboard/detailactivity/\"+id);\n      \n\t\tpdf.convert(options, function(err, result) {          \n\t\t\tresult.toFile(\"/tmp/\"+id+\".pdf\", function() {});\n\t\t});\n\n      \n\t}\n});\n",
+				"source_content": "Meteor.methods({\n    \"ExSumUpdate\": function(testo,activityId) { \n\t\treturn Activities.update({_id: activityId}, {$set:{ memo: testo } });\n\t},\n\t\"StatusUpdate\": function(activityId) { \n\t\tconsole.log('==>',activityId);\n\t\tif (Carenze.find({ activityId: activityId}).count()>0) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'In Corso' }});} \n\t\tif (!Activities.findOne({ _id: activityId}).datachiusura) { \n\t\t\tActivities.update({ _id: activityId }, { $set: { status: 'Completato' }});}\n\t\telse {Activities.update({ _id: activityId }, { $set: { status: 'In Corso' }});}\n\t},\n\t\"Print\": function(id) {\n\t\tvar pdf = require('html-pdf');\n\t\tvar html = 'http://localhost:5000/dashboard/detailactivity/'+id;\n      \n\t\tvar options = { format: 'Letter' };\n\t\tvar pdf1 = 'C:\\\\Users\\\\matteo\\\\Documents\\\\GitHub\\\\AuditTool\\\\AuditTool\\\\public\\\\'+id+'.pdf';\n           \n      \n\t\tpdf.create(url, options).toFile(pdf1, function(err, res) {\n\t\t\tif (err) return console.log(err);\n\t\t\tconsole.log(res); // { filename: '/app/businesscard.pdf' }\n\t\t});\n\t}\n});\n",
 				"dest": "SERVER_METHODS_DIR/mymethods.js"
 			},
 			{
@@ -3527,8 +3484,8 @@
 				"dest": "BOTH_COLLECTIONS_DIR/activities.js"
 			},
 			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.AuditsWorkflowVerifiche.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.onRendered(function() {\n\tSession.set('titleVerifica','');\n  Session.set('descriptionVerifica','');\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.AuditsWorkflowVerifiche.events({\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.helpers({\n\t'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n\n});\n\nvar AuditsWorkflowVerificheViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"AuditsWorkflowVerificheViewSearchString\");\n\tvar sortBy = pageSession.get(\"AuditsWorkflowVerificheViewSortBy\");\n\tvar sortAscending = pageSession.get(\"AuditsWorkflowVerificheViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"numero\", \"titolo\", \"obiettivo\", \"descrizione\", \"activityId\", \"esito\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t})\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar AuditsWorkflowVerificheViewExport = function(cursor, fileType) {\n\tvar data = AuditsWorkflowVerificheViewItems(cursor);\n\tvar exportFields = [];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n}\n\nTemplate.AuditsWorkflowVerificheView.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.onRendered(function() {\n\tpageSession.set(\"AuditsWorkflowVerificheViewStyle\", \"table\");\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t// ---\n\t\t// Router.go(\"audits.workflow.fieldworks.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: this._id}));\n\n\t\t\tMeteor.call(\"fieldworksInsert\", {activityId: Session.get(\"activityId\")}, function(e, r) {\n\t\t\t\t//console.log(\"fieldworksInsert\",r); \n\t\t\t\tif(e) errorAction(e); \n\t\t\t\telse Router.go(\"audits.workflow.verifiche.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: r}) );});\n// ---\n\n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Fieldworks.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.singola_attivita_list || this.singola_attivita_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.singola_attivita_list && this.singola_attivita_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.singola_attivita_list && pageSession.get(\"AuditsWorkflowVerificheViewSearchString\") && AuditsWorkflowVerificheViewItems(this.singola_attivita_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.AuditsWorkflowVerificheViewTable.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"AuditsWorkflowVerificheViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"AuditsWorkflowVerificheViewSortAscending\") || false;\n\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn AuditsWorkflowVerificheViewItems(this.singola_attivita_list);\n\t}\n});\n\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\t\n\t\tRouter.go(\"audits.workflow.verifiche.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: this._id}));\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"fieldworksUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Delete? Are you sure?\",\n\t\t\ttitle: \"Delete\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"fieldworksRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t/**/\n\t\treturn false;\n\t}\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Fieldworks.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Fieldworks.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});\n",
-				"dest": "CLIENT_VIEWS_DIR/audits/workflow/verifiche/verifiche.js"
+				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.AuditsWorkflowFieldworks.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworks.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworks.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.AuditsWorkflowFieldworks.events({\n\t\n});\n\nTemplate.AuditsWorkflowFieldworks.helpers({\n\t'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n\n});\n\nvar AuditsWorkflowFieldworksViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"AuditsWorkflowFieldworksViewSearchString\");\n\tvar sortBy = pageSession.get(\"AuditsWorkflowFieldworksViewSortBy\");\n\tvar sortAscending = pageSession.get(\"AuditsWorkflowFieldworksViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"numero\", \"titolo\", \"descrizione\", \"activityId\", \"esito\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t})\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar AuditsWorkflowFieldworksViewExport = function(cursor, fileType) {\n\tvar data = AuditsWorkflowFieldworksViewItems(cursor);\n\tvar exportFields = [];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n}\n\nTemplate.AuditsWorkflowFieldworksView.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksView.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksView.onRendered(function() {\n\tpageSession.set(\"AuditsWorkflowFieldworksViewStyle\", \"table\");\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n      \n      \tconsole.log(\"!!!\");\n\n        Meteor.call(\"fieldworksInsert\", {activityId: Session.get(\"activityId\")} , function(e, r) {console.log(\"fieldworksInsert\",r); if(e) errorAction(e); else Router.go(\"audits.workflow.fieldworks.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: r})); });\n      \n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowFieldworksViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowFieldworksViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowFieldworksViewExport(this.singola_attivita_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowFieldworksViewExport(this.singola_attivita_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Fieldworks.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.singola_attivita_list || this.singola_attivita_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.singola_attivita_list && this.singola_attivita_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.singola_attivita_list && pageSession.get(\"AuditsWorkflowFieldworksViewSearchString\") && AuditsWorkflowFieldworksViewItems(this.singola_attivita_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowFieldworksViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowFieldworksViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowFieldworksViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowFieldworksViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowFieldworksViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.AuditsWorkflowFieldworksViewTable.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTable.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"AuditsWorkflowFieldworksViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"AuditsWorkflowFieldworksViewSortAscending\") || false;\n\t\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"AuditsWorkflowFieldworksViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.AuditsWorkflowFieldworksViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn AuditsWorkflowFieldworksViewItems(this.singola_attivita_list);\n\t}\n});\n\n\nTemplate.AuditsWorkflowFieldworksViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowFieldworksViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\t\n\t\tRouter.go(\"audits.workflow.fieldworks.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: this._id}));\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"fieldworksUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Delete? Are you sure?\",\n\t\t\ttitle: \"Delete\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"fieldworksRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t/**/\n\t\treturn false;\n\t}\n});\n\nTemplate.AuditsWorkflowFieldworksViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Fieldworks.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Fieldworks.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});\n",
+				"dest": "CLIENT_VIEWS_DIR/audits/workflow/fieldworks/fieldworks.js"
 			}
 		],
 		"packages": {
@@ -3544,7 +3501,7 @@
 			"npm": [
 				"babel-runtime",
 				"csv-parser",
-				"phantom-html-to-pdf"
+				"html-pdf"
 			]
 		}
 	}
