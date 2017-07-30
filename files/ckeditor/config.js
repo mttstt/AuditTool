@@ -2,7 +2,6 @@
  * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
-
 CKEDITOR.editorConfig = function( config ) {
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
@@ -21,5 +20,5 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'About,ShowBlocks,Iframe,Source,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Link,Unlink,Anchor,Save,SelectAll,RemoveFormat,CreateDiv';
+	config.removeButtons = 'About,ShowBlocks,Iframe,Source,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Link,Unlink,Anchor,Save,SelectAll,RemoveFormat,CreateDiv,Font,Language,Print,NewPage,Flash,Smiley,PageBreak';
 };
