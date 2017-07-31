@@ -1,6 +1,10 @@
 production-settings.json
 AuditTool/
 PASSWORD.txt
+dev.config.json
+prod.config.json
+package.json
+server.js
 *.log
 
 # Auto detect text files and perform LF normalization

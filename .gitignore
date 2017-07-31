@@ -1,2 +1,6 @@
+AuditTool.json
 AuditTool/
 files/lib/auditors.csv
+node_modules/
+data/
+logs/
