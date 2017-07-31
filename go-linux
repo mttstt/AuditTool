@@ -1,10 +1,14 @@
 #!/bin/bash
 
+cd Auditool/
+
 jsreport init &
 
 jsreport start &
 
 sudo systemctl stop firewalld.service
+
+cd ..
 
 cp -R files/ /tmp
 
