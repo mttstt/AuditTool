@@ -1,3 +1,9 @@
+### 0.0.5 (06-08-2017)
+
+##### New Features
+* **status:**    Improved "status" management
+
+
 ### 0.0.4 (15-07-2017)
 
 ##### New Features
@@ -24,9 +30,7 @@
 * **read files:**    read file from files on change (mikowals:batch-insert, dburles:mongo-collection-instances, NPM csv-parser)
 
 
-
-
 ### 0.0.0 (15-03-2017)
 
 ##### New Features
-* **first:**    First release
+* **first:**    first release with meteor-kitchen
