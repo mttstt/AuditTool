@@ -1,3 +1,14 @@
+### 0.0.6 (16-12-2017)
+
+#### Clean code
+* **Bootstrap plugin-file:**	Eliminate copy of an external file
+* **Use new features of MK release (0.9.90):**	Eliminate imports of some external Files
+* **Update file batch go-windows.bat**
+* **attachment:**	Upgrade Attachment Box
+
+#### Added MIT License
+
+
 ### 0.0.5 (06-08-2017)
 
 ##### New Features

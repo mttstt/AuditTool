@@ -11,7 +11,5 @@ rmdir AuditTool
 
 meteor-kitchen ./AuditTool.json ./AuditTool
 
-copy  "%dir1%"\files\hacking\fileinput.js "%dir1%"\AuditTool\client\styles\framework\bootstrap3-plugins\bootstrap-fileinput\fileinput.js /Y
-
 cd ./AuditTool
 meteor --port 5000
