@@ -14,7 +14,7 @@ rm -fR AuditTool
 
 wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
 
-meteor-kitchen http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben AuditTool
+meteor-kitchen --no-git http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben AuditTool
 
 cd AuditTool
 
