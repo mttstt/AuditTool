@@ -1,0 +1,7 @@
+.meteor/local
+packages/*/.build*
+packages/*/.npm*
+
+*/temp*
+*/*/temp*
+temp?
