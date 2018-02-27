@@ -20,6 +20,10 @@ meteor-kitchen AuditTool.json AuditTool
 cd  AuditTool
 
 ############# for docker ##########################################################
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -a -q)
+
 docker system prune -f
 # docker network create --subnet=192.168.2.0/16 mttlan
 docker run -d -p 80:5488 --restart always -v /jsreport-home:/jsreport jsreport/jsreport
