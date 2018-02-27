@@ -1,3 +1,13 @@
+### 0.0.7 (27-02-2018)
+
+#### New architecture with Docker
+* **Create lin-docker.sh to create container**
+* **New Container jsreport**
+* **New Container mongodb**
+* **New Container Audittool** 
+
+* **Renamed some files**
+
 ### 0.0.6 (16-12-2017)
 
 #### Clean code

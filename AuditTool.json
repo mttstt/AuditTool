@@ -49,7 +49,6 @@
 						"name": "tipo",
 						"title": "Tipo attività",
 						"type": "string",
-						"required": true,
 						"exportable": true,
 						"input": "radio",
 						"input_items": [
@@ -744,6 +743,10 @@
 						"type": "string"
 					}
 				]
+			},
+			{
+				"name": "profili",
+				"type": "collection"
 			}
 		],
 		"queries": [
@@ -917,6 +920,12 @@
 				"collection": "activities",
 				"filter": "{\"status\":{\"$ne\":\"archived\"}}",
 				"options": "{}"
+			},
+			{
+				"name": "all_profili",
+				"collection": "processi",
+				"filter": "{}",
+				"options": "{}"
 			}
 		],
 		"public_zone": {
@@ -935,14 +944,14 @@
 							"icon_class": "fa fa-tachometer"
 						},
 						{
+							"title": "Profile",
+							"route": "profile",
+							"icon_class": "fa fa-address-card-o"
+						},
+						{
 							"title": "Docs",
 							"route": "docs",
 							"icon_class": "fa fa-book"
-						},
-						{
-							"title": "Search",
-							"route": "search",
-							"icon_class": "fa fa-search"
 						}
 					],
 					"object_type": "menu"
@@ -1053,7 +1062,7 @@
 								{
 									"name": "audit_tool",
 									"type": "markdown",
-									"source": "### Attività di audit\n\nL'AuditTool supporta la formalizzazione delle principali attività svolte dall'Internal Audit con specifici workflow distinti:\n\n\t\t*\tAudit\n\t\t*\tAudit di filiali\n\t\t*\tInformativa\n\t\t*\tAltro\n\n\n### Requisiti base\n\nGli obiettivi di alto livello dell'applicativo sono:\n\n* Automatizzazione del piano di audit (release 1.0.0)\n* Strutturazione delle informazioni, oggi destrutturate all’interno in documenti word.\n* Per gli audit di filiale automatizzare la sezione Verifiche con le casistiche da esaminare secondo le estrazioni di “Alessandro”.\n* Classificare gli interventi di audit, secondo specifici attributi (anno, area/processo ricoperto, autore,…)\n* Fornire lo stato avanzamento delle attività in corso\n* Archiviazione ordinata dei verbali di audit e delle carte di lavoro a supporto;\n\nCiò detto le funzionalità attese sono:\n\n* Dashboard SAL attività in corso\n* Stampa del verbale di audit\n* Strumenti di ricerca delle attività di audit secondo determinati campi\n* Sistema per tracciare lo status della singola attività di audit più rilevanti (started, WIP, completed, reviewed, archived)\n* Meccanismo di approvazione delle attività svolte e “congelamento” delle carte di lavoro.\n* Area di amministrazione per manutenere l’applicativo;\n* Applicazione web, user friendly;\n* Integrazione con altri sistemi (ad es. Car.sci, Active Directory).\n\n\n### Release 0.0.6\n in fase di rilascio\n\n*\tDONE\tHIGH - BUG: automatic audit-number\n*\tDONE\tMEDIUM - Utilizzare la numerazione car.sci per le verifiche\n*\tDONE\tMEDIUM - Automatismo numerazione audit con il cambio di status \"approvato\".\n* \tDONE \tAggiornamento template verbale pdf\n\n### To Do List\n\nAttività di sviluppo in corso:\n\n*\tLOW - Aggiungere alla Dashboard libreria documentazione utile (TDB, audit compliance)\n* \tLOW - BUG: quando si preme sul tasto stampa non deve essere caricata la pagina di dettaglio della carenza.\n*\tLOW\t- All in english language for more visibility\n*\tLOW - Verifica assenza di buchi nella numerazione delle verifiche. (CONTROLLO preliminare per diamante verde)\n* \tMEDIUM - Verifica assegnazione dell'esito per ciascuna verifica (CONTROLLO preliminare per diamante verde)\n*\tMEDIUM - Verifica assenza di buchi nella numerazione delle carenze (CONTROLLO preliminare per diamante verde)\n*\tMEDIUM - Verificare che ogni verifica FAIL sia stata indirizzata ad una carenza (CONTROLLO preliminare per diamante verde)\n* \tLOW - bypassare la fase di insert anche per gli audit di filiale\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - meccanismo di upload automatico delle carenze Car.sci\n*\tMEDIUM - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno eliminati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n* \tMEDIUM - bug mancata aggregazione dati importati processo -sottoprocesso.\n*\tMEDIUM - rivedere la sezione VALUTAZIONE (si deve richiedere la valutazione per ciascun rischio esaminato)\n*\tLOW - Migliorare layout di stampa. Integrare la componente server JSreport direttamente nell'AuditTool  \n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n        -\teliminare/aggiungere/modificare elementi delle librerie\n        \n \n ### Possibile migliorie (Chiara)\n \n *\tPossibilità di inserire in autonomia la normativa interna.\n\n \n",
+									"source": "### Attività di audit\n\nL'AuditTool supporta la formalizzazione delle principali attività svolte dall'Internal Audit con specifici workflow distinti:\n\n\t\t*\tAudit\n\t\t*\tAudit di filiali\n\t\t*\tInformativa\n\t\t*\tAltro\n\nLo strumento implementa inoltre allert inerenti alla profilazione degli utenti.\n\n\n### Requisiti base\n\nGli obiettivi di alto livello dell'applicativo sono:\n\n* Automatizzazione del piano di audit (release 1.0.0)\n* Strutturazione delle informazioni, oggi destrutturate all’interno in documenti word.\n* Per gli audit di filiale automatizzare la sezione Verifiche con le casistiche da esaminare secondo le estrazioni di “Alessandro”.\n* Classificare gli interventi di audit, secondo specifici attributi (anno, area/processo ricoperto, autore,…)\n* Fornire lo stato avanzamento delle attività in corso\n* Archiviazione ordinata dei verbali di audit e delle carte di lavoro a supporto;\n\nCiò detto le funzionalità attese sono:\n\n* Dashboard SAL attività in corso\n* Stampa del verbale di audit\n* Strumenti di ricerca delle attività di audit secondo determinati campi\n* Sistema per tracciare lo status della singola attività di audit più rilevanti (started, WIP, completed, reviewed, archived)\n* Meccanismo di approvazione delle attività svolte e “congelamento” delle carte di lavoro.\n* Area di amministrazione per manutenere l’applicativo;\n* Applicazione web, user friendly;\n* Integrazione con altri sistemi (ad es. Car.sci, Active Directory).\n\n\n### Release 0.0.6\n in fase di rilascio\n\n*\tDONE\tHIGH - BUG: automatic audit-number\n*\tDONE\tMEDIUM - Utilizzare la numerazione car.sci per le verifiche\n*\tDONE\tMEDIUM - Automatismo numerazione audit con il cambio di status \"approvato\".\n* \tDONE \tAggiornamento template verbale pdf\n\n### To Do List\n\nAttività di sviluppo in corso:\n\n*\tLOW - Aggiungere alla Dashboard libreria documentazione utile (TDB, audit compliance)\n* \tLOW - BUG: quando si preme sul tasto stampa non deve essere caricata la pagina di dettaglio della carenza.\n*\tLOW\t- All in english language for more visibility\n*\tLOW - Verifica assenza di buchi nella numerazione delle verifiche. (CONTROLLO preliminare per diamante verde)\n* \tMEDIUM - Verifica assegnazione dell'esito per ciascuna verifica (CONTROLLO preliminare per diamante verde)\n*\tMEDIUM - Verifica assenza di buchi nella numerazione delle carenze (CONTROLLO preliminare per diamante verde)\n*\tMEDIUM - Verificare che ogni verifica FAIL sia stata indirizzata ad una carenza (CONTROLLO preliminare per diamante verde)\n* \tLOW - bypassare la fase di insert anche per gli audit di filiale\n*\tLOW - creare variabili di sessioni persistenti (ad es: activityId)\n*\tLOW - meccanismo di upload automatico delle carenze Car.sci\n*\tMEDIUM - analizzare impostazione test di filiale\n*\tLOW - In caso di elminazione di oggetti a cascata vanno eliminati quelli non più necessari\n*\tLOW - utilizzare lo skeen office 2013 per ckeditor\n* \tMEDIUM - bug mancata aggregazione dati importati processo -sottoprocesso.\n*\tMEDIUM - rivedere la sezione VALUTAZIONE (si deve richiedere la valutazione per ciascun rischio esaminato)\n*\tLOW - Migliorare layout di stampa. Integrare la componente server JSreport direttamente nell'AuditTool  \n*\tLOW - funzionalità di ricerca delle attività\n*\tLOW - pubblicare in docs indicazioni sullo svolgimento dei test.\n*\tLOW - arrichire funzionalità dell'admin per:\n        -\teliminare/aggiungere/modificare elementi delle librerie\n        \n \n ### Possibile migliorie (Chiara)\n \n *\tPossibilità di inserire in autonomia la normativa interna.\n\n \n### Analisi funzionale Audit profilazione utenti\n\n Fonti dati:\n\n- Inquadramento del personale in tempo reale (nome cognome e unità organizzativa)\n- Struttura della Banca (unità organizzative e loro relazione)\n- Active Directory (nome utente, enable, ultimo accesso, groups,...)\n\nVerifiche da implementare:\n- tempestivo inquadramento del personale in una u.o.\n- completezza delle informazioni (num. tel., indirizzo mail, ...)\n- tempestiva disabilitazione AD del personale dimesso",
 									"object_type": "markdown"
 								}
 							]
@@ -1273,7 +1282,7 @@
 								{
 									"name": "it_notes",
 									"type": "markdown",
-									"source": "### Getting Started on Linux Server (Centos)\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Obtain sudo privileges for your accounts. As root Add the following line in /etc/sudoers:\n\t\t<account> ALL=(ALL)   NOPASSWD: ALL\n\n3. Install meteor (curl https://install.meteor.com/ | sh)\n\n4. Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n5. Install GIT:\n\t\tsudo yum install git\n\n6. Configure Git:\n\t\tgit config --global user.name \"Your Name\"\n\t\tgit config --global user.email \"you@example.com\"\n        \n7. Clone the project:\n\t\tgit clone https://github.com/mttstt/AuditTool.git\n\n8. In order to connect from outside stop the firewall\n\t\tsudo systemctl stop firewalld.service\n\n9. Install node-gyp (non mandatory !):\n\t\tsudo npm install -g node-gyp\n                \n10. Install node (non mandatory !):\n\tfor centos:\n    \tsu\n\t\tcurl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n\t\tyum -y install nodej\n    \n\n### Getting Started JSReport\n\nJsreport is the application for the PDF file creation.\n\n1. Enable EPEL repositor :\n\t\tsudo yum install epel-release\n\n2. Install npm:\n\t\tsudo yum install npm\n\n3. Install jsreport:\n\t\tsudo npm install jsreport-cli -g\n\n4. Install mongodb component:(not required in production enviroment)\n\t\tnpm install jsreport-contrib-mongodb\n\n5. Configure Jsreport (not required in production enviroment)\n\t\tcd /home/mtt/node_modules/jsreport\n        cp example.config.json dev.config.json\n        nano dev.config.json => \n        \n\t\t    \"tasks\": {\n        \t\t\"strategy\": \"dedicated-process\",\n        \t\t\"timeout\": 10000,\n        \t\t\"allowedModules\": [*]\n    \t\t},\n    \t\t\"scripts\": {\n        \t\t\"allowedModules\": [*],\n        \t\t\"timeout\": 60000\n                \n6. Start Jsreport\n\t\tjsreport init\n\t\tjsreport start\n\n\n\n    \n\n    \n",
+									"source": "### Getting Started on Linux Server (Centos)\n\n1. Installazione distribuzione Linux (Ubunt, Centos,..)\n\n2. Obtain sudo privileges for your accounts. As root Add the following line in /etc/sudoers:\n\t\t<account> ALL=(ALL)   NOPASSWD: ALL\n\n3. Install meteor (curl https://install.meteor.com/ | sh)\n\n4. Install meteor-kitchen (curl https://www.meteorkitchen.com/install | /bin/sh)\n\n5. Install GIT:\n\t\tsudo yum install git\n\n6. Configure Git:\n\t\tgit config --global user.name \"Your Name\"\n\t\tgit config --global user.email \"you@example.com\"\n        \n7. Clone the project:\n\t\tgit clone https://github.com/mttstt/AuditTool.git\n\n8. In order to connect from outside stop the firewall\n\t\tsudo systemctl stop firewalld.service\n\n9. Install node-gyp (non mandatory !):\n\t\tsudo npm install -g node-gyp\n                \n10. Install node (non mandatory !):\n\tfor centos:\n    \tsu\n\t\tcurl --silent --location https://rpm.nodesource.com/setup_8.x | bash -\n\t\tyum -y install nodej\n    \n\n### Getting Started JSReport\n\nJsreport is the application for the PDF file creation.\n\n\n\n1. Install jsreport:\n\t\tsudo npm install jsreport-cli -g\n\n\n2. Configure Jsreport (not required in production enviroment)\n\t\tcd /home/mtt/node_modules/jsreport\n        cp example.config.json dev.config.json\n        nano dev.config.json => \n        \n\t\t    \"tasks\": {\n        \t\t\"strategy\": \"dedicated-process\",\n        \t\t\"timeout\": 10000,\n        \t\t\"allowedModules\": [*]\n    \t\t},\n    \t\t\"scripts\": {\n        \t\t\"allowedModules\": [*],\n        \t\t\"timeout\": 60000\n                \n3. Start Jsreport\n\t\tjsreport init\n\t\tjsreport start\n\n\n4. Connetersi alla porta 5488 fare import del file ZIP di configurazione.\n\n\n    \n\n    \n",
 									"object_type": "markdown"
 								}
 							]
@@ -1306,7 +1315,7 @@
 											"name": "print",
 											"title": "Stampa PDF",
 											"icon_class": "fa fa-print",
-											"action_code": "e.preventDefault();\n       \nvar jsreport = require(\"jsreport-browser-client-dist\");\nvar activity = Activities.findOne({_id: this._id});\nvar verifiche = Fieldworks.find({activityId: this._id}).fetch();\nvar carenze = Carenze.find({activityId: this._id}).fetch();\nvar carenzejson = {carenze: []};\n      \ncarenze.map(function(item) {carenzejson.carenze.push(item);});\n      \nvar verifichejson = {verifiche: []};\nverifiche.map(function(item) {verifichejson.verifiche.push(item);});\n           \nvar data =  $.extend(activity,carenzejson);\nvar data =  $.extend(data,verifichejson);\n\nconsole.log('Stampa datai:',data);\n      \n        \nMeteor.call('server-ip', function(error, ip) {\nconsole.log(ip);         \n      \njsreport.serverUrl = 'http://'+ip+':5488';\n\nvar request = {\n    template:{\"name\":\"VerbaleAudit\"},\n    \"data\":activity             \n};\n\n//display report in the new tab\njsreport.render('_blank', request);      \n// download\n//jsreport.download('verbale.pdf', request);\n\n           \n// Meteor.call('Print', this._id, function(error, url) {window.open(response); });         \n\t\nreturn false;\n});\n\nreturn false;\n"
+											"action_code": "e.preventDefault();\n       \nvar jsreport = require(\"jsreport-browser-client-dist\");\nvar activity = Activities.findOne({_id: this._id});\nvar verifiche = Fieldworks.find({activityId: this._id}).fetch();\nvar carenze = Carenze.find({activityId: this._id}).fetch();\nvar carenzejson = {carenze: []};\n      \ncarenze.map(function(item) {carenzejson.carenze.push(item);});\n      \nvar verifichejson = {verifiche: []};\nverifiche.map(function(item) {verifichejson.verifiche.push(item);});\n           \nvar data =  $.extend(activity,carenzejson);\nvar data =  $.extend(data,verifichejson);\n\nconsole.log('Stampa pdf. Dati:',data);\n      \n        \nMeteor.call('server-ip', function(error, ip) {\n  var ip1='172.17.0.2';\n  console.log(ip1);         \n\nvar request = {\n    template:{\"name\":\"VerbaleAudit\"},\n    \"data\":activity             \n};\n\n//display report in the new tab\njsreport.render('_blank', request);      \n// download\n//jsreport.download('verbale.pdf', request);\n\n           \n// Meteor.call('Print', this._id, function(error, url) {window.open(response); });         \n\t\nreturn false;\n});\n\nreturn false;\n"
 										}
 									],
 									"fields": [
@@ -1499,9 +1508,157 @@
 					]
 				},
 				{
-					"name": "search",
+					"name": "profile",
 					"type": "page",
-					"text": "Working in progress"
+					"components": [
+						{
+							"name": "side_menu",
+							"type": "menu",
+							"class": "nav nav-pills nav-stacked",
+							"items": [
+								{
+									"title": "A D Users",
+									"route": "profile.a_d_users"
+								},
+								{
+									"title": "Ad Groups",
+									"route": "profile.ad_groups"
+								}
+							],
+							"object_type": "menu"
+						}
+					],
+					"pages": [
+						{
+							"name": "a_d_users",
+							"type": "page",
+							"components": [
+								{
+									"name": "profili_view",
+									"type": "custom_component",
+									"query_name": "all_profili",
+									"html": "<template name=\"TEMPLATE_NAME\">\n\t<h1>\n\t\tLista users  Active Directory\n\t</h1>\n\t{{#if all_profili}}\n\t\t{{#each all_profili}}\n\t\t\t<h5>\n\t\t\t\t {{user}} \n\t\t\t</h5>\n\t\t{{/each}}\n\t{{else}}\n\t\t<h3>\n\t\t\tNessun profilo qui :(\n\t\t</h3>\n\t{{/if}}\n\t<button class=\"btn btn-default\" id=\"users\">\n\t\tUsers\n\t</button>\n</template>\n\n",
+									"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\t\"click #users\": function(e, t) {\n\t\tMeteor.call(\"ldapquery\", {}, function(e, r) {\n\t\t    if(e) console.log(\"errore:\",e); \n\t\t\tconsole.log(\"query OK\");\n\t\t});      \n\t\t            \n\t}\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
+									"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\tadusers(e) {\n\t\tMeteor.call(\"ldapquery\", {}, function(e, r) {\n\t\t    if(e) console.log(\"errore:\",e); \n\t\t\tconsole.log(\"query OK\");\n\t\t});      \n\t\t            \n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<h1>\n\t\t\t\t\tLista users  Active Directory\n\t\t\t\t</h1>\n\t\t\t\t{this.all_profili() ? (\n\t\t\t\t\t{\n\t\t\t\t\t\tall_profili.map(function(item, itemIndex) {\n\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t<h5 key={itemIndex}>\n\t\t\t\t\t\t\t\t\t {item.user} \n\t\t\t\t\t\t\t\t</h5>\n\t\t\t\t\t\t\t);\n\t\t\t\t\t\t})\n\t\t\t\t\t}\n\t\t\t\t) : (\n\t\t\t\t\t<h3>\n\t\t\t\t\t\tNessun profilo qui :(\n\t\t\t\t\t</h3>\n\t\t\t\t)}\n\t\t\t\t<button className=\"btn btn-default\" id=\"users\" onClick={this.adusers}>\n\t\t\t\t\tUsers\n\t\t\t\t</button>\n\n\t\t\t</div>\n\t\t);\n\t}\n}",
+									"gasoline": {
+										"type": "gasoline",
+										"templates": [
+											{
+												"name": "TEMPLATE_NAME",
+												"children": [
+													{
+														"children": [
+															{
+																"type": "text",
+																"text": "Lista users  Active Directory",
+																"object_type": "gas_text"
+															}
+														],
+														"type": "html",
+														"element": "h1",
+														"object_type": "gas_html"
+													},
+													{
+														"children": [
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"children": [
+																					{
+																						"type": "text",
+																						"text": " {{user}} ",
+																						"object_type": "gas_text"
+																					}
+																				],
+																				"type": "html",
+																				"element": "h5",
+																				"object_type": "gas_html"
+																			}
+																		],
+																		"type": "loop",
+																		"dataset": "all_profili",
+																		"object_type": "gas_loop"
+																	}
+																],
+																"type": "condition-true",
+																"object_type": "gas_condition_true"
+															},
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"type": "text",
+																				"text": "Nessun profilo qui :(",
+																				"object_type": "gas_text"
+																			}
+																		],
+																		"type": "html",
+																		"element": "h3",
+																		"object_type": "gas_html"
+																	}
+																],
+																"type": "condition-false",
+																"object_type": "gas_condition_false"
+															}
+														],
+														"type": "condition",
+														"condition": "all_profili",
+														"object_type": "gas_condition"
+													},
+													{
+														"children": [
+															{
+																"type": "text",
+																"text": "Users",
+																"object_type": "gas_text"
+															}
+														],
+														"type": "html",
+														"element": "button",
+														"attributes": [
+															{
+																"name": "class",
+																"value": "btn btn-default"
+															},
+															{
+																"name": "id",
+																"value": "users"
+															}
+														],
+														"events": [
+															{
+																"type": "event",
+																"event": "onclick",
+																"handler": "adusers"
+															}
+														],
+														"object_type": "gas_html"
+													}
+												],
+												"type": "template",
+												"handlers": [
+													{
+														"name": "adusers",
+														"type": "handler",
+														"code": "Meteor.call(\"ldapquery\", {}, function(e, r) {\n    if(e) console.log(\"errore:\",e); \n\tconsole.log(\"query OK\");\n});      \n            "
+													}
+												]
+											}
+										]
+									},
+									"use_gasoline": true,
+									"object_type": "custom_component"
+								}
+							]
+						},
+						{
+							"name": "ad_groups",
+							"type": "page"
+						}
+					]
 				}
 			]
 		},
@@ -1566,7 +1723,7 @@
 							"type": "data_view",
 							"title": "Elenco attività",
 							"query_name": "activities_list",
-							"insert_route": "home_private.insert",
+							"insert_route": "audits.workflow",
 							"edit_route": "audit_filiale.workflow",
 							"details_route_params": [
 								{
@@ -1587,6 +1744,7 @@
 									"name": "titolo",
 									"title": "Titolo Audit",
 									"type": "string",
+									"required": true,
 									"exportable": true
 								},
 								{
@@ -1596,33 +1754,6 @@
 									"default": "{{nextAuditNumber}}",
 									"exportable": true,
 									"show_in_update_form": false
-								},
-								{
-									"name": "tipo",
-									"title": "Tipo attività",
-									"type": "string",
-									"required": true,
-									"exportable": true,
-									"input": "radio",
-									"input_items": [
-										{
-											"value": "auditFiliale",
-											"title": "Audit Filiale"
-										},
-										{
-											"value": "audit",
-											"title": "Audit"
-										},
-										{
-											"value": "informativa",
-											"title": "Informativa"
-										},
-										{
-											"value": "altreattività",
-											"title": "Altre attività"
-										}
-									],
-									"array_item_type": "object"
 								},
 								{
 									"name": "auditors",
@@ -1646,70 +1777,22 @@
 									"type": "string",
 									"exportable": true,
 									"input": "select",
-									"input_items": [
-										{
-											"value": "Avviato",
-											"title": "Avviato"
-										},
-										{
-											"value": "In corso",
-											"title": "In corso"
-										},
-										{
-											"value": "Completato",
-											"title": "Completato"
-										},
-										{
-											"value": "Archiviato",
-											"title": "Archiviato"
-										}
-									],
 									"array_item_type": "object",
 									"show_in_insert_form": false,
 									"show_in_update_form": false
+								},
+								{
+									"name": "filiale",
+									"title": "Filiale",
+									"type": "string",
+									"exportable": true
 								}
 							],
 							"object_type": "data_view"
 						}
 					],
 					"text": "Questa è la tua home page personale, da qui puoi:\n\n1) Avviare un nuovo audit/informativa...\n2) Accedere alle altre attività in corso\n3) altro...",
-					"pages": [
-						{
-							"name": "insert",
-							"type": "page",
-							"query_name": "activities_list",
-							"components": [
-								{
-									"name": "insert_audit",
-									"type": "form",
-									"title": "Crea una nuova attività",
-									"query_name": "activities_null",
-									"mode": "insert",
-									"submit_route": "home_private",
-									"submit_button_title": "Salva",
-									"hidden_fields": [
-										{
-											"name": "data",
-											"value": "today"
-										},
-										{
-											"name": "auditors",
-											"value": "Meteor.user()"
-										},
-										{
-											"name": "status",
-											"value": "Avviato"
-										},
-										{
-											"name": "sci",
-											"value": "sci"
-										}
-									],
-									"object_type": "form"
-								}
-							]
-						}
-					]
+					"render_subpages": "never"
 				},
 				{
 					"name": "admin",
@@ -1921,7 +2004,7 @@
 										{
 											"name": "link_markdown",
 											"type": "markdown",
-											"source": "### Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\n### Modifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
+											"source": "\n### Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\n### Modifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
 											"object_type": "markdown"
 										}
 									],
@@ -1929,7 +2012,119 @@
 								}
 							],
 							"html": "Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\nModifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
-							"text": "Qui l'amministratore può:\n\n- modificare attività le già archiviate\n\n- modificare le librerie\n\n- ...\n"
+							"text": "Qui l'amministratore può:\n\n- modificare attività le già archiviate\n\n- modificare le librerie\n\n- ...\n",
+							"pages": [
+								{
+									"name": "page",
+									"type": "page",
+									"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"page-container\" id=\"content\">\n\t\t<button class=\"btn btn-default\">\n\t\t\tTemplate report Pdf\n\t\t</button>\n\t\t<div>\n\t\t\t<button class=\"btn btn-default\">\n\t\t\t\tConfigura Editor\n\t\t\t</button>\n\t\t</div>\n\t</div>\n</template>\n\n",
+									"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\t\"click .btn.btn-default, click #content\": function(e, t) {\n\t\tvar ipserver= onClickButton1;\n\t\tconsole.log ('oo', Meteor.call('server-ip'));\n\t},\n\n\t\"click div\": function(e, t) {\n\t\t\n\t}\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
+									"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\ttemplatePdf(e) {\n\t\tvar ipserver= onClickButton1;\n\t\tconsole.log ('oo', Meteor.call('server-ip'));\n\t}\n\n\tckeditor(e) {\n\t\t\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div className=\"page-container\" id=\"content\" onClick={this.templatePdf}>\n\t\t\t\t<button className=\"btn btn-default\" onClick={this.templatePdf}>\n\t\t\t\t\tTemplate report Pdf\n\t\t\t\t</button>\n\t\t\t\t<div onClick={this.ckeditor}>\n\t\t\t\t\t<button className=\"btn btn-default\">\n\t\t\t\t\t\tConfigura Editor\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);",
+									"gasoline": {
+										"type": "gasoline",
+										"templates": [
+											{
+												"name": "TEMPLATE_NAME",
+												"children": [
+													{
+														"children": [
+															{
+																"children": [
+																	{
+																		"type": "text",
+																		"text": "Template report Pdf",
+																		"object_type": "gas_text"
+																	}
+																],
+																"type": "html",
+																"element": "button",
+																"attributes": [
+																	{
+																		"name": "class",
+																		"value": "btn btn-default"
+																	}
+																],
+																"events": [
+																	{
+																		"type": "event",
+																		"event": "onclick",
+																		"handler": "templatePdf"
+																	}
+																],
+																"object_type": "gas_html"
+															},
+															{
+																"children": [
+																	{
+																		"children": [
+																			{
+																				"type": "text",
+																				"text": "Configura Editor",
+																				"object_type": "gas_text"
+																			}
+																		],
+																		"type": "html",
+																		"element": "button",
+																		"attributes": [
+																			{
+																				"name": "class",
+																				"value": "btn btn-default"
+																			}
+																		],
+																		"object_type": "gas_html"
+																	}
+																],
+																"type": "html",
+																"events": [
+																	{
+																		"type": "event",
+																		"event": "onclick",
+																		"handler": "ckeditor"
+																	}
+																],
+																"object_type": "gas_html"
+															}
+														],
+														"type": "html",
+														"attributes": [
+															{
+																"name": "class",
+																"value": "page-container"
+															},
+															{
+																"name": "id",
+																"value": "content"
+															}
+														],
+														"events": [
+															{
+																"type": "event",
+																"event": "onclick",
+																"handler": "templatePdf"
+															}
+														],
+														"object_type": "gas_html"
+													}
+												],
+												"type": "template",
+												"handlers": [
+													{
+														"name": "templatePdf",
+														"type": "handler",
+														"code": "var ipserver= onClickButton1;\nconsole.log ('oo', Meteor.call('server-ip'));"
+													},
+													{
+														"name": "ckeditor",
+														"type": "handler"
+													}
+												]
+											}
+										]
+									},
+									"use_gasoline": true,
+									"user_defined_template": true
+								}
+							]
 						}
 					]
 				},
@@ -2090,7 +2285,7 @@
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-university",
-									"helpers_code": "'title': function() { if (Activities.findOne({_id: Session.get('activityId')}))  {return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}}\n",
+									"helpers_code": "'title': function() { if (Activities.findOne({_id: Session.get('activityId')}))  {return Activities.findOne({_id: Session.get('activityId')}).numero + Activities.findOne({_id: Session.get('activityId')}).titolo}}\n",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -2295,6 +2490,15 @@
 													"exportable": true,
 													"input": "datepicker",
 													"input_group_class": "col-sm-6 col-md-6"
+												},
+												{
+													"name": "filiale",
+													"title": "Filiale",
+													"type": "string",
+													"input": "select",
+													"lookup_query_name": "filiali_all",
+													"lookup_key": "filiale",
+													"lookup_field": "filiale"
 												}
 											],
 											"object_type": "form"
@@ -2308,7 +2512,7 @@
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-database",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -2493,7 +2697,7 @@
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-bomb",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero +  Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -2506,7 +2710,6 @@
 										{
 											"name": "carenze",
 											"type": "page",
-											"helpers_code": "'title': function() { return Activities.findOne({_id, activityId}).titolo}",
 											"query_name": "carenza_all",
 											"components": [
 												{
@@ -2606,7 +2809,7 @@
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-edit",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero +  Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -2638,7 +2841,7 @@
 									"type": "page",
 									"title": "{{title}}",
 									"title_icon_class": "fa fa-balance-scale",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
+									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
 									"query_name": "activities_list",
 									"components": [
 										{
@@ -2653,6 +2856,7 @@
 											],
 											"mode": "update",
 											"submit_route": "audits.workflow.valutazioni",
+											"submit_button_title": "Salva",
 											"fields": [
 												{
 													"name": "sci",
@@ -2719,827 +2923,6 @@
 												}
 											],
 											"object_type": "form"
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "audit_filiale",
-					"type": "page",
-					"template_rendered_code": "console.log('audits==>', Session.get( \"activityId\")); \n",
-					"pages": [
-						{
-							"name": "workflow",
-							"type": "page",
-							"query_params": [
-								{
-									"name": "activityId",
-									"value": "Session.get('activityId');"
-								}
-							],
-							"components": [
-								{
-									"name": "side_menu",
-									"type": "menu",
-									"class": "nav nav-stacked nav-pills",
-									"items": [
-										{
-											"title": "Ambito",
-											"route": "audit_filiale.workflow.plan"
-										},
-										{
-											"title": "Verifiche",
-											"route": "audit_filiale.workflow.fieldworks"
-										},
-										{
-											"title": "Carenze",
-											"route": "audit_filiale.workflow.issues"
-										},
-										{
-											"title": "Ex. summary",
-											"route": "audit_filiale.workflow.exsummary"
-										},
-										{
-											"title": "Valutazioni",
-											"route": "audit_filiale.workflow.scoring"
-										}
-									],
-									"object_type": "menu"
-								}
-							],
-							"pages": [
-								{
-									"name": "plan",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-university",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activity",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
-									"components": [
-										{
-											"name": "plan",
-											"type": "form",
-											"query_name": "activity",
-											"query_params": [
-												{
-													"name": "activityId",
-													"value": "Session.get('activityId')"
-												}
-											],
-											"mode": "update",
-											"submit_route": "audit_filiale.workflow",
-											"submit_button_title": "Salva",
-											"fields": [
-												{
-													"name": "status",
-													"title": "Status",
-													"type": "string",
-													"exportable": true,
-													"input": "select",
-													"input_items": [
-														{
-															"value": "Avviato",
-															"title": "Avviato"
-														},
-														{
-															"value": "In corso",
-															"title": "In corso"
-														},
-														{
-															"value": "Completato",
-															"title": "Completato"
-														},
-														{
-															"value": "Archiviato",
-															"title": "Archiviato"
-														}
-													],
-													"array_item_type": "object",
-													"show_in_insert_form": false,
-													"show_in_update_form": false
-												},
-												{
-													"name": "tipo",
-													"title": "Tipo attività",
-													"type": "string",
-													"required": true,
-													"exportable": true,
-													"input": "radio",
-													"input_items": [
-														{
-															"value": "Audit Filiale",
-															"title": "Audit Filiale"
-														},
-														{
-															"value": "Audit",
-															"title": "Audit"
-														},
-														{
-															"value": "Informativa",
-															"title": "Informativa"
-														},
-														{
-															"value": "Altre attività",
-															"title": "Altre attività"
-														}
-													],
-													"array_item_type": "object",
-													"show_in_update_form": false
-												},
-												{
-													"name": "titolo",
-													"title": "Titolo",
-													"type": "string",
-													"required": true,
-													"exportable": true
-												},
-												{
-													"name": "filiale",
-													"title": "Filiale",
-													"type": "string",
-													"input": "select",
-													"lookup_query_name": "filiali_all",
-													"lookup_key": "filiale",
-													"lookup_field": "filiale"
-												},
-												{
-													"name": "obiettivo",
-													"title": "Obiettivi",
-													"type": "string",
-													"exportable": true,
-													"input": "textarea",
-													"show_in_insert_form": false
-												},
-												{
-													"name": "areeRischio",
-													"title": "Principali aree di rischio interessate (ICAAP)",
-													"type": "array",
-													"exportable": true,
-													"input": "select-multiple",
-													"lookup_query_name": "rischi_all",
-													"lookup_key": "ICAAP",
-													"lookup_field": "ICAAP",
-													"show_in_insert_form": false,
-													"show_in_update_form": false
-												},
-												{
-													"name": "rischiEsaminati",
-													"title": "Principali rischi esaminati",
-													"type": "array",
-													"exportable": true,
-													"input": "select-multiple",
-													"lookup_query_name": "rischi_all",
-													"lookup_key": "rischio",
-													"lookup_field": "rischio",
-													"show_in_insert_form": false
-												},
-												{
-													"name": "strutture",
-													"title": "Strutture coinvolte",
-													"type": "array",
-													"exportable": true,
-													"input": "select-multiple",
-													"lookup_query_name": "strutture_all",
-													"lookup_key": "uo",
-													"lookup_field": "uo",
-													"show_in_insert_form": false
-												},
-												{
-													"name": "numero",
-													"title": "Numero",
-													"type": "string",
-													"default": "{{nextAuditNumber}}",
-													"exportable": true,
-													"show_in_update_form": false
-												},
-												{
-													"name": "auditors",
-													"title": "Auditors",
-													"type": "array",
-													"default": "{{userMeteor}}",
-													"required": true,
-													"exportable": true,
-													"input": "select-multiple",
-													"lookup_query_name": "auditors_all",
-													"lookup_key": "auditor",
-													"lookup_field": "auditor"
-												},
-												{
-													"name": "data",
-													"title": "Data avvio",
-													"type": "date",
-													"default": "today",
-													"format": "DD/MM/YYYY",
-													"exportable": true,
-													"input": "datepicker"
-												},
-												{
-													"name": "normativeint",
-													"title": "Riferimento normativa interna",
-													"type": "array",
-													"input": "select-multiple",
-													"lookup_query_name": "normativeint",
-													"lookup_key": "norma",
-													"lookup_field": "norma"
-												},
-												{
-													"name": "normativeext",
-													"title": "Riferimenti normativa esterna",
-													"type": "array",
-													"input": "select-multiple",
-													"lookup_query_name": "normativeext",
-													"lookup_key": "norma",
-													"lookup_field": "norma",
-													"show_in_insert_form": false
-												}
-											],
-											"object_type": "form"
-										}
-									],
-									"template_rendered_code": " "
-								},
-								{
-									"name": "fieldworks",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-database",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activity",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
-									"components": [
-										{
-											"name": "view",
-											"type": "data_view",
-											"query_name": "singola_attivita_list",
-											"query_params": [
-												{
-													"name": "singolaAttivitaId",
-													"value": "Session.get('activityId')"
-												}
-											],
-											"text_if_empty": "Nessuna verifica",
-											"insert_route": "audit_filiale.workflow.fieldworks.insert",
-											"details_route": "audit_filiale.workflow.fieldworks.update",
-											"details_route_params": [
-												{
-													"name": "singolaAttivitaId",
-													"value": "this._id"
-												}
-											],
-											"edit_route_params": [
-												{
-													"name": "singolaAttivitaId",
-													"value": "this._id"
-												}
-											],
-											"insert_button_title": "Aggiungi verifica",
-											"object_type": "data_view"
-										}
-									],
-									"pages": [
-										{
-											"name": "details",
-											"type": "page",
-											"components": [
-												{
-													"name": "form",
-													"type": "form",
-													"title": "Singola Attivita Details",
-													"query_name": "singola_attivita",
-													"mode": "read_only",
-													"close_route": "audits.workflow.verifiche",
-													"back_route": "audits.workflow.verifiche",
-													"object_type": "form"
-												}
-											],
-											"route_params": [
-												"singolaAttivitaId"
-											]
-										},
-										{
-											"name": "insert",
-											"type": "page",
-											"title": "{{title}}",
-											"components": [
-												{
-													"name": "form",
-													"type": "form",
-													"class": "col-sm-8 col-md-9",
-													"title": "Aggiungi verifica",
-													"helpers_code": "\"nextAttivitaNumber\": function() { \n  var max = 0;\n  var attivitaNumbers = Fieldworks.find({activityId: Session.get('activityId')}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t},\n'titleVerifica': function() { return  Session.get('titleVerifica'); },\n \n'descriptionVerifica': function() { return  Session.get('descriptionVerifica'); }\n",
-													"query_name": "tutte_attivita_null",
-													"mode": "insert",
-													"submit_route": "audit_filiale.workflow.fieldworks",
-													"cancel_route": "audit_filiale.workflow.fieldworks",
-													"hidden_fields": [
-														{
-															"name": "activityId",
-															"value": "Session.get('activityId')"
-														}
-													],
-													"object_type": "form"
-												},
-												{
-													"name": "div",
-													"type": "div",
-													"class": "col-sm-4 col-md-3",
-													"query_name": "libtest",
-													"components": [
-														{
-															"name": "lib_collapse",
-															"type": "custom_component",
-															"query_name": "libtest",
-															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n\n",
-															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-															"object_type": "custom_component"
-														}
-													],
-													"text": "Libreria",
-													"object_type": "div"
-												}
-											],
-											"template_rendered_code": "Session.set('titleVerifica','');\nSession.set('descriptionVerifica','');\n"
-										},
-										{
-											"name": "update",
-											"type": "page",
-											"title": "{{title}}",
-											"components": [
-												{
-													"name": "form",
-													"type": "form",
-													"class": "col-sm-8 col-md-9",
-													"title": "Aggiorna verifica",
-													"query_name": "singola_attivita",
-													"mode": "update",
-													"submit_route": "audit_filiale.workflow.fieldworks",
-													"cancel_route": "audit_filiale.workflow.fieldworks",
-													"object_type": "form"
-												},
-												{
-													"name": "attachments_div",
-													"type": "div",
-													"class": "col-sm-4 col-md-3",
-													"components": [
-														{
-															"name": "attachment",
-															"type": "custom_component",
-															"query_name": "files_all",
-															"html": "<template name=\"TEMPLATE_NAME\">\n  <br><br>\n\n\t<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\"></i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t</label>\n\t\t</div>\n  \n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n</template>",
-															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'fieldwork', 'metadata.carenza': Fieldworks.findOne()._id}).fetch();\n\t}\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork', carenza: Fieldworks.findOne()._id};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'fieldwork',carenza: Fieldworks.findOne()._id};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Elimino l'allegato definitivamente?\",\n\t\t\ttitle: \"Attenzione cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Si\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
-															"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-															"object_type": "custom_component"
-														}
-													],
-													"object_type": "div"
-												}
-											],
-											"route_params": [
-												"singolaAttivitaId"
-											]
-										}
-									]
-								},
-								{
-									"name": "issues",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-bomb",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activity",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
-									"template": "page_subcontent_tabnav",
-									"pages": [
-										{
-											"name": "carenze",
-											"type": "page",
-											"helpers_code": "'title': function() { return Activities.findOne({_id, activityId}).titolo}",
-											"query_name": "carenza_all",
-											"components": [
-												{
-													"name": "view",
-													"type": "data_view",
-													"query_name": "carenze",
-													"query_params": [
-														{
-															"name": "activityId",
-															"value": "Session.get('activityId');"
-														}
-													],
-													"insert_route": "audit_filiale.workflow.issues.insert",
-													"details_route": "audit_filiale.workflow.issues.edit",
-													"details_route_params": [
-														{
-															"name": "carenzaId",
-															"value": "this._id"
-														}
-													],
-													"edit_route_params": [
-														{
-															"name": "carenzaId",
-															"value": "Session.get('activityId')"
-														}
-													],
-													"insert_button_title": "Aggiungi carenza",
-													"object_type": "data_view"
-												}
-											]
-										},
-										{
-											"name": "insert",
-											"type": "page",
-											"components": [
-												{
-													"name": "insert",
-													"type": "form",
-													"title": "Aggiungi carenza",
-													"helpers_code": "\"nextCarenzaNumber\": function() { \n  var max = 0;\n  var carenzaNumbers = Carenze.find({activityId: Session.get('activityId')}, {fields: {carenzaId:1}}).fetch();\n  _.each(carenzaNumbers, function(doc) { var intNum = parseInt(doc.carenzaId);\n  \t\t\t\t\t\t\t\t\t\tif(!isNaN(intNum) && intNum > max) max = intNum; }); \n  \t\t\t\t\t\t\t\t\t\treturn (max + 1); \n\t\t\t\t\t\t\t\t\t\t}",
-													"query_name": "carenza_null",
-													"mode": "insert",
-													"submit_route": "audit_filiale.workflow.issues",
-													"cancel_route": "audit_filiale.workflow.issues",
-													"submit_button_title": "Crea una nuova carenza",
-													"submit_route_params": [
-														{
-															"name": "activityId",
-															"value": "this.params.activityId"
-														}
-													],
-													"cancel_route_params": [
-														{
-															"name": "activityId",
-															"value": "this.params.activityId"
-														}
-													],
-													"hidden_fields": [
-														{
-															"name": "activityId",
-															"value": "Session.get('activityId')"
-														}
-													],
-													"object_type": "form"
-												}
-											]
-										},
-										{
-											"name": "edit",
-											"type": "page",
-											"components": [
-												{
-													"name": "edit",
-													"type": "form",
-													"query_name": "carenza",
-													"mode": "update",
-													"submit_route": "audit_filiale.workflow.issues",
-													"submit_route_params": [
-														{
-															"name": "activityId",
-															"value": "this._id"
-														}
-													],
-													"object_type": "form"
-												}
-											],
-											"route_params": [
-												"carenzaId"
-											]
-										}
-									],
-									"force_yield_subpages": true
-								},
-								{
-									"name": "exsummary",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-edit",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activity",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
-									"components": [
-										{
-											"name": "edit_div",
-											"type": "div",
-											"class": "col-sm-8 col-md-9",
-											"components": [
-												{
-													"name": "edit",
-													"type": "custom_component",
-													"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>\n",
-													"js": "Template.TEMPLATE_NAME.created = function() { };\n\nTemplate.TEMPLATE_NAME.destroyed = function() {};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n\t\t\t\t\t\tvar exsum = evt.editor.name;\t\t\t\t\t\t\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(Activities.findOne({ _id: Session.get('activityId')}).memo);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;                      \n\n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t//Meteor.call(\"ExSumUpdate\", CKEDITOR.instances.exsum.getData(),Session.get('activityId'), function(e, r){if(e){console.log('Error',e);}});\n                            var data = {};\n                          \tdata.memo = CKEDITOR.instances.exsum.getData();\n                          \tMeteor.call(\"activitiesUpdate\", Session.get('activityId'), data, function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\n\n\nTemplate.TEMPLATE_NAME.helpers({});\n\n  \nTemplate.TEMPLATE_NAME.events({});\n",
-													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-													"object_type": "custom_component"
-												}
-											],
-											"object_type": "div"
-										},
-										{
-											"name": "attachment_div",
-											"type": "div",
-											"class": "col-sm-4 col-md-3",
-											"components": [
-												{
-													"name": "attachment",
-													"type": "custom_component",
-													"query_name": "files_all",
-													"html": "<template name=\"TEMPLATE_NAME\"><br>\n  \n<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t</div>\n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n\n</template>\n",
-													"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'), 'metadata.section': 'exsummary'}).fetch();\n\t}\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      console.log('files changed');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n        console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n     console.log('files droped');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'exsummary'};\n        var id = Files.insert(fileObj);\n        console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n    'click .btnRemove': function(event, temp) {\n      this.remove();\n    }\n});\n",
-													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-													"object_type": "custom_component"
-												}
-											],
-											"object_type": "div"
-										}
-									]
-								},
-								{
-									"name": "scoring",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-balance-scale",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activities_list",
-									"components": [
-										{
-											"name": "scoring",
-											"type": "form",
-											"query_name": "activity",
-											"query_params": [
-												{
-													"name": "activityId",
-													"value": "Session.get('activityId');"
-												}
-											],
-											"mode": "update",
-											"submit_route": "home_private",
-											"submit_code": "Meteor.call(\"StatusUpdate\",Session.get('activityId'));",
-											"submit_route_params": [
-												{
-													"name": "activityId",
-													"value": "activityId"
-												}
-											],
-											"fields": [
-												{
-													"name": "sci",
-													"title": "Valutazione SCI",
-													"type": "string",
-													"input": "select",
-													"input_items": [
-														{
-															"value": "Positiva",
-															"title": "Positiva"
-														},
-														{
-															"value": "Parzialmente positiva +",
-															"title": "Parzialmente positiva +"
-														},
-														{
-															"value": "Parzialmente positiva",
-															"title": "Parzialmente positiva"
-														},
-														{
-															"value": "Parzialmente positiva -",
-															"title": "Parzialmente positiva -"
-														},
-														{
-															"value": "Negativa",
-															"title": "Negativa"
-														}
-													],
-													"show_in_insert_form": false
-												},
-												{
-													"name": "rischioResiduo",
-													"title": "Valutazione rischio residuo",
-													"type": "string",
-													"input": "select",
-													"input_items": [
-														{
-															"value": "Alto",
-															"title": "Alto"
-														},
-														{
-															"value": "Medio",
-															"title": "Medio"
-														},
-														{
-															"value": "Basso",
-															"title": "Basso"
-														},
-														{
-															"value": "Non significativo",
-															"title": "Non significativo"
-														}
-													],
-													"show_in_insert_form": false
-												},
-												{
-													"name": "datachiusura",
-													"title": "Data fine Audit",
-													"type": "date",
-													"default": "today",
-													"format": "DD-MM-YYYY",
-													"input": "datepicker",
-													"show_in_insert_form": false
-												}
-											],
-											"object_type": "form"
-										}
-									]
-								}
-							]
-						}
-					]
-				},
-				{
-					"name": "informativa",
-					"type": "page",
-					"query_name": "activity",
-					"query_params": [
-						{
-							"name": "activityId",
-							"value": "Session.get('activityId');"
-						}
-					],
-					"pages": [
-						{
-							"name": "workflow",
-							"type": "page",
-							"components": [
-								{
-									"name": "side_menu",
-									"type": "menu",
-									"class": "nav nav-stacked nav-pills",
-									"items": [
-										{
-											"title": "Ambito",
-											"route": "informativa.workflow.plan"
-										},
-										{
-											"title": "Memo",
-											"route": "informativa.workflow.memo"
-										}
-									],
-									"object_type": "menu"
-								}
-							],
-							"pages": [
-								{
-									"name": "plan",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-university",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"components": [
-										{
-											"name": "info",
-											"type": "form",
-											"query_name": "activity",
-											"query_params": [
-												{
-													"name": "activityId",
-													"value": "Session.get('activityId')"
-												}
-											],
-											"mode": "update",
-											"submit_route": "informativa.workflow",
-											"submit_button_title": "Salva",
-											"fields": [
-												{
-													"name": "status",
-													"title": "Status",
-													"type": "string",
-													"default": "Avviato",
-													"exportable": true,
-													"input": "select",
-													"input_items": [
-														{
-															"value": "Avviato",
-															"title": "Avviato"
-														},
-														{
-															"value": "In corso",
-															"title": "In corso"
-														},
-														{
-															"value": "Completato",
-															"title": "Completato"
-														},
-														{
-															"value": "Archiviato",
-															"title": "Archiviato"
-														}
-													],
-													"array_item_type": "object",
-													"show_in_insert_form": false,
-													"show_in_update_form": false
-												},
-												{
-													"name": "titolo",
-													"title": "Titolo",
-													"type": "string",
-													"required": true,
-													"exportable": true
-												},
-												{
-													"name": "numero",
-													"title": "Numero",
-													"type": "string",
-													"default": "*",
-													"exportable": true,
-													"show_in_insert_form": false
-												},
-												{
-													"name": "auditors",
-													"title": "Lista auditors",
-													"type": "string",
-													"default": "{{userFullName}}",
-													"exportable": true
-												},
-												{
-													"name": "data",
-													"title": "Data avvio audit",
-													"type": "date",
-													"default": "today",
-													"format": "DD/MM/YYYY",
-													"exportable": true,
-													"input": "datepicker"
-												}
-											],
-											"object_type": "form"
-										}
-									]
-								},
-								{
-									"name": "memo",
-									"type": "page",
-									"title": "{{title}}",
-									"title_icon_class": "fa fa-edit",
-									"helpers_code": "'title': function() { return Activities.findOne({_id: Session.get('activityId')}).numero + \" - \" + Activities.findOne({_id: Session.get('activityId')}).titolo}\n",
-									"query_name": "activity",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
-									"components": [
-										{
-											"name": "edit_div",
-											"type": "div",
-											"class": "col-sm-8 col-md-9",
-											"components": [
-												{
-													"name": "edit",
-													"type": "custom_component",
-													"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>",
-													"js": "Template.TEMPLATE_NAME.created = function() { };\n\nTemplate.TEMPLATE_NAME.destroyed = function() {};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n\t\t\t\t\t\tvar exsum = evt.editor.name;           \t\t\t\t\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(Activities.findOne({ _id: Session.get('activityId')}).memo);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;                      \n\n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tMeteor.call(\"ExSumUpdate\", CKEDITOR.instances.exsum.getData(),Session.get('activityId'), function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\n\nTemplate.TEMPLATE_NAME.helpers({});\n\n  \nTemplate.TEMPLATE_NAME.events({});\n",
-													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-													"object_type": "custom_component"
-												}
-											],
-											"object_type": "div"
-										},
-										{
-											"name": "attachment_div",
-											"type": "div",
-											"class": "col-sm-4 col-md-3",
-											"components": [
-												{
-													"name": "attachments",
-													"type": "custom_component",
-													"html": "<template name=\"TEMPLATE_NAME\"><br>\n  <br><br>\n  \n<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n\t\t<div class=\"panel-heading\">\n\t\t\tAllegati\n\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-cloud-upload fa-2x\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input name=\"files\" id=\"files\" type=\"file\" multiple style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t</div>\n\t\t<ul class=\"list-group\">\n\t\t\t{{#each allegati}}\n\t\t\t<li class=\"list-group-item\">\n\t\t\t\t{{this.name}}\n\t\t\t\t<a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n\t\t\t\t\t<i class=\"fa fa-cloud-download\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t</a>\n\t\t\t\t<label>\n\t\t\t\t\t<i class=\"fa fa-trash-o\" style=\"color:red\" aria-hidden=\"true\">\n\t\t\t\t\t</i>\n\t\t\t\t\t<input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n\t\t\t\t</label>\n\t\t\t</li>\n\t\t\t{{else}}No files uploaded. {{/each}}\n\t\t</ul>\n\t</div>\n\n</template>\n",
-													"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"allegati\": function() {\n\treturn Files.find({'metadata.activityId': Session.get('activityId'),'metadata.section':'informativa'}).fetch();\n\t}\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({\n  'change #files': function(event, temp) {\n      console.log('files changed');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'informativa'};\n        console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n  \n    'dropped #dropzone': function(event, temp) {\n     console.log('files droped');\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activityId'), section: 'informativa'};\n        var id = Files.insert(fileObj);\n        console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n    'click .btnRemove': function(event, temp) {\n      this.remove();\n    }\n});",
-													"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-													"object_type": "custom_component"
-												}
-											],
-											"object_type": "div"
 										}
 									]
 								}
@@ -3553,7 +2936,7 @@
 				}
 			]
 		},
-		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\n// crea Account iniziale con ruolo admin\nif (Users.find().count() === 0) {\n    var v = {};\n\tvar profile = {};\n\tv.email = \"ruggero.miceli@bancaifis.it\";\n\tprofile.name = \"Ruggero Miceli\";\n\tv.profile = profile;\n    v.roles = [\"user\",\"admin\"];\n\tv.password = \"admin\";\n\tconsole.log (\"Account created:\", Accounts.createUser(v),\"-\", v);\n}\n\n\nif (Activities.find().count() === 0) {\n\tActivities.insert({\n      tipo: \"Audit\",\n      status:\"In corso\",\n      nextreadystatus:false,\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017*\",\n      memo: \"\",\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n  \n/*\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n*/\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(20).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in Meteoer un API per recuperare la collection a partire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol','processi'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n//----------------------------------------------------------------------------------------------\n// GET IP of server\n\n  var os = Npm.require('os');\n  \n  var getIp = function() {\n    // Get interfaces\n    var netInterfaces = os.networkInterfaces();\n    // Result\n    var result = [];\n    for (var id in netInterfaces) {\n      var netFace = netInterfaces[id];\n\n      for (var i = 0; i < netFace.length; i++) {\n        var ip = netFace[i];\n        if (ip.internal === false && ip.family === 'IPv4') {\n          result.push(ip);\n        }\n      }\n    }   \n    return result[0].address;\n  };\n\n\n Meteor.methods({\n    'server-ip': function() {\n      return getIp();\n    }\n });\n\nconsole.log('IP Server:', Meteor.call('server-ip'));  \n//----------------------------------------------------------------------------------------------\n\n",
+		"server_startup_code": "var fs = require(\"fs\");\n\nvar path = \"/tmp/files/lib/\";\nconsole.log('System:', process.env.OS);\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows) {path = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";}\n\n\n// crea Account iniziale con ruolo admin\nif (Users.find().count() === 0) {\n    var v = {};\n\tvar profile = {};\n\tv.email = \"ruggero.miceli@bancaifis.it\";\n\tprofile.name = \"Ruggero Miceli\";\n\tv.profile = profile;\n    v.roles = [\"user\",\"admin\"];\n\tv.password = \"admin\";\n\tconsole.log (\"Account created:\", Accounts.createUser(v),\"-\", v);\n}\n\n\nif (Activities.find().count() === 0) {\n  \n\tActivities.insert({\n      tipo: \"Audit\",\n      status:\"In corso\",\n      nextreadystatus:false,\n      titolo: \"Liquidità\",\n      obiettivo:\"Confort processo sulla liquidità\",\n      areeRischio: ['Credito', 'Operativo'],\n      rischiEsaminati:['Informatico', 'Liquidità'],\n      strutturaId: \"\",\n      auditors: ['Matteo Setti','Maria Chiara Russo'],\n      data: \"12/12/2017\",\n      numero: \"1/2017\",\n      memo: \"\",\n      sci: \"Parzialmente positivo +\",\n      rischioResiduo:\"medio\"    \n    });\n  \n  \n\tFiliali.insert({\n      filiale: \"--\"   \n    });\n  \n  \n/*\n\tCarenze.insert({\n      activityId: \"1\",\n      carenzaId: \"1\",\n      titolo: \"La procedura del credito NPL non è aggiornata\",\n      tipo:\"lacuna documentale\",\n      data: \"12/12/2018\",\n      descrizione: \"manca la documentazione\",\n      livello: \"ridotto\",\n      owner: \"Organizzazione\"\n    });\n\n*/\n}\n\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(20).minute();},\n\tjob: calendar\n});\n\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections.\n// Non essendoci in Meteoer un API per recuperare la collection a partire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar Fiber = require('fibers');\nvar csv = require('csv-parser');\n\n\nfunction uploadSync(file) {\n\tvar csvfs = path+file+\".csv\";  \n\tif (fs.existsSync(csvfs)) {\n\t\tvar p = [];\n\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});\n      \n\t\tFiber(function(){\n          \t\n\t\t\tMongo.Collection.get(file).remove({});\n            var t = Mongo.Collection.get(file).batchInsert(p);\n            console.log('Data uploaded:',file,' (',t.length,')');\n         }).run();             \n\t} else  {console.log('File not found: ',csvfs);}\n  \n    \n\tfs.watchFile(csvfs, (curr, prev) => {\n\t\tif(curr.mtime != prev.mtime) {\n         \tif (fs.existsSync(csvfs)) {\n\t\t\tvar p = [];\n\t\t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {p.push(obj);});              \n\t\t\tFiber(function(){\n\t\t\t\tMongo.Collection.get(file).remove({});\n\t\t\t\tvar t = Mongo.Collection.get(file).batchInsert(p);\n\t\t\t\tconsole.log('Data uploaded:',file,' (',t.length,')');\n            }).run();              \n\t\t\t}\t\t\t\n\t\t}\n\t});\n}\n\nvar fileMonitor= ['filiali','libtest','normative','rischi','strutture','auditors','monitoringcontrol','processi'];\n_.map(fileMonitor, function(f){ uploadSync(f); });\n\n//-----------------------------------------------------------------------------------------------\n\n\n//----------------------------------------------------------------------------------------------\n// GET IP of server\n\n  var os = Npm.require('os');\n  \n  var getIp = function() {\n    // Get interfaces\n    var netInterfaces = os.networkInterfaces();\n    // Result\n    var result = [];\n    for (var id in netInterfaces) {\n      var netFace = netInterfaces[id];\n\n      for (var i = 0; i < netFace.length; i++) {\n        var ip = netFace[i];\n        if (ip.internal === false && ip.family === 'IPv4') {\n          result.push(ip);\n        }\n      }\n    }   \n    return result[0].address;\n  };\n\n\n Meteor.methods({\n    'server-ip': function() {\n      return getIp();\n    }\n });\n\nconsole.log('IP Server:', Meteor.call('server-ip'));  \n//----------------------------------------------------------------------------------------------\n\n",
 		"stylesheet": ".dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}\n\n\n.divright{\n  float:right;\n}\n\n\nul.list-group:after {\n  content: \"\";\n}\n\n\nli.borderless {\n  border: 0 none;\n}\n\n.list-group-item {\n    float: left;\n  \tborder: 0px;\n  \tpadding: 2px 3px;\n}\n\n.not-selected {\n  font-size: 12px;\n  list-style-type: none;  \n  opacity: 0.95;\n  color: #dadada;\n  padding: 0;\n}\n\n.selected {\n  \tanimation: \n      fonticon 4s forwards,\n      statusicon 4s forwards;     \n}\n\n.suggested {\n\tcolor: #76f233;\n\tfont-size: 16px;  \n}\n\n@keyframes statusicon {\n    from { color: #dadada;}\n    to {color: #3399f3;}\n} \n\n@keyframes fonticon {\n  0% {font-size: 12px;}\n  20% {font-size: 16px;}\n  40% {font-size: 18px;}\n  60% {font-size: 20px;}\n  80% {font-size: 22px;}\n  100% {font-size: 24px;}\n}\n",
 		"copy_files": [
 			{
@@ -3569,11 +2952,7 @@
 				"dest": "SERVER_PUBLISH_DIR/activities.js"
 			},
 			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivateInsert.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateInsert.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateInsert.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivateInsert.events({\n\t\n});\n\nTemplate.HomePrivateInsert.helpers({\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.onRendered(function() {\n\t\n\n\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", \"\");\n\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", \"\");\n\n\t$(\".input-group.date\").each(function() {\n\t\tvar format = $(this).find(\"input[type='text']\").attr(\"data-format\");\n\n\t\tif(format) {\n\t\t\tformat = format.toLowerCase();\n\t\t}\n\t\telse {\n\t\t\tformat = \"mm/dd/yyyy\";\n\t\t}\n\n\t\t$(this).datepicker({\n\t\t\tautoclose: true,\n\t\t\ttodayHighlight: true,\n\t\t\ttodayBtn: true,\n\t\t\tforceParse: false,\n\t\t\tkeyboardNavigation: false,\n\t\t\tformat: format\n\t\t});\n\t});\n\n\t$(\"input[type='file']\").fileinput();\n\t$(\"select[data-role='tagsinput']\").tagsinput();\n\t$(\".bootstrap-tagsinput\").addClass(\"form-control\");\n\t$(\"input[autofocus]\").focus();\n});\n\nTemplate.HomePrivateInsertInsertAudit.events({\n\t\"submit\": function(e, t) {\n\t\te.preventDefault();\n      \n\t\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", \"\");\n\t\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", \"\");\n\n\t\tvar self = this;\n\n\t\tfunction submitAction(result, msg) {\n\t\t\tvar homePrivateInsertInsertAuditMode = \"insert\";\n\t\t\tif(!t.find(\"#form-cancel-button\")) {\n\t\t\t\tswitch(homePrivateInsertInsertAuditMode) {\n\t\t\t\t\tcase \"insert\": {\n\t\t\t\t\t\t$(e.target)[0].reset();\n\t\t\t\t\t}; break;\n\n\t\t\t\t\tcase \"update\": {\n\t\t\t\t\t\tvar message = msg || \"Saved.\";\n\t\t\t\t\t\tpageSession.set(\"homePrivateInsertInsertAuditInfoMessage\", message);\n\t\t\t\t\t}; break;\n\t\t\t\t}\n\t\t\t}\n          \n          \tSession.set('activityId',result);\n            switch(Activities.findOne({_id:result}).tipo) {\n              \t\tcase \"Audit\": Router.go(\"audits.workflow\", mergeObjects(Router.currentRouteParams(), {})); break; \n              \t\tcase \"Informativa\": Router.go(\"informativa.workflow\", mergeObjects(Router.currentRouteParams(), {})); break; \n              \t\tcase \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {})); break;\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t}\n\n\t\tfunction errorAction(msg) {\n\t\t\tmsg = msg || \"\";\n\t\t\tvar message = msg.message || msg || \"Error.\";\n\t\t\tpageSession.set(\"homePrivateInsertInsertAuditErrorMessage\", message);\n\t\t}\n\n\t\tvalidateForm(\n\t\t\t$(e.target),\n\t\t\tfunction(fieldName, fieldValue) {\n\n\t\t\t},\n\t\t\tfunction(msg) {\n\n\t\t\t},\n\t\t\tfunction(values) {\n             \t            values.data = moment().format('MM/DD/YYYY');              \t\t\t\t\n                            values.auditors = Meteor.user().profile.name;\n                            values.status = \"Avviato\";\n              \t\t\t\t//console.log(values);\n              \n              \t\t\t\t//var max = 0;\n                            //var auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n                            //_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);if(!isNaN(intNum) && intNum > max) max = intNum;});\n         \t\t\t\t\t// values.numero = (max + 1)+\"/\"+moment().format('YYYY');var max = 0;\n\n                            Meteor.call(\"activitiesInsert\", values, function(e, r) {\n                              //console.log(\"activitiesInsert\",r); \n                              if(e) errorAction(e); else submitAction(r); });\n\t\t\t}\n\t\t);\n\n\t\treturn false;\n\t},\n\t\"click #form-cancel-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t\n\n\t\t/*CANCEL_REDIRECT*/\n\t},\n\t\"click #form-close-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t/*CLOSE_REDIRECT*/\n\t},\n\t\"click #form-back-button\": function(e, t) {\n\t\te.preventDefault();\n\n\t\t/*BACK_REDIRECT*/\n\t}\n\n\t\n});\n\nTemplate.HomePrivateInsertInsertAudit.helpers({\n\t\"infoMessage\": function() {\n\t\treturn pageSession.get(\"homePrivateInsertInsertAuditInfoMessage\");\n\t},\n\t\"errorMessage\": function() {\n\t\treturn pageSession.get(\"homePrivateInsertInsertAuditErrorMessage\");\n\t}\n\t\n});",
-				"dest": "CLIENT_VIEWS_DIR/home_private/insert/insert.js"
-			},
-			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivate.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivate.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivate.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivate.events({\n\t\n});\n\nTemplate.HomePrivate.helpers({\n\t\n});\n\nvar HomePrivateAuditViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"HomePrivateAuditViewSearchString\");\n\tvar sortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t});\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar HomePrivateAuditViewExport = function(cursor, fileType) {\n\tvar data = HomePrivateAuditViewItems(cursor);\n\tvar exportFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n};\n\nTemplate.HomePrivateAuditView.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onRendered(function() {\n\tpageSession.set(\"HomePrivateAuditViewStyle\", \"table\");\n\t\n});\n\nTemplate.HomePrivateAuditView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tRouter.go(\"home_private.insert\", mergeObjects(Router.currentRouteParams(), {}));\n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.HomePrivateAuditView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Activities.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.activities_list || this.activities_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.activities_list && this.activities_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.activities_list && pageSession.get(\"HomePrivateAuditViewSearchString\") && HomePrivateAuditViewItems(this.activities_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.HomePrivateAuditViewTable.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"HomePrivateAuditViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\") || false;\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.HomePrivateAuditViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn HomePrivateAuditViewItems(this.activities_list);\n\t}\n});\n\n\nTemplate.HomePrivateAuditViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\tswitch(this.tipo) { \n          case \"Audit\": Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo}); break; \n          case \"Informativa\": Router.go(\"informativa.workflow\", { id: this._id, tipo: this.tipo}); break; \n          case \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", { id: this._id, tipo: this.tipo}); break; }\n\t\t/**/\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"activitiesUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Vuoi cancellare definitivamente? Sei sicuro?\",\n\t\t\ttitle: \"Cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"activitiesRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\tswitch(Activities.findOne({_id:this._id}).tipo) {\n\t\t\tcase \"Audit\": Router.go(\"audits.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break; \n\t\t\tcase \"Informativa\": Router.go(\"informativa.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break; \n\t\t\tcase \"Audit Filiale\": Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id})); break;}\n\t\t// Router.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id}));\n\t\treturn false;\n\t}\n});\n\nTemplate.HomePrivateAuditViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Activities.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Activities.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});",
+				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivate.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivate.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivate.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivate.events({\n\t\n});\n\nTemplate.HomePrivate.helpers({\n\t\n});\n\nvar HomePrivateAuditViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"HomePrivateAuditViewSearchString\");\n\tvar sortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t});\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar HomePrivateAuditViewExport = function(cursor, fileType) {\n\tvar data = HomePrivateAuditViewItems(cursor);\n\tvar exportFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n};\n\nTemplate.HomePrivateAuditView.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onRendered(function() {\n\tpageSession.set(\"HomePrivateAuditViewStyle\", \"table\");\n\t\n});\n\nTemplate.HomePrivateAuditView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n      \n             \n      var data = { data: moment().format('MM/DD/YYYY') };\n      var auditors = { auditors: Meteor.user().profile.name };\n      var status =  { status: 'Avviato'};\n      var numero = { numero: '-'};\n      var filiale = { numero: '-'};\n      var values = Object.assign(data, auditors, status, numero, filiale);\n      \n      \n      console.log(\"=>\",values);\n            \n      Meteor.call(\"activitiesInsert\", values, function(e, r) {\n                              //console.log(\"activitiesInsert\",r); \n                              if(e) errorAction(e); \n                              Session.set(\"activityId\",r);    \n                              console.log(\"sessione corrente:\",r);\t\t\n                              Router.go(\"audits.workflow\", { id: r }); });      \n\t},\n  \n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"json\");\n\t}\n\t\n});\n\nTemplate.HomePrivateAuditView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Activities.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.activities_list || this.activities_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.activities_list && this.activities_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.activities_list && pageSession.get(\"HomePrivateAuditViewSearchString\") && HomePrivateAuditViewItems(this.activities_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.HomePrivateAuditViewTable.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"HomePrivateAuditViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\") || false;\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.HomePrivateAuditViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn HomePrivateAuditViewItems(this.activities_list);\n\t}\n});\n\n\nTemplate.HomePrivateAuditViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\t\n        Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo});\n         \n\t\t/**/\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"activitiesUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Vuoi cancellare definitivamente? Sei sicuro?\",\n\t\t\ttitle: \"Cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"activitiesRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\t\t\n\t\tRouter.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id}));\n\t\treturn false;\n\t}\n});\n\nTemplate.HomePrivateAuditViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Activities.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Activities.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});",
 				"dest": "CLIENT_VIEWS_DIR/home_private/home_private.js"
 			},
 			{
@@ -3581,14 +2960,13 @@
 				"dest": "CLIENT_VIEWS_DIR/audits/workflow/verifiche/verifiche.js"
 			},
 			{
-				"source_content": "Meteor.methods({\n        \"activitiesInsert\": function(data) {\n                if(!Activities.userCanInsert(this.userId, data)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n          \n\t\t// Inserisce il numero di audit automaticamente\n\t\t\tvar max = 0;\n            var auditNumbers = Activities.find({},{ fields: { numero: 1 }}).fetch();\n\t\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);if(!isNaN(intNum) && intNum > max) max = intNum;});\n\t\t\tvar N = {numero: (max + 1)+\"/\"+moment().format('YYYY')+\"*\"};                    \n            return Activities.insert(_.extend(data,N));\n        },\n\n\t\"activitiesUpdate\": function(id, data) {\n                var doc = Activities.findOne({ _id: id });\n                if(!Activities.userCanUpdate(this.userId, doc)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n\n                Activities.update({ _id: id }, { $set: data });\n        },\n\n\t\"activitiesRemove\": function(id) {\n                var doc = Activities.findOne({ _id: id });\n                if(!Activities.userCanRemove(this.userId, doc)) {\n                        throw new Meteor.Error(403, \"Forbidden.\");\n                }\n\n                Activities.remove({ _id: id });\n        }\n});\n",
-				"dest": "SERVER_METHODS_DIR/activities.js"
+				"source_content": "Meteor.methods({\n        \"ldapquery\": function(data) {\n                \n              var ActiveDirectory = require('activedirectory2');\n              var config = { url: 'ldap://192.168.208.75',\n                              baseDN: 'dc=intranet,dc=ifis,dc=local',\n                              username: 'matteo.setti@bancaifis.it',                             \n                             // pageSize: 'xxxxxxxxxx',                \n                              attributes: {\n                                    user: [\n                                      'dn', 'distinguishedName',\n                                      'userPrincipalName', 'sAMAccountName', 'mail',\n                                      'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',\n                                      'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',\n                                      'comment', 'description'\n                                    ],\n                                    group: [\n                                      'dn', 'cn', 'description', 'distinguishedName', 'objectCategory'\n                                    ]\n                                  }                          \n                           };\n\n              var ad = new ActiveDirectory(config);\n              var query = '(&(objectClass=person)(objectClass=user))';\n              var opts = {\n                includeMembership : [ 'group', 'user' ], // Optionally can use 'all'\n                includeDeleted : false\n              };\n\n              console.log(\"Interrogazione active directory\");\n              ad.find(query, function(err, results) {\n\n                if ((err) || (! results)) {\n                  console.log('ERROR: ' + JSON.stringify(err));\n                  return;\n                }\n\n                console.log('Groups');\n                _.each(results.groups, function(group) {\n                  console.log('  ' + group.cn);\n                });\n\n                console.log('Users');\n                _.each(results.users, function(user) {\n                                  \n                 Profili.insert({user: user.cn});      \n\n                 console.log('  ' + user.cn);\n                });\n\n              });\n\n    }\n\n});\n",
+				"dest": "SERVER_METHODS_DIR/my-methods.js"
 			}
 		],
 		"packages": {
 			"meteor": [
 				"percolate:synced-cron",
-				"perak:c3",
 				"raix:ui-dropped-event",
 				"mikowals:batch-insert",
 				"session",
@@ -3598,6 +2976,7 @@
 			"npm": [
 				"babel-runtime",
 				"csv-parser",
+				"activedirectory2",
 				"jsreport-browser-client-dist"
 			]
 		}
