@@ -25,16 +25,22 @@ cd  AuditTool
 ############# for docker ##########################################################
 # Ferma tutti i containers
 docker stop $(docker ps -a -q)
+
 # Elimina tutti i container
 docker rm $(docker ps -a -q)
+
 # Elimina l'immagine audittol 
 docker rmi $(docker images audittool -q) -f
+
 # Elimina tutte le immagini
 # docker rmi $(docker images -a -q)
-# Elimina tutte le reti
-docker rm $(docker network ls -q) -f
+
+# Elimina tutte le reti tranne quella di default 172.17.0.0/16
+docker netork rm $(docker network ls -q) 
+
 # crea la nuova sottorete mttlan
 docker network create --subnet=192.168.2.0/16 mttlan
+
 # Avvia container
 docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 80:5488 --restart always -v /jsreport-home:/jsreport jsreport/jsreport
 docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v /my/own/datadir:/data/db mongo
@@ -44,13 +50,15 @@ echo "FROM jshimko/meteor-launchpad:devbuild" > Dockerfile
 #  echo " Configurazione da utilizzare in produzione"
 echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
 # cp ../files/.dockerignore  ~/AuditTool/AuditTool
-docker build --build-arg NODE_VERSION=8.9.4 -t mttstt/audittool .
+#docker build --build-arg NODE_VERSION=8.9.4 -t mttstt/audittool .
 
 echo "Docker images ls:"
 docker image ls
 
-docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -P audittool
+docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -P mttstt/audittool
 
 docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
 ##################################################################################
+
+
 
