@@ -7,6 +7,8 @@ echo "In order to delete all: docker system prune"
 echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
 echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
 
+rm .gitignore
+
 cd /home/mtt/AuditTool
 
 cp -R files/ /tmp
@@ -22,9 +24,10 @@ cd  AuditTool
 ############# for docker ##########################################################
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
-docker rmi $(docker images -a -q)
+docker rmi $(docker images audittool -q) -f
+# docker rmi $(docker images -a -q)
+# docker system prune -f
 
-docker system prune -f
 # docker network create --subnet=192.168.2.0/16 mttlan
 docker run -d -p 80:5488 --restart always -v /jsreport-home:/jsreport jsreport/jsreport
 docker run --name meteor-mongo -v /my/own/datadir:/data/db -d mongo
