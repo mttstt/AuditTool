@@ -26,7 +26,7 @@ case $key in
         # Per copiare i dati devo prima creare un container dummy temporaneo
         echo "Copio file lib"
         docker container create --name dummy -v audittoolvolume:/tmp/files/lib hello-world
-        docker cp ~/AuditTool/files/lib/ dummy:/tmp/files/lib/
+        docker cp ~/AuditTool/files/lib/ dummy:/tmp/files/lib
         docker rm dummy
 
         echo "Elimina tutte le immagini"
@@ -98,11 +98,10 @@ echo "FROM jshimko/meteor-launchpad:devbuild" > Dockerfile
 # cp ../files/.dockerignore  ~/AuditTool/AuditTool
 docker build --build-arg NODE_VERSION=8.9.4 -t mttstt/audittool .
 
+docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -v audittoolvolume:/tmp/files/lib -P mttstt/audittool
+
 echo "Docker images ls:"
 docker image ls
 
-docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -v audittoolvolume:/tmp/files/lib -P mttstt/audittool
-
-#docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -P mttstt/audittool
 docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
 ################################################################################################################################
