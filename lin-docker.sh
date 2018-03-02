@@ -1,5 +1,5 @@
 #!/bin/bash
-# -n: ricrea la struttura
+# -n: cancella tutto (container, images,..) e ricrea la struttura 
 
 while [[ $# -gt 0 ]]
 do
