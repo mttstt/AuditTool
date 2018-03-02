@@ -94,7 +94,7 @@ docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/
 echo "Configurazione da utilizzare in produzione"
 echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
 
-# cp ../files/.dockerignore  ~/AuditTool/AuditTool
+cp ../files/.dockerignore  ~/AuditTool/AuditTool
 docker build \
  --build-arg NODE_VERSION=8.9.4 \
  --build-arg INSTALL_MONGO=false \
