@@ -1,17 +1,17 @@
 ### 0.0.7 (27-02-2018)
 
 ##### New Features
-* **docker:**  New architecture on docker
-* **create lin-docker.sh to create container:**  new container jsreport, mongodb, audittool
-* **Renamed some files**
+* **Docker:**  New architecture on docker
+* **Create lin-docker.sh:**  Create new container jsreport, mongodb, audittool
+* **Renamed some files:**
 
 
 ### 0.0.6 (16-12-2017)
 
 ##### New Features
-*	**:**   Utilizzare la numerazione car.sci per le verifiche
-*	**:**   Automatismo numerazione audit con il cambio di status "approvato".
-* **:**   Aggiornamento template verbale pdf
+*	**:**   Use the car.sci numbering for the checks.
+*	**:**   Auditing numbering with the change of status "approved".
+* **:**   Update of the verbal template pdf.
 
 ##### BUG
 *	**BUG**   automatic audit-number
