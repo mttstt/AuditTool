@@ -9,9 +9,9 @@
 ### 0.0.6 (16-12-2017)
 
 ##### New Features
-*	** **   Use the car.sci numbering for the checks.
-*	** **   Auditing numbering with the change of status "approved"
-* ** **   Update of the verbal template pdf
+*	Use the car.sci numbering for the checks.
+*	Auditing numbering with the change of status "approved"
+* Update of the verbal template pdf
 
 ##### BUG
 *	**BUG**   automatic audit-number
