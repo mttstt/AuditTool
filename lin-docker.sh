@@ -10,7 +10,7 @@ case $key in
     echo "Clean ALL"
 
         echo "Ferma tutti i containers"
-        docker stop $(docker ps -a -q)
+        docker container stop $(docker ps -a -q)
 
         echo "Elimina tutti i container"
         docker container rm $(docker ps -a -q)
@@ -57,14 +57,16 @@ done
 echo "Inizio"
 
 # sudo systemctl stop firewalld.service
-echo "In order to list images: docker images -a"
-echo "In order to delete container: docker rm <ID container>"
-echo "In order to delete: docker rmi <ID Images>"
-echo "In order to delete all: docker system prune"
-echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
-echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
+# echo "In order to list images: docker images -a"
+# echo "In order to delete container: docker rm <ID container>"
+# echo "In order to delete: docker rmi <ID Images>"
+# echo "In order to delete all: docker system prune"
+# echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
+# echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
 
 rm -rf .git
+
+cd ~/AuditTool
 
 cp -R files/ /tmp
 
@@ -96,6 +98,8 @@ echo "Configurazione da utilizzare in produzione"
 echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
 
 cp ../files/.dockerignore  ~/AuditTool/AuditTool
+
+# Crea container Audittool
 docker build \
  --build-arg NODE_VERSION=8.9.4 \
  --build-arg INSTALL_MONGO=false \
@@ -103,6 +107,7 @@ docker build \
  --build-arg INSTALL_GRAPHICSMAGICK=false \
  -t mttstt/audittool .
 
+# Avvia container Audittool
 docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -v audittoolvolume:/tmp/files/lib -P mttstt/audittool
 
 echo "Docker images ls:"
