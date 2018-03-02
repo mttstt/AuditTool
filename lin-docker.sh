@@ -77,13 +77,13 @@ cd  AuditTool
 
 ############################################################## for docker ##########################################################
 # Ferma tutti i containers
-docker stop $(docker ps -a -q)
+docker container stop $(docker ps -a -q)
 
 # Elimina tutti i container
 docker rm $(docker ps -a -q)
 
 # Elimina l'immagine audittol
-docker rmi $(docker images audittool -q) -f
+docker rmi $(docker images mttstt/audittool -q) -f
 
 # Avvia container
 docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 80:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
@@ -96,7 +96,12 @@ echo "FROM jshimko/meteor-launchpad:devbuild" > Dockerfile
 #echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
 
 # cp ../files/.dockerignore  ~/AuditTool/AuditTool
-docker build --build-arg NODE_VERSION=8.9.4 -t mttstt/audittool .
+docker build \
+ --build-arg NODE_VERSION=8.9.4 \
+ --build-arg INSTALL_MONGO=false \
+ --build-arg INSTALL_PHANTOMJS=false \
+ --build-arg INSTALL_GRAPHICSMAGIC=false \
+ -t mttstt/audittool .
 
 docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -v audittoolvolume:/tmp/files/lib -P mttstt/audittool
 
