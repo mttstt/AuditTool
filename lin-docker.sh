@@ -13,10 +13,10 @@ case $key in
         docker stop $(docker ps -a -q)
 
         echo "Elimina tutti i container"
-        docker rm $(docker ps -a -q)
+        docker container rm $(docker ps -a -q)
 
         echo "Elimina tutti i volumi"
-        docker rm $(docker volume ls -q)
+        docker volume rm $(docker volume ls -q)
 
         echo "Crea volumi"
         docker volume audittoolvolume
@@ -64,7 +64,9 @@ echo "In order to delete all: docker system prune"
 echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
 echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
 
-rm -rf .gitcp -R files/ /tmp
+rm -rf .git
+
+cp -R files/ /tmp
 
 rm -fR AuditTool
 
@@ -79,7 +81,7 @@ cd  AuditTool
 docker container stop $(docker ps -a -q)
 
 # Elimina tutti i container
-docker rm $(docker ps -a -q)
+docker container rm $(docker ps -a -q)
 
 # Elimina l'immagine audittol
 docker rmi $(docker images mttstt/audittool -q) -f
