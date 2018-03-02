@@ -26,7 +26,7 @@ case $key in
         # Per copiare i dati devo prima creare un container dummy temporaneo
         echo "Copio file lib"
         docker container create --name dummy -v audittoolvolume:/tmp/files/lib hello-world
-        docker cp ~/AuditTool/files/lib/ dummy:/tmp/files/lib
+        docker cp ~/AuditTool/files/lib dummy:/tmp/files
         docker rm dummy
 
         echo "Elimina tutte le immagini"
