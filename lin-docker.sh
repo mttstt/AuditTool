@@ -64,7 +64,6 @@ echo "In order to delete all: docker system prune"
 echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
 echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
 
-rm .gitignore
 rm -rf .gitcp -R files/ /tmp
 
 rm -fR AuditTool
