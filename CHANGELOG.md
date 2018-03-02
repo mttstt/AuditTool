@@ -1,8 +1,8 @@
 ### 0.0.7 (27-02-2018)
 
 #### New Features
-* **docker**  New architecture on docker
-* **create lin-docker.sh to create container**  new container jsreport, mongodb, audittool
+* **docker:**  New architecture on docker
+* **create lin-docker.sh to create container:**  new container jsreport, mongodb, audittool
 * **Renamed some files**
 
 
