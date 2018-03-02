@@ -89,11 +89,10 @@ docker rmi $(docker images mttstt/audittool -q) -f
 docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 80:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
 docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
 
-echo "METEOR in versione development"
-echo "FROM jshimko/meteor-launchpad:devbuild" > Dockerfile
-
-#echo "Configurazione da utilizzare in produzione"
-#echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
+#echo "METEOR in versione development"
+#echo "FROM jshimko/meteor-launchpad:devbuild" > Dockerfile
+echo "Configurazione da utilizzare in produzione"
+echo "FROM jshimko/meteor-launchpad:latest" > Dockerfile
 
 # cp ../files/.dockerignore  ~/AuditTool/AuditTool
 docker build \
