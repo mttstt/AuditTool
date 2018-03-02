@@ -100,7 +100,7 @@ docker build \
  --build-arg NODE_VERSION=8.9.4 \
  --build-arg INSTALL_MONGO=false \
  --build-arg INSTALL_PHANTOMJS=false \
- --build-arg INSTALL_GRAPHICSMAGIC=false \
+ --build-arg INSTALL_GRAPHICSMAGICK=false \
  -t mttstt/audittool .
 
 docker run -d --net mttlan --ip 192.168.2.3 --name audittool -e MONGO_URL=mongodb://192.168.2.2 -e STARTUP_DELAY=10 -v audittoolvolume:/tmp/files/lib -P mttstt/audittool
