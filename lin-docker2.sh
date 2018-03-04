@@ -80,7 +80,7 @@ meteor-kitchen AuditTool.json AuditTool
 
 cd  AuditTool
 
-meteor build --architecture=os.linux.x86_64 --directory ./
+meteor build --architecture=os.linux.x86_64 ./
 
 ############################################################## for docker ##########################################################
 # Ferma tutti i containers
