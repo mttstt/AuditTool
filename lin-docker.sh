@@ -19,9 +19,9 @@ case $key in
         docker volume rm $(docker volume ls -q)
 
         echo "Crea volumi"
-        docker volume audittoolvolume
-        docker volume jsreportvolume
-        docker volume mongovolume
+        docker create volume audittoolvolume
+        docker create volume jsreportvolume
+        docker create volume mongovolume
 
         # Per copiare i dati devo prima creare un container dummy temporaneo
         echo "Copio file lib"
