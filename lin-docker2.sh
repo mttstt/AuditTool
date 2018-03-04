@@ -21,10 +21,9 @@ case $key in
         docker volume rm $(docker volume ls -q)
 
         echo "Crea volumi"
-        docker volume audittoolvolume
-        docker volume jsreportvolume
-        docker volume mongovolume
-        docker volume audittool_dir
+        docker volume create audittoolvolume
+        docker volume create jsreportvolume
+        docker volume create mongovolume
 
         # Per copiare i dati devo prima creare un container dummy temporaneo
         echo "Copio file lib"
@@ -99,8 +98,10 @@ docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/
 
 cp ../files/.dockerignore  ~/AuditTool/AuditTool
 
-docker run -it \
- --net mttlan --ip 192.168.2.5 \
+docker run \ 
+ -it \
+ --net mttlan \ 
+ --ip 192.168.2.5 \
  --name audittool \
  -e MONGO_URL=mongodb://192.168.2.2 \
  -e ROOT_URL=http://192.168.2.5 \
