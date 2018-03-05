@@ -72,8 +72,6 @@ echo "Inizio"
 # echo "In order to install Mongodb: docker run --name mongo-meteor -d mongo"
 # echo "In order to create network: docker network create --subnet=192.168.1.0/16 mttlan"
 
-rm -rf .git
-
 cd ~/AuditTool
 
 cp -R files/ /tmp
