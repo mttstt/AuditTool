@@ -1,7 +1,9 @@
 #!/bin/bash
+#
 # -n: cancella tutto (container, images,..) e ricrea la struttura 
-
-#newgrp docker
+#
+# newgrp docker
+#
 
 while [[ $# -gt 0 ]]
 do
@@ -35,17 +37,21 @@ case $key in
         docker rmi $(docker images -a -q)
 
         echo "Elimina tutte le reti tranne quella di default 172.17.0.0/16"
-        docker network rm $(docker network ls -q)
+        docker network rm mttlan
 
         echo "Crea nuova sottorete mttlan"
         docker network create --subnet=192.168.2.0/16 mttlan
+       
+        # Avvia container
+        docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 80:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
+        docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
 
     shift # past argument
     shift # past value
     ;;
     -b|--bye)
     echo "bye"
- 
+
     echo "bye"
     shift # past argument
     shift # past argument
@@ -72,7 +78,7 @@ cd ~/AuditTool
 
 cp -R files/ /tmp
 
-rm -fR AuditTool
+sudo rm -fR AuditTool
 
 wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
 
@@ -83,28 +89,16 @@ cd  AuditTool
 meteor build --architecture=os.linux.x86_64 ./
 
 ############################################################## for docker ##########################################################
-# Ferma tutti i containers
-docker container stop $(docker ps -a -q)
+# Se attivo ferma ed elimina il container audittool  
+docker stop audittool || true && docker rm audittool || true
 
-# Elimina tutti i container
-docker container rm $(docker ps -a -q)
-
-# Elimina l'immagine audittol
-docker rmi $(docker images mttstt/audittool -q) -f
-
-# Avvia container
-docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 80:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
-docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
-
-cp ../files/.dockerignore  ~/AuditTool/AuditTool
-
-docker run \ 
+docker run \
  -it \
- --net mttlan \ 
- --ip 192.168.2.5 \
+ --net mttlan \
+ --ip 192.168.2.3 \
  --name audittool \
  -e MONGO_URL=mongodb://192.168.2.2 \
- -e ROOT_URL=http://192.168.2.5 \
+ -e ROOT_URL=http://192.168.2.3 \
  -v audittoolvolume:/tmp/files/lib \
  -v /home/mtt/AuditTool/AuditTool:/bundle \
  -p 8080:80 \
