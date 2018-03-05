@@ -78,6 +78,8 @@ cp -R files/ /tmp
 
 sudo rm -fR AuditTool
 
+rm -rf ./git
+
 wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
 
 meteor-kitchen AuditTool.json AuditTool
