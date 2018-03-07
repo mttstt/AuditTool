@@ -10,7 +10,6 @@
 #
 # Useful comand for ubuntu 17: newgrp docker
 
-
 while [[ $# -gt 0 ]]
 do
 key="$1"
@@ -177,7 +176,6 @@ case $key in
     shift # past argument
     ;;
     
-    
     *)    # unknown option
     echo use "./lin-docker.sh [option]"
     echo ""
@@ -187,9 +185,7 @@ case $key in
     echo " -r: delete all (containers, images, volumes, networks..) and create all again"
     echo ""
     shift # past argument# Options:
-
     ;;
-    
-    
+        
 esac
 done
