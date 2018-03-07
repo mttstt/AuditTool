@@ -44,6 +44,7 @@ case $key in
         docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
         ############################################################## create tar meteor ###################################################
         cd ~/AuditTool
+        rm .gitignore
         cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
@@ -116,6 +117,7 @@ case $key in
     -n|--new)
         echo "Create tar meteor e run docker"
         cd ~/AuditTool
+        rm .gitignore
         cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
