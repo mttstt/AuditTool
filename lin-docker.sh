@@ -16,7 +16,7 @@ do
 key="$1"
 
 case $key in
-    -r|--recreate)
+    -r|--reload)
         echo "Recreate all"
         echo "Ferma tutti i containers"
         docker container stop $(docker ps -a -q)
