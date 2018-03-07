@@ -86,10 +86,7 @@ case $key in
     shift # past argument
     shift # past argument
     ;;
-    *)    # unknown option
-    shift # past argument
-    ;;
-    
+ 
     -d|--delete)
         echo "Delete All"
         echo "Ferma tutti i containers"
@@ -151,14 +148,21 @@ case $key in
     
     -b|--bye)
     echo "bye"
-
     echo "bye"
     shift # past argument
     shift # past argument
     ;;
     
     *)    # unknown option
-    shift # past argument
+    echo use "./lin-docker.sh [option]"
+    echo ""
+    echo " -t: Create tar meteor"
+    echo " -n: Create tar meteor and Run container"
+    echo " -d: Delete all (containers, images, volumes, networks..)"
+    echo " -r: delete all (containers, images, volumes, networks..) and create all again"
+    echo ""
+    shift # past argument# Options:
+
     ;;
     
     
