@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# -n: cancella tutto (container, images,..) e ricrea la struttura 
+# -n: delete all (containers, images, volumes, networks..) and create all again
 #
-# newgrp docker
+# Useful comand for ubuntu 17: newgrp docker
 #
 
 while [[ $# -gt 0 ]]
