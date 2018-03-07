@@ -43,7 +43,13 @@ case $key in
         docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
         ############################################################## create tar meteor ###################################################
         cd ~/AuditTool
-        rm .gitignore
+        
+        if [ ! -f ~/AuditTool/.gitignore ]; then
+            echo ".gitignore not found!"
+        else
+            rm .gitignore
+        fi
+        
         rm -rf .git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
@@ -78,7 +84,11 @@ case $key in
     -t|--tar)
         echo "Build Meteor tar"
         cd ~/AuditTool
-        rm .gitignore
+        if [ ! -f ~/AuditTool/.gitignore ]; then
+            echo ".gitignore not found!"
+        else
+            rm .gitignore
+        fi
         rm -rf .git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
@@ -119,7 +129,11 @@ case $key in
     -n|--new)
         echo "Create tar meteor e run docker"
         cd ~/AuditTool
-        rm .gitignore
+        if [ ! -f ~/AuditTool/.gitignore ]; then
+            echo ".gitignore not found!"
+        else
+            rm .gitignore
+        fi
         rm -rf .git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
