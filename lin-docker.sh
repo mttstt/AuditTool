@@ -150,12 +150,33 @@ case $key in
     shift # past argument
     ;;
     
+    -l|--launch)
+        echo "Run AuditTool"
+        docker stop audittool || true && docker rm audittool || true
+        docker run \
+         -it \
+         --net mttlan \
+         --ip 192.168.2.3 \
+         --name audittool \
+         -e MONGO_URL=mongodb://192.168.2.2 \
+         -e ROOT_URL=http://192.168.2.3 \
+         -v audittoolvolume:/tmp/files/lib \
+         -v /home/mtt/AuditTool/AuditTool:/bundle \
+         -p 8080:80 \
+         abernix/meteord:node-8.9.3-base \
+         /bin/bash
+
+    shift # past argument
+    shift # past argument
+    ;;
+    
     -b|--bye)
     echo "bye"
     echo "bye"
     shift # past argument
     shift # past argument
     ;;
+    
     
     *)    # unknown option
     echo use "./lin-docker.sh [option]"
