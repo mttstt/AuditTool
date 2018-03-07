@@ -45,6 +45,7 @@ case $key in
         ############################################################## create tar meteor ###################################################
         cd ~/AuditTool
         rm .gitignore
+        rm -rf ./git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
@@ -118,6 +119,7 @@ case $key in
         echo "Create tar meteor e run docker"
         cd ~/AuditTool
         rm .gitignore
+        rm -rf ./git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
