@@ -1,16 +1,17 @@
 #!/bin/bash
 #
 # Use: lin-docker.sh [OPTION]
-# Docker for AuditTool
+# Put AuditTool in a Docker architecture
 #
 # Mandatory options:
-# Options:
+#
+# -h, --help        Help
 # -l, --launch      Launch container AuditTool
 # -t, --tar         Create tar meteor
 # -n, --new         Create tar meteor and Run container
 # -d, --delete      Delete all (containers, images, volumes, networks)
 # -r, --reload      Delete all (containers, images, volumes, networks) and create all again
-# -h, --help        Help
+
 #
 # Useful comand for ubuntu 17: newgrp docker
 
@@ -213,19 +214,18 @@ case $key in
     shift # past argument
     ;;
     
-    
     *)    # unknown option
         echo use "./lin-docker.sh [OPTION]"
         echo "Docker for AuditTool"
         echo ""
         echo "Mandatory options:"
-        echo "Options:"
+        echo ""
+        echo "-h, --help        Help"
         echo "-l, --launch      Launch container AuditTool"
         echo "-t, --tar         Create tar meteor"
         echo "-n, --new         Create tar meteor and Run container"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
         echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
-        echo "-h, --help        Help"
         echo ""
     shift # past argument# Options:
     ;;
