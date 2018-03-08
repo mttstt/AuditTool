@@ -1,12 +1,16 @@
 #!/bin/bash
 #
-# Usage: lin-docker.sh [option]
+# Use: lin-docker.sh [OPTION]
+# Docker for AuditTool
 #
+# Mandatory options:
 # Options:
-# -t: Create tar meteor
-# -n: Create tar meteor and Run container
-# -d: Delete all (containers, images, volumes, networks..)
-# -r: delete all (containers, images, volumes, networks..) and create all again
+# -l, --launch      Launch container AuditTool
+# -t, --tar         Create tar meteor
+# -n, --new         Create tar meteor and Run container
+# -d, --delete      Delete all (containers, images, volumes, networks)
+# -r, --reload      Delete all (containers, images, volumes, networks) and create all again
+# -h, --help        Help
 #
 # Useful comand for ubuntu 17: newgrp docker
 
@@ -192,14 +196,37 @@ case $key in
     shift # past argument
     ;;
     
+    -h|--help)
+        echo use "./lin-docker.sh [OPTION]"
+        echo "Docker for AuditTool"
+        echo ""
+        echo "Mandatory options:"
+        echo "Options:"
+        echo "-l, --launch      Launch container AuditTool"
+        echo "-t, --tar         Create tar meteor"
+        echo "-n, --new         Create tar meteor and Run container"
+        echo "-d, --delete      Delete all (containers, images, volumes, networks)"
+        echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
+        echo "-h, --help        Help"
+        echo ""
+    shift # past argument
+    shift # past argument
+    ;;
+    
+    
     *)    # unknown option
-    echo use "./lin-docker.sh [option]"
-    echo ""
-    echo " -t: Create tar meteor"
-    echo " -n: Create tar meteor and Run container"
-    echo " -d: Delete all (containers, images, volumes, networks..)"
-    echo " -r: delete all (containers, images, volumes, networks..) and create all again"
-    echo ""
+        echo use "./lin-docker.sh [OPTION]"
+        echo "Docker for AuditTool"
+        echo ""
+        echo "Mandatory options:"
+        echo "Options:"
+        echo "-l, --launch      Launch container AuditTool"
+        echo "-t, --tar         Create tar meteor"
+        echo "-n, --new         Create tar meteor and Run container"
+        echo "-d, --delete      Delete all (containers, images, volumes, networks)"
+        echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
+        echo "-h, --help        Help"
+        echo ""
     shift # past argument# Options:
     ;;
         
