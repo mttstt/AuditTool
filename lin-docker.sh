@@ -10,8 +10,7 @@
 # -t, --tar         Create tar meteor
 # -n, --new         Create tar meteor and Run container
 # -d, --delete      Delete all (containers, images, volumes, networks)
-# -r, --reload      Delete all (containers, images, volumes, networks) and create all again
-
+# -r, --reload      Delete all (containers, images, volues, networks) and create all again
 #
 # Useful comand for ubuntu 17: newgrp docker
 
