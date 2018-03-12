@@ -64,11 +64,11 @@ case $key in
         JRSI=$(docker inspect jsreport --format '{{ .NetworkSettings.IPAddress }}')
         docker run \
          -it \
-         --name audittool \     
+         --name audittool \
          --link "meteor-mongo:db" \
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
-         -e "jsreportServerIp=$JRSI" \
+         -e "jsReportServerIp=$JRSI" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -147,11 +147,11 @@ case $key in
         JRSI=$(docker inspect jsreport --format '{{ .NetworkSettings.IPAddress }}')
         docker run \
          -it \
-         --name audittool \     
+         --name audittool \
          --link "meteor-mongo:db" \
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
-         -e "jsreportServerIp=$JRSI" \
+         -e "jsReportServerIp=$JRSI" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -172,7 +172,7 @@ case $key in
         JRSI=$(docker inspect jsreport --format '{{ .NetworkSettings.IPAddress }}')
         docker run \
          -it \
-         --name audittool \     
+         --name audittool \
          --link "meteor-mongo:db" \
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
