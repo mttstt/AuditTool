@@ -194,23 +194,6 @@ case $key in
     shift # past argument
     ;;
     
-    -h|--help)
-        echo use "./lin-docker.sh [OPTION]"
-        echo "Docker for AuditTool"
-        echo ""
-        echo "Mandatory options:"
-        echo "Options:"
-        echo "-l, --launch      Launch container AuditTool"
-        echo "-t, --tar         Create tar meteor"
-        echo "-n, --new         Create tar meteor and Run container"
-        echo "-d, --delete      Delete all (containers, images, volumes, networks)"
-        echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
-        echo "-h, --help        Help"
-        echo ""
-    shift # past argument
-    shift # past argument
-    ;;
-    
     *)    # unknown option
         echo use "./lin-docker.sh [OPTION]"
         echo "Docker for AuditTool"
