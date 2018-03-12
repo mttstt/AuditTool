@@ -38,20 +38,10 @@ case $key in
         docker rm dummy
         echo "Elimina tutte le immagini"
         docker rmi $(docker images -a -q)
-        echo "Elimina tutte le reti tranne quella di default 172.17.0.0/16"
-        docker network rm mttlan
-        echo "Crea nuova sottorete mttlan"
-        docker network create \
-          --ip-masq=true \
-          --icc=enable \
-          --ip=0.0.0.0 \
-          --mtu=1500 \
-          --subnet=192.168.2.0/16 \
-          mttlan      
-            
+                    
         # Avvia container
-        docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 5488:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
-        docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
+        docker run -d --name jsreport -p 5488:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
+        docker run -d --name meteor-mongo -v mongovolume:/data/db mongo
         ############################################################## create tar meteor ###################################################
         cd ~/AuditTool
         
@@ -73,11 +63,10 @@ case $key in
         docker stop audittool || true && docker rm audittool || true
         docker run \
          -it \
-         --net mttlan \
-         --ip 192.168.2.3 \
-         --name audittool \
-         -e MONGO_URL=mongodb://192.168.2.2 \
-         -e ROOT_URL=http://192.168.2.3 \
+         --name audittool \     
+         --link "meteor-mongo:db" \
+         -e "MONGO_URL=mongodb://db" \
+         -e ROOT_URL=http://127.0.0.1 \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -130,8 +119,6 @@ case $key in
         docker rm dummy
         echo "Elimina tutte le immagini"
         docker rmi $(docker images -a -q)
-        echo "Elimina tutte le reti tranne quella di default 172.17.0.0/16"
-        docker network rm mttlan
 
     shift # past argument
     shift # past argument
@@ -157,11 +144,10 @@ case $key in
         docker stop audittool || true && docker rm audittool || true
         docker run \
          -it \
-         --net mttlan \
-         --ip 192.168.2.3 \
-         --name audittool \
-         -e MONGO_URL=mongodb://192.168.2.2 \
-         -e ROOT_URL=http://192.168.2.3 \
+         --name audittool \     
+         --link "meteor-mongo:db" \
+         -e "MONGO_URL=mongodb://db" \
+         -e ROOT_URL=http://127.0.0.1 \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -181,11 +167,10 @@ case $key in
         docker stop audittool || true && docker rm audittool || true
         docker run \
          -it \
-         --net mttlan \
-         --ip 192.168.2.3 \
-         --name audittool \
-         -e MONGO_URL=mongodb://192.168.2.2 \
-         -e ROOT_URL=http://192.168.2.3 \
+         --name audittool \     
+         --link "meteor-mongo:db" \
+         -e "MONGO_URL=mongodb://db" \
+         -e ROOT_URL=http://127.0.0.1 \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
