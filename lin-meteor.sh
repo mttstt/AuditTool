@@ -6,6 +6,14 @@ jsreport start &
 
 # sudo systemctl stop firewalld.service
 
+if [ ! -f ~/AuditTool/.gitignore ]; then
+        echo ".gitignore not found!"
+else
+    rm .gitignore
+fi
+     
+rm -rf .git
+
 cd /home/mtt/AuditTool
 
 cp -R files/ /tmp
