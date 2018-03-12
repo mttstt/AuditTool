@@ -41,7 +41,14 @@ case $key in
         echo "Elimina tutte le reti tranne quella di default 172.17.0.0/16"
         docker network rm mttlan
         echo "Crea nuova sottorete mttlan"
-        docker network create --subnet=192.168.2.0/16 mttlan      
+        docker network create \
+          --ip-masq=true \
+          --icc=enable \
+          --ip=0.0.0.0 \
+          --mtu=1500 \
+          --subnet=192.168.2.0/16 \
+          mttlan      
+            
         # Avvia container
         docker run -d --net mttlan --ip 192.168.2.1 --name jsreport -p 5488:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
         docker run -d --net mttlan --ip 192.168.2.2 --name meteor-mongo -v mongovolume:/data/db mongo
