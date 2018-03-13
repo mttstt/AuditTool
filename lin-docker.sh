@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [OPTION]
+# Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)
 # Put AuditTool in a Docker architecture
 #
-# Mandatory options:
+# Possible commands:
 #
 # -h, --help        Help
 # -l, --launch      Launch container AuditTool
