@@ -199,10 +199,10 @@ case $key in
     ;;
     
     *)    # unknown option
-        echo use "./lin-docker.sh [OPTION]"
+        echo Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)
         echo "Docker for AuditTool"
         echo ""
-        echo "Mandatory options:"
+        echo "Possible commands:"
         echo ""
         echo "-h, --help        Help"
         echo "-l, --launch      Launch container AuditTool"
