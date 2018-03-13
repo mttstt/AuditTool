@@ -17,6 +17,7 @@
 while [[ $# -gt 0 ]]
 do
 key="$1"
+passwdAD="$2"
 
 case $key in
     -r|--reload)
