@@ -69,6 +69,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
+         -e "passwdAD=$passwdAD" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -152,6 +153,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
+         -e "passwdAD=$passwdAD" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -177,6 +179,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
+         -e "passwdAD=$passwdAD" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
