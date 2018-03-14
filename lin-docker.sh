@@ -199,7 +199,7 @@ case $key in
     ;;
     
     *)    # unknown option
-        echo Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)
+        echo "Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)"
         echo "Docker for AuditTool"
         echo ""
         echo "Possible commands:"
