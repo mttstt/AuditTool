@@ -42,7 +42,7 @@ case $key in
                     
         # Avvia container
         docker run -d --name jsreport -p 5488:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
-        docker run -d --name meteor-mongo -v mongovolume:/data/db mongo
+        docker run -d --name meteor-mongo -p 27017:27017 -v mongovolume:/data/db mongo
         ############################################################## create tar meteor ###################################################
         cd ~/AuditTool
         
