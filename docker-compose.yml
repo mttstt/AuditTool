@@ -1,12 +1,24 @@
-dashboard:
+version '3'
+
+services:
   image: mttstt/audittool
   ports:
    - "8080:80"
   links:
    - mongo
+  volumes:
+   - audittoolvolume:/tmp/files/lib 
   environment:
    - MONGO_URL=mongodb://mongo/audittool
    - ROOT_URL=http://127.0.0.1
 
 mongo:
   image: mongo:latest
+  volumes:
+  - mongovolume:/data/db
+
+jsreport:
+  image: jsreport/jsreport:latest
+  volumes:
+   - jsreportvolume:/jsreport
+    
