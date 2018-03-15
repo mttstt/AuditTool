@@ -8,6 +8,8 @@
 # -h, --help        Help
 # -l, --launch      Launch container AuditTool
 # -t, --tar         Create tar meteor
+# -m, --meteor      Launch meteor, no Docker
+# -o, --onbuild     Build Docker image
 # -n, --new         Create tar meteor and Run container
 # -d, --delete      Delete all (containers, images, volumes, networks)
 # -r, --reload      Delete all (containers, images, volues, networks) and create all again
@@ -231,6 +233,27 @@ case $key in
     shift # past argument
     ;;
 
+    -m|--meteor)
+        echo "meteor"
+        jsreport init &
+        jsreport start &
+        if [ ! -f ~/AuditTool/.gitignore ]; then
+                echo ".gitignore not found!"
+        else
+            rm .gitignore
+        fi
+        rm -rf .git
+        cd /home/mtt/AuditTool
+        cp -R files/ /tmp
+        rm -fR AuditTool
+        wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
+        meteor-kitchen AuditTool.json AuditTool
+        cd AuditTool
+        meteor
+    shift # past argument
+    shift # past argument
+    ;;
+    
     -b|--bye)
     echo "bye"
     echo "bye"
@@ -247,6 +270,8 @@ case $key in
         echo "-h, --help        Help"
         echo "-l, --launch      Launch container AuditTool"
         echo "-t, --tar         Create tar meteor"
+        echo "-m, --meteor      Launch meteor, no Docker"
+        echo "-o, --onbuild     Build Docker image"
         echo "-n, --new         Create tar meteor and Run container"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
         echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
