@@ -1,0 +1,12 @@
+dashboard:
+  image: mttstt/audittool
+  ports:
+   - "8080:80"
+  links:
+   - mongo
+  environment:
+   - MONGO_URL=mongodb://mongo/audittool
+   - ROOT_URL=http://127.0.0.1
+
+mongo:
+  image: mongo:latest
