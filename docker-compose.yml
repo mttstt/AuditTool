@@ -19,6 +19,8 @@ mongo:
 
 jsreport:
   image: jsreport/jsreport:latest
+  ports:
+   - "5488:5488"
   volumes:
    - jsreportvolume:/jsreport
     
