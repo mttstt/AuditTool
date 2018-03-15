@@ -1,8 +1,8 @@
-ersion: '3'
+version: '3'
 
 services:
   web:
-    image: mttstt
+    image: mttstt/audittool
     ports:
      - "8080:80"
     links:
@@ -21,7 +21,7 @@ services:
     - mongovolume:/data/db
 
   jsreport:
-    image: jsreport
+    image: jsreport/jsreport
     restart: always
     ports:
      - "5488:5488"
@@ -32,3 +32,4 @@ volumes:
    jsreportvolume:
    audittoolvolume:
    mongovolume:
+
