@@ -226,6 +226,10 @@ case $key in
         docker image ls
         docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
         ################################################################################################################################
+        
+    shift # past argument
+    shift # past argument
+    ;;
 
     -b|--bye)
     echo "bye"
