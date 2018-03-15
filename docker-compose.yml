@@ -1,29 +1,34 @@
-version '3'
+ersion: '3'
+
 services:
   web:
-    image: mttstt/audittool
+    image: mttstt
     ports:
      - "8080:80"
     links:
      - mongo
     volumes:
-     - audittoolvolume:/tmp/files/lib 
+     - audittoolvolume:/tmp/files/lib
     environment:
      - MONGO_URL=mongodb://mongo/audittool
      - ROOT_URL=http://127.0.0.1
      - "jsReportServerIp:{$JRSI}"
      - "passwdAD:${passwdAD}"
-     
+
   mongo:
-    image: mongo:latest
+    image: mongo
     volumes:
     - mongovolume:/data/db
 
   jsreport:
-    image: jsreport/jsreport:latest
+    image: jsreport
     restart: always
     ports:
      - "5488:5488"
     volumes:
      - jsreportvolume:/jsreport
-    
+
+volumes:
+   jsreportvolume:
+   audittoolvolume:
+   mongovolume:
