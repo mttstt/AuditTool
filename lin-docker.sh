@@ -22,7 +22,9 @@
 # -d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)
 # -r, --reload      Delete all (containers, images, volues, networks) and create all again (old without Docker Hub)
 #
-# Useful comand for ubuntu 17: newgrp docker
+# Useful command for ubuntu 17: newgrp docker
+#
+# Useful command for bash to containet:  docker exec -ti <container> bash
 
 while [[ $# -gt 0 ]]
 do
