@@ -12,8 +12,8 @@ services:
     environment:
      - MONGO_URL=mongodb://mongo/audittool
      - ROOT_URL=http://127.0.0.1
-     - "jsReportServerIp:{$JRSI}"
-     - "passwdAD:{$passwdAD}"
+     - "jsReportServerIp:${JRSI}"
+     - "passwdAD:${passwdAD}"
 
   mongo:
     image: mongo
