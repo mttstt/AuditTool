@@ -6,14 +6,14 @@
 # Possible commands:
 #
 # -h, --help        Help
-# -l, --launch      Launch container AuditTool
+# -l, --launch      Launch container AuditTool (without Docker Hub)
 # -t, --tar         Create tar meteor
-# -m, --meteor      Launch meteor, no Docker (for quicly test)
+# -m, --meteor      Launch meteor, no Docker (without Docker)
 # -o, --onbuild     Build audittool docker image
 # -p, --push        Push audittool image to Docker Hub
-# -n, --new         Create tar meteor and Run container
+# -n, --new         Create tar meteor and Run container (without Docker Hub)
 # -d, --delete      Delete all (containers, images, volumes, networks)
-# -r, --reload      Delete all (containers, images, volues, networks) and create all again
+# -r, --reload      Delete all (containers, images, volues, networks) and create all again (without Docker Hub)
 #
 # Useful comand for ubuntu 17: newgrp docker
 
