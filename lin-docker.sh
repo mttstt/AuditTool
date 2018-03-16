@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] [Password] [release(only -p)] 
+# Use: lin-docker.sh [command] [Password] [Docker HUB release(only -p)] 
 # Put AuditTool in a Docker architecture
 # Password is:
 #               - password of Active Directory for query ldap
@@ -16,7 +16,7 @@
 # -l, --launch      Launch container AuditTool (old without Docker Hub)
 # -t, --tar         Create tar meteor (old without Docker Hub)
 # -o, --onbuild     Build audittool docker image
-# -p, --push        Push audittool image to Docker Hub
+# -p, --push        Push audittool image to Docker Hub [password Docker HUB] [New versione release]
 # -u, --dockerup    Docker-compose up
 # -n, --new         Create tar meteor and Run container (old without Docker Hub)
 # -d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)
