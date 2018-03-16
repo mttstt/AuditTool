@@ -8,6 +8,7 @@
 # -h, --help        Help
 # -l, --launch      Launch container AuditTool (without Docker Hub)
 # -t, --tar         Create tar meteor
+# -u, --dockerup    Docker-compose up
 # -m, --meteor      Launch meteor, no Docker (without Docker)
 # -o, --onbuild     Build audittool docker image
 # -p, --push        Push audittool image to Docker Hub
