@@ -218,26 +218,7 @@ case $key in
         cd  AuditTool
         echo "FROM abernix/meteord:node-8.9.3-devbuild" > Dockerfile
         docker build -t mttstt/audittool .
-        ############################################################## for docker ##########################################################
-        # Se attivo ferma ed elimina il container audittool  
-        docker stop audittool || true && docker rm audittool || true
-        JRSI=$(docker inspect jsreport --format '{{ .NetworkSettings.IPAddress }}')
-        docker run \
-         -d \
-         --name audittool \
-         --link "meteor-mongo:db" \
-         -e "MONGO_URL=mongodb://db" \
-         -e ROOT_URL=http://127.0.0.1 \
-         -e "jsReportServerIp=$JRSI" \
-         -e "passwdAD=$passwd" \
-         -v audittoolvolume:/tmp/files/lib \
-         -p 8080:80 \
-        mttstt/audittool
-        echo "Docker images ls:"
-        docker image ls
-        docker ps -q | xargs docker inspect --format '{{ .Id }} - {{ .Name }} - {{ .NetworkSettings.IPAddress }}'
-        ################################################################################################################################
-        
+       
     shift # past argument
     shift # past argument
     ;;
