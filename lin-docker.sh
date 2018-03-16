@@ -274,7 +274,8 @@ case $key in
 
     -u|--dockerup)
         echo "docker up"
-        HOST_IP=`ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1`
+        HOST_IP=`ip -4 addr show scope global dev ens33 | grep inet | awk '{print $2}' | cut -d / -f 1`
+        #HOST_IP=`ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1`
         export JRSI=$HOST_IP && export passwdAD=$passwd && docker-compose up
     shift # past argument
     shift # past argument
