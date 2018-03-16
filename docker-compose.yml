@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: mttstt/audittool:latest
+    image: mttstt/audittool:0.0.7.3
     ports:
      - "81:80"
     links:
