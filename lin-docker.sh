@@ -1,29 +1,34 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] [ActiveDirectoryPassword(optional)] [DockerPassword(only -p)] [release(only -p)] 
+# Use: lin-docker.sh [command] [Password] [release(only -p)] 
 # Put AuditTool in a Docker architecture
+# Password is:
+#               - password of Active Directory for query ldap
+#                    or
+#               - password of Docker Hub for pull images (only with -p command)
+#
+# Release: version to upload image on Docker Hub
 #
 # Possible commands:
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, no Docker (without Docker)
-# -l, --launch      Launch container AuditTool (without Docker Hub)
-# -t, --tar         Create tar meteor
-# -u, --dockerup    Docker-compose up
+# -l, --launch      Launch container AuditTool (old without Docker Hub)
+# -t, --tar         Create tar meteor (old without Docker Hub)
 # -o, --onbuild     Build audittool docker image
 # -p, --push        Push audittool image to Docker Hub
-# -n, --new         Create tar meteor and Run container (without Docker Hub)
-# -d, --delete      Delete all (containers, images, volumes, networks)
-# -r, --reload      Delete all (containers, images, volues, networks) and create all again (without Docker Hub)
+# -u, --dockerup    Docker-compose up
+# -n, --new         Create tar meteor and Run container (old without Docker Hub)
+# -d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)
+# -r, --reload      Delete all (containers, images, volues, networks) and create all again (old without Docker Hub)
 #
 # Useful comand for ubuntu 17: newgrp docker
 
 while [[ $# -gt 0 ]]
 do
 key="$1"
-passwdAD="$2"
-passwdHD="$3"
-release="$4"
+passwd="$2"
+release="$3"
 
 case $key in
     -r|--reload)
@@ -74,7 +79,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
-         -e "passwdAD=$passwdAD" \
+         -e "passwdAD=$passwd" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -158,7 +163,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
-         -e "passwdAD=$passwdAD" \
+         -e "passwdAD=$passwd" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -184,7 +189,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
-         -e "passwdAD=$passwdAD" \
+         -e "passwdAD=$passwd" \
          -v audittoolvolume:/tmp/files/lib \
          -v /home/mtt/AuditTool/AuditTool:/bundle \
          -p 8080:80 \
@@ -222,7 +227,7 @@ case $key in
          -e "MONGO_URL=mongodb://db" \
          -e ROOT_URL=http://127.0.0.1 \
          -e "jsReportServerIp=$JRSI" \
-         -e "passwdAD=$passwdAD" \
+         -e "passwdAD=$passwd" \
          -v audittoolvolume:/tmp/files/lib \
          -p 8080:80 \
         mttstt/audittool
@@ -259,7 +264,7 @@ case $key in
 
     -p|--push)
         echo "Push image to Docker Hub"
-        docker login -password $passwdDH -username mttstt
+        docker login -password $passwd -username mttstt
         docker tag mttstt/audittool mttstt/audittool:$release
         docker push mttstt/audittool:$release
     shift # past argument
@@ -270,7 +275,7 @@ case $key in
     -u|--dockerup)
         echo "docker up"
         HOST_IP=`ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1`
-        export JRSI=$HOST_IP && export passwdAD=$passwdAD && docker-compose up
+        export JRSI=$HOST_IP && export passwdAD=$passwd && docker-compose up
     shift # past argument
     shift # past argument
     ;;   
