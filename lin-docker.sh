@@ -265,7 +265,15 @@ case $key in
     shift # past argument
     ;;  
 
-    
+
+    -u|--dockerup)
+        echo "docker up"
+        HOST_IP=`ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1`
+        export HOST_IP=$HOST_IP && docker-compose up -d        
+    shift # past argument
+    shift # past argument
+    ;;   
+
     -b|--bye)
     echo "bye"
     echo "bye"
