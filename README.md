@@ -10,7 +10,7 @@ This application is implemented with the support of Group Internal Audit. The ap
 ### With docker-compose
 - git clone https://github.com/mttstt/AuditTool.git
 - cd Audittool
-- docker-compose up
+- ./lin-docker -u [passwordAD]
 - http://ip-host:81 (Audittool)
 - http://ip-host:5488 (jsreport)
   
