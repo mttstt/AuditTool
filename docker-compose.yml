@@ -2,13 +2,11 @@ version: '3'
 
 services:
   web:
-    image: mttstt/audittool:0.0.7.3
+    image: mttstt/audittool:latest
     ports:
      - "81:80"
     links:
      - mongo
-    volumes:
-     - ./files/lib/:/tmp/files/lib
     environment:
      - MONGO_URL=mongodb://mongo/audittool
      - ROOT_URL=http://127.0.0.1
