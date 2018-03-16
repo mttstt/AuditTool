@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)
+# Use: lin-docker.sh [command] [ActiveDirectoryPassword(optional)] [DockerPassword(only -p)] [release(only -p)] 
 # Put AuditTool in a Docker architecture
 #
 # Possible commands:
@@ -8,8 +8,9 @@
 # -h, --help        Help
 # -l, --launch      Launch container AuditTool
 # -t, --tar         Create tar meteor
-# -m, --meteor      Launch meteor, no Docker
-# -o, --onbuild     Build Docker image
+# -m, --meteor      Launch meteor, no Docker (for quicly test)
+# -o, --onbuild     Build audittool docker image
+# -p, --push        Push audittool image to Docker Hub
 # -n, --new         Create tar meteor and Run container
 # -d, --delete      Delete all (containers, images, volumes, networks)
 # -r, --reload      Delete all (containers, images, volues, networks) and create all again
@@ -20,6 +21,8 @@ while [[ $# -gt 0 ]]
 do
 key="$1"
 passwdAD="$2"
+passwHD="$3"
+release="$4"
 
 case $key in
     -r|--reload)
@@ -46,14 +49,12 @@ case $key in
         docker run -d --name jsreport -p 5488:5488 --restart always -v jsreportvolume:/jsreport jsreport/jsreport
         docker run -d --name meteor-mongo -p 27017:27017 -v mongovolume:/data/db mongo
         ############################################################## create tar meteor ###################################################
-        cd ~/AuditTool
-        
+        cd ~/AuditTool        
         if [ ! -f ~/AuditTool/.gitignore ]; then
             echo ".gitignore not found!"
         else
             rm .gitignore
-        fi
-        
+        fi        
         rm -rf .git
         cp -R files/ /tmp
         sudo rm -fR AuditTool
@@ -254,12 +255,23 @@ case $key in
     shift # past argument
     ;;
     
+
+    -p|--push)
+        echo "Push image to Docker Hub"
+        docker login -password $passwdDH -username mttstt
+        docker tag mttstt/audittool mttstt/audittool:$release
+        docker push mttstt/audittool:$release
+    shift # past argument
+    shift # past argument
+    ;;  
+
+    
     -b|--bye)
     echo "bye"
     echo "bye"
     shift # past argument
     shift # past argument
-    ;;
+    ;;   
     
     *)    # unknown option
         echo "Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)"
