@@ -64,6 +64,7 @@ case $key in
             rm .gitignore
         fi        
         rm -rf .git
+        cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
@@ -104,6 +105,7 @@ case $key in
             rm .gitignore
         fi
         rm -rf .git
+        cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
@@ -146,6 +148,7 @@ case $key in
             rm .gitignore
         fi
         rm -rf .git
+        cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
@@ -208,6 +211,7 @@ case $key in
             rm .gitignore
         fi
         rm -rf .git
+        cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
@@ -229,6 +233,7 @@ case $key in
             rm .gitignore
         fi
         rm -rf .git
+        cp -R files/ /tmp
         cd /home/mtt/AuditTool
         rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
