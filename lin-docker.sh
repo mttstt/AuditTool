@@ -272,20 +272,31 @@ case $key in
     ;;   
     
     *)    # unknown option
-        echo "Use: lin-docker.sh [command] ActiveDirectoryPassword(optional)"
-        echo "Docker for AuditTool"
+   
+        echo "Use: lin-docker.sh [command] [Password] [Docker HUB release(only -p)]" 
+        echo "Put AuditTool in a Docker architecture"
+        echo ""
+        echo "Password is:"
+        echo  "    - password of Active Directory for query ldap"
+        echo  "         or"
+        echo  "    - password of Docker Hub for pull images (only with -p command)"
+        echo ""
+        echo "Release: version to upload image on Docker Hub"
         echo ""
         echo "Possible commands:"
         echo ""
         echo "-h, --help        Help"
-        echo "-l, --launch      Launch container AuditTool"
-        echo "-t, --tar         Create tar meteor"
-        echo "-m, --meteor      Launch meteor, no Docker"
-        echo "-o, --onbuild     Build Docker image"
-        echo "-n, --new         Create tar meteor and Run container"
-        echo "-d, --delete      Delete all (containers, images, volumes, networks)"
-        echo "-r, --reload      Delete all (containers, images, volumes, networks) and create all again"
-        echo ""
+        echo "-m, --meteor      Launch meteor, no Docker (without Docker)"
+        echo "-l, --launch      Launch container AuditTool (old without Docker Hub)"
+        echo "-t, --tar         Create tar meteor (old without Docker Hub)"
+        echo "-o, --onbuild     Build audittool docker image"
+        echo "-p, --push        Push audittool image to Docker Hub [password Docker HUB] [New versione release]"
+        echo "-u, --dockerup    Docker-compose up
+        echo "-n, --new         Create tar meteor and Run container (old without Docker Hub)"
+        echo "-d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)"
+        echo "-r, --reload      Delete all (containers, images, volues, networks) and create all again (old without Docker Hub)"
+        echi ""   
+      
     shift # past argument# Options:
     ;;
         
