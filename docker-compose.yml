@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: mttstt/audittool:0.0.7.3
+    image: mttstt/audittool:0.0.7.4
     ports:
      - "81:80"
     links:
@@ -12,13 +12,15 @@ services:
      - ROOT_URL=http://127.0.0.1
      - jsReportServerIp
      - passwdAD
+    volums 
+     - audittool:/tmp/files/lib
 
   mongo:
     image: mongo
     ports:
      - "27017:27017"
     volumes:
-    - mongovolume:/data/db
+    - mongo:/data/db
 
   jsreport:
     image: jsreport/jsreport
@@ -26,9 +28,9 @@ services:
     ports:
      - "5488:5488"
     volumes:
-     - jsreportvolume:/jsreport
+     - jsreport:/jsreport
 
 volumes:
-   jsreportvolume:
-   audittoolvolume:
-   mongovolume:
+   jsreport:
+   audittool:
+   mongo:
