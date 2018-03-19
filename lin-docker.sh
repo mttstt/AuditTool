@@ -1,19 +1,19 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] [Password] [Docker HUB release] 
+# Use: lin-docker.sh [command] [Password] [Docker-Hub release] 
 # Put AuditTool in a Docker architecture
 #
-#./lin-docker.sh -u [Password Active Directory] [Docker HUB release] 
-#./lin-dcoker.sh -p [Password Docker Hub]
-#./lin-dcoker.sh -b [Docker HUB release] 
+#./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]
+#./lin-dcoker.sh -b [Docker-Hub release] 
+#./lin-dcoker.sh -p [Password Docker-Hub]
 #
 # Possible commands:
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, without Docker, for testing
 # -b, --build       Build audittool docker image
-# -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker HUB release] 
-# -u, --dockerup    Docker-compose up [Password Active Directory] [Docker HUB release]  
+# -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
+# -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
 # 
 # Useful command for ubuntu 17: newgrp docker
@@ -91,7 +91,7 @@ case $key in
 
     -u|--dockerup)
         echo "docker up" 
-        export TAG=$TAG && export passwdAD=$passwd && docker-compose up -d docker-compose.yml
+        export TAG=$release && export passwdAD=$passwd && docker-compose up
     shift # past argument
     shift # past argument
     ;;   
