@@ -6,8 +6,6 @@ services:
     build: ./AuditTool
     ports:
      - "81:80"
-    links:
-     - mongo
     environment:
      - MONGO_URL=mongodb://mongo/audittool
      - ROOT_URL=http://127.0.0.1
