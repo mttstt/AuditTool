@@ -2,8 +2,7 @@ version: '3'
 
 services:
   web:
-    image: mttstt/audittool:0.0.7.4
-    build: ./AuditTool
+    image: "mttstt/audittool:${TAG}"
     ports:
      - "81:80"
     environment:
