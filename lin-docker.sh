@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] [Password] [Docker HUB release(only -p)] 
+# Use: lin-docker.sh [command] [Password Docker HUB] [Docker HUB release(only -p)] 
 # Put AuditTool in a Docker architecture
 # Password is:
 #               - password of Active Directory for query ldap
