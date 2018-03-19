@@ -55,7 +55,7 @@ case $key in
         meteor-kitchen AuditTool.json AuditTool
         cd  AuditTool
         echo "FROM abernix/meteord:node-8.9.3-onbuild" > Dockerfile
-         export TAG=$release && docker-compose build --force-rm --no-cache docker-production-dev.yml
+         export TAG=$release && docker-compose -f docker-production-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
     ;;
