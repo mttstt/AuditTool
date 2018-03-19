@@ -51,13 +51,12 @@ case $key in
             rm .gitignore
         fi
         rm -rf .git
-        cp -R files/ /tmp
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
         cd  AuditTool
         echo "FROM abernix/meteord:node-8.9.3-onbuild" > Dockerfile
-        ocker-compose build --force-rm --no-cache               
+        docker-compose build --force-rm --no-cache               
     shift # past argument
     shift # past argument
     ;;
@@ -83,7 +82,6 @@ case $key in
     shift # past argument
     ;;
     
-
     -p|--push)
         echo "Push image to Docker Hub"
         docker login -password $passwd -username mttstt
@@ -94,10 +92,8 @@ case $key in
     ;;  
 
     -u|--dockerup)
-        echo "docker up"
-        HOST_IP=`ip -4 addr show scope global dev ens33 | grep inet | awk '{print $2}' | cut -d / -f 1`
-        #HOST_IP=`ip -4 addr show scope global dev docker0 | grep inet | awk '{print $2}' | cut -d / -f 1`
-        export JRSI=$HOST_IP && export passwdAD=$passwd && docker-compose up
+        echo "docker up"        
+        export passwdAD=$passwd && docker-compose up
     shift # past argument
     shift # past argument
     ;;   
@@ -124,11 +120,11 @@ case $key in
         echo "Possible commands:"
         echo ""
         echo "-h, --help        Help"
-        echo "-m, --meteor      Launch meteor, no Docker (without Docker)"
+        echo "-m, --meteor      Launch meteor, without Docker (for testing)"
         echo "-b, --build       Build audittool docker image"
         echo "-p, --push        Push audittool image to Docker Hub [password Docker HUB] [New versione release]"
         echo "-u, --dockerup    Docker-compose up"
-        echo "-d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)"
+        echo "-d, --delete      Delete all (containers, images, volumes, networks)"
         echo ""   
       
     shift # past argument# Options:
