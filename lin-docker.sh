@@ -1,24 +1,20 @@
 #!/bin/bash
 #
-# Use: lin-docker.sh [command] [Password Docker HUB] [Docker HUB release(only -p)] 
+# Use: lin-docker.sh [command] [Password] [Docker HUB release] 
 # Put AuditTool in a Docker architecture
-# Password is:
-#               - password of Active Directory for query ldap
-#                    or
-#               - password of Docker Hub for pull images (only with -p command)
 #
-# Release: version to upload image on Docker Hub
+#./lin-docker.sh -u [Password Active Directory] [Docker HUB release] 
+#./lin-dcoker.sh -p [Password Docker Hub] [Docker HUB release] 
 #
 # Possible commands:
 #
 # -h, --help        Help
-# -m, --meteor      Launch meteor, no Docker (without Docker)
+# -m, --meteor      Launch meteor, without Docker, for testing
 # -b, --build       Build audittool docker image
-# -p, --push        Push audittool image to Docker Hub [password Docker HUB] [New versione release]
-# -u, --dockerup    Docker-compose up
-# -d, --delete      Delete all (containers, images, volumes, networks) (old without Docker Hub)
+# -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker HUB release] 
+# -u, --dockerup    Docker-compose up [Password Active Directory] [Docker HUB release]  
+# -d, --delete      Delete all (containers, images, volumes, networks)
 # 
-#
 # Useful command for ubuntu 17: newgrp docker
 #
 # Useful command for bash to containet:  docker exec -ti <container> bash
@@ -109,15 +105,11 @@ case $key in
     
     *)    # unknown option
    
-        echo "Use: lin-docker.sh [command] [Password] [Docker HUB release(only -p)]" 
+        echo "Use: lin-docker.sh [command] [Password] [Docker HUB release]" 
         echo "Put AuditTool in a Docker architecture"
         echo ""
-        echo "Password is:"
-        echo  "    - password of Active Directory for query ldap"
-        echo  "         or"
-        echo  "    - password of Docker Hub for pull images (only with -p command)"
-        echo ""
-        echo "Release: version to upload image on Docker Hub"
+        echo "./lin-docker.sh -u [Password Active Directory] [Docker HUB release]"
+        echo "./lin-docker.sh -p [Password Docker Hub] [Docker HUB release]"               
         echo ""
         echo "Possible commands:"
         echo ""
