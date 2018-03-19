@@ -84,8 +84,7 @@ case $key in
     -p|--push)
         echo "Push image to Docker Hub"
         docker login -password $passwd -username mttstt        
-        docker push mttstt/audittool:$release
-
+        docker push mttstt/audittool
     shift # past argument
     shift # past argument
     ;;  
