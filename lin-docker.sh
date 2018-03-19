@@ -92,6 +92,7 @@ case $key in
     ;;  
 
     -u|--dockerup)
+        cd ~/AuditTool/AuditTool
         echo "docker up"        
         export passwdAD=$passwd && docker-compose up
     shift # past argument
