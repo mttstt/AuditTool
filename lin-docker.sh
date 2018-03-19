@@ -4,7 +4,8 @@
 # Put AuditTool in a Docker architecture
 #
 #./lin-docker.sh -u [Password Active Directory] [Docker HUB release] 
-#./lin-dcoker.sh -p [Password Docker Hub] [Docker HUB release] 
+#./lin-dcoker.sh -p [Password Docker Hub]
+#./lin-dcoker.sh -b [Docker HUB release] 
 #
 # Possible commands:
 #
@@ -82,9 +83,8 @@ case $key in
     
     -p|--push)
         echo "Push image to Docker Hub"
-        docker login -password $passwd -username mttstt
-        docker tag mttstt/audittool mttstt/audittool:$release
-        docker push mttstt/audittool:$release
+        docker login -password $passwd -username mttstt       
+        docker push mttstt/audittool
     shift # past argument
     shift # past argument
     ;;  
