@@ -91,7 +91,7 @@ case $key in
 
     -u|--dockerup)
         echo "docker up" 
-        export TAG=$TAG && export passwdAD=$passwd && docker-compose up -d docker-production.yaml
+        export TAG=$TAG && export passwdAD=$passwd && docker-compose up -d docker-compose.yaml
     shift # past argument
     shift # past argument
     ;;   
