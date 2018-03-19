@@ -1,8 +1,7 @@
 version: '3'
 
 services:
-  web:
-    "mttstt/audittool:${TAG}"
+  web:    
     build: ./AuditTool
     ports:
      - "81:80"
