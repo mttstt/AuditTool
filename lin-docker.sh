@@ -95,6 +95,7 @@ case $key in
 
     -u|--dockerup)
         cd ~/AuditTool/AuditTool
+        echo "FROM abernix/meteord:node-8.9.3-onbuild" > Dockerfile
         echo "docker up"        
         export passwdAD=$passwd && docker-compose up
     shift # past argument
