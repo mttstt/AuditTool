@@ -34,6 +34,8 @@ case $key in
         echo "Delete All"
         echo "Ferma tutti i containers"
         docker-compose down
+        echo "Elimina tutti i containers"
+        docker rm $(docker container ls -a -q) -f
         echo "Elimina tutti i volumi"
         docker volume prune -f
         echo "Elimina tutte le immagini"
