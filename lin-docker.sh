@@ -11,7 +11,7 @@
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, without Docker, for testing
-# -b, --build       Build audittool docker image
+# -b, --build       Build audittool docker image, with the new release passed
 # -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
 # -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
