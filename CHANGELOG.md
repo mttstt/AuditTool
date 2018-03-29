@@ -1,14 +1,14 @@
 ### 0.0.7 (27-02-2018)
 
-##### New Features
+##### New features
 * **Docker:**  New architecture on docker
-* **Create lin-docker.sh:**  Create new container jsreport, mongodb, audittool
+* **Create new script lin-docker.sh:**  Script in order to manage 3 containers: jsreport, mongodb, audittool
 * **Renamed some files**
 
 
 ### 0.0.6 (16-12-2017)
 
-##### New Features
+##### New features
 *	Use the car.sci numbering for the checks.
 *	Auditing numbering with the change of status "approved"
 * Update of the verbal template pdf
@@ -20,14 +20,14 @@
 * **Bootstrap plugin-file:**	Eliminate copy of an external file
 * **Use new features of MK release (0.9.90):**	Eliminate imports of some external Files
 * **Update file batch go-windows.bat**
-* **attachment:**	Upgrade Attachment Box
+* **attachment:**	Upgraded attachment-box
 
 ##### Added MIT License
 
 
 ### 0.0.5 (06-08-2017)
 
-##### New Features
+##### New features
 * **status:**    Improved "status" management
 
 
