@@ -6,11 +6,12 @@
 #./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]
 #./lin-dcoker.sh -b [Docker-Hub release] 
 #./lin-dcoker.sh -p [Password Docker-Hub]
+#./lin-dcoker.sh -m [Password Active Directory]
 #
 # Possible commands:
 #
 # -h, --help        Help
-# -m, --meteor      Launch meteor, without Docker, for testing
+# -m, --meteor      Launch meteor, without Docker, for testing [Password Active Directory]
 # -b, --build       Build audittool docker image, with the new release passed
 # -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
 # -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
@@ -115,7 +116,7 @@ case $key in
         echo "Possible commands:"
         echo ""
         echo "-h, --help        Help"
-        echo "-m, --meteor      Launch meteor, without Docker (for testing)"
+        echo "-m, --meteor      Launch meteor, without Docker (for testing) [Password Active Directory]"
         echo "-b, --build       Build audittool docker image, with the new release passed"
         echo "-p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release]"
         echo "-u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]"
