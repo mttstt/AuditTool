@@ -1,0 +1,2 @@
+descriptions,query
+user list,(&(objectClass=person)(objectClass=user))
