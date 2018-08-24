@@ -8,7 +8,7 @@ This application is implemented with the support of Group Internal Audit. The ap
 
 
 ### With docker-compose
-- prerequisites: sudo snap install docker, apt install docker-compose
+- prerequisites: docker, docker-compose
 
 - git clone https://github.com/mttstt/AuditTool.git
 - cd Audittool
@@ -18,7 +18,7 @@ This application is implemented with the support of Group Internal Audit. The ap
   
   
 ### Without docker (for development/test)
-- prerequisites: Only the first time curl https://www.meteorkitchen.com/install | /bin/sh
+- prerequisites: meteor, meteorkitchen
 
 - git clone https://github.com/mttstt/AuditTool.git
 - cd AuditTool
