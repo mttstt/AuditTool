@@ -18,7 +18,7 @@ This application is implemented with the support of Group Internal Audit. The ap
 ### Without docker (for development/test)
 - (Only the first time curl https://www.meteorkitchen.com/install | /bin/sh)
 - git clone https://github.com/mttstt/AuditTool.git
-- cd Audittool
+- cd AuditTool
 - ./lin-docker -m
 - http://ip-host:3000 (Audittool)
 - http://ip-host:5488 (jsreport)
