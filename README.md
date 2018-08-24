@@ -6,6 +6,9 @@ Web Application for audits, the main function are:
 
 This application is implemented with the support of Group Internal Audit. The application is realized with the Meteor-Kitchen framework.
 
+### Start quickly
+- docker pull mttstt/audittool:0.0.7.5
+
 
 ### With docker-compose
 - git clone https://github.com/mttstt/AuditTool.git
