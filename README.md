@@ -6,14 +6,11 @@ Web Application for audits, the main function are:
 
 This application is implemented with the support of Group Internal Audit. The application is realized with the Meteor-Kitchen framework.
 
-### Start quickly
-- docker pull mttstt/audittool:0.0.7.5
-
 
 ### With docker-compose
 - git clone https://github.com/mttstt/AuditTool.git
 - cd Audittool
-- ./lin-docker -u [passwordAD] [release]
+- ./lin-docker -u [passwordAD] [Docker-Hub release] (ex: ./lin-docker -u password 0.0.7.5)
 - http://ip-host:81 (Audittool)
 - http://ip-host:5488 (jsreport)
   
