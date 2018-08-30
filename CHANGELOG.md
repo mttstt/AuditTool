@@ -1,3 +1,8 @@
+### 0.0.8 (xx-xx-2018)
+##### Clean code
+* **Elminate package dependence:**	mikowals:batch-insert
+
+
 ### 0.0.7 (27-02-2018)
 
 ##### New features
