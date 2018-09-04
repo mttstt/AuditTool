@@ -1,9 +1,8 @@
 ### 0.0.8 (xx-09-2018)
 ##### Clean code
-* Elminate dependence from package	mikowals:batch-insert
-* Access rights for of ACTIVITIES collection and delete external file ACTIVITIES.JS
-
-
+* Elminate dependence from package	(mikowals:batch-insert)
+* Review Access rights of collection Activies 
+* Delete imported external files (activities.js & home_private.js) for more compliance to MK
 
 
 ### 0.0.7 (27-02-2018)
