@@ -2,7 +2,7 @@
 ##### Clean code
 * Elminate dependence from package	(mikowals:batch-insert)
 * Review Access rights of collection Activies 
-* Delete imported external files (activities.js & home_private.js) for more compliance to MK
+* More integration with MK (delete some external file)
 
 
 ### 0.0.7 (27-02-2018)
