@@ -1,14 +1,14 @@
-auditor,ruolo
-"Matteo Rossi",Descrizione
-"Maria Chiara Bianchi",Descrizione
-"Cesare Verdi",Descrizione
-"Alessandro Gialli",Descrizione
-"Christian Blu",Descrizione
-"Ruggero Arancioni",Descrizione
-"Michele Neri",Descrizione
-"Luca Azzurro",Descrizione
-"Pierluigi Grigi",Descrizione
-"Ada Rosa", Descrizione
-"Amelia Ocra",Descrizione
-"Ilaria Cobalto",Descrizione
-"Tiziana Violetta",Descrizione
+auditor,ruolo,mail
+"Matteo Rossi",auditor,m@audittol.org
+"Maria Chiara Bianchi",auditor,ma@audittol.org
+"Cesare Verdi",auditor,c@audittol.org
+"Alessandro Gialli",auditor,a@audittol.org
+"Christian Blu",auditor,c@audittol.org
+"Ruggero Arancioni",auditor+admin,r@audittol.org
+"Michele Neri",auditor,mi@audittol.org
+"Luca Azzurro",auditor,l@audittol.org
+"Pierluigi Grigi",auditor,p@audittol.org
+"Ada Rosa",auditor,ad@audittol.org
+"Amelia Ocra",auditor,am@audittol.org
+"Ilaria Cobalto",auditor,il@audittol.org
+"Tiziana Violetta",auditor,ti@audittol.org
