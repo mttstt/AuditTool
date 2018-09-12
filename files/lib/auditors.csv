@@ -1,5 +1,5 @@
 name,ruolo,mail
-"albert einstein",auditor,alberteinstein@audittol.org
+"Albert Einstein",auditor,Albert.Einstein@audittol.org
 "Ibn Al-Haytham",auditor,Ibn.Al-Haytham@audittol.org
 "Galileo Galilei",auditor,Galileo.Galilei@audittol.org
 "Isaac Newton",auditor,Isaac.Newton@audittol.org
@@ -8,7 +8,7 @@ name,ruolo,mail
 "Arno Penzias",auditor,Arno.Penzias@audittol.org
 "Robert Wilson",auditor,Robert.Wilson@audittol.org
 "Margherita Hack",auditor,Margherita.Hack@audittol.org
-"Ada Rosa",auditor,ad@audittol.org
+"Shuji Nakamura",auditor,Shuji.Nakamura@audittol.org
 "Charles Kuen Kao",auditor,Charles.Kuen.Kao@audittol.org
 "Isamu Akasaki",auditor,Isamu.Akasaki@audittol.org
 "Hiroshi Amano",auditor,Hiroshi.Amano@audittol.org
