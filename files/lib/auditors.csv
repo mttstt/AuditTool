@@ -1,14 +1,14 @@
-auditor,ruolo,mail
-"Matteo Rossi",auditor,m@audittol.org
-"Maria Chiara Bianchi",auditor,ma@audittol.org
-"Cesare Verdi",auditor,c@audittol.org
-"Alessandro Gialli",auditor,a@audittol.org
-"Christian Blu",auditor,c@audittol.org
-"Ruggero Arancioni",auditor+admin,r@audittol.org
-"Michele Neri",auditor,mi@audittol.org
-"Luca Azzurro",auditor,l@audittol.org
-"Pierluigi Grigi",auditor,p@audittol.org
+name,ruolo,mail
+"albert einstein",auditor,alberteinstein@audittol.org
+"Ibn Al-Haytham",auditor,Ibn.Al-Haytham@audittol.org
+"Galileo Galilei",auditor,Galileo.Galilei@audittol.org
+"Isaac Newton",auditor,Isaac.Newton@audittol.org
+"Augustin-Jean Fresnel",auditor,Augustin-Jean.Fresnel@audittol.org
+"James Clerk Maxwell",auditor+admin,James.Clerk.Maxwell@audittol.org
+"Arno Penzias",auditor,Arno.Penzias@audittol.org
+"Robert Wilson",auditor,Robert.Wilson@audittol.org
+"Margherita Hack",auditor,Margherita.Hack@audittol.org
 "Ada Rosa",auditor,ad@audittol.org
-"Amelia Ocra",auditor,am@audittol.org
-"Ilaria Cobalto",auditor,il@audittol.org
-"Tiziana Violetta",auditor,ti@audittol.org
+"Charles Kuen Kao",auditor,Charles.Kuen.Kao@audittol.org
+"Isamu Akasaki",auditor,Isamu.Akasaki@audittol.org
+"Hiroshi Amano",auditor,Hiroshi.Amano@audittol.org
