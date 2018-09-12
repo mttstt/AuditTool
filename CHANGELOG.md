@@ -2,7 +2,7 @@
 ##### Clean code
 * Elminate dependence from package	(mikowals:batch-insert)
 * Review Access rights of collection Activies 
-* More integration with MK (delete some external file)
+* More integration with MK (delete import from externals file)
 
 
 ### 0.0.7 (27-02-2018)
