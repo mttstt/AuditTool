@@ -4,7 +4,7 @@ name,roles,email
 "Galileo Galilei",auditor,Galileo.Galilei@audittol.org
 "Isaac Newton",auditor,Isaac.Newton@audittol.org
 "Augustin-Jean Fresnel",auditor,Augustin-Jean.Fresnel@audittol.org
-"James Clerk Maxwell",auditor+admin,James.Clerk.Maxwell@audittol.org
+"James Clerk Maxwell",auditor,James.Clerk.Maxwell@audittol.org
 "Arno Penzias",auditor,Arno.Penzias@audittol.org
 "Robert Wilson",auditor,Robert.Wilson@audittol.org
 "Margherita Hack",auditor,Margherita.Hack@audittol.org
