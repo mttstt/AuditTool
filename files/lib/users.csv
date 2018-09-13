@@ -1,14 +1,14 @@
 name,roles,email
-"Albert Einstein",user+auditor,Albert.Einstein@audittol.org
-"Ibn Al-Haytham",user+auditor,Ibn.Al-Haytham@audittol.org
-"Galileo Galilei",user+auditor,Galileo.Galilei@audittol.org
-"Isaac Newton",user+auditor,Isaac.Newton@audittol.org
-"Augustin-Jean Fresnel",user+auditor,Augustin-Jean.Fresnel@audittol.org
-"James Clerk Maxwell",user+auditor+admin,James.Clerk.Maxwell@audittol.org
-"Arno Penzias",user+auditor,Arno.Penzias@audittol.org
-"Robert Wilson",user+auditor,Robert.Wilson@audittol.org
-"Margherita Hack",user+auditor,Margherita.Hack@audittol.org
-"Shuji Nakamura",user+auditor,Shuji.Nakamura@audittol.org
-"Charles Kuen Kao",user+auditor,Charles.Kuen.Kao@audittol.org
-"Isamu Akasaki",user+auditor,Isamu.Akasaki@audittol.org
-"Hiroshi Amano",user+auditor,Hiroshi.Amano@audittol.org
+"Albert Einstein",admin,Albert.Einstein@audittol.org
+"Ibn Al-Haytham",auditor,Ibn.Al-Haytham@audittol.org
+"Galileo Galilei",auditor,Galileo.Galilei@audittol.org
+"Isaac Newton",auditor,Isaac.Newton@audittol.org
+"Augustin-Jean Fresnel",auditor,Augustin-Jean.Fresnel@audittol.org
+"James Clerk Maxwell",auditor+admin,James.Clerk.Maxwell@audittol.org
+"Arno Penzias",auditor,Arno.Penzias@audittol.org
+"Robert Wilson",auditor,Robert.Wilson@audittol.org
+"Margherita Hack",auditor,Margherita.Hack@audittol.org
+"Shuji Nakamura",auditor,Shuji.Nakamura@audittol.org
+"Charles Kuen Kao",auditor,Charles.Kuen.Kao@audittol.org
+"Isamu Akasaki",auditor,Isamu.Akasaki@audittol.org
+"Hiroshi Amano",auditor,Hiroshi.Amano@audittol.org
