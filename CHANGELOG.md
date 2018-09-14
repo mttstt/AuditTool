@@ -4,6 +4,8 @@
 * Review Access rights of collection Activies 
 * More integration with MK (delete import from externals file)
 * Integration of Meteor users and added the new group: Auditors
+##### New features
+* Traslation in english
 
 
 ### 0.0.7 (27-02-2018)
