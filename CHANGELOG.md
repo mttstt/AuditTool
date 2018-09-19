@@ -2,8 +2,8 @@
 ##### Clean code
 * Elminate dependence from package	(mikowals:batch-insert)
 * Review Access rights of collection Activies 
-* More integration with MK (delete import from externals file)
-* Integration of Meteor users and added the new group: Auditors
+* More integration with MK (delete some import from externals file)
+* Integration with Meteor users and added the new group: Auditors
 ##### New features
 * Traslation in english
 
