@@ -1,6 +1,7 @@
 ### 0.0.8 (xx-09-2018)
 ##### Clean code
-* Elminate dependence from package	(mikowals:batch-insert)
+* Remove "mikowals:batch-insert" package
+* Add "random" package
 * Review Access rights of collection Activies 
 * More integration with MK (delete some import from externals file)
 * Integration with Meteor users and added the new group: Auditors
