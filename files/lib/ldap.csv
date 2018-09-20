@@ -1,3 +1,0 @@
-descriptions,searchbase,filter,attributes
-Direzione user list,"OU=Direzione,OU=BancaIFIS,DC=intranet,DC=ifis,DC=local",(&(objectClass=person)(objectClass=user)),sAMAccountName
-uo list,"DC=intranet,DC=ifis,DC=local",(objectClass=organizationalunit),name 
