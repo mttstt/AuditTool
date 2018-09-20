@@ -2,6 +2,7 @@
 ##### Clean code
 * Remove "mikowals:batch-insert" package
 * Remove "dburles:mongo-collection-instances" package
+* Add "perak:c3" package
 * Add "random" package
 * Review Access rights of collection Activies 
 * More integration with MK (delete some import from externals file)
