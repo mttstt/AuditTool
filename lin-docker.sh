@@ -63,8 +63,14 @@ case $key in
 
     -m|--meteor)
         echo "meteor"
-        jsreport init &
-        jsreport start &
+        if ! [ -x "$(command -v jsreport)" ]; then
+                echo 'Jsreport not installed: no pdf reports !' >&2
+        else
+                echo 'Jsreport found !'
+                jsreport init >&2
+                jsreport start >&2
+        fi
+
         if [ ! -f ~/AuditTool/.gitignore ]; then
                 echo ".gitignore not found!"
         else
