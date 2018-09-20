@@ -1,6 +1,7 @@
 ### 0.0.8 (xx-09-2018)
 ##### Clean code
 * Remove "mikowals:batch-insert" package
+* Remove "dburles:mongo-collection-instances" package
 * Add "random" package
 * Review Access rights of collection Activies 
 * More integration with MK (delete some import from externals file)
