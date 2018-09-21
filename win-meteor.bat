@@ -9,7 +9,7 @@ robocopy emptyfolder AuditTool /purge
 rmdir emptyfolder
 rmdir AuditTool
 
-meteor-kitchen ./AuditTool.json --no-git ./AuditTool
+meteor-kitchen ./AuditTool.json ./AuditTool
 
 cd ./AuditTool
 meteor --port 5000
