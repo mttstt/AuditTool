@@ -5,10 +5,11 @@
 * Add "perak:c3" package
 * Add "random" package
 * Review Access rights of collection Activies 
-* More integration with MK (delete some import from externals file)
+* Integration with MK (delete some import from externals file)
 * Integration with Meteor users and added the new group: Auditors
 ##### New features
 * Traslation in english
+* Introduction Graph for continuos controls
 
 
 ### 0.0.7 (27-02-2018)
