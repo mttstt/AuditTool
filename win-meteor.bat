@@ -1,7 +1,7 @@
-SET dir1=C:\Users\matteo\Documents\GitHub\AuditTool
-del /Q "%dir1%"\AuditTool.json
+SET dir1=%~dp0
+del /Q %dir1%AuditTool.json
 
-curl https://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben  -o "%dir1%"\AuditTool.json
+curl https://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben  -o %dir1%AuditTool.json
 
 rmdir AuditTool /S /Q
 mkdir emptyfolder
