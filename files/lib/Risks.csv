@@ -1,0 +1,32 @@
+risk,ICAAP
+Credit risk,credit
+Default risk,credit
+Migration risk,credito
+Dilution risk,credit
+Transaction risk,credit
+Counterparty risk,credit
+Concentration risk,credit
+Country risk,credit
+Transfer risk,credit
+Residual risk,credit
+Risk of regulation and delivery,credit
+Risk arising from securitization transactions,credit
+Market Risk,market
+Credit assessment adjustment risk,market
+Operation Risk,operational
+Information Risk,operational
+Legal risk,operational
+Regulatory risk,operational
+Anti-money Risk,operational
+Reputational Risk,operational
+Model risk,operational
+Interest-ratte risk,interest-rate
+Liquidty Risk,liquidity
+Funding Liquidity Risk,liquidity
+Market Liquidity Risk,liquidity
+Mismatch Liquidity Risk,liquidity
+Risks related to the share of restricted assets,restricted activities
+Sovereign risk,sovereign
+Strategic Risk,strategic
+Partecipation risk,partecipation
+Risk of excessive leverage,leverage
