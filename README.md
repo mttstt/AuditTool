@@ -18,7 +18,7 @@ This application is implemented with the support of Group Internal Audit. The ap
   
 ### For development/test
 - prerequisites: meteor, meteorkitchen, docker
-- sudo docker run -p 5488:5488 jsreport/jsreport
+- sudo docker run -d -p 5488:5488 --restart always jsreport/jsreport:2.0.0-full
 - git clone https://github.com/mttstt/AuditTool.git
 - cd AuditTool
 - ./lin-docker.sh -m
