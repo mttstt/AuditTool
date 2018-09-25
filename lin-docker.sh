@@ -55,7 +55,7 @@ case $key in
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
         cd  AuditTool
-        echo "FROM abernix/meteord:node-8.9.4-onbuild" > Dockerfile
+        echo "FROM abernix/meteord:node-8.11.2-onbuild" > Dockerfile
          export TAG=$release && docker-compose -f docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
