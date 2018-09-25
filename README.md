@@ -16,10 +16,12 @@ This application is implemented with the support of Group Internal Audit. The ap
 - http://ip-host:5488 (Jsreport)
   
   
-### Without docker (for development/test)
-- prerequisites: meteor, meteorkitchen
+### For development/test
+- prerequisites: meteor, meteorkitchen, docker
+- sudo docker run -p 5488:5488 jsreport/jsreport
 - git clone https://github.com/mttstt/AuditTool.git
 - cd AuditTool
 - ./lin-docker.sh -m
 - http://ip-host:3000 (Audittool)
 - http://ip-host:5488 (jsreport)
+
