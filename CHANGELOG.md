@@ -1,4 +1,4 @@
-### 0.0.8 (xx-09-2018)
+### 0.0.8 (28-09-2018)
 ##### Clean code
 * Remove "mikowals:batch-insert" package
 * Remove "dburles:mongo-collection-instances" package
