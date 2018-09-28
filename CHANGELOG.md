@@ -7,6 +7,7 @@
 * Review Access rights of collection Activies 
 * Integration with MK (delete some import from externals file)
 * Integration with Meteor users and added the new group: Auditors
+* Upgrade of jsreport
 ##### New features
 * Traslation in english
 * Introduction Graph for continuos controls
