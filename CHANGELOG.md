@@ -1,3 +1,12 @@
+### 0.0.8 (dd-mm-yyyy)
+##### Clean code
+* 
+
+##### New features
+* Monitoring detection controls (registry, detection and publising)
+
+
+
 ### 0.0.8 (28-09-2018)
 ##### Clean code
 * Remove "mikowals:batch-insert" package
