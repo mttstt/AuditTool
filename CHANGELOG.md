@@ -3,7 +3,7 @@
 * 
 
 ##### New features
-* Monitoring detection controls (registry, detection and publising)
+* Upgrade section about Monitoring Detection Controls (registry, detection and publising)
 
 
 
