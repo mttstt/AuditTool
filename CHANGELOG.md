@@ -1,11 +1,7 @@
-### 0.0.9 (dd-mm-yyyy)
-##### Clean code
-* 
-
+### 0.0.9 (16-10-2018)
 ##### New features
-* Upgrade section about Monitoring Detection Controls (registry, detection and publising)
-
-
+* Add "jcbernack:reactive-aggregate" package
+* New Monitoring detection Controls section  (registry, detection and publising)
 
 ### 0.0.8 (28-09-2018)
 ##### Clean code
