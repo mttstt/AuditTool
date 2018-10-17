@@ -1,6 +1,7 @@
 ### 0.0.10 (xx-xx-2018)
 ##### New features
 * Add administrative functions
+* Add "ostrio:meteor-root" package
 #### Clean code
 * MK element alphabetical ordered
 
