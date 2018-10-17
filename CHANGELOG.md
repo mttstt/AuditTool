@@ -1,3 +1,10 @@
+### 0.0.10 (xx-xx-2018)
+##### New features
+* Add administrative functions
+#### Clean code
+* MK element alphabetical ordered
+
+
 ### 0.0.9 (16-10-2018)
 ##### New features
 * Add "jcbernack:reactive-aggregate" package
