@@ -1,0 +1,11 @@
+if (Monitoringdetection.find().count() === 0) {Monitoringdetection.insert({controlId: "11111111111111211",  date: "/08/09/2018", keyIndicator:"72", note:"", controller:"Galileo Galilei"  });
+                                           Monitoringdetection.insert({controlId: "11111111111111311",  date: "07/09/2018", keyIndicator:"100", note:"nota", controller:"Galileo Galilei" });
+                                           Monitoringdetection.insert({controlId: "11111111111111411",  date: "11/09/2018", keyIndicator:"0", note:"nota", controller:"Galileo Galilei"  });
+                                           Monitoringdetection.insert({controlId: "11111111111111511",  date: "01/9/2018", keyIndicator:"23", note:"nota", controller:"Galileo Galilei"  });
+                                             Monitoringdetection.insert({controlId: "11111111111111611", date: "12/9/2018", keyIndicator:"14", note:"nota", controller:"Galileo Galilei"  });
+                                             Monitoringdetection.insert({controlId: "11111111111111711",date: "7/7/2017", keyIndicator:"32",  note:"nota", controller:"Galileo Galilei"  });
+                                             Monitoringdetection.insert({controlId: "11111111111111811",date: "4/10/2018", keyIndicator:"2", note:"test non effettuato mancanza dati", controller:"Galileo Galilei"  });
+                                             Monitoringdetection.insert({controlId: "11111111111111911",date: "1/9/2018", keyIndicator:"56", note:"nota", controller:"Galileo Galilei"  });
+                                     };
+
+}
