@@ -1,0 +1,81 @@
+[            {
+          	  numero: "1",
+               titolo: "Policy",
+          	  obiettivo: "Operational Continuity Management Framework (CO)",
+          	  descrizione: "Verification of the existence and adequacy of a Policy approved by the Board of Directors, which defines: i) business continuity objectives and strategy; ii) ownership of CO management, and related roles and responsibilities.",
+          	  activityId: "11111111111111111",
+          	  esito: "FAIL"
+            },
+            {
+          	  numero: "2",
+               titolo: "Residual risk",
+          	  obiettivo: "Operational Continuity Management Framework (CO)",
+          	  descrizione: "Verify that the Board of Directors: i) approves the Business Continuity Plan and subsequent amendments, ii) accepts any residual risks not managed by the Plan itself.",
+          	  activityId: "11111111111111111",
+          	  esito: "FAIL"
+            },
+            {
+          	  numero: "3",
+               titolo: "BIA & DR",
+          	  obiettivo: "Business Impact Analysis (BIA) and Risk Assessment",
+          	  descrizione: "Verify that all critical processes have been identified, the relevant managers, the IT support procedures, the staff involved, and the technological infrastructures used, as well as the time for restoring the process itself.",
+          	  activityId: "11111111111111111",
+          	  esito: "PASS"
+            },
+            {
+          	  numero: "4",
+               titolo: "Suppliers",
+          	  obiettivo: "Business Impact Analysis (BIA) and Risk Assessment",
+          	  descrizione: "Verify that the constraints deriving from interdependencies were also considered (also between and with suppliers, customers, other operators).",
+          	  activityId: "11111111111111111",
+          	  esito: "FAIL"
+            },
+            {
+          	  numero: "5",
+               titolo: "Business processes",
+          	  obiettivo: "Business Continuity Plan (BCP)",
+          	  descrizione: "Verify that the BCP includes all critical business processes, and clearly describe the procedures for managing CO in the event of a crisis.",
+          	  activityId: "11111111111111111",
+          	  esito: "PASS"
+            },
+            {
+          	  numero: "6",
+               titolo: "Declaring crisis",
+          	  obiettivo: "Business Continuity Plan (BCP)",
+          	  descrizione: "Verify that the procedure for declaring a state of crisis has been defined in conjunction with the IT security incident management process",
+          	  activityId: "11111111111111111",
+          	  esito: "PASS"
+            },
+            {
+          	  numero: "7",
+               titolo: "Procedures Disaster Recovery Plan",
+          	  obiettivo: "Disaster Recovery Plan",
+          	  descrizione: "Verifies that the Disaster Recovery Plan is an integral part of the BCP, and provides indications on how and how to generate copies of the production archives, as well as on the procedures for restoration at alternative sites.",
+          	  activityId: "11111111111111111",
+          	  esito: "PASS"
+            },
+            {
+          	  numero: "8",
+               titolo: "Recovery capabilities",
+          	  obiettivo: "Disaster Recovery Plan",
+          	  descrizione: "Verify that there is congruence between the current recovery capabilities guaranteed by the Disaster Recovery with the actual business needs of the Bank (as indicated in the BIA), and that the DR Plan is updated with respect to technological and organizational developments.",
+          	  activityId: "11111111111111111",
+          	  esito: "FAIL"
+            },
+            {
+          	  numero: "9",
+               titolo: "Tests",
+          	  obiettivo: "Risk Monitoring / Test",
+          	  descrizione: "Verifies that: i) the annual Audit Plan is approved by the Board of Directors, ii) comprehensive checks, based on scenarios as realistic as possible, of the restoration of critical business operations in crisis conditions are carried out at least annually.",
+          	  activityId: "11111111111111111",
+          	  esito: "FAIL"
+            },
+            {
+          	  numero: "10",
+               titolo: "Checks are documented",
+          	  obiettivo: "Reporting",
+          	  descrizione: "Verifies that: i) the results of the checks are documented, brought to the attention of the competent corporate bodies; ii) the BoD is informed at least annually of the results of the controls on the adequacy of the Plan as well as the verification of the CO measures; in case of any deficiencies found, the appropriate corrective actions are started.",
+          	  activityId: "11111111111111111",
+          	  esito: "PASS"
+            },
+    ]
