@@ -1,9 +1,14 @@
 ### 0.0.10 (xx-xx-2018)
 ##### New features
-* Add administrative functions
-* Add "ostrio:meteor-root" package
+* Add administrator functions
+* DEMO section now use /private directory
+
 #### Clean code
 * MK element alphabetical ordered
+* Add "ostrio:meteor-root" package
+* Remove "csv-parser" package
+* 
+
 
 
 ### 0.0.9 (16-10-2018)
