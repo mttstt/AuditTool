@@ -8,7 +8,7 @@
    "livello": "High",
    "companies": "",
    "issue_owner": "",
-   "tipo": "Uman error",
+   "tipo": "Human error",
    "dbi": "Yes"
  },
  {
@@ -21,6 +21,6 @@
    "livello": "Low",
    "companies": "",
    "issue_owner": "",
-   "tipo": "Uman error",
+   "tipo": "Human error",
    "dbi": "No"
  }]
