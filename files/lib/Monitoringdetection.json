@@ -20,7 +20,7 @@
   {"controlId": "r1111111111112911", "title":"Behavioral liquidity risk", "date": "09/01/2017", "keyIndicator":"99",  "note":"Perfect", "controller":"Galileo Galilei"},
   {"controlId": "r1111111111113011", "title":"Performance of organic volumes", "date": "06/03/2018", "keyIndicator":"10",  "note":"To analysis", "controller":"Galileo Galilei"},
   {"controlId": "r1111111111113111", "title":"Performance organic volumes", "date": "04/07/2018", "keyIndicator":"OK",  "note":"All OK", "controller":"Galileo Galilei"},
-  {"controlId": "r1111111111113211", "title":"Tax receivables","control_description", "date": "01/09/2018", "keyIndicator":"99",  "note":"No problems", "controller":"Galileo Galilei"},
+  {"controlId": "r1111111111113211", "title":"Tax receivables", "date": "01/09/2018", "keyIndicator":"99",  "note":"No problems", "controller":"Galileo Galilei"},
   {"controlId": "r1111111111113311", "title":"Behavioral liquidity risk", "date": "02/02/2016", "keyIndicator":"50",  "note":"", "controller":"Galileo Galilei"},
   {"controlId": "r1111111111113411", "title":"Mortgages with backward installments", "date": "03/04/2017", "keyIndicator":"NA",  "note":"Awaiting for report", "controller":"Galileo Galilei"}
 ]
