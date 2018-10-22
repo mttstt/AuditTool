@@ -24,11 +24,11 @@
             },
             {
           	  "numero": "4",
-               titolo: "Suppliers",
-          	  obiettivo: "Business Impact Analysis (BIA) and Risk Assessment",
-          	  descrizione: "Verify that the constraints deriving from interdependencies were also considered (also between and with suppliers, customers, other operators).",
-          	  activityId: "11111111111111111",
-          	  esito: "FAIL"
+                      "titolo": "Suppliers",
+          	  "obiettivo": "Business Impact Analysis (BIA) and Risk Assessment",
+          	  "descrizione": "Verify that the constraints deriving from interdependencies were also considered (also between and with suppliers, customers, other operators).",
+          	  "activityId": "11111111111111111",
+          	  "esito": "FAIL"
             },
             {
           	  numero: "5",
