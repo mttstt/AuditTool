@@ -1,29 +1,29 @@
 [            {
-          	  numero: "1",
-               titolo: "Policy",
-          	  obiettivo: "Operational Continuity Management Framework (CO)",
-          	  descrizione: "Verification of the existence and adequacy of a Policy approved by the Board of Directors, which defines: i) business continuity objectives and strategy; ii) ownership of CO management, and related roles and responsibilities.",
-          	  activityId: "11111111111111111",
-          	  esito: "FAIL"
+          	  "numero": "1",
+                      "titolo": "Policy",
+          	  "obiettivo": "Operational Continuity Management Framework (CO)",
+          	  "descrizione": "Verification of the existence and adequacy of a Policy approved by the Board of Directors, which defines: i) business continuity objectives and strategy; ii) ownership of CO management, and related roles and responsibilities.",
+          	  "activityId": "11111111111111111",
+          	  "esito": "FAIL"
             },
             {
-          	  numero: "2",
-               titolo: "Residual risk",
-          	  obiettivo: "Operational Continuity Management Framework (CO)",
-          	  descrizione: "Verify that the Board of Directors: i) approves the Business Continuity Plan and subsequent amendments, ii) accepts any residual risks not managed by the Plan itself.",
-          	  activityId: "11111111111111111",
-          	  esito: "FAIL"
+          	  "numero": "2",
+                      "titolo": "Residual risk",
+          	  "obiettivo": "Operational Continuity Management Framework (CO)",
+          	  "descrizione": "Verify that the Board of Directors: i) approves the Business Continuity Plan and subsequent amendments, ii) accepts any residual risks not managed by the Plan itself.",
+          	  "activityId": "11111111111111111",
+          	  "esito": "FAIL"
             },
             {
-          	  numero: "3",
-               titolo: "BIA & DR",
-          	  obiettivo: "Business Impact Analysis (BIA) and Risk Assessment",
-          	  descrizione: "Verify that all critical processes have been identified, the relevant managers, the IT support procedures, the staff involved, and the technological infrastructures used, as well as the time for restoring the process itself.",
-          	  activityId: "11111111111111111",
-          	  esito: "PASS"
+          	  "numero": "3",
+                      "titolo": "BIA & DR",
+          	  "obiettivo": "Business Impact Analysis (BIA) and Risk Assessment",
+          	  "descrizione": "Verify that all critical processes have been identified, the relevant managers, the IT support procedures, the staff involved, and the technological infrastructures used, as well as the time for restoring the process itself.",
+          	  "activityId": "11111111111111111",
+          	  "esito": "PASS"
             },
             {
-          	  numero: "4",
+          	  "numero": "4",
                titolo: "Suppliers",
           	  obiettivo: "Business Impact Analysis (BIA) and Risk Assessment",
           	  descrizione: "Verify that the constraints deriving from interdependencies were also considered (also between and with suppliers, customers, other operators).",
