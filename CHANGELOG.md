@@ -1,15 +1,16 @@
 ### 0.0.10 (xx-xx-2018)
 ##### New features
 * Add administrator functions
-* DEMO section now use /private directory
+* DEMO data now moved on /private directory
 
 #### Clean code
 * MK element alphabetical ordered
 * Add "ostrio:meteor-root" package
+* Add "harrison:papa-parse" package
+* Add "themeteorchef:bert" package
+* Add "check" package
 * Remove "csv-parser" package
-* 
-
-
+ 
 
 ### 0.0.9 (16-10-2018)
 ##### New features
