@@ -57,6 +57,13 @@ case $key in
         meteor-kitchen AuditTool.json AuditTool
         cd  AuditTool
         echo "FROM abernix/meteord:node-8.9.4-onbuild" > Dockerfile
+	echo "RUN npm install jsreport-cli -g" >> Dockerfile
+	echo "RUN mkdir jsreportapp" >> Dockerfile
+	echo "RUN cd jsreportapp" >> Dockerfile
+	echo "RUN jsreport init" >> Dockerfile
+	echo "RUN jsreport configure" >> Dockerfile
+	echo "RUN jsreport start" >> Dockerfile
+	
          export TAG=$release && docker-compose -f docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
