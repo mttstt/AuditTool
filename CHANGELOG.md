@@ -1,32 +1,33 @@
 ### 0.0.10 (xx-xx-2018)
 ##### New features
-* Add administrator functions
-* DEMO data now moved on /private directory
+* Added administrator functions
+* DEMO: data now moved on "/private" app directory
 
 #### Clean code
-* MK element alphabetical ordered
-* Add "ostrio:meteor-root" package
-* Add "harrison:papa-parse" package
-* Add "themeteorchef:bert" package
-* Add "check" package
-* Remove "csv-parser" package
+* MK element, alphabetical ordered
+* Added first only collections client, for aggregate results
+* Added "ostrio:meteor-root" package
+* Added "harrison:papa-parse" package
+* Added "themeteorchef:bert" package
+* Added "check" package
+* Removed "csv-parser" package
  
 
 ### 0.0.9 (16-10-2018)
 ##### New features
-* Add "jcbernack:reactive-aggregate" package
-* New Monitoring detection Controls section  (registry, detection and publising)
+* Added "jcbernack:reactive-aggregate" package
+* Addeed Monitoring detection Controls section  (registry, detection and publising)
 
 ### 0.0.8 (28-09-2018)
 ##### Clean code
-* Remove "mikowals:batch-insert" package
-* Remove "dburles:mongo-collection-instances" package
-* Add "perak:c3" package
-* Add "random" package
-* Review Access rights of collection Activies 
+* Removed "mikowals:batch-insert" package
+* Removed "dburles:mongo-collection-instances" package
+* Added "perak:c3" package
+* Added "random" package
+* Reviewed Access rights of collection Activies 
 * Integration with MK (delete some import from externals file)
 * Integration with Meteor users and added the new group: Auditors
-* Upgrade of jsreport
+* Upgraded of jsreport
 ##### New features
 * Traslation in english
 * Introduction Graph for continuos controls
@@ -35,22 +36,22 @@
 ### 0.0.7 (27-02-2018)
 ##### New features
 * New architecture on docker
-* Create new script lin-docker.sh in order to manage 3 containers: jsreport, mongodb, audittool
+* Created new script lin-docker.sh in order to manage 3 containers: jsreport, mongodb, audittool
 ##### Clean code
 * Renamed some files
 
 
 ### 0.0.6 (16-12-2017)
 ##### New features
-*	Use the car.sci numbering for the checks.
+*	Used the car.sci numbering for the checks.
 *	Auditing numbering with the change of status "approved"
-* Update of the verbal template pdf
+* Updated of the verbal template pdf
 ##### BUG
 *	Automatic audit-number
 ##### Clean code
-* Eliminate copy of an external file (Bootstrap plugin-file)
-* Use new features of MK release (0.9.90):	Eliminate imports of some external Files
-* Update file batch go-windows.bat
+* Eliminated copy of an external file (Bootstrap plugin-file)
+* Used new features of MK release (0.9.90):	Eliminate imports of some external Files
+* Updated file batch go-windows.bat
 * Upgraded attachment-box
 ##### Added MIT License
 
@@ -68,20 +69,20 @@
 ### 0.0.3 (15-06-2017)
 ##### New Features
 * PDF: Introduced skip Init phase creation new element 
-* Introduced Library Element
+* Added Library Element
 
 
 ### 0.0.2 (15-05-2017)
 ##### New Features
-* Introduced Attachments Element (raix:ui-dropped-event)
+* Added Attachments Element (raix:ui-dropped-event)
 
 
 ### 0.0.1 (15-04-2017)
 ##### New Features
-* Introduced advanced editor CKEDITOR
-* read file from files on change (mikowals:batch-insert, dburles:mongo-collection-instances, NPM csv-parser)
+* Added advanced editor CKEDITOR
+* Noe read file from files on change (mikowals:batch-insert, dburles:mongo-collection-instances, NPM csv-parser)
 
 
 ### 0.0.0 (15-03-2017)
 ##### New Features
-* first release with meteor-kitchen
+* First release with meteor-kitchen
