@@ -35,7 +35,7 @@
   "sci": "Parzial positive",
   "residualRisk":"medium",
   "process": ["AMMINISTRAZIONE"],
-  "subprocesses": ["GESTIONE CICLO PASSIVO"],
+  "subprocesses": ["GESTIONE CICLO PASSIVO"]
 },
 {
   "_id": "11111111111111111",
@@ -57,7 +57,7 @@
   "sci": "Parzial positive",
   "residualRisk": "Medium",
   "normativeInt": ["Organizational insurance procedure for the continuity of the service","Group Policy for strategic planning in the ICT field","Operational Continuity Plan, approved by the Alfa Company Board of Directors"],
-  "normativeExt": ["Best practices: Management Practices, Cobit 5.0", "National law"]
+  "normativeExt": ["Best practices: Management Practices, Cobit 5.0", "National law"],
   "process": ["GESTIONE SICUREZZA"],
-  "subprocesses": ["ASSICURAZIONE DELLA CONTINUITA DEL SERVIZIO"],
+  "subprocesses": ["ASSICURAZIONE DELLA CONTINUITA DEL SERVIZIO"]
   } ]
