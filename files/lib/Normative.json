@@ -9,5 +9,10 @@
   {"law":"Anti-money laundering manual","int_ext":"internal law"},
   {"law":"Group policy for the management of disputes","int_ext":"internal law"},
   {"law":"Law 231/07 (Administrative responsibility of companies and bodies)","int_ext":"external law"},
-  {"law":"Policy for the management of insurance policies","int_ext":"internal law"}
+  {"law":"Organizational insurance procedure for the continuity of the service","int_ext":"internal law"},
+  {"law":"Policy for the management of insurance policies","int_ext":"internal law"},
+  {"law":"Group Policy for strategic planning in the ICT field","int_ext":"internal law"},
+  {"law":"Operational Continuity Plan, approved by Board of Directors","int_ext":"internal law"},
+  {"law":"Best practices: Management Practices, Cobit 5.0","int_ext":"external law"},
+  {"law":"National law","int_ext":"external law"}
 ]
