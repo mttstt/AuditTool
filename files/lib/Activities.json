@@ -10,7 +10,7 @@
   "riskDetails":["Informatico", "Liquidità"],
   "organizatinUnit": ["ICT","Tesoreria"],
   "auditors": ["Albert Einstein", "Galileo Galilei"],
-  "process": ["TESORERIA","GESTIONE DELLA TESORERIA AZIENDALE"],
+  "process": "TESORERIA","GESTIONE DELLA TESORERIA AZIENDALE",
   "subprocesses": ["GESTIONE DELLA TESORERIA AZIENDALE"],
   "startDate": "12/11/2018",
   "memo": "",
@@ -34,7 +34,7 @@
   "memo": "",
   "sci": "Parzial positive",
   "residualRisk":"medium",
-  "process": ["AMMINISTRAZIONE"],
+  "process": "AMMINISTRAZIONE",
   "subprocesses": ["GESTIONE CICLO PASSIVO"]
 },
 {
@@ -58,6 +58,6 @@
   "residualRisk": "Medium",
   "normativeInt": ["Organizational insurance procedure for the continuity of the service","Group Policy for strategic planning in the ICT field","Operational Continuity Plan, approved by Board of Directors"],
   "normativeExt": ["Best practices: Management Practices, Cobit 5.0", "National law"],
-  "process": ["GESTIONE SICUREZZA"],
+  "process": "GESTIONE SICUREZZA",
   "subprocesses": ["ASSICURAZIONE DELLA CONTINUITA DEL SERVIZIO"]
   } ]
