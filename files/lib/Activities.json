@@ -10,7 +10,7 @@
   "riskDetails":["Informatico", "Liquidità"],
   "organizatinUnit": ["ICT","Tesoreria"],
   "auditors": ["Albert Einstein", "Galileo Galilei"],
-  "process": "TESORERIA","GESTIONE DELLA TESORERIA AZIENDALE",
+  "process": "TESORERIA",
   "subprocesses": ["GESTIONE DELLA TESORERIA AZIENDALE"],
   "startDate": "12/11/2018",
   "memo": "",
