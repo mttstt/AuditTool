@@ -5,7 +5,7 @@
 		"meta_title": "AuditTool",
 		"theme": "bootswatch-spacelab",
 		"animate": true,
-		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018, MIT License, release 0.0.9",
+		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018, MIT License, release 0.0.10",
 		"roles": [
 			"admin",
 			"user",
@@ -29,7 +29,7 @@
 						"show_in_update_form": false
 					},
 					{
-						"name": "tipo",
+						"name": "type",
 						"title": "Activity type",
 						"type": "string",
 						"exportable": true,
@@ -38,14 +38,14 @@
 						"show_in_update_form": false
 					},
 					{
-						"name": "titolo",
+						"name": "title",
 						"title": "Title",
 						"type": "string",
 						"exportable": true,
 						"show_in_insert_form": false
 					},
 					{
-						"name": "data",
+						"name": "startDate",
 						"title": "Audit start date",
 						"type": "date",
 						"default": "today",
@@ -65,7 +65,7 @@
 						"lookup_field": "auditor"
 					},
 					{
-						"name": "obiettivo",
+						"name": "objective",
 						"title": "Activity objective",
 						"type": "string",
 						"exportable": true,
@@ -113,7 +113,7 @@
 						"show_in_update_form": false
 					},
 					{
-						"name": "rischiEsaminati",
+						"name": "riskDetails",
 						"title": "Examinated risks",
 						"type": "array",
 						"exportable": true,
@@ -124,7 +124,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "strutture",
+						"name": "organizatinUnit",
 						"title": "Organization Units",
 						"type": "array",
 						"exportable": true,
@@ -135,7 +135,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "numero",
+						"name": "number",
 						"title": "Activity number",
 						"type": "string",
 						"exportable": true,
@@ -143,7 +143,7 @@
 						"show_in_update_form": false
 					},
 					{
-						"name": "normativeint",
+						"name": "normativeInt",
 						"title": "Internal legislation",
 						"type": "array",
 						"input": "select-multiple",
@@ -153,7 +153,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "normativeext",
+						"name": "normativeExt",
 						"title": "External legislation",
 						"type": "array",
 						"input": "select-multiple",
@@ -163,23 +163,19 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "processi",
+						"name": "process",
 						"title": "Processes",
-						"type": "array",
-						"input": "select-multiple",
-						"lookup_query_name": "processi",
+						"type": "string",
+						"input": "select",
 						"lookup_key": "processo",
 						"lookup_field": "processo",
 						"show_in_insert_form": false
 					},
 					{
-						"name": "sottoprocessi",
+						"name": "subprocesses",
 						"title": "Sub processes",
 						"type": "array",
 						"input": "select-multiple",
-						"lookup_query_name": "sottoprocessi",
-						"lookup_key": "sottoprocesso",
-						"lookup_field": "sottoprocesso",
 						"show_in_insert_form": false
 					},
 					{
@@ -190,11 +186,11 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "filiale",
+						"name": "branch",
 						"title": "Branch",
 						"type": "string",
 						"input": "select",
-						"lookup_query_name": "filiali_all",
+						"lookup_query_name": "braches_all",
 						"lookup_key": "filiale",
 						"lookup_field": "filiale",
 						"show_in_insert_form": false
@@ -229,7 +225,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "rischioResiduo",
+						"name": "residualRisk",
 						"title": "Residual risk evaluetion",
 						"type": "string",
 						"input": "select",
@@ -254,7 +250,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "closedate",
+						"name": "closeDate",
 						"title": "Data chiusura attività",
 						"type": "date",
 						"default": "today",
@@ -263,7 +259,7 @@
 						"show_in_insert_form": false
 					},
 					{
-						"name": "nextreadystatus",
+						"name": "nextreadyStatus",
 						"type": "bool",
 						"default": "false",
 						"searchable": false,
@@ -282,40 +278,25 @@
 				"after_remove_code": "//ToDo: dopo la rimozione di Activities vanno rimosse \"carenze\", \"test\", file."
 			},
 			{
-				"name": "risks",
+				"name": "branch",
 				"type": "collection",
 				"fields": [
 					{
-						"name": "risk",
-						"title": "Principali aree di rischio",
+						"name": "branch",
+						"title": "Branch",
 						"type": "string",
-						"show_in_insert_form": false
-					},
-					{
-						"name": "ICAAP",
-						"title": "Principali rischi ICAAP",
-						"type": "string",
-						"show_in_insert_form": false,
-						"show_in_update_form": false
+						"exportable": true
 					}
-				]
+				],
+				"owner_field": "ownerId"
 			},
 			{
-				"name": "organizationunit",
-				"type": "collection",
-				"fields": [
-					{
-						"name": "uo",
-						"title": "Organization Unit",
-						"type": "string",
-						"input": "select-multiple"
-					},
-					{
-						"name": "level",
-						"title": "OU Level",
-						"type": "string"
-					}
-				]
+				"name": "files",
+				"type": "file_collection",
+				"storage_adapters": [
+					"gridfs"
+				],
+				"owner_field": "ownerId"
 			},
 			{
 				"name": "issues",
@@ -472,80 +453,101 @@
 				"after_update_code": "if(( modifier.$set.numero !== undefined)) {\n\t\t\t\t\t\t\t\t\tconsole.log(\"RIASSEGNARE L'ID ALLE CARENZE\");\n\t\t\t\t\t\t\t\t\t}"
 			},
 			{
-				"name": "files",
-				"type": "file_collection",
-				"storage_adapters": [
-					"gridfs"
-				],
-				"owner_field": "ownerId"
-			},
-			{
-				"name": "tests",
+				"name": "libtest",
 				"type": "collection",
 				"fields": [
 					{
-						"name": "numero",
-						"title": "Test number",
+						"name": "libreria",
+						"title": "Libreria",
 						"type": "string",
-						"default": "{{nextVerificaNumber}}",
+						"exportable": true
+					},
+					{
+						"name": "descrizione",
+						"title": "Descrizione",
+						"type": "string",
+						"exportable": true,
+						"input": "textarea"
+					},
+					{
+						"name": "area",
+						"title": "Area",
+						"type": "string",
+						"exportable": true
+					}
+				]
+			},
+			{
+				"name": "monitoringdetection",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "controlId",
+						"title": "Control code",
+						"type": "string",
+						"required": true,
+						"exportable": true,
+						"input": "select",
+						"input_group_class": "col-sm-4 col-md-4",
+						"lookup_query_name": "registrycontrols_list",
+						"lookup_query_params": [
+							{
+								"name": "name",
+								"value": "Meteor.user().profile.name"
+							}
+						],
+						"lookup_key": "_id",
+						"lookup_field": "title",
+						"join_collection": "registrycontrols",
+						"join_container": "registrycontrol",
+						"join_fields": [
+							"title"
+						],
 						"show_in_dataview": false,
+						"show_in_read_only_form": false
+					},
+					{
+						"name": "registrycontrol.title",
+						"title": "Title",
+						"type": "string",
+						"exportable": true,
 						"show_in_insert_form": false,
 						"show_in_update_form": false
 					},
 					{
-						"name": "titolo",
-						"title": "Test title",
-						"type": "string",
-						"default": "{{titleVerifica}}",
-						"required": true
+						"name": "date",
+						"title": "Date",
+						"type": "date",
+						"default": "MM/YY",
+						"exportable": true,
+						"input": "datepicker",
+						"input_group_class": "col-sm-4 col-md-4"
 					},
 					{
-						"name": "obiettivo",
-						"title": "Test scope",
+						"name": "keyIndicator",
+						"title": "Key indicator",
 						"type": "string",
-						"default": "{{descriptionVerifica}}",
+						"exportable": true,
+						"input_group_class": "col-sm-4 col-md-4"
+					},
+					{
+						"name": "note",
+						"title": "Notes",
+						"type": "string",
+						"exportable": true,
 						"input": "textarea"
 					},
 					{
-						"name": "descrizione",
-						"title": "Test description",
+						"name": "controller",
+						"title": "User",
 						"type": "string",
-						"input": "textarea",
-						"show_in_dataview": false,
-						"show_in_insert_form": false
-					},
-					{
-						"name": "activityId",
-						"title": "ActivityId",
-						"type": "string",
-						"show_in_dataview": false,
+						"exportable": true,
+						"input_group_class": "col-sm-4 col-md-4",
 						"show_in_insert_form": false,
 						"show_in_update_form": false,
 						"show_in_read_only_form": false
-					},
-					{
-						"name": "esito",
-						"title": "Result",
-						"type": "string",
-						"input": "select",
-						"input_items": [
-							{
-								"value": "-",
-								"title": "-"
-							},
-							{
-								"value": "fail",
-								"title": "FAIL"
-							},
-							{
-								"value": "pass",
-								"title": "PASS"
-							}
-						],
-						"show_in_insert_form": false
 					}
-				],
-				"owner_field": "ownerId"
+				]
 			},
 			{
 				"name": "normative",
@@ -554,65 +556,70 @@
 					{
 						"name": "law",
 						"title": "Normativa",
-						"type": "string"
+						"type": "string",
+						"exportable": true
 					},
 					{
 						"name": "int_ext",
 						"title": "Int-Ext",
-						"type": "string"
+						"type": "string",
+						"exportable": true
 					}
 				]
 			},
 			{
-				"name": "libtest",
+				"name": "organizationunit",
 				"type": "collection",
 				"fields": [
 					{
-						"name": "libreria",
-						"title": "Libreria",
+						"name": "uo",
+						"title": "Organization Unit",
 						"type": "string",
-						"searchable": false,
-						"show_in_insert_form": false,
-						"show_in_update_form": false,
-						"show_in_read_only_form": false
+						"exportable": true
 					},
 					{
-						"name": "descrizione",
-						"title": "Descrizione",
+						"name": "level",
+						"title": "OU Level",
 						"type": "string",
-						"searchable": false,
-						"sortable": false,
-						"input": "textarea",
-						"show_in_dataview": false,
-						"show_in_insert_form": false,
-						"show_in_update_form": false,
-						"show_in_read_only_form": false
-					},
-					{
-						"name": "area",
-						"title": "Area",
-						"type": "string",
-						"searchable": false,
-						"sortable": false,
-						"show_in_dataview": false,
-						"show_in_insert_form": false,
-						"show_in_update_form": false,
-						"show_in_read_only_form": false
+						"exportable": true
 					}
 				]
 			},
 			{
-				"name": "branch",
+				"name": "processes",
 				"type": "collection",
 				"fields": [
 					{
-						"name": "branch",
-						"title": "Branch",
+						"name": "sector",
+						"title": "Sector",
 						"type": "string",
-						"input": "select"
+						"exportable": true
+					},
+					{
+						"name": "process",
+						"title": "Process",
+						"type": "string",
+						"exportable": true
+					},
+					{
+						"name": "subprocess",
+						"title": "Sub Process",
+						"type": "string",
+						"exportable": true
+					},
+					{
+						"name": "fase",
+						"title": "Fase",
+						"type": "string",
+						"exportable": true
+					},
+					{
+						"name": "activity",
+						"title": "Activity",
+						"type": "string",
+						"exportable": true
 					}
-				],
-				"owner_field": "ownerId"
+				]
 			},
 			{
 				"name": "registrycontrols",
@@ -622,18 +629,21 @@
 						"name": "area",
 						"title": "Area",
 						"type": "string",
+						"exportable": true,
 						"input_group_class": "col-sm-4 col-md-4"
 					},
 					{
 						"name": "title",
 						"title": "Control title",
 						"type": "string",
+						"exportable": true,
 						"input_group_class": "col-sm-4 col-md-4"
 					},
 					{
 						"name": "periodicity",
 						"title": "Periodicity",
 						"type": "string",
+						"exportable": true,
 						"input": "radio",
 						"input_group_class": "col-sm-4 col-md-4",
 						"input_items": [
@@ -659,12 +669,14 @@
 						"name": "control_description",
 						"title": "Control description",
 						"type": "string",
+						"exportable": true,
 						"input": "textarea"
 					},
 					{
 						"name": "controller",
 						"title": "Control owner",
 						"type": "string",
+						"exportable": true,
 						"input": "select",
 						"input_group_class": "col-sm-4 col-md-4",
 						"lookup_query_name": "q_users",
@@ -675,6 +687,7 @@
 						"name": "charttype",
 						"title": "Chart type",
 						"type": "string",
+						"exportable": true,
 						"input": "radio",
 						"input_group_class": "col-sm-4 col-md-4",
 						"input_items": [
@@ -724,6 +737,7 @@
 						"name": "enabled",
 						"title": "Enabled",
 						"type": "string",
+						"exportable": true,
 						"input": "radio",
 						"input_group_class": "col-sm-4 col-md-4",
 						"input_items": [
@@ -740,139 +754,104 @@
 				]
 			},
 			{
-				"name": "monitoringdetection",
+				"name": "risks",
 				"type": "collection",
 				"fields": [
 					{
-						"name": "controlId",
-						"title": "Control code",
+						"name": "risk",
+						"title": "Principali aree di rischio",
 						"type": "string",
-						"required": true,
-						"searchable": false,
-						"input": "select",
-						"input_group_class": "col-sm-4 col-md-4",
-						"lookup_query_name": "registrycontrols_list",
-						"lookup_query_params": [
-							{
-								"name": "name",
-								"value": "Meteor.user().profile.name"
-							}
-						],
-						"lookup_key": "_id",
-						"lookup_field": "title",
-						"join_collection": "registrycontrols",
-						"join_container": "registrycontrol",
-						"join_fields": [
-							"title"
-						],
-						"show_in_dataview": false,
-						"show_in_read_only_form": false
+						"exportable": true
 					},
 					{
-						"name": "registrycontrol.title",
-						"title": "Title",
+						"name": "ICAAP",
+						"title": "Principali rischi ICAAP",
 						"type": "string",
-						"searchable": false,
+						"exportable": true
+					}
+				]
+			},
+			{
+				"name": "tests",
+				"type": "collection",
+				"fields": [
+					{
+						"name": "numero",
+						"title": "Test number",
+						"type": "string",
+						"default": "{{nextVerificaNumber}}",
+						"exportable": true,
+						"show_in_dataview": false,
 						"show_in_insert_form": false,
 						"show_in_update_form": false
 					},
 					{
-						"name": "date",
-						"title": "Date",
-						"type": "date",
-						"default": "MM/YY",
-						"searchable": false,
-						"input": "datepicker",
-						"input_group_class": "col-sm-4 col-md-4"
+						"name": "titolo",
+						"title": "Test title",
+						"type": "string",
+						"default": "{{titleVerifica}}",
+						"required": true,
+						"exportable": true
 					},
 					{
-						"name": "keyIndicator",
-						"title": "Key indicator",
+						"name": "obiettivo",
+						"title": "Test scope",
 						"type": "string",
-						"searchable": false,
-						"input_group_class": "col-sm-4 col-md-4"
-					},
-					{
-						"name": "note",
-						"title": "Notes",
-						"type": "string",
-						"searchable": false,
+						"default": "{{descriptionVerifica}}",
+						"exportable": true,
 						"input": "textarea"
 					},
 					{
-						"name": "controller",
-						"title": "User",
+						"name": "descrizione",
+						"title": "Test description",
 						"type": "string",
-						"searchable": false,
-						"input_group_class": "col-sm-4 col-md-4",
+						"exportable": true,
+						"input": "textarea",
+						"show_in_dataview": false,
+						"show_in_insert_form": false
+					},
+					{
+						"name": "activityId",
+						"title": "ActivityId",
+						"type": "string",
+						"exportable": true,
+						"show_in_dataview": false,
 						"show_in_insert_form": false,
 						"show_in_update_form": false,
 						"show_in_read_only_form": false
-					}
-				]
-			},
-			{
-				"name": "auditors",
-				"type": "collection",
-				"fields": [
+					},
 					{
-						"name": "auditor",
-						"title": "Auditor",
+						"name": "esito",
+						"title": "Result",
 						"type": "string",
-						"input": "select-multiple",
-						"lookup_key": "auditor",
-						"lookup_field": "auditor"
-					},
-					{
-						"name": "ruolo",
-						"title": "Ruolo",
-						"type": "string"
+						"exportable": true,
+						"input": "select",
+						"input_items": [
+							{
+								"value": "-",
+								"title": "-"
+							},
+							{
+								"value": "fail",
+								"title": "FAIL"
+							},
+							{
+								"value": "pass",
+								"title": "PASS"
+							}
+						],
+						"show_in_insert_form": false
 					}
-				]
+				],
+				"owner_field": "ownerId"
 			},
 			{
-				"name": "processi",
-				"type": "collection",
-				"fields": [
-					{
-						"name": "settore",
-						"title": "Settore",
-						"type": "string"
-					},
-					{
-						"name": "processo",
-						"title": "Processo",
-						"type": "string"
-					},
-					{
-						"name": "sottoprocesso",
-						"title": "Sotto processo",
-						"type": "string"
-					},
-					{
-						"name": "fase",
-						"title": "Fase",
-						"type": "string"
-					}
-				]
+				"name": "clientprocessuniq",
+				"type": "collection"
 			},
 			{
-				"name": "profili",
-				"type": "collection",
-				"fields": [
-					{
-						"name": "user",
-						"type": "string"
-					},
-					{
-						"name": "department",
-						"type": "string"
-					},
-					{
-						"name": "whenCreated",
-						"type": "string"
-					}
-				]
+				"name": "clientsubprocessuniq",
+				"type": "collection"
 			}
 		],
 		"queries": [
@@ -887,45 +866,6 @@
 				"collection": "users",
 				"find_one": true,
 				"filter": "{ \"_id\": \":userId\" }",
-				"options": "{}"
-			},
-			{
-				"name": "users_null",
-				"collection": "users",
-				"find_one": true,
-				"filter": "{ \"_id\": null }",
-				"options": "{}"
-			},
-			{
-				"name": "current_user_data",
-				"collection": "users",
-				"find_one": true,
-				"filter": "{\"_id\":\"Meteor.userId()\"}",
-				"options": "{}"
-			},
-			{
-				"name": "files_all",
-				"collection": "files",
-				"filter": "{}",
-				"options": "{}"
-			},
-			{
-				"name": "strutture_all",
-				"collection": "organizationunit",
-				"filter": "{}",
-				"options": "{\"sort\":{\"uo\":1}}"
-			},
-			{
-				"name": "risks_all",
-				"collection": "risks",
-				"filter": "{}",
-				"options": "{\"sort\":{\"risk\":1}}"
-			},
-			{
-				"name": "issue",
-				"collection": "issues",
-				"find_one": true,
-				"filter": "{\"_id\":\":carenzaId\"}",
 				"options": "{}"
 			},
 			{
@@ -949,6 +889,76 @@
 				"options": "{}"
 			},
 			{
+				"name": "activity_all",
+				"collection": "activities",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "activities_no_archived",
+				"collection": "activities",
+				"filter": "{\"status\":{\"$ne\":\"archived\"}}",
+				"options": "{}"
+			},
+			{
+				"name": "braches_all",
+				"collection": "branch",
+				"filter": "{}",
+				"options": "{\"sort\":{\"branch\":1}}"
+			},
+			{
+				"name": "branch",
+				"collection": "branch",
+				"find_one": true,
+				"filter": "{\"_id\":\":branchId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "clientprocessuniq_all",
+				"collection": "clientprocessuniq",
+				"filter": "{}",
+				"options": "{\"sort\":{\"_id\":1}}"
+			},
+			{
+				"name": "current_user_data",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{\"_id\":\"Meteor.userId()\"}",
+				"options": "{}"
+			},
+			{
+				"name": "files_all",
+				"collection": "files",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "libtest_all",
+				"collection": "libtest",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "libtest",
+				"collection": "libtest",
+				"find_one": true,
+				"filter": "{\"_id\":\":libtestId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "strutture_all",
+				"collection": "organizationunit",
+				"filter": "{}",
+				"options": "{\"sort\":{\"uo\":1}}"
+			},
+			{
+				"name": "issue",
+				"collection": "issues",
+				"find_one": true,
+				"filter": "{\"_id\":\":carenzaId\"}",
+				"options": "{}"
+			},
+			{
 				"name": "issues_list",
 				"collection": "issues",
 				"filter": "{\"activityId\":\":activityId\"}",
@@ -961,76 +971,22 @@
 				"options": "{\"sort\":{\"law\":1}}"
 			},
 			{
-				"name": "libtest",
-				"collection": "libtest",
-				"filter": "{}",
-				"options": "{}"
-			},
-			{
-				"name": "filiali_all",
-				"collection": "branch",
-				"filter": "{}",
-				"options": "{\"sort\":{\"branch\":1}}"
-			},
-			{
-				"name": "user_auditors_all",
-				"collection": "users",
-				"filter": "{\"roles\":{\"$in\":\"auditor\"}}",
-				"options": "{\"sort\":{\"auditor\":1}}"
-			},
-			{
-				"name": "activity_all",
-				"collection": "activities",
-				"filter": "{}",
-				"options": "{}"
-			},
-			{
 				"name": "normativeint",
 				"collection": "normative",
 				"filter": "{\"int_ext\":\"internal law\"}",
 				"options": "{\"sort\":{\"law\":1}}"
 			},
 			{
-				"name": "processi",
-				"collection": "processi",
-				"filter": "{\"processo\":{\"$ne\":null}}",
-				"options": "{\"sort\":{\"processo\":1}}"
-			},
-			{
-				"name": "sottoprocessi",
-				"collection": "processi",
-				"filter": "{\"sottoprocesso\":{\"$ne\":null}}",
-				"options": "{\"sort\":{\"sottoprocesso\":1}}"
-			},
-			{
-				"name": "activities_no_archived",
-				"collection": "activities",
-				"filter": "{\"status\":{\"$ne\":\"archived\"}}",
-				"options": "{}"
-			},
-			{
-				"name": "profili_all",
-				"collection": "profili",
-				"filter": "{}",
-				"options": "{}"
-			},
-			{
-				"name": "tests_list",
-				"collection": "tests",
-				"filter": "{\"activityId\":\":activityId\"}",
-				"options": "{}"
-			},
-			{
-				"name": "test_null",
-				"collection": "tests",
-				"filter": "{\"_id\":null}",
-				"options": "{}"
-			},
-			{
-				"name": "test",
-				"collection": "tests",
+				"name": "normative",
+				"collection": "normative",
 				"find_one": true,
-				"filter": "{\"_id\":\":testId\"}",
+				"filter": "{\"_id\":\":normativeId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "normative_all",
+				"collection": "normative",
+				"filter": "{}",
 				"options": "{}"
 			},
 			{
@@ -1046,25 +1002,6 @@
 				"options": "{\"sort\":[[\"createdAt\",\"asc\"]]}"
 			},
 			{
-				"name": "registrycontrols_all",
-				"collection": "registrycontrols",
-				"filter": "{}",
-				"options": "{\"sort\":{\"area\":1,\"title\":1}}"
-			},
-			{
-				"name": "registrycontrol",
-				"collection": "registrycontrols",
-				"find_one": true,
-				"filter": "{\"_id\":\":monitoringcontrolId\"}",
-				"options": "{}"
-			},
-			{
-				"name": "md_name",
-				"collection": "monitoringdetection",
-				"filter": "{\"controller\":\":name\"}",
-				"options": "{}"
-			},
-			{
 				"name": "monitoringdetection",
 				"collection": "monitoringdetection",
 				"find_one": true,
@@ -1072,9 +1009,9 @@
 				"options": "{}"
 			},
 			{
-				"name": "registrycontrols_list",
-				"collection": "registrycontrols",
-				"filter": "{\"controller\":\":name\",\"enabled\":\"true\"}",
+				"name": "md_name",
+				"collection": "monitoringdetection",
+				"filter": "{\"controller\":\":name\"}",
 				"options": "{}"
 			},
 			{
@@ -1088,6 +1025,108 @@
 				"collection": "monitoringdetection",
 				"filter": "{\"controlId\":\":controlId\"}",
 				"options": "{}"
+			},
+			{
+				"name": "organizationunit_all",
+				"collection": "organizationunit",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "organizationunit",
+				"collection": "organizationunit",
+				"find_one": true,
+				"filter": "{\"_id\":\":organizationunitId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "process_sub_all",
+				"collection": "processes",
+				"filter": "{\"subprocesses\":{\"$ne\":null}}",
+				"options": "{\"sort\":{\"sottoprocesso\":1}}"
+			},
+			{
+				"name": "processes_all",
+				"collection": "processes",
+				"filter": "{}",
+				"options": "{}"
+			},
+			{
+				"name": "process",
+				"collection": "processes",
+				"find_one": true,
+				"filter": "{\"_id\":\":processId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "registrycontrols_list",
+				"collection": "registrycontrols",
+				"filter": "{\"controller\":\":name\",\"enabled\":\"true\"}",
+				"options": "{}"
+			},
+			{
+				"name": "registrycontrols_all",
+				"collection": "registrycontrols",
+				"filter": "{}",
+				"options": "{\"sort\":{\"area\":1,\"title\":1}}"
+			},
+			{
+				"name": "registrycontrol",
+				"collection": "registrycontrols",
+				"find_one": true,
+				"filter": "{\"_id\":\":monitoringcontrolId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "risks_all",
+				"collection": "risks",
+				"filter": "{}",
+				"options": "{\"sort\":{\"risk\":1}}"
+			},
+			{
+				"name": "risk",
+				"collection": "risks",
+				"find_one": true,
+				"filter": "{\"_id\":\":riskId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "test",
+				"collection": "tests",
+				"find_one": true,
+				"filter": "{\"_id\":\":testId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "test_null",
+				"collection": "tests",
+				"filter": "{\"_id\":null}",
+				"options": "{}"
+			},
+			{
+				"name": "tests_list",
+				"collection": "tests",
+				"filter": "{\"activityId\":\":activityId\"}",
+				"options": "{}"
+			},
+			{
+				"name": "users_null",
+				"collection": "users",
+				"find_one": true,
+				"filter": "{ \"_id\": null }",
+				"options": "{}"
+			},
+			{
+				"name": "user_auditors_all",
+				"collection": "users",
+				"filter": "{\"roles\":{\"$in\":\"auditor\"}}",
+				"options": "{\"sort\":{\"auditor\":1}}"
+			},
+			{
+				"name": "clientprocessuniq",
+				"collection": "clientsubprocessuniq",
+				"filter": "{\"process\":\":processId\"}",
+				"options": "{\"sort\":{\"subprocess\":1}}"
 			}
 		],
 		"public_zone": {
@@ -1108,7 +1147,7 @@
 						},
 						{
 							"title": "Monitoring detection",
-							"route": "monitoring_detection",
+							"route": "dashboard_md",
 							"icon_class": "fa fa-desktop"
 						},
 						{
@@ -1516,7 +1555,6 @@
 											"title": "Processi",
 											"type": "array",
 											"input": "select-multiple",
-											"lookup_query_name": "processi",
 											"lookup_key": "processo",
 											"lookup_field": "processo",
 											"show_in_insert_form": false
@@ -1526,7 +1564,7 @@
 											"title": "SottoProcessi",
 											"type": "array",
 											"input": "select-multiple",
-											"lookup_query_name": "sottoprocessi",
+											"lookup_query_name": "process_sub_all",
 											"lookup_key": "sottoprocesso",
 											"lookup_field": "sottoprocesso",
 											"show_in_insert_form": false
@@ -1543,7 +1581,7 @@
 											"title": "Filiale",
 											"type": "string",
 											"input": "select",
-											"lookup_query_name": "filiali_all",
+											"lookup_query_name": "braches_all",
 											"lookup_key": "filiale",
 											"lookup_field": "filiale",
 											"show_in_insert_form": false
@@ -1639,16 +1677,17 @@
 					]
 				},
 				{
-					"name": "monitoring_detection",
+					"name": "dashboard_md",
 					"type": "page",
-					"events_code": "\"click .click-enabled\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar item = this;\t\t\n\t\tvar itemId = item ? item._id : null;\n\t\tRouter.go(\"monitoring_detection.details\", mergeObjects(Router.currentRouteParams(), { controlId: this.chart.id.substring(2) }));\n\t\treturn false;\n},\n  \n\"click .card\": function(e, t) {\n\t\te.preventDefault();\n  \t\tconsole.log(e.currentTarget.id);\n  \t\tvar x=Registrycontrols.findOne( { _id: e.currentTarget.id.substring(3) } );\n\t\tSession.set('ModalInfo',{title: x.title, description: x.control_description, periodicity: x.periodicity, area: x.area, controller: x.controller });\n\t\t$(\"#idMyModal\").modal('show');\n}\n  \n ",
+					"events_code": "\"click .click-enabled\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar item = this;\t\t\n\t\tvar itemId = item ? item._id : null;\n\t\tRouter.go(\"dashboard_md.details\", mergeObjects(Router.currentRouteParams(), { controlId: this.chart.id.substring(2) }));\n\t\treturn false;\n},\n  \n\"click .card\": function(e, t) {\n\t\te.preventDefault();  \t\t\n  \t\tvar x=Registrycontrols.findOne( { _id: e.currentTarget.id.substring(3) } );\n\t\tSession.set('ModalInfo',{title: x.title, description: x.control_description, periodicity: x.periodicity, area: x.area, controller: x.controller });\n\t\t$(\"#idMyModal\").modal('show');\n}\n  \n ",
+					"before_subscription_code": "Meteor.subscribe(\"MonitoringdetectionByid\");",
 					"components": [
 						{
 							"name": "charts",
 							"type": "custom_component",
 							"query_name": "registrycontrols_all",
-							"html": "<template name=\"TEMPLATE_NAME\">\n\t<section class=\"wrapper\">\n\t\t<div class=\"container-fostrap\">\n\t\t\t<div class=\"row\">\n\t\t\t\t{{#each x in registrycontrols_all }}\n\t\t\t\t\t{{#let chart=(chartData x) }}\n              \t\t  {{#if equals chart.enabled 'true' }}\n                        <div class=\"col-xs-2 col-sm-2\" >\n                            <div class=\"card\" id={{chart.tag}} >\n                               <div class=\"card-title\">\n                                {{ chart.title }}\n                               </div>\n                               <div class=\"img-card\">\n                                  {{#if chart.YesNo }}\t\t\t\t\t\t\n                                     <div style=\"height: 100px;\" id=chart.id>\n\t\t\t\t\t\t\t\t\t   <i class=\"{{chart.yesNo}}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t\t </div>\n                                  {{ else }}\n                                      {{> c3 data=chart.data id=chart.id }}\n                                   {{/if}}\n                               </div>\n                            </div>\n                            {{> MonitoringDetectionChartscard chart=chart}}\t\t\t\t\t\t\t\t\n                        </div>\n              \t\t  {{/if}}\n\t\t\t\t\t{{/let}}\n\t\t\t\t{{/each}}\n\t\t\t</div>\n\t\t</div>\n\t</section>\n  {{> Modal }}\n</template>\n\n\n<template name=\"MonitoringDetectionChartscard\">\n          <div class=\"card-read-more\">\n          {{#if chart.date}}\n              <a class=\"btn btn-xs btn-link btn-block click-enabled\">\n                  <em>Last update  {{ formatDate (chart.date) 'MM/YYYY' }} </em>\n              </a>\n          {{else}}\n              <a class=\"btn btn-xs btn-link btn-block\" disabled>\n                   <em>No data </em>\n              </a>\n          {{/if}}\n          </div>\n</template>\n\n\n<template name=\"Modal\">\n <div class=\"modal fade\" id=\"idMyModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">{{ModalInfo.title}}</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n\t   </div>\n\t   <div class=\"modal-body\">\n\t\t {{ModalInfo.description}}\n         <br>\n         <br>\t\t\n         <p class=\"font-weight-bold\">Periodicty: {{ModalInfo.periodicity}}</p>\n\t\t <p class=\"font-weight-bold\">Area: {{ModalInfo.area}}</p>\n     \t <p class=\"font-weight-bold\">Controller: {{ModalInfo.controller}}</p>\n\t   </div>\n\t   <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n       </div>\n    </div>\n  </div>\n</div>\n</template>",
-							"js": "var clientMonitoringdetectionByid = new Mongo.Collection('clientMonitoringdetectionByid');\nMeteor.subscribe(\"MonitoringdetectionByid\");\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  chartData: function(chart) {\n\t\tvar x=clientMonitoringdetectionByid.findOne( { _id: chart._id } );\n\t\tif (!x) { var x = {}; x.keyIndicator = 'n/a'; x.date = '';}\n        var res = {\n               data: {\n                       json: {\n                               data: [x.keyIndicator]\n                             },\n                        type: chart.charttype\t\t\t\t\t\t\n                     },\n\t\t\t\tlegend: { show: false },\n\t\t\t\tsize: {height : 100}\n          \n\t\t\t\t};\n        \t\n\t\tswitch (x.keyIndicator)  {\n\t\t\tcase \"OK\":\n\t\t\t\tvar YesNo = \"fa fa-check fa-5x text-success\";\n\t\t\t\tbreak;\n\t\t\tcase \"KO\":\n\t\t\t\tvar YesNo = \"fa fa-close fa-5x text-danger\";\n\t\t\t\tbreak;\n\t\t\t}\n\t\t\n        tag1=\"#\";\n\t\tid1=\"id\";\n\t\tid = id1.concat(chart._id);\n\t\ttag= tag1.concat(id);\n\t\treturn { data: res, YesNo: YesNo, id: id , date: x.date, title: chart.title, control_description: chart.control_description, enabled: chart.enabled, tag: tag };    \n   },\n  \n  equals: function(a, b) {\n\t\treturn a === b;\n\t}\n  \n});\n\n\nTemplate.Modal.helpers({\n  ModalInfo: function() {\n\treturn Session.get('ModalInfo');\n  }\n});\n",
+							"html": "<template name=\"TEMPLATE_NAME\">\n\t<section class=\"wrapper\">\n\t\t<div class=\"container-fostrap\">\n\t\t\t<div class=\"row\">\n\t\t\t\t{{#each x in registrycontrols_all }}\n\t\t\t\t\t{{#let chart=(chartData x) }}\n              \t\t  {{#if equals chart.enabled 'true' }}\n                        <div class=\"col-xs-2 col-sm-2\" >\n                            <div class=\"card\" id={{chart.tag}} >\n                               <div class=\"card-title\">\n                                {{ chart.title }}\n                               </div>\n                               <div class=\"img-card\">\n                                  {{#if chart.YesNo }}\t\t\t\t\t\t\n                                     <div style=\"height: 100px;\" id=chart.id>\n\t\t\t\t\t\t\t\t\t   <i class=\"{{chart.YesNo}}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t\t </div>\n                                  {{ else }}\n                                      {{> c3 data=chart.data id=chart.id }}\n                                   {{/if}}\n                               </div>\n                            </div>\n                            {{> DashboardMdCard chart=chart}}\t\t\t\t\t\t\t\t\n                        </div>\n              \t\t  {{/if}}\n\t\t\t\t\t{{/let}}\n\t\t\t\t{{/each}}\n\t\t\t</div>\n\t\t</div>\n\t</section>\n  {{> Modal }}\n</template>\n\n\n<template name=\"DashboardMdCard\">\n          <div class=\"card-read-more\">\n          {{#if chart.date}}\n              <a class=\"btn btn-xs btn-link btn-block click-enabled\">\n                  <em>Last update  {{ formatDate (chart.date) 'MM/YYYY' }} </em>\n              </a>\n          {{else}}\n              <a class=\"btn btn-xs btn-link btn-block\" disabled>\n                   <em>No data </em>\n              </a>\n          {{/if}}\n          </div>\n</template>\n\n\n<template name=\"Modal\">\n <div class=\"modal fade\" id=\"idMyModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">{{ModalInfo.title}}</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n\t   </div>\n\t   <div class=\"modal-body\">\n\t\t {{ModalInfo.description}}\n         <br>\n         <br>\t\t\n         <p class=\"font-weight-bold\">Periodicty: {{ModalInfo.periodicity}}</p>\n\t\t <p class=\"font-weight-bold\">Area: {{ModalInfo.area}}</p>\n     \t <p class=\"font-weight-bold\">Controller: {{ModalInfo.controller}}</p>\n\t   </div>\n\t   <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n       </div>\n    </div>\n  </div>\n</div>\n</template>",
+							"js": "var clientMonitoringdetectionByid = new Mongo.Collection('clientMonitoringdetectionByid');\n\n\n// TIP&TRICK code moved in \"Before Subscription Code\" to limit subscription at this page.\n//Meteor.subscribe(\"MonitoringdetectionByid\");\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  chartData: function(chart) {\n\t\tvar x=clientMonitoringdetectionByid.findOne( { _id: chart._id } );\n\t\tif (!x) { var x = {}; x.keyIndicator = 'n/a'; x.date = '';}\n        var res = {\n               data: {\n                       json: {\n                               data: [x.keyIndicator]\n                             },\n                        type: chart.charttype\t\t\t\t\t\t\n                     },\n\t\t\t\tlegend: { show: false },\n\t\t\t\tsize: {height : 100}\n          \n\t\t\t\t};\n        \t\n\t\tswitch (x.keyIndicator)  {\n\t\t\tcase \"OK\":\n\t\t\t\tvar YesNo = \"fa fa-check fa-5x text-success\";\n\t\t\t\tbreak;\n\t\t\tcase \"KO\":\n\t\t\t\tvar YesNo = \"fa fa-close fa-5x text-danger\";\n\t\t\t\tbreak;\n          \tcase \"NA\":\n            \tvar YesNo = \"fa fa-ellipsis-h fa-5x text-warning\";\n            \tbreak;\n\t\t\t}\n\t\t\n        tag1=\"#\";\n\t\tid1=\"id\";\n\t\tid = id1.concat(chart._id);\n\t\ttag= tag1.concat(id);\n\t\treturn { data: res, YesNo: YesNo, id: id , date: x.date, title: chart.title, control_description: chart.control_description, enabled: chart.enabled, tag: tag };    \n   },\n  \n  equals: function(a, b) {\n\t\treturn a === b;\n\t}\n  \n});\n\n\nTemplate.Modal.helpers({\n  ModalInfo: function() {\n\treturn Session.get('ModalInfo');\n  }\n});\n",
 							"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
 							"gasoline": {
 								"type": "gasoline",
@@ -1662,6 +1701,7 @@
 							"object_type": "custom_component"
 						}
 					],
+					"container_class": "container-fluid",
 					"pages": [
 						{
 							"name": "details",
@@ -1937,7 +1977,6 @@
 				{
 					"name": "ict_audit_tool",
 					"type": "page",
-					"query_name": "profili_all",
 					"components": [
 						{
 							"name": "side_menu",
@@ -1960,7 +1999,6 @@
 						{
 							"name": "ad_users",
 							"type": "page",
-							"query_name": "profili_all",
 							"html": "<template name=\"TEMPLATE_NAME\">\n\t{{> QUERY_LDAP}}\n</template>\n\n\n<template name=\"QUERY_LDAP\">\n\t<h1>\n\t\t\n\t\t\t\tLista users  Active Directory\n\t\t\t\n\t</h1>\n\t<div>\n\t\t<button class=\"btn btn-default\" id=\"users\">\n\t\t\t\n\t\t\t\t\t\tAggiornamento users\n\t\t\t\t\t\n\t\t</button>\n\t\t{{#if profili_all}}\n\t\t\t<table class=\"table table-striped\">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUser\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDepartment\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</th>\n\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWhen Changed\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody>\n\t\t\t\t\t{{#each profili_all}}\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{{user}}\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                        {{department}}\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{{whenCreated}}\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t{{else}}\n\t\t\t<h3>\n\t\t\t\t\n\t\t\t\t\t\t\t\tNessun user :(\n\t\t\t\t\t\t\t\n\t\t\t</h3>\n\t\t{{/if}}\n\t</div>\n</template>\n\n",
 							"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});\n\nTemplate.QUERY_LDAP.events({\n\t\"click #users\": function(e, t) {\n\t\t\n\t\t\t\tMeteor.call(\"ldapquery\", {}, function(e, r) {\n\t\t\t\t    if(e) console.log(\"errore:\",e); \n\t\t\t\t\tconsole.log(\"query OK\");\n\t\t\t\t});      \n\t\t\t\t            \n\t\t\t\n\t}\n});\n\nTemplate.QUERY_LDAP.helpers({\n\tprofili_all: function() {\n\t\t\n\t\t\t\t//console.log('Numero profili rilevati:',Profili.find().count());\n\t\t\t\treturn Profili.find();\n\t\t\t\n\t}\n});",
 							"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<QUERY_LDAP />\n\t\t);\n\t}\n}\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);\n/*IMPORTS*/\n\nexport class QUERY_LDAP extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\tprofili_all() {\n\t\t\n\t\t\t\t//console.log('Numero profili rilevati:',Profili.find().count());\n\t\t\t\treturn Profili.find();\n\t\t\t\n\t}\n\n\tonClickUsers(e) {\n\t\t\n\t\t\t\tMeteor.call(\"ldapquery\", {}, function(e, r) {\n\t\t\t\t    if(e) console.log(\"errore:\",e); \n\t\t\t\t\tconsole.log(\"query OK\");\n\t\t\t\t});      \n\t\t\t\t            \n\t\t\t\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<h1>\n\t\t\t\t\t\n\t\t\t\t\t\t\tLista users  Active Directory\n\t\t\t\t\t\t\n\t\t\t\t</h1>\n\t\t\t\t<div>\n\t\t\t\t\t<button className=\"btn btn-default\" id=\"users\" onClick={this.onClickUsers}>\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tAggiornamento users\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t</button>\n\t\t\t\t\t{this.profili_all() ? (\n\t\t\t\t\t\t<table className=\"table table-striped\">\n\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tUser\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDepartment\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t\t<th>\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tWhen Changed\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t</th>\n\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tprofili_all.map(function(item, itemIndex) {\n\t\t\t\t\t\t\t\t\t\treturn (\n\t\t\t\t\t\t\t\t\t\t\t<tr key={itemIndex}>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{item.user}\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t                        {item.department}\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t{item.whenCreated}\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t\t\t\t);\n\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t) : (\n\t\t\t\t\t\t<h3>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\tNessun user :(\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t</h3>\n\t\t\t\t\t)}\n\t\t\t\t</div>\n\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nexport const QUERY_LDAPContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, QUERY_LDAP);",
@@ -2279,6 +2317,7 @@
 					"object_type": "menu"
 				}
 			],
+			"container_class": "container-fluid",
 			"pages": [
 				{
 					"name": "home_private",
@@ -2319,14 +2358,14 @@
 							"update_button_title": "update",
 							"fields": [
 								{
-									"name": "titolo",
+									"name": "title",
 									"title": "Title",
 									"type": "string",
 									"required": true,
 									"exportable": true
 								},
 								{
-									"name": "numero",
+									"name": "number",
 									"title": "Number",
 									"type": "string",
 									"default": "{{nextAuditNumber}}",
@@ -2388,25 +2427,59 @@
 							"class": "nav nav-stacked nav-pills",
 							"items": [
 								{
-									"title": "Users",
-									"route": "admin.users"
-								},
-								{
 									"title": "Config",
 									"route": "admin.config"
 								},
 								{
+									"title": "Users",
+									"route": "admin.users"
+								},
+								{
 									"title": "Monitoring Controls",
 									"route": "admin.monitoring_controls"
+								},
+								{
+									"title": "Audit configure",
+									"route": "admin.audit"
 								}
 							],
 							"object_type": "menu"
 						}
 					],
+					"container_class": "container-fluid",
 					"roles": [
 						"admin"
 					],
 					"pages": [
+						{
+							"name": "config",
+							"type": "page",
+							"title": "Config",
+							"components": [
+								{
+									"name": "config",
+									"type": "custom_component",
+									"html": "<template name=\"TEMPLATE_NAME\">\n  \n   <h6> Edit the advanced editor (CKEDITOR) </h6>\n  \n  <a href={{link1}}>{{link1}}</a>\n  \n  <br>\n  <br>\n  <br>\n  \n  <h6> Edit PDF Template (JSrepot) </h6>\n  <a href={{link2}}>{{link2}}</a>\n  \n</template>\n\n",
+									"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n  \n  link1: function(chart) {\n     return 'http://'+window.location.host+'/samples/index.html';          \n  },\n  \n  link2: function(chart) {    \n     return 'http://'+window.location.hostname+':5488/';      \n  }\n\n});",
+									"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
+									"gasoline": {
+										"type": "gasoline",
+										"templates": [
+											{
+												"name": "TEMPLATE_NAME",
+												"type": "template"
+											}
+										]
+									},
+									"object_type": "custom_component"
+								}
+							],
+							"html": "Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\nModifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
+							"container_class": "container-fluid",
+							"roles": [
+								"admin"
+							]
+						},
 						{
 							"name": "users",
 							"type": "page",
@@ -2452,6 +2525,7 @@
 									"object_type": "data_view"
 								}
 							],
+							"container_class": "container-fluid",
 							"roles": [
 								"admin"
 							],
@@ -2589,146 +2663,6 @@
 							]
 						},
 						{
-							"name": "config",
-							"type": "page",
-							"components": [
-								{
-									"name": "link",
-									"type": "div",
-									"components": [
-										{
-											"name": "link_markdown",
-											"type": "markdown",
-											"source": "\n### Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\n### Modifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
-											"object_type": "markdown"
-										}
-									],
-									"object_type": "div"
-								}
-							],
-							"html": "Modifica l'editor avanzato (CKEDITOR)\n\nhttp://localhost:5000/samples/index.html\n\nModifica Template PDF(JSrepot)\n\nhttp://localhost:5488/",
-							"text": "Qui l'amministratore può:\n\n- modificare attività le già archiviate\n\n- modificare le librerie\n\n- ...\n",
-							"roles": [
-								"admin"
-							],
-							"pages": [
-								{
-									"name": "page",
-									"type": "page",
-									"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"page-container\" id=\"content\">\n\t\t<button class=\"btn btn-default\">\n\t\t\tTemplate report Pdf\n\t\t</button>\n\t\t<div>\n\t\t\t<button class=\"btn btn-default\">\n\t\t\t\tConfigura Editor\n\t\t\t</button>\n\t\t</div>\n\t</div>\n</template>\n\n",
-									"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\t\"click .btn.btn-default, click #content\": function(e, t) {\n\t\tvar ipserver= onClickButton1;\n\t\tconsole.log ('oo', Meteor.call('server-ip'));\n\t},\n\n\t\"click div\": function(e, t) {\n\t\t\n\t}\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
-									"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\ttemplatePdf(e) {\n\t\tvar ipserver= onClickButton1;\n\t\tconsole.log ('oo', Meteor.call('server-ip'));\n\t}\n\n\tckeditor(e) {\n\t\t\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div className=\"page-container\" id=\"content\" onClick={this.templatePdf}>\n\t\t\t\t<button className=\"btn btn-default\" onClick={this.templatePdf}>\n\t\t\t\t\tTemplate report Pdf\n\t\t\t\t</button>\n\t\t\t\t<div onClick={this.ckeditor}>\n\t\t\t\t\t<button className=\"btn btn-default\">\n\t\t\t\t\t\tConfigura Editor\n\t\t\t\t\t</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);",
-									"gasoline": {
-										"type": "gasoline",
-										"templates": [
-											{
-												"name": "TEMPLATE_NAME",
-												"children": [
-													{
-														"children": [
-															{
-																"children": [
-																	{
-																		"type": "text",
-																		"text": "Template report Pdf",
-																		"object_type": "gas_text"
-																	}
-																],
-																"type": "html",
-																"element": "button",
-																"attributes": [
-																	{
-																		"name": "class",
-																		"value": "btn btn-default"
-																	}
-																],
-																"events": [
-																	{
-																		"type": "event",
-																		"event": "onclick",
-																		"handler": "templatePdf"
-																	}
-																],
-																"object_type": "gas_html"
-															},
-															{
-																"children": [
-																	{
-																		"children": [
-																			{
-																				"type": "text",
-																				"text": "Configura Editor",
-																				"object_type": "gas_text"
-																			}
-																		],
-																		"type": "html",
-																		"element": "button",
-																		"attributes": [
-																			{
-																				"name": "class",
-																				"value": "btn btn-default"
-																			}
-																		],
-																		"object_type": "gas_html"
-																	}
-																],
-																"type": "html",
-																"events": [
-																	{
-																		"type": "event",
-																		"event": "onclick",
-																		"handler": "ckeditor"
-																	}
-																],
-																"object_type": "gas_html"
-															}
-														],
-														"type": "html",
-														"attributes": [
-															{
-																"name": "class",
-																"value": "page-container"
-															},
-															{
-																"name": "id",
-																"value": "content"
-															}
-														],
-														"events": [
-															{
-																"type": "event",
-																"event": "onclick",
-																"handler": "templatePdf"
-															}
-														],
-														"object_type": "gas_html"
-													}
-												],
-												"type": "template",
-												"handlers": [
-													{
-														"name": "templatePdf",
-														"type": "handler",
-														"code": "var ipserver= onClickButton1;\nconsole.log ('oo', Meteor.call('server-ip'));"
-													},
-													{
-														"name": "ckeditor",
-														"type": "handler"
-													}
-												]
-											}
-										]
-									},
-									"use_gasoline": true,
-									"user_defined_template": true,
-									"roles": [
-										"admin",
-										"auditor"
-									]
-								}
-							]
-						},
-						{
 							"name": "monitoring_controls",
 							"type": "page",
 							"components": [
@@ -2766,23 +2700,27 @@
 										{
 											"name": "area",
 											"title": "Area",
-											"type": "string"
+											"type": "string",
+											"exportable": true
 										},
 										{
 											"name": "title",
 											"title": "Control title",
-											"type": "string"
+											"type": "string",
+											"exportable": true
 										},
 										{
 											"name": "control_description",
 											"title": "Control description",
 											"type": "string",
+											"exportable": true,
 											"input": "textarea"
 										},
 										{
 											"name": "periodicity",
 											"title": "Periodicity",
 											"type": "string",
+											"exportable": true,
 											"input": "radio",
 											"input_items": [
 												{
@@ -2807,6 +2745,7 @@
 											"name": "controller",
 											"title": "Control owner",
 											"type": "string",
+											"exportable": true,
 											"input": "select",
 											"input_group_class": "col-sm-4 col-md-4",
 											"lookup_query_name": "q_users",
@@ -2817,6 +2756,7 @@
 											"name": "charttype",
 											"title": "Chart type",
 											"type": "string",
+											"exportable": true,
 											"input": "radio",
 											"input_items": [
 												{
@@ -2865,12 +2805,14 @@
 											"name": "enabled",
 											"title": "Enabled",
 											"type": "string",
+											"exportable": true,
 											"input": "radio"
 										}
 									],
 									"object_type": "data_view"
 								}
 							],
+							"container_class": "container-fluid",
 							"roles": [
 								"admin"
 							],
@@ -2900,6 +2842,479 @@
 										"admin"
 									],
 									"controller_after_action": "Session.set('monitoringcontrolId',this.params.monitoringcontrolId);"
+								}
+							]
+						},
+						{
+							"name": "audit",
+							"type": "page",
+							"components": [
+								{
+									"name": "audit_menu",
+									"type": "menu",
+									"class": "nav nav-tabs",
+									"items": [
+										{
+											"title": "Branch",
+											"route": "admin.audit.branch"
+										},
+										{
+											"title": "Library test",
+											"route": "admin.audit.libtest"
+										},
+										{
+											"title": "Normative",
+											"route": "admin.audit.normative"
+										},
+										{
+											"title": "Organization Unit",
+											"route": "admin.audit.organizationunit"
+										},
+										{
+											"title": "Process",
+											"route": "admin.audit.process"
+										},
+										{
+											"title": "Risk",
+											"route": "admin.audit.risk"
+										}
+									],
+									"object_type": "menu"
+								},
+								{
+									"name": "div",
+									"type": "div",
+									"components": [
+										{
+											"name": "uploadcsv_button",
+											"type": "custom_component",
+											"html": "<template name=\"TEMPLATE_NAME\">\n<div class=\"text-right\">\n  <div id=\"dropzone\" class=\"btn btn-primary btn-sx dropzone\">\n     {{#unless uploading}}\t\t\n        <label for=\"upload\" title=\"Click to upload or drag&drop CSV file\" style=\"cursor: pointer;\">Upload CSV\n          <span class=\"fa fa-cloud-upload\"></span>\n    \t</label>\n        <input type=\"file\" multiple id=\"upload\" style=\"display: none;\">\n     {{else}}\n      \t<p><i class=\"fa fa-spin fa-refresh\"></i> Uploading files...</p>\n  \t {{/unless}}\n  </div>\n </div>\n</template>\n",
+											"js": "\nvar pageSession = new ReactiveDict();\n\nTemplate.TEMPLATE_NAME.onCreated(function() {\n\tpageSession.set(\"uploading\", false );\n});\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  uploading() {\n    return pageSession.get(\"uploading\");\n  }\n});\n\n\nTemplate.TEMPLATE_NAME.onRendered(function() {  \n    $('#upload').fileinput({\n        showCaption: false,\n        showPreview: false,\n        dropZoneEnabled: false,\n      \tallowedFileExtensions: [\"txt\", \"csv\"],\n        showUpload: false,\n        showRemove: false,\n      //browseClass: \"btn btn-primary\",\n        browseClass: \"\",\n        browseLabel: \"\",\n      //browseIcon: \"<i class=\\\"fa fa-cloud-upload\\\" aria-hidden=\\\"true\\\" style=\\\"color:#666666\\\"></i>\"\n        browseIcon: \"\"\n\t});\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n   'change #upload': function(event, temp) {\n      event.preventDefault();\n     \n     console.log('upload',event.target.files[0].name);\n      bootbox.dialog({       \t\n\t\t\tmessage: \"Upload the file? Are you sure ?\",\n\t\t\ttitle: \"Upload\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tpageSession.set(\"uploading\", true );\n                      \tconsole.log('p',event.target.files[0]);\n\t\t\t\t\t    Papa.parse( event.target.files[0], {\n      \t\t\t\t\t  header: true,\n      \t\t\t\t\t  complete( results, file ) {                            \n        \t\t\t\t    Meteor.call( 'parseUpload', event.target.files[0].name.split('.')[0], results.data, ( error, response ) => {\n          \t\t\t\t\t if ( error ) {\n            \t\t\t\t\tconsole.log( error.reason );\n          \t\t\t\t\t   } else {\n            \t\t\t\t\tpageSession.set(\"uploading\", false );\n            \t\t\t\t\tBert.alert( 'Upload complete!', 'success', 'growl-top-right' );\n          \t\t\t\t\t }\n        \t\t\t\t  });\n      \t\t\t\t    }\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t},\n\t\t\tdanger: {\n\t\t\t\tlabel: \"No\",\n\t\t\t\tclassName: \"btn-default\"\n\t\t\t}\n\t\t}\n\t  });\n   },\n\n  'dropped #dropzone': function(event, temp) {\n   event.preventDefault();\n   FS.Utility.eachFile(event, function(file) { \n     //console.log('file',file.name);\n     bootbox.dialog({\n\t\t\tmessage: \"Upload the file? Are you sure ?\",\n\t\t\ttitle: \"Upload\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n              \t\t\tpageSession.set(\"uploading\", true );\n\t\t\t\t\t    Papa.parse( file.name, {\n      \t\t\t\t\theader: true,\n      \t\t\t\t\tcomplete( results, file ) {\n        \t\t\t\tMeteor.call( 'parseUpload', file.split('.')[0] , results.data, ( error, response ) => {\n          \t\t\t\t\tif ( error ) {\n            \t\t\t\t\tconsole.log( error.reason );\n          \t\t\t\t\t} else {\n            \t\t\t\t\tpageSession.set(\"uploading\", false );\n            \t\t\t\t\tBert.alert( 'Upload complete!', 'success', 'growl-top-right' );\n\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t});\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t},\n\t\t\t\t\tdanger: {\n\t\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t});\n\t\t});\n\t}\n});   \n\n\n\n\n\n\n\n\n\n",
+											"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
+											"gasoline": {
+												"type": "gasoline",
+												"templates": [
+													{
+														"name": "TEMPLATE_NAME",
+														"type": "template"
+													}
+												]
+											},
+											"object_type": "custom_component"
+										}
+									],
+									"object_type": "div"
+								}
+							],
+							"container_class": "container-fluid",
+							"roles": [
+								"admin"
+							],
+							"pages": [
+								{
+									"name": "branch",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Branch",
+											"query_name": "braches_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.branch_all.update",
+											"details_route": "admin.audit_configure.branch_all.update",
+											"edit_route": "admin.audit_configure.branch_all.update",
+											"delete_route": "admin.audit_configure.branch_all",
+											"insert_route_params": [
+												{
+													"name": "branchId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "branchId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "branchId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Branch",
+													"query_name": "branch",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.branch_all",
+													"cancel_route": "admin.audit_configure.branch_all",
+													"submit_code": "if (Session.get('branchId').length === 6) {    \n\tMeteor.call(\"branchInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"branchUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"branchId"
+											],
+											"roles": [
+												"admin"
+											],
+											"controller_after_action": "Session.set('branchId',this.params.branchId);"
+										}
+									]
+								},
+								{
+									"name": "libtest",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Libtest",
+											"query_name": "libtest_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.libtest_all.update",
+											"details_route": "admin.audit_configure.libtest_all.update",
+											"edit_route": "admin.audit_configure.libtest_all.update",
+											"delete_route": "admin.audit_configure.libtest_all",
+											"insert_route_params": [
+												{
+													"name": "libtestId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "libtestId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "libtestId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"roles": [
+										"admin"
+									],
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Libtest",
+													"query_name": "libtest",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.libtest_all",
+													"cancel_route": "admin.audit_configure.libtest_all",
+													"submit_code": "if (Session.get('libtestId').length === 6) {    \n\tMeteor.call(\"libtestInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"libtestUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"libtestId"
+											],
+											"roles": [
+												"admin"
+											],
+											"controller_after_action": "Session.set('libtestId',this.params.libtestId);"
+										}
+									]
+								},
+								{
+									"name": "normative",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Normative",
+											"query_name": "normative_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.normative_all.update",
+											"details_route": "admin.audit_configure.normative_all.update",
+											"edit_route": "admin.audit_configure.normative_all.update",
+											"delete_route": "admin.audit_configure.normative_all",
+											"insert_route_params": [
+												{
+													"name": "normativeId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "normativeId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "normativeId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"roles": [
+										"admin"
+									],
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Normative",
+													"query_name": "normative",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.normative_all",
+													"cancel_route": "admin.audit_configure.normative_all",
+													"submit_code": "if (Session.get('normativeId').length === 6) {    \n\tMeteor.call(\"normativeInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"normativeUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"normativeId"
+											],
+											"roles": [
+												"admin"
+											],
+											"controller_after_action": "Session.set('normativeId',this.params.normativeId);"
+										}
+									]
+								},
+								{
+									"name": "organizationunit",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Organization Unit",
+											"query_name": "organizationunit_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.organizationunit_all.update",
+											"details_route": "admin.audit_configure.organizationunit_all.update",
+											"edit_route": "admin.audit_configure.organizationunit_all.update",
+											"delete_route": "admin.audit_configure.organizationunit_all",
+											"insert_route_params": [
+												{
+													"name": "organizationunitId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "organizationunitId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "organizationunitId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"roles": [
+										"admin"
+									],
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Organization Unit",
+													"query_name": "organizationunit",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.organizationunit_all",
+													"cancel_route": "admin.audit_configure.organizationunit_all",
+													"submit_code": "if (Session.get('organizationunitId').length === 6) {    \n\tMeteor.call(\"organizationunitInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"organizationunitUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"organizationunitId"
+											],
+											"roles": [
+												"admin"
+											],
+											"controller_after_action": "Session.set('organizationunitId',this.params.organizationunitId);"
+										}
+									]
+								},
+								{
+									"name": "process",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Process",
+											"query_name": "processes_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.process_all.update",
+											"details_route": "admin.audit_configure.process_all.update",
+											"edit_route": "admin.audit_configure.process_all.update",
+											"delete_route": "admin.audit_configure.process_all",
+											"insert_route_params": [
+												{
+													"name": "processId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "processId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "processId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Process",
+													"query_name": "process",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.process_all",
+													"cancel_route": "admin.audit_configure.process_all",
+													"submit_code": "if (Session.get('processId').length === 6) {    \n\tMeteor.call(\"processInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"processtUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"processId"
+											],
+											"controller_after_action": "Session.set('processId',this.params.processId);"
+										}
+									]
+								},
+								{
+									"name": "risk",
+									"type": "page",
+									"components": [
+										{
+											"name": "view",
+											"type": "data_view",
+											"title": "Risk",
+											"query_name": "risks_all",
+											"delete_confirmation_message": "Delete ? Are you sure?",
+											"page_size": "20",
+											"insert_route": "admin.audit_configure.risk_all.update",
+											"details_route": "admin.audit_configure.risk_all.update",
+											"edit_route": "admin.audit_configure.risk_all.update",
+											"delete_route": "admin.audit_configure.risk_all",
+											"insert_route_params": [
+												{
+													"name": "riskId",
+													"value": "Random.id([6])"
+												}
+											],
+											"details_route_params": [
+												{
+													"name": "riskId",
+													"value": "this._id"
+												}
+											],
+											"edit_route_params": [
+												{
+													"name": "riskId",
+													"value": "this._id"
+												}
+											],
+											"insert_button_title": "Add new",
+											"update_button_title": "update",
+											"object_type": "data_view"
+										}
+									],
+									"container_class": "container-fluid",
+									"roles": [
+										"admin"
+									],
+									"pages": [
+										{
+											"name": "update",
+											"type": "page",
+											"components": [
+												{
+													"name": "form",
+													"type": "form",
+													"title": "Edit Risk",
+													"query_name": "risk",
+													"mode": "update",
+													"submit_route": "admin.audit_configure.risk_all",
+													"cancel_route": "admin.audit_configure.risk_all",
+													"submit_code": "if (Session.get('riskId').length === 6) {    \n\tMeteor.call(\"risksInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"risksUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"object_type": "form"
+												}
+											],
+											"route_params": [
+												"riskId"
+											],
+											"roles": [
+												"admin"
+											],
+											"controller_after_action": "Session.set('riskId',this.params.riskId);"
+										}
+									]
 								}
 							]
 						}
@@ -3003,7 +3418,7 @@
 							"name": "workflow",
 							"type": "page",
 							"title": "{{title}}",
-							"helpers_code": "// Title\n\n'title': function() {\n    if(Session.get('activity').titolo && Session.get('activity').numero)\n\t    { return (Session.get('activity').numero + ' - ' + Session.get('activity').titolo ); }\n                     \n    if(Session.get('activity').titolo && !Session.get('activity').numero)\n        {return Session.get('activity').titolo; }\n                                                   \n\tif(!Session.get('activity').titolo && !Session.get('activity').numero)\n        {return (\"...\"); }\n}\n",
+							"helpers_code": "// Title\n\n'title': function() {\n    if(Session.get('activity').number && Session.get('activity').title)\n\t    { return (Session.get('activity').number + ' - ' + Session.get('activity').title ); }\n                     \n    if(Session.get('activity').title && !Session.get('activity').number)\n        {return Session.get('activity').title; }\n                                                   \n\tif(!Session.get('activity').title && !Session.get('activity').number)\n        {return (\"...\"); }\n}\n",
 							"query_name": "activity",
 							"components": [
 								{
@@ -3310,15 +3725,12 @@
 									"type": "page",
 									"title": "Scope",
 									"title_icon_class": "fa fa-university",
-									"query_params": [
-										{
-											"name": "activityId",
-											"value": "Session.get('activityId');"
-										}
-									],
+									"events_code": "\"change select[name=process]\": function(event, template) {\n  \tvar prodId = $(event.target).val();\n  \tpageSession.set(\"processId\",prodId);\n\tconsole.log('event:', pageSession.get(\"processId\"));\n}",
+									"query_name": "clientprocessuniq_all",
+									"before_subscription_code": "Meteor.subscribe(\"processuniq\");\nMeteor.subscribe(\"subprocessuniq\");\n\n",
 									"components": [
 										{
-											"name": "scope",
+											"name": "form",
 											"type": "form",
 											"class": "row",
 											"query_name": "activity",
@@ -3328,14 +3740,15 @@
 													"value": "Session.get('activity')._id"
 												}
 											],
-											"custom_data_code": "\n",
+											"template_created_code": "\t\tvar pageSession = new ReactiveDict();\n\t\tvar processId = pageSession.get('processId');",
+											"template_rendered_code": "\n//Session.set(\"processId\", Session.get('activity').process);\n//console.log('On rendered processId: ', Session.get(\"processId\") ); \n\n\n\nthis.autorun(function() {\n\tvar processId = pageSession.get(\"processId\") || Session.get('activity').process;\n\tpageSession.set(\"processId\", processId);\n});\n\nconsole.log('On rendered:',\tpageSession.get(\"processId\"));\n",
 											"mode": "update",
 											"submit_route": "audits.workflow",
 											"submit_button_title": "Salva",
 											"submit_route_params": [
 												{
 													"name": "activityId",
-													"value": "Session.get('activityId')"
+													"value": "Session.get('activity')._id"
 												}
 											],
 											"fields": [
@@ -3368,7 +3781,7 @@
 													"show_in_update_form": false
 												},
 												{
-													"name": "tipo",
+													"name": "type",
 													"title": "Activity type",
 													"type": "string",
 													"required": true,
@@ -3396,14 +3809,14 @@
 													"show_in_update_form": false
 												},
 												{
-													"name": "titolo",
+													"name": "title",
 													"title": "Title",
 													"type": "string",
 													"required": true,
 													"exportable": true
 												},
 												{
-													"name": "obiettivo",
+													"name": "objective",
 													"title": "Activity objective",
 													"type": "string",
 													"exportable": true,
@@ -3455,7 +3868,7 @@
 													"show_in_update_form": false
 												},
 												{
-													"name": "rischiEsaminati",
+													"name": "riskDetails",
 													"title": "Examinated risks",
 													"type": "array",
 													"exportable": true,
@@ -3467,7 +3880,7 @@
 													"show_in_insert_form": false
 												},
 												{
-													"name": "organizationunits",
+													"name": "organizationUnit",
 													"title": "Organization Units",
 													"type": "array",
 													"exportable": true,
@@ -3479,7 +3892,7 @@
 													"show_in_insert_form": false
 												},
 												{
-													"name": "numero",
+													"name": "number",
 													"title": "Activity number",
 													"type": "string",
 													"exportable": true,
@@ -3487,7 +3900,7 @@
 													"show_in_update_form": false
 												},
 												{
-													"name": "normativeint",
+													"name": "normativeInt",
 													"title": "Internal legislation",
 													"type": "array",
 													"input": "select-multiple",
@@ -3498,7 +3911,7 @@
 													"show_in_insert_form": false
 												},
 												{
-													"name": "normativeext",
+													"name": "normativeExt",
 													"title": "External legislation",
 													"type": "array",
 													"input": "select-multiple",
@@ -3509,25 +3922,25 @@
 													"show_in_insert_form": false
 												},
 												{
-													"name": "processi",
+													"name": "process",
 													"title": "Processes",
-													"type": "array",
-													"input": "select-multiple",
+													"type": "string",
+													"input": "select",
 													"input_group_class": "col-sm-4 col-md-4",
-													"lookup_query_name": "processi",
-													"lookup_key": "processo",
-													"lookup_field": "processo",
+													"lookup_query_name": "clientprocessuniq_all",
+													"lookup_key": "_id",
+													"lookup_field": "_id",
 													"show_in_insert_form": false
 												},
 												{
-													"name": "sottoprocessi",
+													"name": "subprocesses",
 													"title": "Sub processes",
 													"type": "array",
 													"input": "select-multiple",
 													"input_group_class": "col-sm-4 col-md-4",
-													"lookup_query_name": "sottoprocessi",
-													"lookup_key": "sottoprocesso",
-													"lookup_field": "sottoprocesso",
+													"lookup_query_name": "clientprocessuniq",
+													"lookup_key": "subprocess",
+													"lookup_field": "subprocess",
 													"show_in_insert_form": false
 												},
 												{
@@ -3549,12 +3962,12 @@
 													"type": "string",
 													"input": "select",
 													"input_group_class": "col-sm-4 col-md-4",
-													"lookup_query_name": "filiali_all",
+													"lookup_query_name": "braches_all",
 													"lookup_key": "branch",
 													"lookup_field": "branch"
 												},
 												{
-													"name": "data",
+													"name": "startDate",
 													"title": "Audit start date",
 													"type": "date",
 													"default": "today",
@@ -3564,7 +3977,7 @@
 													"input_group_class": "col-sm-4 col-md-4"
 												},
 												{
-													"name": "nextreadystatus",
+													"name": "nextreadyStatus",
 													"type": "bool",
 													"searchable": false,
 													"sortable": false,
@@ -3577,10 +3990,10 @@
 											"object_type": "form"
 										}
 									],
-									"template_rendered_code": " ",
 									"html": "<template name=\"TEMPLATE_NAME\">\n\n<div class=\"divright\">\n   <ul class=\"list-group\">\n    <li class=\"list-group-item\" title=\"Status: Avviato\"><a class=\"list-group-item\" href=\"#\"><i class=\"fa fa-hourglass-start not-selected\" aria-hidden=\"true\"></i></a></li>\n    <li class=\"list-group-item\" title=\"Status: In lavorazione\"><a class=\"list-group-item\" href=\"#\"><i class=\"fa fa-cogs not-selected\" aria-hidden=\"true\"></i></a></li> \n    <li class=\"list-group-item\" title=\"Status: Completato\"><a class=\"list-group-item\" href=\"#\"><i class=\"fa fa-diamond selected\" aria-hidden=\"true\"></i></a></li>\n    <li class=\"list-group-item\" title=\"Status: Approvato\"><a class=\"list-group-item\" href=\"#\"><i class=\"fa fa-check not-selected\" aria-hidden=\"true\"></i></a></li>\n    <li class=\"list-group-item\" title=\"Status: Archiviato\"><a class=\"list-group-item\" href=\"#\"><i class=\"fa fa-lock not-selected\" aria-hidden=\"true\"></i></a></li>  \n  </ul>\n </div>  \n</template>\n",
 									"container_class": "container-fluid",
-									"controller_after_action": "// Setto la variabile di Sessione con l'_id dell'attività corrente\n//Session.set('activityId',this.params.activityId);\n\n// console.log('Current ID activite: ', Session.get('activityId'));\n\n//console.log('status:', Activities.findOne({'_id': Session.get('activityId')}).status);"
+									"render_subpages": "auto",
+									"controller_after_action": "// console.log('Current ID activite: ', Session.get('activityId'));\n"
 								},
 								{
 									"name": "tests2",
@@ -3646,7 +4059,7 @@
 													"query_name": "test",
 													"mode": "update",
 													"submit_route": "audits.workflow.tests2",
-													"submit_code": "/* mtt note: with this hack code it is possible use only one Form (bypass Insert Form):\n\nif (Session.get('testId').length === 6) {\n\n    values.activityId = Session.get('activityId');\n\tMeteor.call(\"testsInsert\", values, function(e, r) {\n         //console.log(\"testsInsert\",r); \n         if(e) console.log('error',e);\n         else \n         Meteor.call(\"testsUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse\n*/\n\nif (Session.get('testId').length === 6) {\n    values.activityId = Session.get('activity')._id;\n\tMeteor.call(\"testsInsert\", values, function(e, r) {\n         //console.log(\"testsInsert\",r); \n\t\t\tif(e) console.log('error',e);\n\t\t\telse\n\t\t\tSession.set('monitoringdetectionId',r);\n\t\t\tvar cursor = Files.find({'metadata.activityId': Session.get('activity')._id, 'metadata.section': 'test', 'metadata.test': Session.get('testId') });\n\t\t\tcursor.forEach(function(err, doc) {\n\t\t\t\tif (err) throw err;\n\t\t\t\tif (doc) {\n\t\t\t\t\tval={}; val.test = Session.get('testId',r);\n\t\t\t\t\tMeteor.call(\"FilesUpdate\", doc._id, val, function(e, r) { if(e) errorAction(e); else console.log('ok',r);});\n\t\t\t\t}\n\t\t\t});                   \n\t\t\tMeteor.call(\"testsUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"submit_code": "if (Session.get('testId').length === 6) {\n    values.activityId = Session.get('activity')._id;\n\tMeteor.call(\"testsInsert\", values, function(e, r) {\n         //console.log(\"testsInsert\",r); \n\t\t\tif(e) console.log('error',e);\n\t\t\telse\n\t\t\tSession.set('monitoringdetectionId',r);\n\t\t\tvar cursor = Files.find({'metadata.activityId': Session.get('activity')._id, 'metadata.section': 'test', 'metadata.test': Session.get('testId') });\n\t\t\tcursor.forEach(function(err, doc) {\n\t\t\t\tif (err) throw err;\n\t\t\t\tif (doc) {\n\t\t\t\t\tval={}; val.test = Session.get('testId',r);\n\t\t\t\t\tMeteor.call(\"FilesUpdate\", doc._id, val, function(e, r) { if(e) errorAction(e); else console.log('ok',r);});\n\t\t\t\t}\n\t\t\t});                   \n\t\t\tMeteor.call(\"testsUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
 													"submit_button_title": "Save",
 													"fields": [
 														{
@@ -3722,7 +4135,7 @@
 															"name": "attachments",
 															"type": "custom_component",
 															"query_name": "files_all",
-															"html": "<template name=\"TEMPLATE_NAME\">\n <br><br>\n  \n\t<div id=\"dropzone\" class=\"panel panel-default dropzone\">\n            \n       <div class=\"panel-heading no-padding\">\n              <div class=\"custom-file\">\n                  <label class=\"custom-file-label\" for=\"upload\" title=\"Click to attach files\" style=\"cursor: pointer;\">Attachments \n                     <i class=\"fa fa-cloud-upload\" aria-hidden=\"true\" style=\"color: #3399f3;\"></i> \n                  </label>\n                  <input type=\"file\" class=\"custom-file-input\" multiple id=\"upload\">\n              </div>\n        </div>\n\n        <div class=\"panel-body no-padding\">\n              <ul class=\"list-group\">\n                   {{#each allegati}}\n                          <li class=\"list-group-item\">\n                               {{this.name}}\n                                   <span class=\"\">\n                                        <a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n                                              <i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n                                         </a>\n                                         <label>\n                                              <i class=\"fa fa-trash-o\" style=\"color:red; cursor: pointer;\" aria-hidden=\"true\"></i>\n                                                                <input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n                                         </label>\n                                   </span>\n                          </li>\n                    {{else}}No files uploaded. {{/each}}\n              </ul>\n         </div>\n     </div>\n  </template>",
+															"html": "<template name=\"TEMPLATE_NAME\">\n <br><br>\n <div id=\"dropzone\" class=\"panel panel-default dropzone\">            \n   <div class=\"panel-heading no-padding\">\n      <div class=\"custom-file\">\n         <label class=\"custom-file-label\" for=\"upload\" title=\"Click to attach files\" style=\"cursor: pointer;\">Attachments \n             <i class=\"fa fa-cloud-upload\" aria-hidden=\"true\" style=\"color: #3399f3;\"></i> \n         </label>\n             <input type=\"file\" class=\"custom-file-input\" multiple id=\"upload\">\n      </div>\n   </div>\n   <div class=\"panel-body no-padding\">\n      <ul class=\"list-group\">\n         {{#each allegati}}\n             <li class=\"list-group-item\">{{this.name}}\n                  <span class=\"\">\n                      <a href=\"{{this.url download=true}}\" class=\"btnDownload\" target=\"_parent\">\n                          <i class=\"fa fa-cloud-download\" aria-hidden=\"true\"></i>\n                      </a>\n                      <label>\n                          <i class=\"fa fa-trash-o\" style=\"color:red; cursor: pointer;\" aria-hidden=\"true\"></i>\n                                                                <input type=\"button\" value=\"Remove\" class=\"btnRemove\" style=\"display: none;\" />\n                      </label>\n                  </span>\n             </li>\n          {{else}}No files uploaded. {{/each}}\n      </ul>\n    </div>\n </div>\n</template>",
 															"js": "Template.TEMPLATE_NAME.onCreated(function() { \n});\n\nTemplate.TEMPLATE_NAME.onDestroyed(function() {\n});\n\n\n\nTemplate.TEMPLATE_NAME.onRendered(function() {  \n    $('#upload').fileinput({\n        showCaption: false,\n        showPreview: false,\n        dropZoneEnabled: false,\n        showUpload: false,\n        showRemove: false,\n      //browseClass: \"btn btn-primary\",\n        browseClass: \"\",\n        browseLabel: \"\",\n      //browseIcon: \"<i class=\\\"fa fa-cloud-upload\\\" aria-hidden=\\\"true\\\" style=\\\"color:#666666\\\"></i>\"\n        browseIcon: \"\"\n\t});\n});\n\n\n\nTemplate.TEMPLATE_NAME.helpers({\n \"allegati\": function() {\n\t// console.log('=>',Files.find()); \n\treturn Files.find({'metadata.activityId':Session.get('activity')._id, 'metadata.section': 'test', 'metadata.test': Session.get('testId') }).fetch();\n  }\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n    'change #upload': function(event, temp) {\n      FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activity')._id, section: 'test', test: Session.get('testId')};\n       // console.log(Session.get('activityId'),Meteor.userId());\n        Files.insert(fileObj);\n      });\n    },\n \n    'dropped #dropzone': function(event, temp) {\n        FS.Utility.eachFile(event, function(file) {\n        var fileObj = new FS.File(file);\n        fileObj.metadata = { owner: Meteor.userId(), activityId: Session.get('activity')._id, section: 'test',test: Session.get('testId')};\n        var id = Files.insert(fileObj);\n       //console.log(Session.get('activityId'),Meteor.userId());\n      });\n    },\n  \n    'click .btnRemove': function(event, temp) {    \n\t\tevent.preventDefault();\n\t\tvar self = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Delete the file? Are you sure ?\",\n\t\t\ttitle: \"Delete\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n                      COLLECTION_VAR.remove({ _id: self._id });\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n    }\n});\n\n",
 															"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
 															"object_type": "custom_component"
@@ -3730,7 +4143,7 @@
 														{
 															"name": "collapse",
 															"type": "custom_component",
-															"query_name": "libtest",
+															"query_name": "libtest_all",
 															"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n      \t{{#each a in area}}\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\" role=\"tab\" id=\"heading\">\n\t\t\t\t<h4 class=\"panel-title\">\n\t\t\t\t\t<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{a.area}}\" aria-expanded=\"true\" aria-controls=\"{{a.area}}\">\n\t\t\t\t\t\t{{a.area}}\n\t\t\t\t\t</a>\n\t\t\t\t</h4>\n\t\t\t</div>\n\n\t\t\t<div id=\"{{a.area}}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading\">\n\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t{{#each verifica area a.area }}\n\t\t\t\t\t<h6><p class=\"area\" name=\"{{this}}\">\n\t\t\t\t\t\t<a href=\"#\">\n\t\t\t\t\t\t\t{{this}}\n\t\t\t\t\t\t</a>\n\t\t\t\t\t</p></h6>\n\t\t\t\t\t{{/each}}\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n      \t{{/each}}\n\t</div>\n</template>\n",
 															"js": "Template.TEMPLATE_NAME.created = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.destroyed = function() {\n\n};\n\nTemplate.TEMPLATE_NAME.rendered = function() {\n\n};\n\n\nTemplate.TEMPLATE_NAME.helpers({\n\t\"area\": function() {\n\t\tvar myArray = Libtest.find().fetch();\n\t\tvar groupby = _.groupBy(myArray, function(d){ return d.area; });\n\t\tvar map =  _.map(groupby, function(value, key) {return { \"area\": key, \"libreria\": _.pluck(value, 'libreria') }; });\n\t\treturn map;\n\t}\n});\n\n\nTemplate.registerHelper( 'verifica', ( lib, area ) => {\n\t verifiche = _.findWhere(lib,{\"area\": area });\n\t//console.log('verifica',verifiche)\n\treturn verifiche.libreria;\n});\n\n\nTemplate.TEMPLATE_NAME.events({\n\t'click .area': function(e, t) {\n\t\tvar libreria = this.valueOf();\n\t\tSession.set('titleVerifica',libreria);\n\t\tvar description = Libtest.findOne({\"libreria\": libreria}).descrizione;\n\t\tSession.set('descriptionVerifica',description);\n\t}\n});\n",
 															"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});",
@@ -3778,7 +4191,7 @@
 											"query_params": [
 												{
 													"name": "activityId",
-													"value": "Session.get('activityId')"
+													"value": "Session.get('activity')._id"
 												}
 											],
 											"insert_route": "audits.workflow.issues.update",
@@ -3960,11 +4373,11 @@
 												{
 													"name": "form_issue",
 													"type": "form",
-													"title": "Create new issue",
+													"title": "Issue",
 													"query_name": "issue",
 													"mode": "update",
 													"submit_route": "audits.workflow.issues",
-													"submit_code": "// mtt note: whit this hack code it is possible use only one Form (bypass Insert Form):\n\nif (Session.get('carenzaId').length === 6) {\n  \n    values.activityId = Session.get('activityId');\n\tMeteor.call(\"issuesInsert\", values, function(e, r) {\n        // console.log(\"fieldworksInsert\",r); \n         if(e) console.log('error'); \n         else \n         Meteor.call(\"issuesUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
+													"submit_code": "// mtt note: whit this hack code it is possible use only one Form (bypass Insert Form):\n\nif (Session.get('carenzaId').length === 6) {\n  \n    values.activityId = Session.get('activity')._id;\n\tMeteor.call(\"issuesInsert\", values, function(e, r) {\n        // console.log(\"fieldworksInsert\",r); \n         if(e) console.log('error'); \n         else \n         Meteor.call(\"issuesUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
 													"submit_button_title": "Save",
 													"object_type": "form"
 												}
@@ -4110,7 +4523,7 @@
 								}
 							],
 							"render_subpages": "always",
-							"controller_after_action": "// Setto la variabile di Sessione con l'_id dell'attività corrente\n\nSession.set('activity', Activities.findOne({'_id': this.params.activityId}));\n\n//Session.set('activityId', Session.get('activity')._id);\n\n/*\nconsole.log('id' ,Session.get('activity')._id);\nconsole.log('nextreadystatus',Session.get('activity').nextreadystatus);\nconsole.log('status',Session.get('activity').status);\nconsole.log('numero',Session.get('activity').numero);\nconsole.log('titolo',Session.get('activity').titolo);\n*/\n\n"
+							"controller_after_action": "// Setto la variabile di Sessione con l'_id dell'attività corrente\n\nSession.set('activity', Activities.findOne({'_id': this.params.activityId}));\n\n\n"
 						},
 						{
 							"name": "insert_page",
@@ -4137,7 +4550,7 @@
 											"show_in_update_form": false
 										},
 										{
-											"name": "tipo",
+											"name": "type",
 											"title": "Activity type",
 											"type": "string",
 											"exportable": true,
@@ -4149,21 +4562,21 @@
 											"show_in_read_only_form": false
 										},
 										{
-											"name": "titolo",
+											"name": "title",
 											"title": "Title",
 											"type": "string",
 											"required": true,
 											"exportable": true
 										},
 										{
-											"name": "obiettivo",
+											"name": "objective",
 											"title": "Activity objective",
 											"type": "string",
 											"exportable": true,
 											"input": "textarea"
 										},
 										{
-											"name": "areeRischio",
+											"name": "riskArea",
 											"title": "Risk area (ICAAP)",
 											"type": "array",
 											"exportable": true,
@@ -4174,7 +4587,7 @@
 											"show_in_insert_form": false
 										},
 										{
-											"name": "rischiEsaminati",
+											"name": "riskDetails",
 											"title": "Examinated risks",
 											"type": "array",
 											"exportable": true,
@@ -4186,7 +4599,7 @@
 											"show_in_insert_form": false
 										},
 										{
-											"name": "strutture",
+											"name": "organizatinUnit",
 											"title": "Organization Units",
 											"type": "array",
 											"exportable": true,
@@ -4198,7 +4611,7 @@
 											"show_in_insert_form": false
 										},
 										{
-											"name": "numero",
+											"name": "number",
 											"title": "Activity number",
 											"type": "string",
 											"exportable": true,
@@ -4229,7 +4642,7 @@
 											"show_in_insert_form": false
 										},
 										{
-											"name": "Company",
+											"name": "company",
 											"title": "Companies",
 											"type": "array",
 											"required": true,
@@ -4259,23 +4672,22 @@
 											]
 										},
 										{
-											"name": "processi",
+											"name": "process",
 											"title": "Processes",
 											"type": "array",
 											"input": "select-multiple",
 											"input_group_class": "col-sm-6 col-md-6",
-											"lookup_query_name": "processi",
 											"lookup_key": "processo",
 											"lookup_field": "processo",
 											"show_in_insert_form": false
 										},
 										{
-											"name": "sottoprocessi",
+											"name": "subprocesses",
 											"title": "Sub processes",
 											"type": "array",
 											"input": "select-multiple",
 											"input_group_class": "col-sm-6 col-md-6",
-											"lookup_query_name": "sottoprocessi",
+											"lookup_query_name": "process_sub_all",
 											"lookup_key": "sottoprocesso",
 											"lookup_field": "sottoprocesso",
 											"show_in_insert_form": false
@@ -4304,7 +4716,7 @@
 											"type": "string",
 											"input": "select",
 											"input_group_class": "col-sm-4 col-md-4",
-											"lookup_query_name": "filiali_all",
+											"lookup_query_name": "braches_all",
 											"lookup_key": "filiale",
 											"lookup_field": "filiale"
 										},
@@ -4445,9 +4857,9 @@
 			]
 		},
 		"login_with_google": true,
-		"server_startup_code": "var fs = require(\"fs\");\nvar os = Npm.require('os');\nvar containerized = require('containerized');\nvar fileMonitor= ['Branch','Libtest','Normative','Risks','Organizationunit','Users','Registrycontrols','Processi'];\n\n\npasswdAD =\"\";\nvar path = \"/tmp/files/lib/\";\n\n\nvar getIp = function() {\n    // Get interfaces\n    var netInterfaces = os.networkInterfaces();\n    // Result\n    var result = [];\n    for (var id in netInterfaces) {\n      var netFace = netInterfaces[id];\n\n      for (var i = 0; i < netFace.length; i++) {\n        var ip = netFace[i];\n        if (ip.internal === false && ip.family === 'IPv4') {\n          result.push(ip);\n        }\n      }\n    }   \n    return result[0].address;\n};\n\n\nconsole.log(\"=> Server IP:\",getIp());\nconsole.log(\"=> MONGO_URL: \", process.env.MONGO_URL);\nconsole.log(\"=> ROOT_URL: \",process.env.ROOT_URL);\nconsole.log(\"=> Path: \", path);\n\n\nif (process.env.passwdAD) {\n\t\tpasswdAD = process.env.passwdAD;\n\t\tconsole.log(\"=> PasswordAD: ..\",passwdAD.substr(4, 1),'..');\n} else {console.log(\"=> Active Direcoty disable\");}\n\n\n\n if (containerized()) {\n    console.log('=> I am running inside a Docker container.');\n} else {\n    console.log('=> I am NOT running inside a Docker container.');\n}\n\n\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows){\n\tconsole.log('=> System:', process.env.OS);\n\tpath = \"C://Users//matteo//Documents//GitHub//AuditTool//files//lib//\";\n\t}\nelse {console.log('=> The current server is not on Windows. Linux?');}\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(20).minute();},\n\tjob: calendar\n});\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n// ------------------------------------------------------------------------------------------\n// Aggiornamento collections\n// Non essendoci in Meteor un API per recuperare la collection a partire dal relativo nome\n// lato server, ho creato funzioni dedicate per importare il contenuto dei file\n//-------------------------------------------------------------------------------------------\nvar csv = require('csv-parser');\n\n// Function to obtain the Collection from his name\ngetCollection = function (string) {\n  for (var globalObject in this) {\n      if (this[globalObject] instanceof Meteor.Collection) {\n          if (globalObject === string) {\n              return (this[globalObject]);\n              break;\n          };\n      }\n  }\n  return undefined; // if none of the collections match\n};\n\n\n\nfunction uploadCSV (file) {\n    var csvfs = path+file+\".csv\";\n    if (fs.existsSync(csvfs)) {\n        var coll = Promise.await (getCollection(file)) ;\n        var t = Promise.await( coll.remove({}) );\n        if (file!=\"Processi\" && file!=\"Users\") {\n          \n              var h = Promise.await( fs.createReadStream(csvfs).pipe(csv()).on('data', async function (item) { await coll.insert(item); } )\n                                                                            .on('end', async function (item) { await console.log('Data uploaded:', file,' (',coll.find({}).count() ,')');  } ) );\n        }\n        if (file==\"Processi\") {\n              var p = [];\n              var h = Promise.await( fs.createReadStream(csvfs).pipe(csv()).on('data', async function (obj) { await p.push(obj); })\n                                                    .on('end', async function(){if(p.length > 0){\n                                                            var uniqProc = _.map(_.uniq(_.pluck(p, 'processo')), function(num){ return {processo: num}; });\n                                                            var uniqSottProc = _.map(_.uniq(_.pluck(p, 'sottoprocesso')), function(num){ return {sottoprocesso: num}; });\n                                                            await uniqProc.forEach(function(i){ coll.insert(i) });\n                                                            await uniqSottProc.forEach(function(j){coll.insert(j) });\n                                                            console.log('Data uploaded:',file,' (',uniqProc.length,')');\n                                                            console.log('Data uploaded:  sottoprocessi (',uniqSottProc.length,')');\n                                                         }})\n                                    );\n        }\n\t\tif (file==\"Users\" && Users.find().count({}) === 0) {\n        \t\tvar q = [];\n\t\t\t\tvar x = [];\n        \t\tfs.createReadStream(csvfs).pipe(csv()).on('data', function (obj) {q.push(obj); })\n\t\t\t\t\t   \t\t\t\t\t\t\t\t  .on('end', async function(){\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tfor (var i = 0, len = q.length; i < len; i++) { \n                                                                          const x = await (Accounts.createUser({email: q[i].email, roles: [q[i].roles], password : \"a\", profile: { name: q[i].name } }))\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  // console.log(i,x);\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  \t\t\t \t  }\n  \t\t\t\t\t\t\t\t\t\t\t\t                         console.log('Data uploaded: users (', q.length ,')' );\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t createAuditExample();\n\t\t\t\t\t\t\t\t\t\t\t\t\t   })\n\t\t};\n\n   } else (console.log('File ',file,' not found !'));\n}\n\n\nfunction csvFileToCollection(file) {\n    uploadCSV(file);\n    var csvfs = path+file+\".csv\";\n\tfs.watchFile(csvfs, (curr, prev) => {\n           if(curr.mtime != prev.mtime) { uploadCSV(file); }   \t\t\t\t\t\t                  \n\t});\n}\n  \n\nfileMonitor.forEach(function(f){ csvFileToCollection(f) });\nBranch.insert({branch: \"- Corporate -\"});\n\n\nfunction createAuditExample() {\n  \n  if (Activities.find().count() === 0) {\n            Activities.insert({\n              tipo: \"Audit\",\n              status:\"Working in progress\",\n              company: [\"Beta Company\",\"Omega Company\"],\n              branch:\"Corporate\",\n              nextreadystatus:false,\n              titolo: \"Liquidity\",\n              obiettivo:\"Ordinary audit on liquidity\",\n              areeRischio: ['Credito', 'Operativo'],\n              rischiEsaminati:['Informatico', 'Liquidità'],\n              strutturaId: \"\",\n              auditors: [\"Albert Einstein\", \"Galileo Galilei\"],\n              data: \"12/11/2018\",\n              memo: \"\",\n              sci: \"Parzial negative\",\n              rischioResiduo:\"medio\"\n            });\n\n             Activities.insert({\n              tipo: \"Audit\",\n              status:\"Close\",\n              company: [\"Alfa Companay\"],\n              branch:\"Corporate\",\n              nextreadystatus:false,\n              titolo: \"Purchase process\",\n              obiettivo:\"Audit on procedures of purchases\",\n              areeRischio: ['Operativo'],\n              rischiEsaminati:['Informatico', 'Operativo'],\n              strutturaId: \"\",\n              auditors: [\"Albert Einstein\", \"Galileo Galilei\"],  \t\t\t\t\t  \n              data: \"01/02/2018\",\n              closedate: \"07/06/2018\",\n              numero: \"1/2018\",\n              memo: \"\",\n              sci: \"Parzial positive\",\n              rischioResiduo:\"medium\"\n            });\n    \n// =============================================    \n      var id=Activities.insert({\n        \t  _id: \"11111111111111111\",\n              tipo: \"Audit\",\n              status:\"Close\",\n              branch:\"Corporate\",\n        \t  company: [\"Alfa Company\",\"Gamma Company\",\"Omega Company\"],\n              nextreadystatus:false,\n              titolo: \"Business Continuity Management\",\n              obiettivo:\"The audit, which falls within the audits established by the Audit Plan, has the perimeter of management of the business continuity of the comapany, defined by national Law as: the set of initiatives aimed at to reduce to a level deemed acceptable the damages resulting from accidents or disasters directly or indirectly affecting an operator.\",               \n              areeRischio: ['Internal Regulatory compliance','External Regulatory compliance', 'Business operations'],\n              rischiEsaminati:['Operation risk'],\n              strutturaId: \"Privacy & Security and ICT\",\n              auditors: [\"Albert Einstein\", \"Galileo Galilei\"],  \t\t\t\t\t  \n              data: \"05/04/2018\",\n              numero: \"20/2018\",\n              memo: \"The audit, which falls within the audits established by the Audit Plan, has the perimeter of management of the business continuity of the Alfa Company, defined national law as: the set of initiatives aimed at to reduce to a level deemed acceptable the damages resulting from accidents or disasters directly or indirectly affecting an operator .The Business Continuity Plan (hereinafter also the Plan or PCO) approved by the Board of Directors of Alfa Company at the meeting of February 18, 2018, is valid for all Alfa Company offices present in Holand and for the subsidiary Beta Compant, while the other subsidiaries at the date of approval (Gamma Company and Omega Company) continue to use, up to revocation, their Business Continuity Plan and related annexes updated in the first half of 2017. The person in charge of the O.U. Privacy & Security has been appointed by the Board of Directors of Alfa Comany as the manager of the Operational Continuity Plan and, therefore, in this capacity, it maintains contacts with the Supervisory Authority in the event of a crisis.The Alfa Company Plan aims to describe the organizational and technological measures and arrangements adopted by the Company to guarantee operational continuity and is intended to support the management and management of anomalous situations of seriousness that require specific, non-ordinary measures to their contrast and overcoming. The Plan formalises the Company's Business Continuity objectives as well as the approach, organizational procedures and continuity solutions set up to achieve them. The Company's total PCO also includes the Disaster Recovery Plan prepared to deal with events that entail the unavailability of the Information System.The main internal reference legislation is represented by the Organizational procedure for the insurance continuity of the service, issued in December 2016. This procedure, starting from the identification of the critical business activities, has the objective to determine for each of them organizational controls and business continuity measures commensurate with risk levels. Through the aforementioned process, the Company therefore proposes to limit the probability and impact of a serious interruption of operations and to ensure continuity of service. An adequate Top Management commitment was noted on the issues of Business Continuity: the Copmany's Board of Directors, in addition to approving the PCO and the annual Audit Plan at least annually, is informed of the results of the checks on the adequacy of the Plan. For the operational management of the PCO and its updates, the Manager of the Operational Continuity Plan makes use of a dedicated structure (O.U. Business Continuity). Every year, involving the main organizational units of the Company, the impact analysis (Business Impact Analysis) is performed, in order to identify the risk level of critical business processes, considering all the crisis scenarios envisaged by the relevant legislation.\",\n              sci: \"Parzial positive\",               \n              rischioResiduo:\"Medium\",\n        \t  normativeint: [\"Organizational insurance procedure for the continuity of the service\",\"Group Policy for strategic planning in the ICT field\",\"Operational Continuity Plan, approved by the Alfa Company Board of Directors\"],\n        \t  normativeext: [\"Best practices: Management Practices, Cobit 5.0\", \"National law\"]        \n            });        \n       \t   Tests.insert({\n         \t  numero: \"1\", \n              titolo: \"Policy\",            \n         \t  obiettivo: \"Operational Continuity Management Framework (CO)\",\n         \t  descrizione: \"Verification of the existence and adequacy of a Policy approved by the Board of Directors, which defines: i) business continuity objectives and strategy; ii) ownership of CO management, and related roles and responsibilities.\",\n         \t  activityId: id,\n         \t  esito: \"FAIL\"              \n            });\n           Tests.insert({\n         \t  numero: \"2\", \n              titolo: \"Residual risk\",\n         \t  obiettivo: \"Operational Continuity Management Framework (CO)\",\n         \t  descrizione: \"Verify that the Board of Directors: i) approves the Business Continuity Plan and subsequent amendments, ii) accepts any residual risks not managed by the Plan itself.\",\n         \t  activityId: id,\n         \t  esito: \"FAIL\"              \n            });\n           Tests.insert({\n         \t  numero: \"3\", \n              titolo: \"BIA & DR\",\n         \t  obiettivo: \"Business Impact Analysis (BIA) and Risk Assessment\",\n         \t  descrizione: \"Verify that all critical processes have been identified, the relevant managers, the IT support procedures, the staff involved, and the technological infrastructures used, as well as the time for restoring the process itself.\",\n         \t  activityId: id,\n         \t  esito: \"PASS\"              \n            });\n           Tests.insert({\n         \t  numero: \"4\", \n              titolo: \"Suppliers\",\n         \t  obiettivo: \"Business Impact Analysis (BIA) and Risk Assessment\",\n         \t  descrizione: \"Verify that the constraints deriving from interdependencies were also considered (also between and with suppliers, customers, other operators).\",\n         \t  activityId: id,\n         \t  esito: \"FAIL\"              \n            });\n           Tests.insert({\n         \t  numero: \"5\", \n              titolo: \"Business processes\",\n         \t  obiettivo: \"Business Continuity Plan (BCP)\",\n         \t  descrizione: \"Verify that the BCP includes all critical business processes, and clearly describe the procedures for managing CO in the event of a crisis.\",\n         \t  activityId: id,\n         \t  esito: \"PASS\"              \n            });\n           Tests.insert({\n         \t  numero: \"6\", \n              titolo: \"Declaring crisis\",\n         \t  obiettivo: \"Business Continuity Plan (BCP)\",\n         \t  descrizione: \"Verify that the procedure for declaring a state of crisis has been defined in conjunction with the IT security incident management process\",\n         \t  activityId: id,\n         \t  esito: \"PASS\"              \n            });\n           Tests.insert({\n         \t  numero: \"7\", \n              titolo: \"Procedures Disaster Recovery Plan\",\n         \t  obiettivo: \"Disaster Recovery Plan\",\n         \t  descrizione: \"Verifies that the Disaster Recovery Plan is an integral part of the BCP, and provides indications on how and how to generate copies of the production archives, as well as on the procedures for restoration at alternative sites.\",\n         \t  activityId: id,\n         \t  esito: \"PASS\"              \n            });\n           Tests.insert({\n         \t  numero: \"8\", \n              titolo: \"Recovery capabilities\",\n         \t  obiettivo: \"Disaster Recovery Plan\",\n         \t  descrizione: \"Verify that there is congruence between the current recovery capabilities guaranteed by the Disaster Recovery with the actual business needs of the Bank (as indicated in the BIA), and that the DR Plan is updated with respect to technological and organizational developments.\",\n         \t  activityId: id,\n         \t  esito: \"FAIL\"              \n            });\n           Tests.insert({\n         \t  numero: \"9\", \n              titolo: \"Tests\",\n         \t  obiettivo: \"Risk Monitoring / Test\",\n         \t  descrizione: \"Verifies that: i) the annual Audit Plan is approved by the Board of Directors, ii) comprehensive checks, based on scenarios as realistic as possible, of the restoration of critical business operations in crisis conditions are carried out at least annually.\",\n         \t  activityId: id,\n         \t  esito: \"FAIL\"              \n            });\n           Tests.insert({\n         \t  numero: \"10\", \n              titolo: \"Checks are documented\",\n         \t  obiettivo: \"Reporting\",\n         \t  descrizione: \"Verifies that: i) the results of the checks are documented, brought to the attention of the competent corporate bodies; ii) the BoD is informed at least annually of the results of the controls on the adequacy of the Plan as well as the verification of the CO measures; in case of any deficiencies found, the appropriate corrective actions are started.\",\n         \t  activityId: id,\n         \t  esito: \"PASS\"              \n            });\n    \n           Issues.insert({\n         \t  carenzaId: \"1\",\n              activityId: id,\n              titolo: \"Know how\",\n              company: [\"Alfa company\", \"Beta company\"],\n              descrizione: \"Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura, ché la diritta via era smarrita. Ahi quanto a dir qual era è cosa dura esta selva selvaggia e aspra e forte che nel pensier rinova la paura!\",\n              data: \"03/06/2018\",\n              livello: \"High\",\n              companies: \"\",\n              issue_owner: \"\",\n              tipo: \"Errore Umano\",\n              dbi: \"Yes\",              \n            });\n           Issues.insert({\n         \t  carenzaId: \"2\",\n              activityId: id,\n              titolo: \"Critical outsourcers\",\n              company: [\"Alfa company\", \"Beta company\"],\n              descrizione: \"Tant' è amara che poco è più morte; ma per trattar del ben ch'i' vi trovai, dirò de l'altre cose ch'i' v'ho scorte. Io non so ben ridir com' i' v'intrai, tant' era pien di sonno a quel punto che la verace via abbandonai.\",\n              data: \"05/06/2018\",\n              livello: \"Low\",\n              companies: \"\",\n              issue_owner: \"\",\n              tipo: \"Uman error\",\n              dbi: \"No\",              \n            });\n        \n //==========================================================   \n            \n   }\n  \n  \n  if (Monitoringdetection.find().count() === 0) {Monitoringdetection.insert({controlId: \"1\",  date: \"/08/09/2018\", keyIndicator:\"72\", note:\"\", controller:\"Galileo Galilei\"  });\n                                         \t   Monitoringdetection.insert({controlId: \"2\",  date: \"07/09/2018\", keyIndicator:\"100\", note:\"nota\", controller:\"Galileo Galilei\" });\n                                         \t   Monitoringdetection.insert({controlId: \"3\",  date: \"11/09/2018\", keyIndicator:\"0\", note:\"nota\", controller:\"Galileo Galilei\"  });\n                                         \t   Monitoringdetection.insert({controlId: \"4\",  date: \"01/9/2018\", keyIndicator:\"23\", note:\"nota\", controller:\"Galileo Galilei\"  });\n                                               Monitoringdetection.insert({controlId: \"61\", date: \"12/9/2018\", keyIndicator:\"14\", note:\"nota\", controller:\"Galileo Galilei\"  });\n                                               Monitoringdetection.insert({controlId: \"200\",date: \"7/7/2017\", keyIndicator:\"32\",  note:\"nota\", controller:\"Galileo Galilei\"  });\n                                               Monitoringdetection.insert({controlId: \"200\",date: \"4/10/2018\", keyIndicator:\"2\", note:\"test non effettuato mancanza dati\", controller:\"Galileo Galilei\"  });\n                                               Monitoringdetection.insert({controlId: \"202\",date: \"1/9/2018\", keyIndicator:\"56\", note:\"nota\", controller:\"Galileo Galilei\"  });\n                                       }; \n\n}\n\n\n\tMeteor.methods({\n\t\t\"additionalData\": function(id) {\n\t\t\tlet tests = Promise.await( Tests.find({activityId: id}).fetch() );\n\t\t   \tlet issues = Promise.await ( Issues.find({activityId: id}).fetch() );\n\t\t   \tvar outputjson = {issues: [], tests: [] } ;\n\t\t    for (let i = 0; i < issues.length; i++) { outputjson.issues.push(issues[i]);}\n\t\t    for (let i = 0; i < tests.length; i++) { outputjson.tests.push(tests[i]);}\n\t\t\treturn  outputjson;\n\t\t},                             \n\t})\n    \n    \n    \n  import {ReactiveAggregate} from 'meteor/jcbernack:reactive-aggregate';\n  var pipeline =[{\n          $group: {\n                  _id: \"$controlId\",\n                  date: { $min: \"$date\" },\n                  controller: { \"$first\": \"$controller\"},\n                  keyIndicator: { \"$first\": \"$keyIndicator\"},\n                  note: { \"$first\": \"$note\"}\n              }\n  }];\n\n   Meteor.publish(\"MonitoringdetectionByid\", function() {\n\t    ReactiveAggregate(this, Monitoringdetection, pipeline, { clientCollection: \"clientMonitoringdetectionByid\" });\n\t});\n\n\n//----------------------------------------------------------------------------------------------------------------\n",
+		"server_startup_code": "import {ReactiveAggregate} from 'meteor/jcbernack:reactive-aggregate';\n\nvar os = Npm.require('os');\nvar containerized = require('containerized');\nvar fileMonitor= ['Branch','Libtest','Tests','Normative','Risks','Organizationunit','Users','Registrycontrols','Processes','Issues','Monitoringdetection','Activities'];\n\npasswdAD =\"\";\n\nvar getIp = function() {\n    // Get interfaces\n    var netInterfaces = os.networkInterfaces();\n    // Result\n    var result = [];\n    for (var id in netInterfaces) {\n      var netFace = netInterfaces[id];\n\n      for (var i = 0; i < netFace.length; i++) {\n        var ip = netFace[i];\n        if (ip.internal === false && ip.family === 'IPv4') {\n          result.push(ip);\n        }\n      }\n    }   \n    return result[0].address;\n};\n\n\nconsole.log(\"=> Server IP:\",getIp());\nconsole.log(\"=> MONGO_URL: \", process.env.MONGO_URL);\nconsole.log(\"=> ROOT_URL: \",process.env.ROOT_URL);\n\n\nif (process.env.passwdAD) {\n\t\tpasswdAD = process.env.passwdAD;\n\t\tconsole.log(\"=> PasswordAD: ..\",passwdAD.substr(4, 1),'..');\n} else {console.log(\"=> Active Direcoty disable\");}\n\n\n\n if (containerized()) {\n    console.log('=> I am running inside a Docker container.');\n} else {\n    console.log('=> I am NOT running inside a Docker container.');\n}\n\n\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows){\n\tconsole.log('=> System:', process.env.OS);\n\t}\nelse {console.log('=> The current server is not on Windows. Linux?');}\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(20).minute();},\n\tjob: calendar\n});\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// Function to obtain the Collection from his name\ngetCollection = function (string) {\n  for (var globalObject in this) {\n      if (this[globalObject] instanceof Meteor.Collection) {\n          if (globalObject === string) {\n              return (this[globalObject]);\n              break;\n          };\n      }\n  }\n  return undefined; // if none of the collections match\n};\n\n\n\nfileMonitor.forEach(function(file){\n  var Collection = Promise.await(getCollection(file));\n  var t = Promise.await( Collection.remove({}) );\t\n  var items = JSON.parse(Assets.getText(file+\".json\"));\n  items.forEach(function(item){\n     if (file==\"Users\") {Accounts.createUser(item);} else Collection.insert(item);\n  });\n  console.log('Data uploaded:', file,' (',Collection.find({}).count(),')');\n});\n\n\nMeteor.methods({\n\t\t\"additionalData\": function(id) {\n\t\t\tlet tests = Promise.await( Tests.find({activityId: id}).fetch() );\n\t\t\tlet issues = Promise.await( Issues.find({activityId: id}).fetch() );\n\t\t\tvar outputjson = {issues: [], tests: [] } ;\n\t\t\tfor (i = 0; i < issues.length; i++) { outputjson.issues.push(issues[i]);}\n\t\t\tfor (i = 0; i < tests.length; i++) { outputjson.tests.push(tests[i]);}\n\t\t\treturn  outputjson;\n\t\t},\n          \n        \"parseUpload\": function(coll,data) {\n            check( data, Array );\n            var Collection = Promise.await(getCollection(coll));\n         \t// var t = Promise.await( Collection.remove({}) );\n         \t// for ( i = 0; i < data.length; i++ ) {           \n\t\t \t//\t\tCollection.insert( data[ i ] );\n         \t// }\n          \n         \tfor ( i = 0; i < data.length; i++ ) {\n\t\t\t\tif ( !Collection.findOne(data[i]) ) { Collection.insert(data[i]);} else { console.warn( coll,': Rejected. This item already exists.');}\n    \t    }    \t \n        }\n});\n\n          \n  \nvar pipeline =[{\n          $group: {\n                  _id: \"$controlId\",\n                  date: { $min: \"$date\" },\n                  controller: { \"$first\": \"$controller\"},\n                  keyIndicator: { \"$first\": \"$keyIndicator\"},\n                  note: { \"$first\": \"$note\"}\n              }\n}];\nMeteor.publish(\"MonitoringdetectionByid\", function() {\n    ReactiveAggregate(this, Monitoringdetection, pipeline, { clientCollection: \"clientMonitoringdetectionByid\" });\n});\n\n\n\n//var pipeline1 =[{$group: { _id: \"$process\" } }];\nvar pipeline1 =[{$group: { _id: \"$process\", subprocess: { $push: \"$subprocess\" } } }];\nMeteor.publish(\"processuniq\", function() {\n    ReactiveAggregate(this, Processes, pipeline1, { clientCollection: \"clientprocessuniq\" });  \n});\n\n\n//var pipeline2 =[{$group: { _id: \"$subprocess\" } }];\nvar pipeline2 =[{$group: { _id: { subprocess: \"$subprocess\", process: \"$process\" },\n\t\t\t\t\t\t   process: {$first:\"$process\" },\n\t\t\t\t\t\t   subprocess: {$first:\"$subprocess\" }\t\t\t\t\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t }\n\t\t\t\t},\n                {$project: { _id: {$concat: ['$process','-','$subprocess'] },\n\t\t\t\t\t\t\t\"subprocess\": \"$subprocess\",\n\t\t\t\t\t\t\t\"process\": \"$process\" \n                }\n\t\t\t   }];\n\n\nMeteor.publish(\"subprocessuniq\", function() {\n    ReactiveAggregate(this, Processes, pipeline2, { clientCollection: \"clientsubprocessuniq\" });\n});\n\n\n\n//----------------------------------------------------------------------------------------------------------------\n",
 		"on_user_created_code": "if(options.roles) {user.roles = options.roles;}\nuser.profile.username = options.name;\nuser.profile.email = options.email;\n\n// Hack to delete duplicate entries\n// Users.remove({ email: options.email });\n//console.log(options);",
-		"stylesheet": "/******************************************/\n/*  */\n/******************************************/\n.wrapper {\n  display: table;\n  height: 100%;\n  width: 100%;\n}\n\n.container-fostrap {\n  display: table-cell;\n  padding: 1em;\n  text-align: center;\n  vertical-align: middle;\n}\n\n.card {\n    display: block;\n  /* ---mtt */\n    height: 100%;\n    position: relative;\n  /* ---mtt */\n    margin-top: 20px;\n    margin-bottom: 25px;\n    line-height: 1.42857143;\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);\n    transition: box-shadow .25s;\n}\n.card:hover {\n  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n}\n.img-card {\n  width: 100%;\n  height:100%;\n  border-top-left-radius:2px;\n  border-top-right-radius:2px;\n  display:block;\n  overflow: hidden;\n}\n\n.img-card img{\n  width: 100%;\n  height: 200px;\n  object-fit:cover;\n  transition: all .25s ease;\n}\n\n.card-content {\n  padding:10px;\n  font-size: 0.9em;\n  text-align:left;\n  /* ---mtt */\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 8;\n  -webkit-box-orient: vertical;\n  /* ---mtt */\n}\n.card-title {\n  padding-top:4px;\n  padding-left:10px;\n  padding-right:10px;\n  height: 36px;\n  text-align:left;\n  font-size: 0.9em;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n\n.card-title a {\n  color: #000;\n  text-decoration: none !important;\n}\n\n.card-read-more {\n    /* ---mtt */\n  position: absolute;\n  bottom: 0; right: 0;  left: 0;\n    /* ---mtt */\n // border-top: 1px solid #D4D4D4;\n}\n.card-read-more a {\n  //text-decoration: none !important;\n  padding:2px;\n//  font-weight:600;\n  //text-transform: uppercase\n}\n\n/******************************************/\n\n\n\n\n.dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}\n\nul.list-group:after {\n  content: \"\";\n}\n\nli.borderless {\n  border: 0 none;\n}\n\n.not-selected {\n  font-size: 12px;\n  list-style-type: none;  \n  opacity: 0.95;\n  color: #dadada;\n  padding: 0;\n}\n\n.selected {\n  \tanimation: \n      fonticon 4s forwards,\n      statusicon 4s forwards;     \n}\n\n.suggested {\n\tcolor: #76f233;\n    cursor: pointer;\n\tfont-size: 16px;\n}\n\n@keyframes statusicon {\n    from { color: #dadada;}\n    to {color: #3399f3;}\n} \n\n@keyframes fonticon {\n  0% {font-size: 12px;}\n  20% {font-size: 14px;}\n  40% {font-size: 16px;}\n  60% {font-size: 18px;}\n  80% {font-size: 20px;}\n  100% {font-size: 22px;}\n}\n",
+		"stylesheet": "/******************************************/\n/*  */\n/******************************************/\n.wrapper {\n  display: table;\n  height: 100%;\n  width: 100%;\n}\n\n.container-fostrap {\n  display: table-cell;\n  padding: 1em;\n  text-align: center;\n  vertical-align: middle;\n}\n\n.card {\n    display: block;\n  /* ---mtt */\n    height: 100%;\n    position: relative;\n  /* ---mtt */\n    margin-top: 20px;\n    margin-bottom: 25px;\n    line-height: 1.42857143;\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);\n    transition: box-shadow .25s;\n}\n.card:hover {\n  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n}\n.img-card {\n  width: 100%;\n  height:100%;\n  border-top-left-radius:2px;\n  border-top-right-radius:2px;\n  display:block;\n  overflow: hidden;\n}\n\n.img-card img{\n  width: 100%;\n  height: 200px;\n  object-fit:cover;\n  transition: all .25s ease;\n}\n\n.card-content {\n  padding:10px;\n  font-size: 0.9em;\n  text-align:left;\n  /* ---mtt */\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 8;\n  -webkit-box-orient: vertical;\n  /* ---mtt */\n}\n.card-title {\n  padding-top:4px;\n  padding-left:10px;\n  padding-right:10px;\n  height: 36px;\n  text-align:left;\n  font-size: 0.9em;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n\n.card-title a {\n  color: #000;\n  text-decoration: none !important;\n}\n\n.card-read-more {\n    /* ---mtt */\n  position: absolute;\n  bottom: 0; right: 0;  left: 0;\n    /* ---mtt */\n // border-top: 1px solid #D4D4D4;\n}\n.card-read-more a {\n  //text-decoration: none !important;\n  padding:2px;\n//  font-weight:600;\n  //text-transform: uppercase\n}\n\n/******************************************/\n\n\n\n\n.dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}\n\n\nul.list-group:after {\n  content: \"\";\n}\n\n\nli.borderless {\n  border: 0 none;\n}\n\n.not-selected {\n  font-size: 12px;\n  list-style-type: none;  \n  opacity: 0.95;\n  color: #dadada;\n  padding: 0;\n}\n\n.selected {\n  \tanimation: \n      fonticon 4s forwards,\n      statusicon 4s forwards;     \n}\n\n.suggested {\n\tcolor: #76f233;\n    cursor: pointer;\n\tfont-size: 16px;\n}\n\n@keyframes statusicon {\n    from { color: #dadada;}\n    to {color: #3399f3;}\n} \n\n@keyframes fonticon {\n  0% {font-size: 12px;}\n  20% {font-size: 14px;}\n  40% {font-size: 16px;}\n  60% {font-size: 18px;}\n  80% {font-size: 20px;}\n  100% {font-size: 22px;}\n}\n",
 		"copy_files": [
 			{
 				"source": "files/favicon.ico",
@@ -4458,16 +4870,8 @@
 				"dest": "PUBLIC_DIR/"
 			},
 			{
-				"source_content": "Meteor.publish(\"activities_list\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({}, {});\n\t}\t\n\tvar name='';\n\tif (this.userId) { name = Users.findOne({_id:this.userId},{}).profile.name;};\n\t// console.log('auditors:',Activities.find({auditors:name}, {}).fetch());\n    return Activities.find({auditors:name}, {});\n\t// return Activities.find({ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activities_null\", function() {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:null}, {});\n\t}\n\treturn Activities.find({_id:null,ownerId:this.userId}, {});\n});\n\nMeteor.publish(\"activity\", function(activityId) {\n\tif(Users.isInRoles(this.userId, [\"admin\"])) {\n\t\treturn Activities.find({_id:activityId}, {});\n\t}\n\t//  return Activities.find({_id:activityId,ownerId:this.userId}, {});\n    \treturn Activities.find({_id:activityId}, {});\n});\n\n\nMeteor.publish(\"activity_all\", function() {\n//        if(Users.isInRoles(this.userId, [\"admin\"])) {\n//                return Activities.find({}, {});\n//        }\n//\treturn Activities.find({ownerId:this.userId}, {});\n\treturn Activities.find({}, {});\n});\n\n\n\n",
-				"dest": "SERVER_PUBLISH_DIR/activities.js1"
-			},
-			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.HomePrivate.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivate.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivate.onRendered(function() {\n\t\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.HomePrivate.events({\n\t\n});\n\nTemplate.HomePrivate.helpers({\n\t\n});\n\nvar HomePrivateAuditViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"HomePrivateAuditViewSearchString\");\n\tvar sortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t});\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar HomePrivateAuditViewExport = function(cursor, fileType) {\n\tvar data = HomePrivateAuditViewItems(cursor);\n\tvar exportFields = [\"titolo\", \"numero\", \"tipo\", \"auditors\", \"data\", \"status\"];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n};\n\nTemplate.HomePrivateAuditView.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditView.onRendered(function() {\n\tpageSession.set(\"HomePrivateAuditViewStyle\", \"table\");\n\t\n});\n\nTemplate.HomePrivateAuditView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"HomePrivateAuditViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n      \n      var data = { data: moment().format('MM/DD/YYYY') };\n      var auditors = { auditors: Meteor.user().profile.name };\n      var status =  { status: 'Avviato'};\n      var filiale = { filiale: '-'};\n      //var numero = { numero: ''};\n      //var values = Object.assign(data, auditors, status, numero, filiale);\n      var values = Object.assign(data, auditors, status, filiale);\n      \n      // console.log(\"=>\",values);\n            \n      Meteor.call(\"activitiesInsert\", values, function(e, r) {\n                              //console.log(\"activitiesInsert\",r); \n                              if(e) errorAction(e); \n                              Session.set(\"activityId\",r);    \n                              console.log(\"sessione corrente:\",r);\t\t\n                              Router.go(\"audits.workflow\", { id: r }); });      \n\t},\n  \n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tHomePrivateAuditViewExport(this.activities_list, \"json\");\n\t}\n\t\n});\n\nTemplate.HomePrivateAuditView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Activities.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.activities_list || this.activities_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.activities_list && this.activities_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.activities_list && pageSession.get(\"HomePrivateAuditViewSearchString\") && HomePrivateAuditViewItems(this.activities_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"HomePrivateAuditViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.HomePrivateAuditViewTable.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"HomePrivateAuditViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"HomePrivateAuditViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"HomePrivateAuditViewSortAscending\") || false;\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"HomePrivateAuditViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.HomePrivateAuditViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn HomePrivateAuditViewItems(this.activities_list);\n\t}\n});\n\n\nTemplate.HomePrivateAuditViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.HomePrivateAuditViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\t\n        Router.go(\"audits.workflow\", { id: this._id, tipo: this.tipo});\n         \n\t\t/**/\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"activitiesUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Vuoi cancellare definitivamente l'Audit? Sei sicuro?\",\n\t\t\ttitle: \"Cancellazione\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"activitiesRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tSession.set(\"activityId\",this._id);\n\t\tconsole.log(\"sessione corrente:\",this._id,\" - \",this.tipo);\n\t\t\t\n\t\tRouter.go(\"audit_filiale.workflow\", mergeObjects(Router.currentRouteParams(), {activityId: this._id}));\n\t\treturn false;\n\t}\n});\n\nTemplate.HomePrivateAuditViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Activities.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Activities.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});",
-				"dest": "CLIENT_VIEWS_DIR/home_private/home_private.js1"
-			},
-			{
-				"source_content": "var pageSession = new ReactiveDict();\n\nTemplate.AuditsWorkflowVerifiche.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.onRendered(function() {\n\tSession.set('titleVerifica','');\n  Session.set('descriptionVerifica','');\n\tMeteor.defer(function() {\n\t\tglobalOnRendered();\n\t\t$(\"input[autofocus]\").focus();\n\t});\n});\n\nTemplate.AuditsWorkflowVerifiche.events({\n\t\n});\n\nTemplate.AuditsWorkflowVerifiche.helpers({\n\n'title': function() {if(Activities.findOne({$and: [{_id: Session.get('activityId')},\n \t\t\t\t\t\t\t\t\t\t\t\t\t{\"titolo\":{$exists: true}},\n                                                   {\"numero\":{$exists: true}}]\n                                          })\n                       )\n\t\t\t\t\t   {return (Activities.findOne({_id: Session.get('activityId')}).numero + ' - ' + Activities.findOne({_id: Session.get('activityId')}).titolo);}\n                     \n\t\t\t\t\tif(Activities.findOne({$and: [{\"titolo\":{$exists: true}},\n                                                  {\"numero\":{$exists: false}}]\n                                           })\n                       )\n                       {return (Activities.findOne({_id: Session.get('activityId')}).titolo);}\n                                                   \n\t\t\t\t\tif(Activities.findOne({$and: [{\"titolo\":{$exists: false}},\n                                                  {\"numero\":{$exists: false}}]\n                                         })\n                       )\n                       {return (\"...\");}\n\t\t\t\t\t}\n});\n\n\nvar AuditsWorkflowVerificheViewItems = function(cursor) {\n\tif(!cursor) {\n\t\treturn [];\n\t}\n\n\tvar searchString = pageSession.get(\"AuditsWorkflowVerificheViewSearchString\");\n\tvar sortBy = pageSession.get(\"AuditsWorkflowVerificheViewSortBy\");\n\tvar sortAscending = pageSession.get(\"AuditsWorkflowVerificheViewSortAscending\");\n\tif(typeof(sortAscending) == \"undefined\") sortAscending = true;\n\n\tvar raw = cursor.fetch();\n\n\t// filter\n\tvar filtered = [];\n\tif(!searchString || searchString == \"\") {\n\t\tfiltered = raw;\n\t} else {\n\t\tsearchString = searchString.replace(\".\", \"\\\\.\");\n\t\tvar regEx = new RegExp(searchString, \"i\");\n\t\tvar searchFields = [\"numero\", \"titolo\", \"obiettivo\", \"descrizione\", \"activityId\", \"esito\"];\n\t\tfiltered = _.filter(raw, function(item) {\n\t\t\tvar match = false;\n\t\t\t_.each(searchFields, function(field) {\n\t\t\t\tvar value = (getPropertyValue(field, item) || \"\") + \"\";\n\n\t\t\t\tmatch = match || (value && value.match(regEx));\n\t\t\t\tif(match) {\n\t\t\t\t\treturn false;\n\t\t\t\t}\n\t\t\t});\n\t\t\treturn match;\n\t\t});\n\t}\n\n\t// sort\n\tif(sortBy) {\n\t\tfiltered = _.sortBy(filtered, sortBy);\n\n\t\t// descending?\n\t\tif(!sortAscending) {\n\t\t\tfiltered = filtered.reverse();\n\t\t}\n\t}\n\n\treturn filtered;\n};\n\nvar AuditsWorkflowVerificheViewExport = function(cursor, fileType) {\n\tvar data = AuditsWorkflowVerificheViewItems(cursor);\n\tvar exportFields = [];\n\n\tvar str = exportArrayOfObjects(data, exportFields, fileType);\n\n\tvar filename = \"export.\" + fileType;\n\n\tdownloadLocalResource(str, filename, \"application/octet-stream\");\n};\n\nTemplate.AuditsWorkflowVerificheView.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.onRendered(function() {\n\tpageSession.set(\"AuditsWorkflowVerificheViewStyle\", \"table\");\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.events({\n\t\"submit #dataview-controls\": function(e, t) {\n\t\treturn false;\n\t},\n\n\t\"click #dataview-search-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar form = $(e.currentTarget).parent();\n\t\tif(form) {\n\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\tif(searchInput) {\n\t\t\t\tsearchInput.focus();\n\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", searchString);\n\t\t\t}\n\n\t\t}\n\t\treturn false;\n\t},\n\n\t\"keydown #dataview-search-input\": function(e, t) {\n\t\tif(e.which === 13)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tvar searchString = searchInput.val();\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", searchString);\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\tif(e.which === 27)\n\t\t{\n\t\t\te.preventDefault();\n\t\t\tvar form = $(e.currentTarget).parent();\n\t\t\tif(form) {\n\t\t\t\tvar searchInput = form.find(\"#dataview-search-input\");\n\t\t\t\tif(searchInput) {\n\t\t\t\t\tsearchInput.val(\"\");\n\t\t\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSearchString\", \"\");\n\t\t\t\t}\n\n\t\t\t}\n\t\t\treturn false;\n\t\t}\n\n\t\treturn true;\n\t},\n\n\t\"click #dataview-insert-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t// ---\n\t\t// Router.go(\"audits.workflow.fieldworks.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: this._id}));\n\n\t\t\tMeteor.call(\"fieldworksInsert\", {activityId: Session.get(\"activityId\")}, function(e, r) {\n\t\t\t\t//console.log(\"fieldworksInsert\",r); \n\t\t\t\tif(e) errorAction(e); \n\t\t\t\telse Router.go(\"audits.workflow.verifiche.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: r}) );});\n// ---\n\n\t},\n\n\t\"click #dataview-export-default\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-csv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"csv\");\n\t},\n\n\t\"click #dataview-export-tsv\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"tsv\");\n\t},\n\n\t\"click #dataview-export-json\": function(e, t) {\n\t\te.preventDefault();\n\t\tAuditsWorkflowVerificheViewExport(this.singola_attivita_list, \"json\");\n\t}\n\n\t\n});\n\nTemplate.AuditsWorkflowVerificheView.helpers({\n\n\t\"insertButtonClass\": function() {\n\t\treturn Fieldworks.userCanInsert(Meteor.userId(), {}) ? \"\" : \"hidden\";\n\t},\n\n\t\"isEmpty\": function() {\n\t\treturn !this.singola_attivita_list || this.singola_attivita_list.count() == 0;\n\t},\n\t\"isNotEmpty\": function() {\n\t\treturn this.singola_attivita_list && this.singola_attivita_list.count() > 0;\n\t},\n\t\"isNotFound\": function() {\n\t\treturn this.singola_attivita_list && pageSession.get(\"AuditsWorkflowVerificheViewSearchString\") && AuditsWorkflowVerificheViewItems(this.singola_attivita_list).length == 0;\n\t},\n\t\"searchString\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewSearchString\");\n\t},\n\t\"viewAsTable\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"table\";\n\t},\n\t\"viewAsBlog\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"blog\";\n\t},\n\t\"viewAsList\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"list\";\n\t},\n\t\"viewAsGallery\": function() {\n\t\treturn pageSession.get(\"AuditsWorkflowVerificheViewStyle\") == \"gallery\";\n\t}\n\n\t\n});\n\n\nTemplate.AuditsWorkflowVerificheViewTable.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.events({\n\t\"click .th-sortable\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar oldSortBy = pageSession.get(\"AuditsWorkflowVerificheViewSortBy\");\n\t\tvar newSortBy = $(e.target).attr(\"data-sort\");\n\n\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortBy\", newSortBy);\n\t\tif(oldSortBy == newSortBy) {\n\t\t\tvar sortAscending = pageSession.get(\"AuditsWorkflowVerificheViewSortAscending\") || false;\n\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortAscending\", !sortAscending);\n\t\t} else {\n\t\t\tpageSession.set(\"AuditsWorkflowVerificheViewSortAscending\", true);\n\t\t}\n\t}\n});\n\nTemplate.AuditsWorkflowVerificheViewTable.helpers({\n\t\"tableItems\": function() {\n\t\treturn AuditsWorkflowVerificheViewItems(this.singola_attivita_list);\n\t}\n});\n\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onCreated(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onDestroyed(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.onRendered(function() {\n\t\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.events({\n\t\"click td\": function(e, t) {\n\t\te.preventDefault();\n\t\t\n\t\tRouter.go(\"audits.workflow.verifiche.update\", mergeObjects(Router.currentRouteParams(), {singolaAttivitaId: this._id}));\n\t\treturn false;\n\t},\n\n\t\"click .inline-checkbox\": function(e, t) {\n\t\te.preventDefault();\n\n\t\tif(!this || !this._id) return false;\n\n\t\tvar fieldName = $(e.currentTarget).attr(\"data-field\");\n\t\tif(!fieldName) return false;\n\n\t\tvar values = {};\n\t\tvalues[fieldName] = !this[fieldName];\n\n\t\tMeteor.call(\"fieldworksUpdate\", this._id, values, function(err, res) {\n\t\t\tif(err) {\n\t\t\t\talert(err.message);\n\t\t\t}\n\t\t});\n\n\t\treturn false;\n\t},\n\n\t\"click #delete-button\": function(e, t) {\n\t\te.preventDefault();\n\t\tvar me = this;\n\t\tbootbox.dialog({\n\t\t\tmessage: \"Delete? Are you sure?\",\n\t\t\ttitle: \"Delete\",\n\t\t\tanimate: false,\n\t\t\tbuttons: {\n\t\t\t\tsuccess: {\n\t\t\t\t\tlabel: \"Yes\",\n\t\t\t\t\tclassName: \"btn-success\",\n\t\t\t\t\tcallback: function() {\n\t\t\t\t\t\tMeteor.call(\"fieldworksRemove\", me._id, function(err, res) {\n\t\t\t\t\t\t\tif(err) {\n\t\t\t\t\t\t\t\talert(err.message);\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\tdanger: {\n\t\t\t\t\tlabel: \"No\",\n\t\t\t\t\tclassName: \"btn-default\"\n\t\t\t\t}\n\t\t\t}\n\t\t});\n\t\treturn false;\n\t},\n\t\"click #edit-button\": function(e, t) {\n\t\te.preventDefault();\n\t\t/**/\n\t\treturn false;\n\t}\n});\n\nTemplate.AuditsWorkflowVerificheViewTableItems.helpers({\n\t\"checked\": function(value) { return value ? \"checked\" : \"\" }, \n\t\"editButtonClass\": function() {\n\t\treturn Fieldworks.userCanUpdate(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t},\n\n\t\"deleteButtonClass\": function() {\n\t\treturn Fieldworks.userCanRemove(Meteor.userId(), this) ? \"\" : \"hidden\";\n\t}\n});\n",
-				"dest": "CLIENT_VIEWS_DIR/audits/workflow/verifiche/verifiche.js1"
+				"source": "files\\lib",
+				"dest": "PRIVATE_DIR/"
 			},
 			{
 				"source_content": "Meteor.methods({\n  \"ldapquery\": function(data) {\n  \n    if (process.env.passwdAD) {   \n\t\tconst bound = Meteor.bindEnvironment((callback) => {callback();});\n        var ActiveDirectory = require('activedirectory2');\n        var config = {url: 'ldap://192.168.208.75',\n                          baseDN: 'dc=intranet,dc=ifis,dc=local',\n                          username: 'matteo.setti@bancaifis.it',\n                          password : passwdAD,               \n                          attributes: {\n                                    user: [\n                                      'dn', 'distinguishedName',\n                                      'userPrincipalName', 'sAMAccountName', 'mail',\n                                      'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',\n                                      'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',\n                                      'comment', 'description', 'department', 'title', 'directReports'\n                                    ],\n                                    group: [\n                                      'dn', 'cn', 'description', 'distinguishedName', 'objectCategory'\n                                    ]\n                                  }                          \n                           };\n        var ad = new ActiveDirectory(config);\n      \n        var query = '(&(objectClass=person)(objectClass=user))';\n    \n        var opts = {\n                includeMembership : [ 'group', 'user' ], // Optionally can use 'all'\n                includeDeleted : false\n        };\n\n        console.log(\"Interrogazione active directory\");\n    \n         ad.find(query, function(err, results) {\n             // Wrap callback into Fiber\n             // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099\n             bound(() => {                 \n                  if ((err) || (! results)) {\n                    console.log('ERROR: ' + JSON.stringify(err));\n                    return;\n                  }\n                \n                  console.log('Groups');\n                  _.each(results.groups, function(group) {\n                    console.log('  ' + group.cn);                    \n                  });\n                \n                  Profili.remove({});\n               \n                  console.log('Users');\n                  _.each(results.users, function(user) {                   \n                   Profili.insert({user: user.cn, department: user.department, whenCreated: user.whenCreated});      \n                  });\n                  \n             });   \n         });\n      }\n      else {console.log('Active Directory disable');}\n    },  \n// ==================================================================  \n  \n   genericldapquery(query) {           \n    if (process.env.passwdAD) {   \n\t\tconst bound = Meteor.bindEnvironment((callback) => {callback();});\n        var ActiveDirectory = require('activedirectory2');\n        var config = {url: 'ldap://192.168.208.75',\n                          baseDN: 'dc=intranet,dc=ifis,dc=local',\n                          username: 'matteo.setti@bancaifis.it',\n                          password : passwdAD,               \n                          attributes: {\n                                      user: [\n                                        'dn', 'distinguishedName',\n                                        'userPrincipalName', 'sAMAccountName', 'mail',\n                                        'lockoutTime', 'whenCreated', 'pwdLastSet', 'userAccountControl',\n                                        'employeeID', 'sn', 'givenName', 'initials', 'cn', 'displayName',\n                                        'comment', 'description', 'department', 'title', 'directReports'],\n                                      group: ['dn', 'cn', 'description', 'distinguishedName', 'objectCategory']\n                                      }                          \n                      };\n      \n        var ad = new ActiveDirectory(config);\n            \t\n        console.log(\"query:\",query); \n      \n        var opts = {\n                includeMembership : [ 'group', 'user' ], // Optionally can use 'all'\n                includeDeleted : false\n        };\n\n        console.log(\"Interrogazione active directory\");   \n      \n        ad.find(query, function(err, results) {    \n             // Wrap callback into Fiber\n             // https://forums.meteor.com/t/meteor-code-must-always-run-within-a-fiber-try-wrapping-callbacks-that-you-pass-to-non-meteor-libraries-with-meteor-bindenvironmen/40099\n             bound(() => {\n                  if ((err) || (! results)) {\n                    console.log('ERROR: ' + JSON.stringify(err));\n                  } else { console.log('results:',results); Ldap.insert({domain_users: results});};\n             });\n         });\n      }\n      else {console.log('Active Directory disable');}\n    }       \n});\n",
@@ -4481,14 +4885,17 @@
 		"packages": {
 			"meteor": [
 				"littledata:synced-cron",
-				"raix:ui-dropped-event",
 				"msavin:mongol",
 				"random",
 				"perak:c3",
-				"jcbernack:reactive-aggregate"
+				"jcbernack:reactive-aggregate",
+				"ostrio:meteor-root",
+				"harrison:papa-parse",
+				"themeteorchef:bert",
+				"check",
+				"raix:ui-dropped-event"
 			],
 			"npm": [
-				"csv-parser",
 				"activedirectory2",
 				"jsreport-browser-client-dist",
 				"containerized"
