@@ -1,10 +1,11 @@
-### 0.0.10 (xx-xx-2018)
+### 0.0.10 (01-11-2018)
 ##### New features
 * Added administrator functions
 * DEMO: data now moved on "/private" app directory
 
 #### Clean code
 * MK element, alphabetical ordered
+* MK elements ("Dest. Selector" & input_template_code) used for the first time
 * Added first only collections client, for aggregate results
 * Added "ostrio:meteor-root" package
 * Added "harrison:papa-parse" package
@@ -15,8 +16,10 @@
 
 ### 0.0.9 (16-10-2018)
 ##### New features
+* Addeed Monitoring detection Controls section (registry, detection and publising)
+
+#### Clean code
 * Added "jcbernack:reactive-aggregate" package
-* Addeed Monitoring detection Controls section  (registry, detection and publising)
 
 ### 0.0.8 (28-09-2018)
 ##### Clean code
