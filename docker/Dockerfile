@@ -6,7 +6,8 @@ RUN bash $METEORD_DIR/lib/install_base.sh RUN bash $METEORD_DIR/lib/install_node
 RUN addgroup --system jsreport RUN adduser --system --ingroup jsreport jsreport
 VOLUME ["/jsreport"] RUN mkdir -p /appjsreport WORKDIR /appjsreport
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-RUN npm install -g jsreport-cli RUN /opt/nodejs/bin/jsreport init
+RUN npm install -g jsreport-cli 
+RUN /opt/nodejs/bin/jsreport init
 RUN npm uninstall -g jsreport-cli && 
 RUN npm cache clean -f
 COPY editConfig.js /appjsreport/editConfig.js 
