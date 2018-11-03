@@ -5,7 +5,8 @@ RUN bash $METEORD_DIR/lib/install_base.sh RUN bash $METEORD_DIR/lib/install_node
 
 RUN addgroup --system jsreport 
 RUN adduser --system --ingroup jsreport jsreport
-VOLUME ["/jsreport"] RUN mkdir -p /appjsreport WORKDIR /appjsreport
+VOLUME ["/jsreport"] 
+RUN mkdir -p /appjsreport WORKDIR /appjsreport
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 RUN npm install -g jsreport-cli 
 RUN /opt/nodejs/bin/jsreport init
@@ -19,5 +20,8 @@ ENV NODE_ENV production
 ENV templatingEngines:strategy http-server
 CMD ["bash", "/appjsreport/run.sh"]
 
-RUN bash $METEORD_DIR/lib/install_phantomjs.sh RUN bash $METEORD_DIR/lib/cleanup.sh
-EXPOSE 80 5488 RUN chmod +x $METEORD_DIR/run_app.sh ENTRYPOINT exec $METEORD_DIR/run_app.sh
+RUN bash $METEORD_DIR/lib/install_phantomjs.sh 
+RUN bash $METEORD_DIR/lib/cleanup.sh
+EXPOSE 80 5488 
+RUN chmod +x $METEORD_DIR/run_app.sh 
+ENTRYPOINT exec $METEORD_DIR/run_app.sh
