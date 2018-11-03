@@ -14,7 +14,8 @@ COPY editConfig.js /appjsreport/editConfig.js
 RUN node editConfig.js
 ADD run.sh /appjsreport/run.sh 
 COPY . /app
-ENV NODE_ENV production ENV templatingEngines:strategy http-server
+ENV NODE_ENV production 
+ENV templatingEngines:strategy http-server
 CMD ["bash", "/appjsreport/run.sh"]
 
 RUN bash $METEORD_DIR/lib/install_phantomjs.sh RUN bash $METEORD_DIR/lib/cleanup.sh
