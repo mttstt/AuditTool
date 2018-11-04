@@ -64,7 +64,7 @@ case $key in
 	echo "RUN jsreport configure" >> Dockerfile
 	echo "RUN jsreport start" >> Dockerfile
 	
-         export TAG=$release && docker-compose -f docker-compose-dev.yml build --force-rm --no-cache 
+         export TAG=$passwd && docker-compose -f docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
     ;;
