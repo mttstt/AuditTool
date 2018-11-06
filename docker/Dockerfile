@@ -5,7 +5,7 @@ RUN addgroup --system jsreport
 RUN adduser --system --ingroup jsreport jsreport
 
 RUN mkdir -p /app 
-WORKDIR /appjsreport
+WORKDIR /appj
 
 RUN npm install -g jsreport-cli
 RUN /opt/nodejs/bin/jsreport init
