@@ -4,7 +4,7 @@
 # Put AuditTool in a Docker architecture
 #
 #./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]
-#./lin-dcoker.sh -b [Docker-Hub release] 
+#./lin-dcoker.sh -b [New DockerHub release] 
 #./lin-dcoker.sh -p [Password Docker-Hub]
 #./lin-dcoker.sh -m [Password Active Directory]
 #
@@ -12,7 +12,7 @@
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, without Docker, for testing [Password Active Directory]
-# -b, --build       Build audittool docker image, with the new release passed
+# -b, --build       Build audittool docker image, [New DockerHub release]
 # -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
 # -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
@@ -42,7 +42,7 @@ case $key in
     shift # past argument
     shift # past argument
     ;;
-    
+  
     -b|--build)
         echo "build"
         cd ~/AuditTool
@@ -55,19 +55,17 @@ case $key in
         sudo rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
-        cd  AuditTool
-        echo "FROM abernix/meteord:node-8.9.4-onbuild" > Dockerfile
-	echo "RUN npm install jsreport-cli -g" >> Dockerfile
-	echo "RUN mkdir jsreportapp" >> Dockerfile
-	echo "RUN cd jsreportapp" >> Dockerfile
-	echo "RUN jsreport init" >> Dockerfile
-	echo "RUN jsreport configure" >> Dockerfile
-	echo "RUN jsreport start" >> Dockerfile
+        cp ~/AuditTool/docker/Dockerfile ~/AuditTool/AuditTool
+        cd AuditTool	
+        export TAG=$passwd && docker-compose -f ~/AuditTool/docker/docker-compose-dev.yml build --force-rm --no-cache
 	
-         export TAG=$passwd && docker-compose -f docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
     ;;
+
+    
+    
+   
 
     -m|--meteor)
         echo "meteor"
@@ -129,7 +127,7 @@ case $key in
         echo ""
         echo "-h, --help        Help"
         echo "-m, --meteor      Launch meteor, without Docker (for testing) [Password Active Directory]"
-        echo "-b, --build       Build audittool docker image, with the new release passed"
+        echo "-b, --build       Build audittool docker image, [New DockerHub release]"
         echo "-p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release]"
         echo "-u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
