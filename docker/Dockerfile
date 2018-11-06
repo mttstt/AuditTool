@@ -8,7 +8,7 @@ RUN mkdir -p /app
 WORKDIR /appjsreport
 
 RUN npm install -g jsreport-cli
-RUN /opt/node/bin/jsreport init
+RUN /opt/nodejs/bin/jsreport init
 RUN npm uninstall -g jsreport-cli
 RUN npm cache clean -f
 
