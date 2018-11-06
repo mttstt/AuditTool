@@ -4,11 +4,12 @@ MAINTAINER Jesse Rosenberger
 RUN addgroup --system jsreport
 RUN adduser --system --ingroup jsreport jsreport
 
-RUN mkdir -p /app WORKDIR /appjsreport
+RUN mkdir -p /app 
+WORKDIR /appjsreport
 
 RUN npm install -g jsreport-cli
 RUN /opt/node/bin/jsreport init
-RUN npm uninstall -g jsreport-cli &&
+RUN npm uninstall -g jsreport-cli
 RUN npm cache clean -f
 
 COPY editConfig.js /app/editConfig.js
