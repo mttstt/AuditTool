@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    image: "mttstt/audittool:${TAG}"
+    ports:
+     - "81:80"
+    environment:
+     - MONGO_URL=mongodb://mongo/audittool
+     - ROOT_URL=http://127.0.0.1
+     - passwdAD
+    volumes: 
+     - audittool:/tmp/files/lib
+
+  mongo:
+    image: mongo
+    ports:
+     - "27017:27017"
+    volumes:
+    - mongo:/data/db
+
+volumes:
+   jsreport:
+   audittool:
+   mongo:
