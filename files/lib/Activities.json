@@ -28,7 +28,7 @@
   "riskDetails":["Operation risk"],
   "organizationUnit": ["General Services"],
   "auditors": ["Albert Einstein", "Galileo Galilei"],
-  "openStart": "2018-02-01T21:11:01.768Z",
+  "startDate": "2018-02-01T21:11:01.768Z",
   "closeDate": "2018-06-07T21:11:01.768Z",
   "number": "1/2018",
   "memo": "",
