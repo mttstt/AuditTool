@@ -19,11 +19,11 @@ services:
   web:
     image: "mttstt/audittool:${TAG}"
     ports:
-     - "3000:80"
+     - "80:80"
     environment:
      - MONGO_URL=mongodb://mongo/audittool
      - ROOT_URL=http://127.0.0.1
-     - DELAY=10
+     - DELAY=5
      - passwdAD
     volumes:
      - audittool:/tmp/files/lib
