@@ -8,7 +8,7 @@
    "level": "High",
    "issue_owner": "Charles Darwin",
    "type": "Human error",
-   "dbi": "Yes"
+   "dbi": true
  },
  {
   "issuedId": "2",
@@ -20,5 +20,5 @@
    "level": "Low",
    "issue_owner": "Stephen Hawking",
    "type": "Human error",
-   "dbi": "No"
+   "dbi": false
  }]
