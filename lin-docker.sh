@@ -3,9 +3,9 @@
 # Use: lin-docker.sh [command] [Password] [Docker-Hub release] 
 # Put AuditTool in a Docker architecture
 #
-#./lin-docker.sh -u [Password Active Directory] [DockerHub release]
-#./lin-dcoker.sh -b [New docker release] 
-#./lin-dcoker.sh -p [Password DockerHub]
+#./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]
+#./lin-dcoker.sh -b [Docker-Hub release] 
+#./lin-dcoker.sh -p [Password Docker-Hub]
 #./lin-dcoker.sh -m [Password Active Directory]
 #
 # Possible commands:
@@ -16,6 +16,7 @@
 # -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
 # -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
+# -s, --stop	    docker-compose stop, useful when containers are started like service/ademon
 # 
 # Useful command for ubuntu 17: newgrp docker
 #
@@ -80,7 +81,7 @@ case $key in
         fi
         rm -rf .git
         cp -R files/ /tmp
-   #    cd /home/mtt/AuditTool
+        cd /home/mtt/AuditTool
         rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
@@ -99,11 +100,20 @@ case $key in
     ;;  
 
     -u|--dockerup)
-        echo "docker up" 
-        export TAG=$release && export passwdAD=$passwd && docker-compose -f docker/docker-compose.yml up
+        echo "Docker up like a service (-d)" 
+        export TAG=$release && export passwdAD=$passwd && docker-compose -f docker/docker-compose.yml up -d
+	exit 1
     shift # past argument
     shift # past argument
     ;;   
+
+    -s|--stop)
+        echo "Stopping Audittol container daemon"
+        docker-compose -f docker/docker-compose.yml stop
+    shift # past argument
+    shift # past argument
+    ;;
+
 
     -b|--bye)
     echo "bye"
@@ -125,11 +135,11 @@ case $key in
         echo ""
         echo "-h, --help        Help"
         echo "-m, --meteor      Launch meteor, without Docker (for testing) [Password Active Directory]"
-        echo "-b, --build       Build audittool docker image, with the new release passed [new Docker release]"
+        echo "-b, --build       Build audittool docker image, with the new release passed"
         echo "-p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release]"
         echo "-u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
-        echo ""   
+        echo "-s, --stop        Stop Audittol container daemon"
       
     shift # past argument# Options:
     ;;
