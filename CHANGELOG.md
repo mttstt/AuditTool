@@ -4,6 +4,7 @@
 
 #### Clean code
 * Review docker
+* Fixed bugs
 
 ### 0.0.10 (01-11-2018)
 ##### New features
