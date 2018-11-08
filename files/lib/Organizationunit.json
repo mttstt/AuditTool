@@ -1,8 +1,9 @@
 [{"uo":"ICT","level":"1"},
- {"uo":"Privacy & Security","level":"3"},
+ {"uo":"Privacy & Security","level":"1"},
+ {"uo":"Business Continuity","level":"2"},
  {"uo":"General Services","level":"1"},
  {"uo":"Operations NPL","level":"3"},
- {"uo":"Organization","level":"2"},
+ {"uo":"Organization","level":"1"},
  {"uo":"Compliance","level":"1"},
  {"uo":"Treasury","level":"1"}
 ]
