@@ -3,16 +3,16 @@
 # Use: lin-docker.sh [command] [Password] [Docker-Hub release] 
 # Put AuditTool in a Docker architecture
 #
-#./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]
-#./lin-dcoker.sh -b [New DockerHub release] 
-#./lin-dcoker.sh -p [Password Docker-Hub]
+#./lin-docker.sh -u [Password Active Directory] [DockerHub release]
+#./lin-dcoker.sh -b [New docker release] 
+#./lin-dcoker.sh -p [Password DockerHub]
 #./lin-dcoker.sh -m [Password Active Directory]
 #
 # Possible commands:
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, without Docker, for testing [Password Active Directory]
-# -b, --build       Build audittool docker image, [New DockerHub release]
+# -b, --build       Build audittool docker image, with the new release passed
 # -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
 # -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
@@ -42,7 +42,7 @@ case $key in
     shift # past argument
     shift # past argument
     ;;
-  
+    
     -b|--build)
         echo "build"
         cd ~/AuditTool
@@ -50,22 +50,20 @@ case $key in
             echo ".gitignore not found!"
         else
             rm .gitignore
-        fi
+	fi
         rm -rf .git
-        sudo rm -fR AuditTool
+        rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
-        cp ~/AuditTool/docker/Dockerfile ~/AuditTool/AuditTool
-        cd AuditTool	
-        export TAG=$passwd && docker-compose -f ~/AuditTool/docker/docker-compose-dev.yml build --force-rm --no-cache
-	
+        cd AuditTool
+       # echo "FROM abernix/meteord:node-8.11.3-onbuild" > Dockerfile
+	cp ../docker/Dockerfile .
+	cp ../docker/.dockerignore .
+
+	export TAG=$passwd && docker-compose -f ../docker/docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
     ;;
-
-    
-    
-   
 
     -m|--meteor)
         echo "meteor"
@@ -102,7 +100,7 @@ case $key in
 
     -u|--dockerup)
         echo "docker up" 
-        export TAG=$release && export passwdAD=$passwd && docker-compose -f docker-compose.yml up
+        export TAG=$release && export passwdAD=$passwd && docker-compose -f docker/docker-compose.yml up
     shift # past argument
     shift # past argument
     ;;   
@@ -127,7 +125,7 @@ case $key in
         echo ""
         echo "-h, --help        Help"
         echo "-m, --meteor      Launch meteor, without Docker (for testing) [Password Active Directory]"
-        echo "-b, --build       Build audittool docker image, [New DockerHub release]"
+        echo "-b, --build       Build audittool docker image, with the new release passed [new Docker release]"
         echo "-p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release]"
         echo "-u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
