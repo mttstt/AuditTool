@@ -1,23 +1,32 @@
 version: '3'
 
 services:
-  web:
-    image: "mttstt/audittool:${TAG}"
-    ports:
-     - "81:80"
-    environment:
-     - MONGO_URL=mongodb://mongo/audittool
-     - ROOT_URL=http://127.0.0.1
-     - passwdAD
-    volumes: 
-     - audittool:/tmp/files/lib
-
   mongo:
     image: mongo
     ports:
      - "27017:27017"
     volumes:
-    - mongo:/data/db
+     - mongo:/data/db
+
+  jsreport:
+    image: jsreport/jsreport
+    restart: always
+    ports:
+     - "5488:5488"
+    volumes:
+     - jsreport:/jsreport
+
+  web:
+    image: "mttstt/audittool:${TAG}"
+    ports:
+     - "3000:80"
+    environment:
+     - MONGO_URL=mongodb://mongo/audittool
+     - ROOT_URL=http://127.0.0.1
+     - DELAY=10
+     - passwdAD
+    volumes:
+     - audittool:/tmp/files/lib
 
 volumes:
    jsreport:
