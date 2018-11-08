@@ -3,7 +3,7 @@
 * Add doker functiona in lin.docker.sh (start as daemon, stop)
 
 #### Clean code
-* Fixed bugs
+* Fixed multiple bugs
 * fixed Jsreport Template
 
 ### 0.0.10 (01-11-2018)
