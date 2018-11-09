@@ -1,4 +1,4 @@
-### 0.0.11 (xx-xx-xxx)
+### 0.0.11 (09-11-2018)
 ##### New features
 * Add doker functiona in lin.docker.sh (start as daemon, stop)
 
