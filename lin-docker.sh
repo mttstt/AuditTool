@@ -64,6 +64,7 @@ case $key in
 	export TAG=$passwd && docker-compose -f ../docker/docker-compose-dev.yml build --force-rm --no-cache 
     shift # past argument
     shift # past argument
+    exit 1
     ;;
 
     -m|--meteor)
