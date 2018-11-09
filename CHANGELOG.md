@@ -1,10 +1,18 @@
+### 0.0.12 (xx-xx-xxxx)
+##### New features
+* ...
+
+##### Clean code
+* ...
+* ...
+
 ### 0.0.11 (09-11-2018)
 ##### New features
 * Add doker functiona in lin.docker.sh (start as daemon, stop)
 
-#### Clean code
+##### Clean code
 * Fixed multiple bugs
-* fixed Jsreport Template
+* Fixed Jsreport Template
 
 ### 0.0.10 (01-11-2018)
 ##### New features
