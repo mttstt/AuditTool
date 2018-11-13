@@ -19,7 +19,7 @@
 },
 { "type": "Audit",
   "status":"Closed",
-  "company": ["Alfa Companay"],
+  "company": ["Alfa Company"],
   "branch": "Corporate",
   "nextreadystatus":false,
   "title": "Purchase process",
