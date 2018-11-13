@@ -5,19 +5,19 @@
 * Code review
 * ...
 
+
 ### 0.0.11 (09-11-2018)
 ##### New features
 * Add doker functiona in lin.docker.sh (start as daemon, stop)
-
 ##### Clean code
 * Fixed multiple bugs
 * Fixed Jsreport Template
+
 
 ### 0.0.10 (01-11-2018)
 ##### New features
 * Added administrator functions
 * DEMO: data now moved on "/private" app directory
-
 #### Clean code
 * MK element, alphabetical ordered
 * MK elements ("Dest. Selector" & input_template_code) used for the first time
