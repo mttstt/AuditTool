@@ -1,8 +1,6 @@
-### 0.0.12 (xx-xx-xxxx)
-##### New features
-* ...
+### 0.0.12 (19-11-2018)
 ##### Clean code
-* Code review
+* Code reviewed and semplified
 * Fixed some bugs
 
 
