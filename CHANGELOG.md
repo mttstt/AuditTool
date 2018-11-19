@@ -3,7 +3,7 @@
 * ...
 ##### Clean code
 * Code review
-* ...
+* Fixed some bugs
 
 
 ### 0.0.11 (09-11-2018)
