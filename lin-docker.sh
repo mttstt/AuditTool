@@ -69,6 +69,7 @@ case $key in
 
     -m|--meteor)
         echo "meteor"
+	cd ~/AuditTool
 	if [ -z "$statusJreport" ]; then
                 echo 'Jsreport not installed: no pdf reports !' >&2
         else
@@ -80,9 +81,7 @@ case $key in
         else
             rm .gitignore
         fi
-        rm -rf .git
-        cp -R files/ /tmp
-        cd /home/mtt/AuditTool
+        rm -rf .git     
         rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
