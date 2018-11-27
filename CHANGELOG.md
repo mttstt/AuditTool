@@ -1,3 +1,7 @@
+### 0.0.13 (xx-xx-2018)
+##### New features
+* Add Status icon on dashboard page
+
 ### 0.0.12 (19-11-2018)
 ##### Clean code
 * Code reviewed and semplified
