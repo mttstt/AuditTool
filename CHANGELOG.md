@@ -1,8 +1,11 @@
 ### 0.0.13 (xx-xx-2018)
+##### License change
+* License changed. From MIT to GPLv2 because of CKEditor5.
 ##### New features
 * Added icon of audit status on dashboard pages
 ##### Clean code
 * Fixed bug (select option of subprocess)
+* Upgraded to CKEditor5
 
 ### 0.0.12 (19-11-2018)
 ##### Clean code
@@ -35,7 +38,7 @@
 
 ### 0.0.9 (16-10-2018)
 ##### New features
-* Addeed Monitoring detection Controls section (registry, detection and publising)
+* Added Monitoring detection Controls section (registry, detection and publising)
 #### Clean code
 * Added "jcbernack:reactive-aggregate" package
 
