@@ -1,0 +1,24 @@
+[{
+  "issueId": "1",
+   "activityId": "11111111111111111",
+   "title": "Know how",
+   "companies": ["Alfa company", "Beta company"],
+   "description": "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura, ché la diritta via era smarrita. Ahi quanto a dir qual era è cosa dura esta selva selvaggia e aspra e forte che nel pensier rinova la paura!",
+   "issueDate": "03/06/2018",
+   "level": "High",
+   "issueOwner": "Charles Darwin",
+   "type": "Human error",
+   "dbi": true
+ },
+ {
+  "issueId": "2",
+   "activityId": "11111111111111111",
+   "title": "Critical outsourcers",
+   "companies": ["Beta company"],
+   "description": "Tant' è amara che poco è più morte; ma per trattar del ben ch'i' vi trovai, dirò de l'altre cose ch'i' v'ho scorte. Io non so ben ridir com' i' v'intrai, tant' era pien di sonno a quel punto che la verace via abbandonai.",
+   "issueDate": "05/06/2018",
+   "level": "Low",
+   "issueOwner": "Stephen Hawking",
+   "type": "Human error",
+   "dbi": false
+ }]

@@ -22,3 +22,12 @@ docker-compose*
 README.md
 LICENSE
 .vscode
+
+.meteor/local
+packages/*/.build*
+packages/*/.npm*
+
+*/temp*
+*/*/temp*
+temp?
+
