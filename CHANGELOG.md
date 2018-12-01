@@ -6,6 +6,8 @@
 ##### Clean code
 * Fixed bug (select option of subprocess)
 * Upgraded to CKEditor5
+* Reorderd Github directories
+* Deleted CKEditor4 from Github
 
 ### 0.0.12 (19-11-2018)
 ##### Clean code
