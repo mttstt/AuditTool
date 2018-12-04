@@ -15,7 +15,8 @@
   "startDate": "2018-11-12T21:11:01.768Z",
   "memo": "",
   "sci": "Parzial negative",
-  "residualRisk": "Medium"
+  "residualRisk": "Medium",
+  "ownerId": "RzZ8LcePvhFgjWc73"
 },
 { "type": "Audit",
   "status":"Closed",
@@ -35,7 +36,8 @@
   "sci": "Parzial positive",
   "residualRisk":"Medium",
   "process": "AMMINISTRAZIONE",
-  "subprocesses": ["GESTIONE CICLO PASSIVO"]
+  "subprocesses": ["GESTIONE CICLO PASSIVO"],
+  "ownerId": "RzZ8LcePvhFgjWc73"
 },
 {
   "_id": "11111111111111111",
@@ -60,5 +62,6 @@
   "normativeInt": ["Organizational insurance procedure for the continuity of the service","Group Policy for strategic planning in the ICT field","Operational Continuity Plan, approved by Board of Directors"],
   "normativeExt": ["Best practices: Management Practices, Cobit 5.0", "National law"],
   "process": "GESTIONE SICUREZZA",
-  "subprocesses": ["ASSICURAZIONE DELLA CONTINUITA DEL SERVIZIO"]
+  "subprocesses": ["ASSICURAZIONE DELLA CONTINUITA DEL SERVIZIO"],
+  "ownerId": "RzZ8LcePvhFgjWc73"
   } ]
