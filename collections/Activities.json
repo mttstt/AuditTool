@@ -22,7 +22,7 @@
   "status":"Closed",
   "company": ["Alfa Company"],
   "branch": "Corporate",
-  "nextreadystatus":false,
+  "nextreadyStatus":false,
   "title": "Purchase process",
   "objective":"Audit on procedures of purchases",
   "riskArea": ["Operation Risk"],
