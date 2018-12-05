@@ -3,7 +3,7 @@
   "status":"Working in progress",
   "company": ["Beta Company","Omega Company"],
   "branch":"Corporate",
-  "nextreadystatus":false,
+  "nextreadyStatus":false,
   "title": "Liquidity",
   "objective": "Ordinary audit on liquidity",
   "riskArea": ["Credit Risk", "Operation risk"],
