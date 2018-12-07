@@ -1,1 +1,1 @@
-FROM abernix/meteord:node-8.11.3-onbuild
+FROM abernix/meteord:node-8.14.0-onbuild
