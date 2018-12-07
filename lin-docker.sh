@@ -56,8 +56,7 @@ case $key in
         rm -fR AuditTool
         wget http://www.meteorkitchen.com/api/getapp/json/Tqq4JcxsuGEBZrben -O AuditTool.json
         meteor-kitchen AuditTool.json AuditTool
-        cd AuditTool
-       # echo "FROM abernix/meteord:node-8.11.3-onbuild" > Dockerfile
+        cd AuditTool       
 	cp ../docker/Dockerfile .
 	cp ../docker/.dockerignore .
 
