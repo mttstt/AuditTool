@@ -12,4 +12,4 @@ rmdir AuditTool
 meteor-kitchen ./AuditTool.json ./AuditTool
 
 cd ./AuditTool
-meteor --port 5000
+meteor --port 3000
