@@ -267,9 +267,9 @@
 					}
 				],
 				"owner_field": "ownerId",
-				"update_rule": "userId && (doc.ownerId == userId || Users.isInRoles(userId, [\"admin\"]) || _.contains(doc.auditors, Users.findOne({_id:userId},{}).profile.name))\n",
+				"update_rule": "userId && ( Users.isInRoles(userId, [\"admin\"]) || _.contains(doc.auditors, Users.findOne({_id:userId},{}).profile.name))\n",
 				"before_insert_code": "if(!doc.auditors) doc.auditors = [Meteor.userId()];",
-				"before_update_code": "var checkCompleted = function() {\n\t\tvar CKdatachiusura =  (modifier.$set.closeDate === undefined) ? doc.closeDate : modifier.$set.closeDate;\n\t\tvar CKmemo = (modifier.$set.memo === undefined) ? doc.memo : modifier.$set.memo;\n      //===========================\n        /*\n\t\tvar carenzaNumbers = Carenze.find({activityId: doc._id},{fields: {carenzaId: 1 }}).fetch();  \n        var x = _.each(carenzaNumbers, function(doc){return parseInt(doc.carenzaId.split('_')[3]);});\n        var x1= x.sort(function (a, b) {  return a - b;  });\n        var x2= _.uniq(x1);\n        var CKnumCarenze = ((x1.lenght() === _x2.lenght()) && (_.last(x2) === x1.lenght())) ? true : false;\n      */\n      // ===============================  \n\t\tconsole.log(\"VERIFICARE LA PRESENZA DI BUCHI NELLA NUMERAZIONE DELLE CARENZE\");\n\t\tconsole.log(\"VERIFICARE CHE TUTTE LE VERIFICHE HANNO UNA VALUTAZIONE\");\n\t\tconsole.log(\"VERIFICARE CHE TUTTE LE VERIFICHE FAIL SIANO INDIRIZZATE AD UNA CARENZA\");\n\t\t\t\t\t\t\t\t\n\t//\tif (!!CKdatachiusura && !!CKmemo && !!CKnumCarenze) { modifier.$set.nextreadystatus = true;} else { modifier.$set.nextreadystatus = false;}  \n        if (!!CKdatachiusura && !!CKmemo) { modifier.$set.nextreadystatus = true;} else { modifier.$set.nextreadystatus = false;}\n  console.log ('before update',modifier.$set.nextreadystatus);\n};\n\nif(( doc.status === \"Working in progress\")) {checkCompleted();}\n\n\nif(( modifier.$set.status !== \"Approved\" && doc.status === \"Closed\")) {\n\t\t\t\t\t\t\t\t\tmodifier.$set.status = \"Working in progress\";\n\t\t\t\t\t\t\t\t\tcheckCompleted();}\n\n\n\nif(( modifier.$set.status !== \"Archived\" && doc.status === \"Approved\")) {\n\t\t\t\t\t\t\t\t\tmodifier.$set.status = \"Working in progress\"; \n\t\t\t\t\t\t\t\t\tcheckCompleted();} \n\n\nif( modifier.$set.status === \"Approved\") {                 \n  \t\t// Inserisce il numero di audit automaticamente\n\t\t\tvar max = 0;\n            var auditNumbers = Activities.find({status: { \"$in\" : [\"Approved\",\"Archived\"]}},{ fields: { numero: 1 }}).fetch();\n\t\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.numero.split('/')[0]);if(!isNaN(intNum) && intNum > max) max = intNum;});\n\t\t\tmodifier.$set.number =  (max + 1)+\"/\"+moment().format('YYYY');\n  \t\t// Aggiornare la numerazione delle carenze\n            console.log(\"Assegnato numero verbale di audit\",(max + 1)+\"/\"+moment().format('YYYY'));\n  \n                                                  }\n\n\nif( doc.status === \"Start\") {modifier.$set.status = \"Working in progress\";}\nif( doc.status === \"Archived\") {throw new Meteor.Error(403, \"Audit Archived. You can change it !\");}\n\n\n",
+				"before_update_code": "var checkCompleted = function() {\n\t\tvar CKdatachiusura =  (modifier.$set.closeDate === undefined) ? doc.closeDate : modifier.$set.closeDate;\n\t\tvar CKmemo = (modifier.$set.memo === undefined) ? doc.memo : modifier.$set.memo;\n      //===========================\n        /*\n\t\tvar carenzaNumbers = Carenze.find({activityId: doc._id},{fields: {carenzaId: 1 }}).fetch();  \n        var x = _.each(carenzaNumbers, function(doc){return parseInt(doc.carenzaId.split('_')[3]);});\n        var x1= x.sort(function (a, b) {  return a - b;  });\n        var x2= _.uniq(x1);\n        var CKnumCarenze = ((x1.lenght() === _x2.lenght()) && (_.last(x2) === x1.lenght())) ? true : false;\n      */\n      // ===============================  \n\t\tconsole.log(\"VERIFICARE LA PRESENZA DI BUCHI NELLA NUMERAZIONE DELLE CARENZE\");\n\t\tconsole.log(\"VERIFICARE CHE TUTTE LE VERIFICHE HANNO UNA VALUTAZIONE\");\n\t\tconsole.log(\"VERIFICARE CHE TUTTE LE VERIFICHE FAIL SIANO INDIRIZZATE AD UNA CARENZA\");\n\t\t\t\t\t\t\t\t\n\t//\tif (!!CKdatachiusura && !!CKmemo && !!CKnumCarenze) { modifier.$set.nextreadystatus = true;} else { modifier.$set.nextreadystatus = false;}  \n        if (!!CKdatachiusura && !!CKmemo) { modifier.$set.nextreadyStatus = true;} else { modifier.$set.nextreadyStatus = false;}\n  console.log ('before update',modifier.$set.nextreadyStatus);\n};\n\n// When Audit is Started and there is some save activies then status Audit is: Working in progress\nif(( doc.status === \"Started\")) {modifier.$set.status = \"Working in progress\";}\n\nif(( doc.status === \"Working in progress\")) {checkCompleted();}\n\n\nif(( modifier.$set.status !== \"Approved\" && doc.status === \"Closed\")) {\n\t\t\t\t\t\t\t\t\tmodifier.$set.status = \"Working in progress\";\n\t\t\t\t\t\t\t\t\tcheckCompleted();}\n\n\nif(( modifier.$set.status !== \"Archived\" && doc.status === \"Approved\")) {\n\t\t\t\t\t\t\t\t\tmodifier.$set.status = \"Working in progress\"; \n\t\t\t\t\t\t\t\t\tcheckCompleted();} \n\n\nif( modifier.$set.status === \"Approved\") {                 \n  \t\t// Inserisce il numero di audit automaticamente\n\t\t\tvar max = 0;\n            var auditNumbers = Activities.find({status: { \"$in\" : [\"Approved\",\"Archived\"]}},{ fields: { number: 1 }}).fetch();\n\t\t\t_.each(auditNumbers, function(doc)\t{var intNum = parseInt(doc.number.split('/')[0]);if(!isNaN(intNum) && intNum > max) max = intNum;});\n\t\t\tmodifier.$set.number =  (max + 1)+\"/\"+moment().format('YYYY');\n  \t\t// Aggiornare la numerazione delle carenze\n            console.log(\"Assigned audit number: \",(max + 1)+\"/\"+moment().format('YYYY'));\n}\n\n\nif( doc.status === \"Start\") {modifier.$set.status = \"Working in progress\";}\nif( doc.status === \"Archived\") {throw new Meteor.Error(403, \"Audit Archived. You can change it !\");}\n",
 				"before_remove_code": "if( doc.status === \"Archiviato\") {throw new Meteor.Error(403, \"Audit Archiviato: Non più modificabile !\");}",
 				"after_remove_code": "//ToDo: dopo la rimozione di Activities vanno rimosse \"carenze\", \"test\", file."
 			},
@@ -516,7 +516,7 @@
 					},
 					{
 						"name": "keyIndicator",
-						"title": "Key indicator",
+						"title": "Key indicator (OK, KO, NA or  a number 0-100)",
 						"type": "string",
 						"exportable": true,
 						"input_group_class": "col-sm-4 col-md-4"
@@ -1246,7 +1246,7 @@
 									"item_actions": [
 										{
 											"name": "print",
-											"title": "Stampa PDF",
+											"title": "Print PDF",
 											"icon_class": "fa fa-print",
 											"action_code": "e.preventDefault();\n       \n/*\nvar jsreport = require(\"jsreport-browser-client-dist\");\nvar activity = Activities.findOne({_id: this._id});\n\nvar issues = Issues.find({activityId: this._id}).fetch();\nvar issuesjson = {issues: []};\nissues.map(function(item) {issuesjson.issues.push(item);});\n\n\nvar tests = Tests.find({activityId: this._id}).fetch();\nvar testsjson = {tests: []};\ntests.map(function(item) {testsjson.tests.push(item);});\n           \nvar data =  $.extend(activity,issuesjson);\nvar data =  $.extend(data,testsjson);\n\n\nconsole.log('Stampa pdf. Dati:',data);\n\njsreport.serverUrl = 'http://'+window.location.hostname+':5488';\nvar request = {\n    template:{\"name\":\"AuditReport\"},\n    \"data\":activity             \n};\njsreport.render('_blank', request); \n\n\nreturn false;\n*/\n\n   var jsreport = require(\"jsreport-browser-client-dist\");\n   var data = Activities.findOne({_id: this._id});\n   Meteor.call(\"additionalData\", this._id, function(e1, r1) { if(e1) { alert('testsList: ',e1); return; }\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t      data =  $.extend(data,r1);\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  jsreport.serverUrl = 'http://'+window.location.hostname+':5488';\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  var request = {\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t template:{\"name\":\"AuditReport\"},\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \"data\": data\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  };\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t      jsreport.render('_blank', request);\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t  return false;\n\t \t\t\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t);\n\n"
 										}
@@ -1372,25 +1372,8 @@
 											"default": "Avviato",
 											"exportable": true,
 											"input": "select",
-											"input_items": [
-												{
-													"value": "Avviato",
-													"title": "Avviato"
-												},
-												{
-													"value": "In corso",
-													"title": "In corso"
-												},
-												{
-													"value": "Completato",
-													"title": "Completato"
-												},
-												{
-													"value": "Archiviato",
-													"title": "Archiviato"
-												}
-											],
-											"array_item_type": "object",
+											"input_template_code": "<div title=\"Status: Start\">\n       <i class=\"{{iconReturn status }}\" aria-hidden=\"true\"></i>\n</div>",
+											"display_helper": "showIcon",
 											"show_in_insert_form": false,
 											"show_in_update_form": false
 										}
@@ -1790,7 +1773,7 @@
 											"route": "docs.audit_execution.ex_summary"
 										},
 										{
-											"title": "Evaluetions",
+											"title": "Scoring",
 											"route": "docs.audit_execution.valutazioni"
 										}
 									],
@@ -1852,7 +1835,7 @@
 									"type": "page",
 									"components": [
 										{
-											"name": "scorring",
+											"name": "scoring",
 											"type": "markdown",
 											"source": "In this section the synthetic evaluation of the activity carried out is formalized.\n\n",
 											"object_type": "markdown"
@@ -1966,7 +1949,7 @@
 								{
 									"name": "controlli_continuativi",
 									"type": "markdown",
-									"source": "# Moitoring controls\n\nThe continuous monitoring / control activity has the objective of contributing to providing the Internal Audit with an updated view of any problematic situations, even if they are already known and followed by the competent corporate structures.\nIn this context, the Internal Audit assesses any direct interventions attributable to in-depth analysis of individual situations that, where appropriate, may give rise to specific audits (in the context of what has already been planned, anticipating activities, or carrying out unplanned activities).",
+									"source": "# Monitoring controls\n\nThe continuous monitoring / control activity has the objective of contributing to providing the Internal Audit with an updated view of any problematic situations, even if they are already known and followed by the competent corporate structures.\nIn this context, the Internal Audit assesses any direct interventions attributable to in-depth analysis of individual situations that, where appropriate, may give rise to specific audits (in the context of what has already been planned, anticipating activities, or carrying out unplanned activities).",
 									"object_type": "markdown"
 								}
 							]
@@ -2319,6 +2302,11 @@
 			"container_class": "container-fluid",
 			"pages": [
 				{
+					"name": "logout",
+					"type": "page",
+					"template": "logout"
+				},
+				{
 					"name": "home_private",
 					"type": "page",
 					"title": "Welcome {{userFullName}}!",
@@ -2410,6 +2398,7 @@
 									"type": "string",
 									"exportable": true,
 									"input": "select",
+									"display_helper": "showIcon",
 									"array_item_type": "object",
 									"show_in_insert_form": false,
 									"show_in_update_form": false
@@ -3512,11 +3501,6 @@
 					]
 				},
 				{
-					"name": "logout",
-					"type": "page",
-					"template": "logout"
-				},
-				{
 					"name": "audits",
 					"type": "page",
 					"title": "{{title}}",
@@ -3524,13 +3508,11 @@
 					"query_name": "activity",
 					"components": [
 						{
-							"name": "status",
+							"name": "new_status",
 							"type": "custom_component",
-							"dest_position": "bottom",
-							"query_name": "activity",
-							"html": "<template name=\"TEMPLATE_NAME\">\n  <div class=\"col-sm-10 col-md-10\"></div>\n        <div class=\"col-sm-2 col-md-2\">\n\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Start\">\n                        <i class=\"fa fa-hourglass-start {{start activity.status }}\" aria-hidden=\"true\"></i>\n                </div>\n\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Working in progress\">\n                        <i class=\"fa fa-cogs {{wip activity.status activity.nextreadystatus }}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Close\">\n                        <i class=\"fa fa-diamond {{close activity.status activity.nextreadystatus }}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Approve\">\n                        <i class=\"fa fa-check {{approve activity.status activity.nextreadystatus}}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Archive\">\n                        <i class=\"fa fa-lock {{archive activity.status}}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n        </div>\n</template>\n\n",
-							"js": "Template.TEMPLATE_NAME.onRendered(function() {  \n   // Session.set('activity', Activities.findOne({'_id': this.params.activityId}) );\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({  \n  \"click .status_box\": function(event) {\n    event.preventDefault();\n    \n    //console.log($(event.target).attr(\"class\"));\n    \n    var x = $(event.target).attr(\"class\");\n    if (x == \"fa fa-diamond suggested\") {\n        bootbox.dialog({\n                message: \"Do you whant CLOSE the audit? Are you sure?\",\n                title: \"Close\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;\n                                values.status = \"Closed\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }        \n\tif (x == \"fa fa-check suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant APPROVE the audit? Are you sure?\",\n                title: \"Approve\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Approved\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }\n    if (x == \"fa fa-lock suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant definitivaly archive tha audit? Are you sure?\",\n                title: \"Archive\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Archived\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity').id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }    \n    \n  }\n});\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  \n \"start\": function(status) {return  ( status == \"Start\") ? \"selected\" : \"not-selected\"; },\n \"wip\":   function(status) {return (status == \"Working in progress\") ? \"selected\" : \"not-selected\"; },\n \"close\": function(status, nextreadystatus) {\n                var val;\n                if(status == \"Closed\") { val = \"selected\"; } else { val = \"not-selected\"; }\n                if (nextreadystatus && status == \"Working in progress\") { val = \"suggested\"; }\n                return val;\n },\n \"approve\": function(status, nextreadystatus) {\n            var val;\n            if(status == \"Approved\") { val = \"selected\";} else { val = \"not-selected\"; }\n            if (nextreadystatus && status == \"Close\" && Users.isAdmin(Meteor.userId())) { val = \"suggested\"; }\n            return val;\n },\n\n\"archive\": function(status) {\n            var val;\n            if (status == \"Archived\") { val = \"selected\";} else { val = \"not-selected\"; }\n            if (status == \"Approved\") { val = \"suggested\"; }\n            return val;\n   \n   \n     \n }} );\n\n",
-							"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});",
+							"html": "<template name=\"TEMPLATE_NAME\"> \n   <div class=\"checkout-wrap col-md-3 col-sm-12 col-xs-12 pull-right\">\n\t <ul class=\"checkout-bar\">\n\t\t<li class=\"{{ start activity.status }}\" title=\"Status: Start\"></li>\n\t\t<li class=\"{{ wip activity.status activity.nextreadyStatus }}\" title=\"Status: Working in progress\"></li>\n\t\t<li class=\"{{ close activity.status activity.nextreadyStatus }}\" title=\"Status: Close\"></li>\n\t\t<li class=\"{{ approve activity.status activity.nextreadyStatus }}\" title=\"Status: Approve\"></li>\n\t\t<li class=\"{{ archive activity.status }}\" title=\"Status: Archive\"></li>\n\t</ul>\n   </div>\n</template>\n\n",
+							"js": "Template.TEMPLATE_NAME.events({  \n  \"click .checkout-bar\": function(event) {\n    event.preventDefault();\n    \n    //console.log($(event.target).attr(\"title\").substring(8)+'-'+$(event.target).attr(\"class\"));\n    \n    var x = $(event.target).attr(\"title\").substring(8)+'-'+$(event.target).attr(\"class\");\n    \n    if (x == \"Close-suggested\") {\n        bootbox.dialog({\n                message: \"Do you whant CLOSE the audit? Are you sure?\",\n                title: \"Close\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;\n                                values.status = \"Closed\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }        \n\tif (x == \"Approve-suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant APPROVE the audit? Are you sure?\",\n                title: \"Approve\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Approved\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }\n    if (x == \"Archive-suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant definitively ARCHIVE the audit? Are you sure?\",\n                title: \"Archive\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Archived\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }    \n    \n  }\n});\n\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  \n \"start\": function(status){ \n\t\t\tvar val; \n            if ([\"Started\",\"Working in progress\",\"Closed\",\"Approved\",\"Archived\"].indexOf(status) >= 0) { val = \"selected\"; }\n\t\t\treturn val;\n },\n   \n \"wip\":   function(status){\n\t\t\tvar val; \n            if ([\"Working in progress\",\"Closed\",\"Approved\",\"Archived\"].indexOf(status) >= 0) { val = \"selected\"; }\n\t\t\treturn val;\n },\n    \n \"close\": function(status, nextreadyStatus) {\n                var val;\n                if ([\"Closed\",\"Approved\",\"Archived\"].indexOf(status) >= 0) { val = \"selected\"; }\n                if (nextreadyStatus && status == \"Working in progress\") { val = \"suggested\"; }\n                return val;\n },\n \"approve\": function(status) {\n            var val;\n            if ([\"Approved\",\"Archived\"].indexOf(status) >= 0) { val = \"selected\"; }\n            if (status == \"Closed\" && Users.isAdmin(Meteor.userId())) { val = \"suggested\"; }\n            return val;\n },\n\n \"archive\": function(status) {\n            var val;            \n            if (status == \"Approved\") { val = \"suggested\"; }\n\t\t\tif (status == \"Archived\") { val = \"selectedend\";}\n            return val;        \n }\n\n});\n",
+							"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
 							"gasoline": {
 								"type": "gasoline",
 								"templates": [
@@ -3601,10 +3583,30 @@
 								}
 							],
 							"object_type": "menu"
+						},
+						{
+							"name": "status",
+							"type": "custom_component",
+							"dest_position": "bottom",
+							"query_name": "activity",
+							"show_condition": "// trick to hide and not delete the component\n\n1 === 0",
+							"html": "<template name=\"TEMPLATE_NAME\">\n  <div class=\"col-sm-10 col-md-10\"></div>\n        <div class=\"col-sm-2 col-md-2\">\n\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Start\">\n                        <i class=\"fa fa-hourglass-start {{start activity.status }}\" aria-hidden=\"true\"></i>\n                </div>\n\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Working in progress\">\n                        <i class=\"fa fa-cogs {{wip activity.status activity.nextreadyStatus }}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Close\">\n                        <i class=\"fa fa-diamond {{close activity.status activity.nextreadyStatus }}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Approve\">\n                        <i class=\"fa fa-check {{approve activity.status activity.nextreadyStatus}}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n                <div class=\"col-sm-2 col-md-2 status_box\" title=\"Status: Archive\">\n                        <i class=\"fa fa-lock {{archive activity.status}}\" aria-hidden=\"true\">\n                        </i>\n                </div>\n        </div>\n</template>\n\n",
+							"js": "Template.TEMPLATE_NAME.onRendered(function() {  \n   // Session.set('activity', Activities.findOne({'_id': this.params.activityId}) );\n});\n\n\n\nTemplate.TEMPLATE_NAME.events({  \n  \"click .status_box\": function(event) {\n    event.preventDefault();\n    \n    //console.log($(event.target).attr(\"class\"));\n    \n    var x = $(event.target).attr(\"class\");\n    if (x == \"fa fa-diamond suggested\") {\n        bootbox.dialog({\n                message: \"Do you whant CLOSE the audit? Are you sure?\",\n                title: \"Close\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;\n                                values.status = \"Closed\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }        \n\tif (x == \"fa fa-check suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant APPROVE the audit? Are you sure?\",\n                title: \"Approve\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Approved\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity')._id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }\n    if (x == \"fa fa-lock suggested\") {\n           bootbox.dialog({\n                message: \"Do you whant definitively ARCHIVE the audit? Are you sure?\",\n                title: \"Archive\",\n                animate: false,\n                buttons: {\n                    success: {\n                        label: \"Yes\",\n                        className: \"btn-success\",\n                        callback: function() {              \n                                var values = {} ;      \n                                values.status = \"Archived\";\n                                Meteor.call(\"activitiesUpdate\", Session.get('activity').id ,values, function(err) { if(err) {alert(err.message); } });                     \n                        }\n                },\n                    danger: {\n                        label: \"No\",\n                        className: \"btn-default\"\n                    }\n                }\n        });   \n    }    \n    \n  }\n});\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  \n \"start\": function(status) {return  ( status == \"Start\") ? \"selected\" : \"\"; },\n \"wip\":   function(status) {return (status == \"Working in progress\") ? \"selected\" : \"\"; },\n \"close\": function(status, nextreadyStatus) {\n                var val;\n                if(status == \"Closed\") { val = \"selected\"; }\n                if (nextreadyStatus && status == \"Working in progress\") { val = \"suggested\"; }\n                return val;\n },\n \"approve\": function(status) {\n            var val;\n            if(status == \"Approved\") { val = \"selected\";}\n            if (status == \"Closed\" && Users.isAdmin(Meteor.userId())) { val = \"suggested\"; }\n            return val;\n },\n\n \"archive\": function(status) {\n            var val;            \n            if (status == \"Approved\") { val = \"suggested\"; }\n\t\t\tif (status == \"Archived\") { val = \"selected\";}\n            return val;        \n }} );\n\n",
+							"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});",
+							"gasoline": {
+								"type": "gasoline",
+								"templates": [
+									{
+										"name": "TEMPLATE_NAME",
+										"type": "template"
+									}
+								]
+							},
+							"object_type": "custom_component"
 						}
 					],
 					"template_rendered_code": "Session.set(\"process\",'');\n",
-					"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"page-container\" id=\"content\">\n\t\t<div class=\"row col-md-10\" id=\"title_row\">\n\t\t\t<div class=\"col-md-12\">\n\t\t\t\t<h2 id=\"page_title\" class=\"pull-left\">\n\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" class=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t<span class=\"fa fa-chevron-left\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t\t<span id=\"page-title-icon\" class=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t</span>\n\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t</h2>\n\t\t\t\t<div id=\"page_menu\" class=\"pull-right\">\n\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" class=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t<span class=\"fa fa-times\">\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<p id=\"page_text\">\n\t\t\t\n\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\n\t\t</p>\n\t</div>\n\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t</div>\n</template>\n\n",
+					"html": "<template name=\"TEMPLATE_NAME\">\n\t<div class=\"row\">\n\t\t<div class=\"checkout-wrap col-md-2 col-sm-12 col-xs-12 pull-right\">\n\t\t\t<ul class=\"checkout-bar\">\n\t\t\t\t<li class=\"{{start activity.status }} status_box\" title=\"Status: Start\">\n\n\t\t\t\t</li>\n\t\t\t\t<li class=\"{{wip activity.status activity.nextreadystatus }} status_box\" title=\"Status: Working in progress\">\n\n\t\t\t\t</li>\n\t\t\t\t<li class=\"{{close activity.status activity.nextreadystatus }} status_box\" title=\"Status: Close\">\n\n\t\t\t\t</li>\n\t\t\t\t<li class=\"{{approve activity.status activity.nextreadystatus}} status_box\" title=\"Status: Approve\">\n\n\t\t\t\t</li>\n\t\t\t\t<li class=\"{{archive activity.status}} status_box\" title=\"Status: Archive\">\n\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n</template>\n\n",
 					"js": "\n\nTemplate.TEMPLATE_NAME.events({\n\n});\n\nTemplate.TEMPLATE_NAME.helpers({\n\n});",
 					"jsx": "/*IMPORTS*/\n\nexport class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<div className=\"page-container\" id=\"content\">\n\t\t\t\t\t<div className=\"row col-md-10\" id=\"title_row\">\n\t\t\t\t\t\t<div className=\"col-md-12\">\n\t\t\t\t\t\t\t<h2 id=\"page_title\" className=\"pull-left\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-back-button\" className=\"btn btn-default\" title=\"back\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-chevron-left\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t\t<span id=\"page-title-icon\" className=\"PAGE_TITLE_ICON_CLASS\">\n\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\tPAGE_TITLE\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t</h2>\n\t\t\t\t\t\t\t<div id=\"page_menu\" className=\"pull-right\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"page-close-button\" className=\"btn btn-default pull-right\" title=\"Close\">\n\t\t\t\t\t\t\t\t\t<span className=\"fa fa-times\">\n\t\t\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<p id=\"page_text\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\tPAGE_TEXT\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"background-image\" style=\"background-image: url(BACKGROUND_IMAGE);\">\n\t\t\t\t</div>\n\n\t\t\t</div>\n\t\t);\n\t}\n}\n\nexport const TEMPLATE_NAMEContainer = createContainer(function(props) {\n\t/*SUBSCRIPTIONS*/\n}, TEMPLATE_NAME);",
 					"gasoline": {
@@ -3836,7 +3838,7 @@
 								{
 									"name": "form",
 									"type": "form",
-									"helpers_code": "\"process\": function() {\n\treturn Session.get(\"process\");  \n},\n\n  \n\"subprocessuniq\": function() {    \n    return Clientsubprocessuniq.find({process: Session.get(\"process\")});\n},\n",
+									"helpers_code": "\"process\": function() {\n\treturn Session.get(\"process\");  \n},\n\n\"subprocessuniq\": function() {    \n    return Clientsubprocessuniq.find({process: Session.get(\"process\")});\n},\n\n\"DefaultStartDate\": function(a) {  \n  if (a) {var r = formatDate(a,\"DD/MM/YYYY\"); } else {var r = formatDate('TODAY',\"DD/MM/YYYY\");}\n  return r;\n},\n  \n\"defaultAuditors\": function(a) {\n   if (!a) {var r = profile.name }\n   return a;\n},\n\n\n  ",
 									"query_name": "activity",
 									"query_params": [
 										{
@@ -3847,7 +3849,7 @@
 									"template_rendered_code": "this.autorun(function() {\n  var process = Session.get(\"process\") || Session.get('activity').process;\n  if (!process) {process=\"ADEMPIMENTI NORMATIVI TRASVERSALI E REGOLAMENTARI SPECIFICI\";}\n  Session.set(\"process\", process);  \t  \n});\n\n\n",
 									"mode": "update",
 									"submit_route": "audits",
-									"submit_code": "if ((Session.get('activity')._id).length === 6) {  \n\tMeteor.call(\"activitiesInsert\", values, function(e, r) {\n         if(e) console.log('error');\n         else { let handler = Meteor.subscribe(\"activity\", r,\n\t\t\t\t {\n\t\t\t\t   onReady: function () {\n    \t\t \t\t\t//if (!values.startDate) {values.startDate=formatDate(\"TODAY\"); } \t\t\t\t\t\t\t\t\t\n                     \tvalues.number='';\n            \t\t\tvalues.status='Start';                     \t\n            \t\t\tvalues.auditors.push(Meteor.user().profile.name);\n                     \tMeteor.call(\"activitiesUpdate\", r, values, \n                                    function(e, r2){if(e) errorAction(e); \n                                                    else{ Session.set('activity', Activities.findOne({'_id': r}));\n                                                          handler.stop();\n                                                          submitAction(r2);\n                                                   \t\t}\n                                   });\n                     \n\t\t\t\t   },                                                                                                    \n\t\t\t\t   onError: function () { console.log(\"onError\", arguments); },\n           \t\t   onStop: function () { /*console.log(\"STOP\", arguments);*/ }\n\t\t    });\n\t\t } \n    });\n}\nelse\n",
+									"submit_code": "if ((Session.get('activity')._id).length === 6) {  \n\tMeteor.call(\"activitiesInsert\", values, function(e, r) {\n         if(e) console.log('error');\n         else { let handler = Meteor.subscribe(\"activity\", r,\n\t\t\t\t {\n\t\t\t\t   onReady: function () {\n    \t\t \t\t\t//if (!values.startDate) {values.startDate=formatDate(\"TODAY\"); } \t\t\t\t\t\t\t\t\t\n                     \tvalues.number='';\n            \t\t\tvalues.status='Started';                     \t\n            \t\t\tvalues.auditors.push(Meteor.user().profile.name);\n                     \tMeteor.call(\"activitiesUpdate\", r, values, \n                                    function(e, r2){if(e) errorAction(e); \n                                                    else{ Session.set('activity', Activities.findOne({'_id': r}));\n                                                          handler.stop();\n                                                          submitAction(r2);\n                                                   \t\t}\n                                   });\n                     \n\t\t\t\t   },                                                                                                    \n\t\t\t\t   onError: function () { console.log(\"onError\", arguments); },\n           \t\t   onStop: function () { /*console.log(\"STOP\", arguments);*/ }\n\t\t    });\n\t\t } \n    });\n}\nelse\n",
 									"submit_button_title": "Save",
 									"submit_route_params": [
 										{
@@ -4044,7 +4046,7 @@
 											"title": "Sub processes",
 											"type": "array",
 											"input": "custom",
-											"input_template_code": "<div class=\"form-group FIELD_GROUP_CLASS FIELD_ID\">\n    <label for=\"subprocesses\">Sub processes</label>\n\t  <div class=\"input-div\">\n\t\t\t<select multiple=\"multiple\" class=\"form-control\" name=\"FIELD_NAME\" data-type=\"array\">\n\t\t\t\t{{#each subprocessuniq}}\n\t\t\t\t\t\t<option value=\"{{subprocess}}\" {{optionIsSelected ../subprocess}}>{{subprocess}}</option>\n                {{/each}}\n\t\t\t</select>\n\t\t\t<span id=\"help-text\" class=\"help-block\"></span>\n\t\t\t<span id=\"error-text\" class=\"help-block\"></span>\n\t  </div>\n</div>",
+											"input_template_code": "<div class=\"form-group FIELD_GROUP_CLASS FIELD_ID\">\n    <label for=\"subprocesses\">Sub processes</label>\n\t  <div class=\"input-div\">\n\t\t\t<select multiple=\"multiple\" class=\"form-control\" name=\"FIELD_NAME\" data-type=\"array\">\n\t\t\t\t{{#each subprocessuniq}}\n\t\t\t\t\t\t<option value=\"{{subprocess}}\" {{optionIsSelected ../activity.subprocesses subprocess}}>{{subprocess}}</option>\n                {{/each}}\n\t\t\t</select>\n\t\t\t<span id=\"help-text\" class=\"help-block\"></span>\n\t\t\t<span id=\"error-text\" class=\"help-block\"></span>\n\t  </div>\n</div>",
 											"input_group_class": "col-sm-4 col-md-4",
 											"show_in_insert_form": false
 										},
@@ -4059,7 +4061,8 @@
 											"input_group_class": "col-sm-4 col-md-4",
 											"lookup_query_name": "q_users",
 											"lookup_key": "profile.name",
-											"lookup_field": "profile.name"
+											"lookup_field": "profile.name",
+											"display_helper": "defaultAuditors"
 										},
 										{
 											"name": "branch",
@@ -4067,6 +4070,12 @@
 											"type": "string",
 											"input": "select",
 											"input_group_class": "col-sm-4 col-md-4",
+											"input_items": [
+												{
+													"value": "Corporate",
+													"title": "Corporate"
+												}
+											],
 											"lookup_query_name": "braches_all",
 											"lookup_key": "branch",
 											"lookup_field": "branch"
@@ -4079,9 +4088,9 @@
 											"required": true,
 											"format": "DD/MM/YYYY",
 											"exportable": true,
-											"input": "custom",
-											"input_template_code": "<div class=\"form-group FIELD_GROUP_CLASS FIELD_ID\">\n  <label for=\"startDate\"> Audit start date </label>\n\t<div class=\"input-div\">\n\t\t<div class=\"input-group date\">\n          \t{{#if activity.startDate}}\n  \t\t\t\t\t<input type=\"text\" name=\"FIELD_NAME\" value=\"{{formatDate activity.startDate 'DD/MM/YYYY'}}\" class=\"form-control \" data-type=\"date\" data-format=\"DD/MM/YYYY\">\n\t\t\t\t{{else}}\n  \t\t\t\t\t<input type=\"text\" name=\"FIELD_NAME\" value=\"{{formatDate 'TODAY' 'DD/MM/YYYY'}}\" class=\"form-control \" data-type=\"date\" data-format=\"DD/MM/YYYY\">\n\t\t  \t{{/if}}  \t\t\t\n\t\t\t<span class=\"input-group-addon\"><i class=\"fa fa-calendar\"></i></span>\n\t\t</div>\n\t\t<span id=\"help-text\" class=\"help-block\"></span>\n\t\t<span id=\"error-text\" class=\"help-block\"></span>\n\t</div>\n</div>",
-											"input_group_class": "col-sm-4 col-md-4"
+											"input": "datepicker",
+											"input_group_class": "col-sm-4 col-md-4",
+											"display_helper": "DefaultStartDate"
 										},
 										{
 											"name": "nextreadyStatus",
@@ -4501,25 +4510,21 @@
 							],
 							"components": [
 								{
-									"name": "edit_div",
-									"type": "div",
-									"components": [
-										{
-											"name": "edit",
-											"type": "custom_component",
-											"query_name": "activities_list",
-											"query_params": [
-												{
-													"name": "name"
-												}
-											],
-											"html": "<template name=\"TEMPLATE_NAME\">\n\n\t<script> var CKEDITOR_BASEPATH = '/'; </script>\n    <textarea name=\"exsum\" id=\"exsum\"></textarea>\n\n</template>",
-											"js": "Template.TEMPLATE_NAME.rendered = function() {\n\t$.when(\n\t\t$.getScript(\"/ckeditor.js\")\n\t).done(function(){\n      \tCKEDITOR.timestamp= +new Date; //obbliga il browser a fare refresh\n\t\tCKEDITOR.replace( 'exsum', {\n\t\t\ton: {\tinstanceReady: function( evt ) {\n              \t\t\tvar exsum = evt.editor.name;\n              \t\t\tvar firstData = Session.get('activity').memo;\n\t\t\t\t\t\tCKEDITOR.instances.exsum.setData(firstData);\n\t\t\t\t\t\tCKEDITOR.instances.exsum.focus();\n\t\t\t\t\t\tvar save_timeout;\n              \n\t\t\t\t\t\tsave_data = function() {                            \n\t\t\t\t\t\t\tclearTimeout(save_timeout);\t\t\t\t\t\t\t\n                            var data = {};\n                          \tdata.memo = CKEDITOR.instances.exsum.getData();\n                          \tif (data.memo != firstData)  { \n                          \t   Meteor.call(\"activitiesUpdate\", Session.get('activity')._id, data, function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\t\t\t\t   firstData = data.memo;\n                               //console.log('salva',data.memo);\n                            };\n\t\t\t\t\t\t};\n                      \n\t\t\t\t\t\tCKEDITOR.instances.exsum.on('change',  function() {\n\t\t\t\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t}\n\t\t});   \n          \n\t});      \n};\n\n\n",
-											"jsx": "export const TEMPLATE_NAME = React.createClass({\n\trender() {\n\t\treturn (\n\t\t);\n\t}\n});\n",
-											"object_type": "custom_component"
-										}
-									],
-									"object_type": "div"
+									"name": "edit",
+									"type": "custom_component",
+									"html": "<template name=\"TEMPLATE_NAME\">\n\n \t<textarea name=\"content\" id=\"editor\">\n    \t&lt;p&gt;Here goes the initial content of the editor.&lt;/p&gt;\n\t</textarea>\n  \n</template>\n",
+									"js": "import ClassicEditor from '@ckeditor/ckeditor5-build-classic';\n\nTemplate.TEMPLATE_NAME.onRendered(function() {\n let editor;\n ClassicEditor\n    .create( document.querySelector( '#editor' ) )\n    .then( newEditor => {\n\t\teditor = newEditor;\n\t\tvar data = Session.get('activity');\n\t\tif (data.memo) { editor.setData(data.memo) };\n   \t\tvar save_timeout;\n\t    save_data = function() {\n\t\t   \tclearTimeout(save_timeout);\n\t\t\tdata.memo = editor.getData();\n\t\t\tif (data.memo !== Session.get('activity').memo)  {\n\t\t\t    Meteor.call(\"activitiesUpdate\", Session.get('activity')._id, data, function(e, r){if(e){console.log('Error',e);}});\n\t\t\t\tSession.set('activity', data);\n\t\t\t};\n\t\t};\n\t\teditor.model.document.on( 'change:data', () => {\n\t\t\t\t//console.log( 'The data has changed!' );\n\t\t\t\tclearTimeout(save_timeout);\n\t\t\t\tsave_timeout = setTimeout(save_data, 2000);\n\t\t})\n\t})\n    .catch( error => {\n        console.error( error );\n  });\n});\n",
+									"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
+									"gasoline": {
+										"type": "gasoline",
+										"templates": [
+											{
+												"name": "TEMPLATE_NAME",
+												"type": "template"
+											}
+										]
+									},
+									"object_type": "custom_component"
 								}
 							],
 							"container_class": "container-fluid"
@@ -4688,6 +4693,75 @@
 									"mode": "update",
 									"submit_route": "monitoringdetection",
 									"submit_code": "if (Session.get('monitoringdetectionId').length === 6) {    \n\tMeteor.call(\"monitoringdetectionInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else\n             Session.set('monitoringdetectionId',r);\n             var cursor = Files.find({'metadata.monitoringDetectionId': Session.get('monitoringdetectionId'), 'metadata.section': 'monitoring_detection'});\n             cursor.forEach(function(err, doc) {\n                if (err) throw err;\n                if (doc) {\n                    val={}; val.monitoringdetectionId = Session.get('monitoringdetectionId',r);\n                    Meteor.call(\"FilesUpdate\", doc._id, val, function(e, r) { if(e) errorAction(e); else console.log('ok',r);});  \n                };\n             });  \n             Meteor.call(\"monitoringdetectionUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n       });\n}\nelse",
+									"fields": [
+										{
+											"name": "controlId",
+											"title": "Control code",
+											"type": "string",
+											"required": true,
+											"exportable": true,
+											"input": "select",
+											"input_group_class": "col-sm-4 col-md-4",
+											"lookup_query_name": "registrycontrols_list",
+											"lookup_query_params": [
+												{
+													"name": "name",
+													"value": "Meteor.user().profile.name"
+												}
+											],
+											"lookup_key": "_id",
+											"lookup_field": "title",
+											"join_collection": "registrycontrols",
+											"join_container": "registrycontrol",
+											"join_fields": [
+												"title"
+											],
+											"show_in_dataview": false,
+											"show_in_read_only_form": false
+										},
+										{
+											"name": "registrycontrol.title",
+											"title": "Title",
+											"type": "string",
+											"exportable": true,
+											"show_in_insert_form": false,
+											"show_in_update_form": false
+										},
+										{
+											"name": "date",
+											"title": "Date",
+											"type": "date",
+											"default": "MM/YY",
+											"format": "DD/MM/YYYY",
+											"exportable": true,
+											"input": "datepicker",
+											"input_group_class": "col-sm-4 col-md-4"
+										},
+										{
+											"name": "keyIndicator",
+											"title": "Key indicator",
+											"type": "string",
+											"exportable": true,
+											"input_group_class": "col-sm-4 col-md-4"
+										},
+										{
+											"name": "note",
+											"title": "Notes",
+											"type": "string",
+											"exportable": true,
+											"input": "textarea"
+										},
+										{
+											"name": "controller",
+											"title": "User",
+											"type": "string",
+											"exportable": true,
+											"input_group_class": "col-sm-4 col-md-4",
+											"show_in_insert_form": false,
+											"show_in_update_form": false,
+											"show_in_read_only_form": false
+										}
+									],
 									"hidden_fields": [
 										{
 											"name": "controller",
@@ -4734,19 +4808,16 @@
 		},
 		"login_with_google": true,
 		"server_startup_code": "import {ReactiveAggregate} from 'meteor/jcbernack:reactive-aggregate';\n\nvar os = Npm.require('os');\nvar containerized = require('containerized');\nvar fileMonitor= ['Branch','Libtest','Tests','Normative','Risks','Organizationunit','Users','Registrycontrols','Processes','Issues','Monitoringdetection','Activities'];\n\npasswdAD =\"\";\n\nvar getIp = function() {\n    // Get interfaces\n    var netInterfaces = os.networkInterfaces();\n    // Result\n    var result = [];\n    for (var id in netInterfaces) {\n      var netFace = netInterfaces[id];\n\n      for (var i = 0; i < netFace.length; i++) {\n        var ip = netFace[i];\n        if (ip.internal === false && ip.family === 'IPv4') {\n          result.push(ip);\n        }\n      }\n    }   \n    return result[0].address;\n};\n\n\nconsole.log(\"=> Server IP:\",getIp());\nconsole.log(\"=> MONGO_URL: \", process.env.MONGO_URL);\nconsole.log(\"=> ROOT_URL: \",process.env.ROOT_URL);\n\n\nif (process.env.passwdAD) {\n\t\tpasswdAD = process.env.passwdAD;\n\t\tconsole.log(\"=> PasswordAD: ..\",passwdAD.substr(4, 1),'..');\n} else {console.log(\"=> Active Direcoty disable\");}\n\n\n\n if (containerized()) {\n    console.log('=> I am running inside a Docker container.');\n} else {\n    console.log('=> I am NOT running inside a Docker container.');\n}\n\n\nvar windows = process.env.OS == 'Windows_NT' ? true : false;\nif (windows){\n\tconsole.log('=> System:', process.env.OS);\n\t}\nelse {console.log('=> The current server is not on Windows. Linux?');}\n\n\nfunction calendar () {\n\tvar now = Math.floor((moment().unix()));\n    console.log('now:',now);\n}\n\n\n\nvar watt = SyncedCron.add({\n\tname: 'watt',\n\tschedule: function(parser) {return parser.recur().every(20).minute();},\n\tjob: calendar\n});\n\nSyncedCron.config({log: false});\n\nSyncedCron.start();\n\n\n\n// Function to obtain the Collection from his name\ngetCollection = function (string) {\n  for (var globalObject in this) {\n      if (this[globalObject] instanceof Meteor.Collection) {\n          if (globalObject === string) {\n              return (this[globalObject]);\n              break;\n          };\n      }\n  }\n  return undefined; // if none of the collections match\n};\n\n\n\nfileMonitor.forEach(function(file){\n  var Collection = Promise.await(getCollection(file));\n  var t = Promise.await( Collection.remove({}) );\t\n  var items = JSON.parse(Assets.getText(file+\".json\"));\n  items.forEach(function(item){\n     if (file==\"Users\") {Accounts.createUser(item);} else Collection.insert(item);\n  });\n  console.log('Data uploaded:', file,' (',Collection.find({}).count(),')');\n});\n\n\nMeteor.methods({\n\t\t\"additionalData\": function(id) {\n\t\t\tlet tests = Promise.await( Tests.find({activityId: id}).fetch() );\n\t\t\tlet issues = Promise.await( Issues.find({activityId: id}).fetch() );\n\t\t\tvar outputjson = {issues: [], tests: [] } ;\n\t\t\tfor (i = 0; i < issues.length; i++) { outputjson.issues.push(issues[i]);}\n\t\t\tfor (i = 0; i < tests.length; i++) { outputjson.tests.push(tests[i]);}\n\t\t\treturn  outputjson;\n\t\t},\n          \n        \"parseUpload\": function(coll,data) {\n            check( data, Array );\n            var Collection = Promise.await(getCollection(coll));\n         \t// var t = Promise.await( Collection.remove({}) );\n         \t// for ( i = 0; i < data.length; i++ ) {           \n\t\t \t//\t\tCollection.insert( data[ i ] );\n         \t// }\n          \n         \tfor ( i = 0; i < data.length; i++ ) {\n\t\t\t\tif ( !Collection.findOne(data[i]) ) { Collection.insert(data[i]);} else { console.warn( coll,': Rejected. This item already exists.');}\n    \t    }    \t \n        }\n});\n\n          \nvar pipeline =[\n  {$sort : { date : -1 }},\n  {$group: { _id: \"$controlId\", date: { \"$first\": \"$date\" },controller: { \"$first\": \"$controller\"},keyIndicator: { \"$first\": \"$keyIndicator\"},note: { \"$first\": \"$note\"} }}\n];\n\n\nMeteor.publish(\"MonitoringdetectionByid\", function() {\n    ReactiveAggregate(this, Monitoringdetection, pipeline, { clientCollection: \"clientMonitoringdetectionByid\" });\n});\n\n\n\nvar pipeline1 =[{$group: { _id: \"$process\", subprocess: { $push: \"$subprocess\" } } }];\nMeteor.publish(\"processuniq\", function() {\n    ReactiveAggregate(this, Processes, pipeline1, { clientCollection: \"clientprocessuniq\" });  \n});\n\n\nvar pipeline2 =[{$group: { _id: { subprocess: \"$subprocess\", process: \"$process\" },\n\t\t\t\t\t\t   process: {$first:\"$process\" },\n\t\t\t\t\t\t   subprocess: {$first:\"$subprocess\" }\t\t\t\t\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t }\n\t\t\t\t},\n                {$project: { _id: {$concat: ['$process','-','$subprocess'] },\n\t\t\t\t\t\t\t\"subprocess\": \"$subprocess\",\n\t\t\t\t\t\t\t\"process\": \"$process\" \n                }\n\t\t\t   }];\n\n\nMeteor.publish(\"subprocessuniq\", function() {\n    ReactiveAggregate(this, Processes, pipeline2, { clientCollection: \"clientsubprocessuniq\" });\n});\n\n",
+		"client_startup_code": "Template.registerHelper(\"showIcon\", function (status) {\n  var s=\"\";  \n  switch(status) {\n       case \"Started\":\n            s = \"fa fa-hourglass-start\";\n            break;\n        case \"Working in progress\":\n            s = \"fa fa-cogs\";\n            break;\n        case \"Closed\":\n            s = \"fa fa-diamond\";\n            break;\n        case \"Approved\":\n            s = \"fa fa-check\";\n            break;\n        case \"Archived\":\n            s = \"fa fa-lock\";\n            break;\n  } \n  var codehtml=\"\";\n  codehtml=\"<div title='\"+status+\"' style='text-align:center;'><i class='\"+s+\"'aria-hidden='true'></i></div>\";  \n  return new Handlebars.SafeString(codehtml);    \n});\n\n",
 		"on_user_created_code": "if(options.roles) {user.roles = options.roles;}\nuser.profile.username = options.name;\nuser.profile.email = options.email;\n\n// Hack to delete duplicate entries\n// Users.remove({ email: options.email });\n//console.log(options);",
-		"stylesheet": "/******************************************/\n/*  */\n/******************************************/\n.wrapper {\n  display: table;\n  height: 100%;\n  width: 100%;\n}\n\n.container-fostrap {\n  display: table-cell;\n  padding: 1em;\n  text-align: center;\n  vertical-align: middle;\n}\n\n.card {\n    display: block;\n  /* ---mtt */\n    height: 100%;\n    position: relative;\n  /* ---mtt */\n    margin-top: 20px;\n    margin-bottom: 25px;\n    line-height: 1.42857143;\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);\n    transition: box-shadow .25s;\n}\n.card:hover {\n  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n}\n.img-card {\n  width: 100%;\n  height:100%;\n  border-top-left-radius:2px;\n  border-top-right-radius:2px;\n  display:block;\n  overflow: hidden;\n}\n\n.img-card img{\n  width: 100%;\n  height: 200px;\n  object-fit:cover;\n  transition: all .25s ease;\n}\n\n.card-content {\n  padding:10px;\n  font-size: 0.9em;\n  text-align:left;\n  /* ---mtt */\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 8;\n  -webkit-box-orient: vertical;\n  /* ---mtt */\n}\n.card-title {\n  padding-top:4px;\n  padding-left:10px;\n  padding-right:10px;\n  height: 36px;\n  text-align:left;\n  font-size: 0.9em;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n\n.card-title a {\n  color: #000;\n  text-decoration: none !important;\n}\n\n.card-read-more {\n    /* ---mtt */\n  position: absolute;\n  bottom: 0; right: 0;  left: 0;\n    /* ---mtt */\n // border-top: 1px solid #D4D4D4;\n}\n.card-read-more a {\n  //text-decoration: none !important;\n  padding:2px;\n//  font-weight:600;\n  //text-transform: uppercase\n}\n\n/******************************************/\n\n\n\n\n.dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}\n\n\nul.list-group:after {\n  content: \"\";\n}\n\n\nli.borderless {\n  border: 0 none;\n}\n\n.not-selected {\n  font-size: 12px;\n  list-style-type: none;  \n  opacity: 0.95;\n  color: #dadada;\n  padding: 0;\n}\n\n.selected {\n  \tanimation: \n      fonticon 4s forwards,\n      statusicon 4s forwards;     \n}\n\n.suggested {\n\tcolor: #76f233;\n    cursor: pointer;\n\tfont-size: 16px;\n}\n\n@keyframes statusicon {\n    from { color: #dadada;}\n    to {color: #3399f3;}\n} \n\n@keyframes fonticon {\n  0% {font-size: 12px;}\n  20% {font-size: 14px;}\n  40% {font-size: 16px;}\n  60% {font-size: 18px;}\n  80% {font-size: 20px;}\n  100% {font-size: 22px;}\n}\n",
+		"stylesheet": ".checkout-wrap {\n    font-family:'PT Sans Caption', sans-serif;\n   // margin: 30px auto 100px;\n  //  margin: 0px auto 0px;\n  padding-right: 0px;\n    z-index: 0;\n//    margin-right: 30px;\n}\n\nul.checkout-bar  {\n    position: relative;\n    margin-top: 0px;\n    margin-bottom: 0px;\n    padding: 0;\n    line-height: 0px;\n    font-size: 0px;\n}\n\n\n\nul.checkout-bar li {\n//    color: #ccc;\n//    font-size: 16px;\n//    font-weight: 600;\n    position: relative;\n    display: inline-block;\n//    margin: 20px auto;\n    padding: 0;\n    text-align: center;\n    width: 20%;\n}\nul.checkout-bar li:before {\n    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    background: #ddd;\n    border: 2px solid #FFF;\n    border-radius: 50%;\n    color: #fff;\n//    font-size: 16px;\n//    font-weight: 700;\n//    text-align: center;\n//    text-shadow: 1px 1px rgba(0, 0, 0, 0.2);\n    height: 34px;\n//    left: 40%;\n    line-height: 34px;\n    position: absolute;\n    top: -62px;\n    width: 34px;\n    z-index: 99999;\n}\n\n\nul.checkout-bar li.selected:before {\n    background: #bfbfbf;\n}\n\nul.checkout-bar li.selectedend:before {\n    background: #036c99;\n}\n\n\nul.checkout-bar li.suggested:before {\n    background: #d2ea9a;\n    cursor: pointer;\n    animation:\n      fonticon 4s forwards,\n      statusicon 4s forwards;\n}\n\n\n/*\nul.checkout-bar li.selected {\n    color: #036c99;\n    z-index: 99999;\n    background: none;\n}\n\nul.checkout-bar li.selected:before {\n    background: #036c99;\n    z-index: 99999;\n}\n\n*/\n\n\nul.checkout-bar li:nth-child(1):before {\n    font-family: FontAwesome;\n    content:\"\\f251\";\n    font-size: 15px;\n    font-weight: 10;\n}\nul.checkout-bar li:nth-child(2):before {\n    font-family: FontAwesome;\n    content:\"\\f085\";\n    font-size: 15px;\n    font-weight: 10;\n}\nul.checkout-bar li:nth-child(3):before {\n    font-family: FontAwesome;\n    content:\"\\f219\";\n    font-size: 15px;\n    font-weight: 10;\n}\nul.checkout-bar li:nth-child(4):before {\n    font-family: FontAwesome;\n    content:\"\\f00c\";\n    font-size: 15px;\n    font-weight: 10;\n}\nul.checkout-bar li:nth-child(5):before {\n    font-family: FontAwesome;\n    content:\"\\f023\";\n    font-size: 15px;\n    font-weight: 10;\n}\n\n\n\nul.checkout-bar li:nth-child(1).selected:before {color: #67a6c1;}\nul.checkout-bar li:nth-child(2).selected:before {color: #67a6c1;}\nul.checkout-bar li:nth-child(3).selected:before {color: #67a6c1;}\nul.checkout-bar li:nth-child(4).selected:before {color: #67a6c1;}\nul.checkout-bar li:nth-child(5).selected:before {color: #67a6c1;}\nul.checkout-bar li:nth-child(5).selectedend:before {color: #67a6c1;}\n\nul.checkout-bar li:nth-child(3).suggested:before {color: #a6c167;cursor: pointer;}\nul.checkout-bar li:nth-child(4).suggested:before {color: #a6c167;cursor: pointer;}\nul.checkout-bar li:nth-child(5).suggested:before {color: #a6c167;cursor: pointer;}\n\n\n\n// here init the configuration bar\n\n/*\nul.checkout-bar {\n    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    background-size: 35px 35px;\n    background-color: #EcEcEc;\n    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);\n    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 75%, transparent 75%, transparent);\n    border-radius: 15px;\n    height: 8px;\n    margin: 0 -15px 0;\n    padding: 0;\n    position: absolute;\n    width: 100%;\n\n}\n*/\n\n/*\nul.checkout-bar:before {\n    background-size: 35px 35px;\n    background-color: #036c99;\n    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    border-radius: 15px;\n    content:\" \";\n    height: 8px;\n    left: 0;\n    position: absolute;\n    width: 14%;\n}\n*/\n\n\nul.checkout-bar li.selected:after {\n    background-size: 35px 35px;\n    background-color: #67a6c1;\n    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    content:\"\";\n    height: 6px;\n //   left: 50%;\n    position: absolute;\n    width: 100%;\n    z-index: 99;\n    top: -48px;\n}\n\n\n/*\nul.checkout-bar li.suggested:after {\n    background-size: 35px 35px;\n    background-color: #036c99;\n    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);\n    -webkit-box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.2);\n    content:\"\";\n    height: 8px;\n    left: 47%;\n    position: absolute;\n    top: -47px;\n    width: 100%;\n    z-index: 99;\n}\n*/\n\n\n\n/******************************************/\n/*  */\n/******************************************/\n.wrapper {\n  display: table;\n  height: 100%;\n  width: 100%;\n}\n\n.container-fostrap {\n  display: table-cell;\n  padding: 1em;\n  text-align: center;\n  vertical-align: middle;\n}\n\n.card {\n    display: block;\n  /* ---mtt */\n    height: 100%;\n    position: relative;\n  /* ---mtt */\n    margin-top: 20px;\n    margin-bottom: 25px;\n    line-height: 1.42857143;\n    background-color: #fff;\n    border-radius: 2px;\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);\n    transition: box-shadow .25s;\n}\n.card:hover {\n  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);\n}\n.img-card {\n  width: 100%;\n  height:100%;\n  border-top-left-radius:2px;\n  border-top-right-radius:2px;\n  display:block;\n  overflow: hidden;\n}\n\n.img-card img{\n  width: 100%;\n  height: 200px;\n  object-fit:cover;\n  transition: all .25s ease;\n}\n\n.card-content {\n  padding:10px;\n  font-size: 0.9em;\n  text-align:left;\n  /* ---mtt */\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 8;\n  -webkit-box-orient: vertical;\n  /* ---mtt */\n}\n.card-title {\n  padding-top:4px;\n  padding-left:10px;\n  padding-right:10px;\n  height: 36px;\n  text-align:left;\n  font-size: 0.9em;\n  overflow: hidden;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n}\n\n.card-title a {\n  color: #000;\n  text-decoration: none !important;\n}\n\n.card-read-more {\n    /* ---mtt */\n  position: absolute;\n  bottom: 0; right: 0;  left: 0;\n    /* ---mtt */\n // border-top: 1px solid #D4D4D4;\n}\n.card-read-more a {\n  //text-decoration: none !important;\n  padding:2px;\n//  font-weight:600;\n  //text-transform: uppercase\n}\n\n/******************************************/\n\n\n\n\n.dashboard {\n  \tborder: #cdcdcd medium solid;\n\tborder-radius: 10px;\n    height: 100%;\n  \tfont-size: small;\n}\n\n.no-border [class*=\"-6\"] {\n\tpadding-left:0;\n    padding-right:0;\n}\n\n.divlib {\n    border-style: solid;\n    border-width: 2px;\n  \tborder-radius: 25px;\n  \tfont-size: small;\n}\n\n\nul.list-group:after {\n  content: \"\";\n}\n\n\nli.borderless {\n  border: 0 none;\n}\n\n/*\n.selected {\n  \tanimation: \n      fonticon 4s forwards,\n      statusicon 4s forwards;     \n}\n\n.suggested {\n\tcolor: #76f233;\n    cursor: pointer;\n\tfont-size: 16px;\n}\n*/\n\n@keyframes statusicon {\n    from { color: #fff;}\n    to {color: #a6c167;}\n}\n\n\n@keyframes fonticon {\n  0% {font-size: 15px;}\n  10% {font-size: 17px;}\n  20% {font-size: 19px;}\n  30% {font-size: 21px;}\n  40% {font-size: 23px;}\n  60% {font-size: 25px;}\n  70% {font-size: 27px;}\n  80% {font-size: 28px;}\n  90% {font-size: 29px;}\n 100% {font-size: 15px;}\n}\n",
 		"copy_files": [
 			{
-				"source": "files/favicon.ico",
+				"source": "favicon.ico",
 				"dest": "PUBLIC_DIR/favicon.ico"
 			},
 			{
-				"source": "files\\ckeditor",
-				"dest": "PUBLIC_DIR/"
-			},
-			{
-				"source": "files\\lib",
+				"source": "collections",
 				"dest": "PRIVATE_DIR/"
 			},
 			{
@@ -4774,7 +4845,8 @@
 			"npm": [
 				"activedirectory2",
 				"jsreport-browser-client-dist",
-				"containerized"
+				"containerized",
+				"@ckeditor/ckeditor5-build-classic"
 			]
 		}
 	}
