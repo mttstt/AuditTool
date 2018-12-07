@@ -1,11 +1,12 @@
-### 0.0.13 (xx-xx-2018)
+### 0.0.13 (07-12-2018)
 ##### License change
 * License changed. From MIT to GPLv2 because of CKEditor5.
 ##### New features
 * Added icon of audit status on dashboard pages
+* Improved Audit status bar
 ##### Clean code
 * Fixed bug (select option of subprocess)
-* Upgraded to CKEditor5
+* Upgraded to CKEditor5 and deleted CKEditor4 from the github project
 * Deleted CKEditor4 from the github project
 * Reordered Github directories
 
