@@ -3,12 +3,15 @@
 * License changed. From MIT to GPLv2 because of CKEditor5.
 ##### New features
 * Added icon of audit status on dashboard pages
-* Improved Audit status bar
-##### Clean code
+* Improved audit status bar
+##### Code
 * Fixed bug (select option of subprocess)
 * Upgraded to CKEditor5 and deleted CKEditor4 from the github project
 * Deleted CKEditor4 from the github project
 * Reordered Github directories
+##### Docker
+* Upgraded docker (abernix/meteord node-8.14.0-onbuild) 
+
 
 ### 0.0.12 (19-11-2018)
 ##### Clean code
