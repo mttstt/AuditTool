@@ -1,3 +1,10 @@
+### 0.0.14 (xx-xx-xxx)
+##### New features
+* ...
+##### Code
+* Fixed bugs
+
+
 ### 0.0.13 (07-12-2018)
 ##### License change
 * License changed. From MIT to GPLv2 because of CKEditor5.
