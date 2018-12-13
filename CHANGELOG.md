@@ -2,7 +2,7 @@
 ##### New features
 * ...
 ##### Code
-* Fixed bug (status update on tests/update and on issues/update)
+* Fixed bug (audit status on tests/update and on issues/update)
 
 
 ### 0.0.13 (07-12-2018)
