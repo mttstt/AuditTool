@@ -12,9 +12,9 @@
 #
 # -h, --help        Help
 # -m, --meteor      Launch meteor, without Docker, for testing [Password Active Directory]
-# -b, --build       Build audittool docker image, with the new release passed
-# -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release] 
-# -u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]  
+# -b, --build       Build audittool docker image [New Docker-Hub release]
+# -p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker release] 
+# -u, --dockerup    Docker-compose up [Password Active Directory] [Docker release]  
 # -d, --delete      Delete all (containers, images, volumes, networks)
 # -s, --stop	    docker-compose stop, useful when containers are started like service/ademon
 # 
@@ -127,14 +127,14 @@ case $key in
         echo "Put AuditTool in a Docker architecture"
         echo ""       
         echo "./lin-docker.sh -u [Password Active Directory] [Docker-Hub release]"
-        echo "./lin-dcoker.sh -b [Docker-Hub release]"
+        echo "./lin-dcoker.sh -b [New Docker-Hub release]"
         echo "./lin-dcoker.sh -p [Password Docker-Hub]"
         echo ""
         echo "Possible commands:"
         echo ""
         echo "-h, --help        Help"
         echo "-m, --meteor      Launch meteor, without Docker (for testing) [Password Active Directory]"
-        echo "-b, --build       Build audittool docker image, with the new release passed"
+        echo "-b, --build       Build audittool docker image [New Docker-Hub release]"
         echo "-p, --push        Push audittool image to Docker Hub [Password Docker Hub] [Docker-Hub release]"
         echo "-u, --dockerup    Docker-compose up [Password Active Directory] [DockerHub release]"
         echo "-d, --delete      Delete all (containers, images, volumes, networks)"
