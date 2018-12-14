@@ -1,6 +1,4 @@
-### 0.0.14 (xx-xx-xxx)
-##### New features
-* ...
+### 0.0.14 (14-12-2018)
 ##### Code
 * Fixed bug (audit status on tests/update and on issues/update)
 * Fixed bug (thumbnail on company field)
