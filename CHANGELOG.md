@@ -3,7 +3,7 @@
 * ...
 ##### Code
 * Fixed bug (audit status on tests/update and on issues/update)
-* Fixed bug (thumbnail company field)
+* Fixed bug (thumbnail on company field)
 
 
 ### 0.0.13 (07-12-2018)
