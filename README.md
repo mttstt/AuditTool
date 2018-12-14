@@ -10,10 +10,12 @@ This application is implemented with the support of Group Internal Audit. The ap
 ### Quick start with docker-compose
 - prerequisites: docker, docker-compose
 - git clone https://github.com/mttstt/AuditTool.git
+- sudo service docker restart
 - cd Audittool
-- ./lin-docker.sh -u [passwordAD] [Docker-Hub release] (ex: ./lin-docker -u Passw0r1 0.0.7.5)
+- chmod +x lin-docker.sh
+- ./lin-docker.sh -u [passwordAD] [Docker-Hub release] (ex: ./lin-docker -u Passw0rd 0.0.14)
+- (Jsreport) Access to http://ip-host:5488 and import jsreport.zip contained in git repository
 - http://ip-host:81 (Audittool)
-- http://ip-host:5488 (Jsreport)
   
   
 ### For development/test
