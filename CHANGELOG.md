@@ -4,6 +4,7 @@
 ##### Code
 * Fixed bug (audit status on tests/update and on issues/update)
 * Fixed bug (thumbnail on company field)
+* Fixed bug (DD/MM/YYYY stardate in dashboard)
 
 
 ### 0.0.13 (07-12-2018)
