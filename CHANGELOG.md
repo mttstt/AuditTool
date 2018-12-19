@@ -1,3 +1,9 @@
+### 0.0.15 (XX-XX-XXX)
+##### New features
+* Text colored on monitoring cards
+
+
+
 ### 0.0.14 (14-12-2018)
 ##### Code
 * Fixed bug (audit status on tests/update and on issues/update)
