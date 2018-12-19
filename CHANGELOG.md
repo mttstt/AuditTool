@@ -1,6 +1,7 @@
 ### 0.0.15 (XX-XX-XXX)
-##### New features
+##### Enhanced features
 * Text colored on monitoring cards
+* Disabled audit details from Dashboard
 
 
 
