@@ -107,7 +107,7 @@ case $key in
     ;;   
 
     -s|--stop)
-        echo "Stopping Audittol container daemon"
+        echo "Stopping AuditTool container daemon"
         docker-compose -f docker/docker-compose.yml stop
     shift # past argument
     shift # past argument
