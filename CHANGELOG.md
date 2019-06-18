@@ -1,8 +1,9 @@
 ### 0.0.15 (XX-XX-XXX)
 ##### Enhanced features
 * Text colored on monitoring cards
+* Modified Dashboard title to Audit Dashboard
 * Disabled audit details from Dashboard
-
+* The "Activity type" in Audit Dashboard is hided
 
 
 ### 0.0.14 (14-12-2018)
