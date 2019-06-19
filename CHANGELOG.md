@@ -4,7 +4,8 @@
 * Modified Dashboard title to Audit Dashboard
 * Disabled audit details from Dashboard
 * The "Activity type" in Audit Dashboard is hided
-
+##### Enhanced features
+* Upgrade to abernix/meteord:node-8.15.1-onbuild
 
 ### 0.0.14 (14-12-2018)
 ##### Code
