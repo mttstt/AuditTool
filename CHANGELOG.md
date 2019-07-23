@@ -1,16 +1,14 @@
 ### 0.0.16 (23-07-2019)
 ##### Code
 * Fixed bug (attach files to the first creation of a test)
-
-
-### 0.0.15 (23-07-2019)
 ##### Enhanced features
 * Text colored on monitoring cards
 * Modified Dashboard title to Audit Dashboard
 * Disabled audit details from Dashboard
 * The "Activity type" in Audit Dashboard is hided
-##### Enhanced features
-* Upgrade to abernix/meteord:node-8.15.1-onbuild
+##### Enhanced Docker
+* Upgrade to (abernix/meteord:node-8.15.1-onbuild)
+
 
 ### 0.0.14 (14-12-2018)
 ##### Code
