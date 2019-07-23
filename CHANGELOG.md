@@ -1,6 +1,6 @@
 ### 0.0.16 (23-07-2019)
 ##### Code
-* Fixed bug (upload fies attachments)
+* Fixed bug (attach files to the first creation of a test)
 
 
 ### 0.0.15 (23-07-2019)
