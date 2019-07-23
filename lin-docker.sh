@@ -46,7 +46,7 @@ case $key in
     
     -b|--build)
         echo "build"
-        cd ~/AuditTool
+#       cd ~/AuditTool
         if [ ! -f ~/AuditTool/.gitignore ]; then
             echo ".gitignore not found!"
         else
@@ -68,7 +68,7 @@ case $key in
 
     -m|--meteor)
         echo "meteor"
-	cd ~/AuditTool
+#	cd ~/AuditTool
 	if [ -z "$statusJreport" ]; then
                 echo 'Jsreport not installed: no pdf reports !' >&2
         else
