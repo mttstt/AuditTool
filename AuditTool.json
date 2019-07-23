@@ -5,7 +5,7 @@
 		"meta_title": "AuditTool",
 		"theme": "bootswatch-spacelab",
 		"animate": true,
-		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018,  GNU General Public License Version 2 or later, release 0.0.15",
+		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018,  GNU General Public License Version 2 or later, release 0.0.16",
 		"roles": [
 			"admin",
 			"user",
