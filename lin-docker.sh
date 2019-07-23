@@ -113,7 +113,6 @@ case $key in
     shift # past argument
     ;;
 
-
     -b|--bye)
     echo "bye"
     echo "bye"
