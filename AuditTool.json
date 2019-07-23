@@ -5,7 +5,7 @@
 		"meta_title": "AuditTool",
 		"theme": "bootswatch-spacelab",
 		"animate": true,
-		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018,  GNU General Public License Version 2 or later, release 0.0.14",
+		"footer_text": "AuditTool Alfa Company - Copyright (c) 2018,  GNU General Public License Version 2 or later, release 0.0.15",
 		"roles": [
 			"admin",
 			"user",
@@ -743,6 +743,13 @@
 								"title": "Disable"
 							}
 						]
+					},
+					{
+						"name": "color",
+						"title": "Color",
+						"type": "string",
+						"default": "coral",
+						"input_group_class": "col-sm-4 col-md-4"
 					}
 				]
 			},
@@ -1142,7 +1149,7 @@
 					"class": "nav navbar-nav",
 					"items": [
 						{
-							"title": "Dashboard",
+							"title": "Audit Dashboard",
 							"route": "dashboard",
 							"icon_class": "fa fa-desktop"
 						},
@@ -1238,7 +1245,6 @@
 									"name": "activities",
 									"type": "data_view",
 									"query_name": "activity_all",
-									"details_route": "dashboard.detailactivity",
 									"details_route_params": [
 										{
 											"name": "activityId",
@@ -1266,7 +1272,6 @@
 											"name": "type",
 											"title": "Activity type",
 											"type": "string",
-											"required": true,
 											"exportable": true,
 											"input": "radio",
 											"input_items": [
@@ -1288,7 +1293,10 @@
 												}
 											],
 											"array_item_type": "object",
-											"show_in_update_form": false
+											"show_in_dataview": false,
+											"show_in_insert_form": false,
+											"show_in_update_form": false,
+											"show_in_read_only_form": false
 										},
 										{
 											"name": "title",
@@ -1670,8 +1678,8 @@
 							"name": "charts",
 							"type": "custom_component",
 							"query_name": "registrycontrols_all",
-							"html": "<template name=\"TEMPLATE_NAME\">\n\t<section class=\"wrapper\">\n\t\t<div class=\"container-fostrap\">\n\t\t\t<div class=\"row\">\n\t\t\t\t{{#each x in registrycontrols_all }}\n\t\t\t\t\t{{#let chart=(chartData x) }}\n              \t\t  {{#if equals chart.enabled 'true' }}\n                        <div class=\"col-xs-2 col-sm-2\" >\n                            <div class=\"card\" id={{chart.tag}}>\n                               <div class=\"card-title\">\n                                {{ chart.title }}\n                               </div>\n                               <div class=\"img-card\">\n                                  {{#if chart.YesNo }}\t\t\t\t\t\t\n                                     <div style=\"height: 100px;\" id=chart.id>\n\t\t\t\t\t\t\t\t\t   <i class=\"{{chart.YesNo}}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t\t </div>\n                                  {{ else }}\n                                      {{> c3 data=chart.data id=chart.id }}\n                                   {{/if}}\n                               </div>\n                            </div>\n                            {{> DashboardMdCard chart=chart}}\t\t\t\t\t\t\t\t\n                        </div>\n              \t\t  {{/if}}\n\t\t\t\t\t{{/let}}\n\t\t\t\t{{/each}}\n\t\t\t</div>\n\t\t</div>\n\t</section>\n  {{> Modal }}\n</template>\n\n\n<template name=\"DashboardMdCard\">\n          <div class=\"card-read-more\">\n          {{#if chart.date}}\n              <a class=\"btn btn-xs btn-link btn-block click-enabled\">\n                  <em>Last update  {{ formatDate (chart.date) 'MM/YYYY' }} </em>\n              </a>\n          {{else}}\n              <a class=\"btn btn-xs btn-link btn-block\" disabled>\n                   <em>No data </em>\n              </a>\n          {{/if}}\n          </div>\n</template>\n\n\n<template name=\"Modal\">\n <div class=\"modal fade\" id=\"idMyModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">{{ModalInfo.title}}</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n\t   </div>\n\t   <div class=\"modal-body\">\n\t\t {{ModalInfo.description}}\n         <br>\n         <br>\t\t\n         <p class=\"font-weight-bold\">Periodicty: {{ModalInfo.periodicity}}</p>\n\t\t <p class=\"font-weight-bold\">Area: {{ModalInfo.area}}</p>\n     \t <p class=\"font-weight-bold\">Controller: {{ModalInfo.controller}}</p>\n\t   </div>\n\t   <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n       </div>\n    </div>\n  </div>\n</div>\n</template>",
-							"js": "var clientMonitoringdetectionByid = new Mongo.Collection('clientMonitoringdetectionByid');\n\n\n// TIP&TRICK code moved in \"Before Subscription Code\" to limit subscription at this page.\n//Meteor.subscribe(\"MonitoringdetectionByid\");\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  chartData: function(chart) {\n\t\tvar x=clientMonitoringdetectionByid.findOne( { _id: chart._id } );\n\t\tif (!x) { var x = {}; x.keyIndicator = 'n/a'; x.date = '';}\n        var res = {\n               data: {\n                       json: {\n                               data: [x.keyIndicator]\n                             },\n                        type: chart.charttype\t\t\t\t\t\t\n                     },\n\t\t\t\tlegend: { show: false },\n\t\t\t\tsize: {height : 100}\n          \n\t\t\t\t};\n        \t\n\t\tswitch (x.keyIndicator)  {\n\t\t\tcase \"OK\":\n\t\t\t\tvar YesNo = \"fa fa-check fa-5x text-success\";\n\t\t\t\tbreak;\n\t\t\tcase \"KO\":\n\t\t\t\tvar YesNo = \"fa fa-close fa-5x text-danger\";\n\t\t\t\tbreak;\n          \tcase \"NA\":\n            \tvar YesNo = \"fa fa-ellipsis-h fa-5x text-warning\";\n            \tbreak;\n\t\t\t}\n\t\t\n        tag1=\"#\";\n\t\tid1=\"id\";\n\t\tid = id1.concat(chart._id);\n\t\ttag= tag1.concat(id);\n\t\treturn { data: res, YesNo: YesNo, id: id , date: x.date, title: chart.title, control_description: chart.control_description, enabled: chart.enabled, tag: tag };    \n   },\n  \n  equals: function(a, b) {\n\t\treturn a === b;\n\t}\n  \n});\n\n\nTemplate.Modal.helpers({\n  ModalInfo: function() {\n\treturn Session.get('ModalInfo');\n  }\n});\n",
+							"html": "<template name=\"TEMPLATE_NAME\">\n\t<section class=\"wrapper\">\n\t\t<div class=\"container-fostrap\">\n\t\t\t<div class=\"row\">\n\t\t\t\t{{#each x in registrycontrols_all }}\n\t\t\t\t\t{{#let chart=(chartData x) }}\n              \t\t  {{#if equals chart.enabled 'true' }}\n                        <div class=\"col-xs-2 col-sm-2\" >\n                            <div class=\"card\" id={{chart.tag}}>\n                               <div class=\"card-title\" style=\"color:{{chart.color}}\">\n                                {{ chart.title }}\n                               </div>\n                               <div class=\"img-card\">\n                                  {{#if chart.YesNo }}\t\t\t\t\t\t\n                                     <div style=\"height: 100px;\" id=chart.id>\n\t\t\t\t\t\t\t\t\t   <i class=\"{{chart.YesNo}}\" aria-hidden=\"true\"></i>\n\t\t\t\t\t\t\t\t\t </div>\n                                  {{ else }}\n                                      {{> c3 data=chart.data id=chart.id }}\n                                   {{/if}}\n                               </div>\n                            </div>\n                            {{> DashboardMdCard chart=chart}}\t\t\t\t\t\t\t\t\n                        </div>\n              \t\t  {{/if}}\n\t\t\t\t\t{{/let}}\n\t\t\t\t{{/each}}\n\t\t\t</div>\n\t\t</div>\n\t</section>\n  {{> Modal }}\n</template>\n\n\n<template name=\"DashboardMdCard\">\n          <div class=\"card-read-more\">\n          {{#if chart.date}}\n              <a class=\"btn btn-xs btn-link btn-block click-enabled\">\n                  <em>Last update  {{ formatDate (chart.date) 'MM/YYYY' }} </em>\n              </a>\n          {{else}}\n              <a class=\"btn btn-xs btn-link btn-block\" disabled>\n                   <em>No data </em>\n              </a>\n          {{/if}}\n          </div>\n</template>\n\n\n<template name=\"Modal\">\n <div class=\"modal fade\" id=\"idMyModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">\n  <div class=\"modal-dialog\" role=\"document\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <h5 class=\"modal-title\" id=\"exampleModalLabel\">{{ModalInfo.title}}</h5>\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n          <span aria-hidden=\"true\">&times;</span>\n        </button>\n\t   </div>\n\t   <div class=\"modal-body\">\n\t\t {{ModalInfo.description}}\n         <br>\n         <br>\t\t\n         <p class=\"font-weight-bold\">Periodicty: {{ModalInfo.periodicity}}</p>\n\t\t <p class=\"font-weight-bold\">Area: {{ModalInfo.area}}</p>\n     \t <p class=\"font-weight-bold\">Controller: {{ModalInfo.controller}}</p>\n\t   </div>\n\t   <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>\n       </div>\n    </div>\n  </div>\n</div>\n</template>",
+							"js": "var clientMonitoringdetectionByid = new Mongo.Collection('clientMonitoringdetectionByid');\n\n\n// TIP&TRICK code moved in \"Before Subscription Code\" to limit subscription at this page.\n//Meteor.subscribe(\"MonitoringdetectionByid\");\n\n\nTemplate.TEMPLATE_NAME.helpers({\n  chartData: function(chart) {\n\t\tvar x=clientMonitoringdetectionByid.findOne( { _id: chart._id } );\n\t\tif (!x) { var x = {}; x.keyIndicator = 'n/a'; x.date = '';}\n        var res = {\n               data: {\n                       json: {\n                               data: [x.keyIndicator]\n                             },\n                        type: chart.charttype\t\t\t\t\t\t\n                     },\n\t\t\t\tlegend: { show: false },\n\t\t\t\tsize: {height : 100}\n          \n\t\t\t\t};\n        \t\n\t\tswitch (x.keyIndicator)  {\n\t\t\tcase \"OK\":\n\t\t\t\tvar YesNo = \"fa fa-check fa-5x text-success\";\n\t\t\t\tbreak;\n\t\t\tcase \"KO\":\n\t\t\t\tvar YesNo = \"fa fa-close fa-5x text-danger\";\n\t\t\t\tbreak;\n          \tcase \"NA\":\n            \tvar YesNo = \"fa fa-ellipsis-h fa-5x text-warning\";\n            \tbreak;\n\t\t\t}\n\t\t\n        tag1=\"#\";\n\t\tid1=\"id\";\n\t\tid = id1.concat(chart._id);\n\t\ttag= tag1.concat(id);\n\t\treturn { data: res, YesNo: YesNo, id: id , date: x.date, title: chart.title, control_description: chart.control_description, enabled: chart.enabled, tag: tag, color: chart.color };    \n   },\n  \n  equals: function(a, b) {\n\t\treturn a === b;\n\t}\n  \n});\n\n\nTemplate.Modal.helpers({\n  ModalInfo: function() {\n\treturn Session.get('ModalInfo');\n  }\n});\n",
 							"jsx": "export class TEMPLATE_NAME extends Component {\n\n\tconstructor() {\n\t\tsuper();\n\t}\n\n\tcomponentWillMount() {\n\t\t/*TEMPLATE_CREATED_CODE*/\n\t}\n\n\tcomponentWillUnmount() {\n\t\t/*TEMPLATE_DESTROYED_CODE*/\n\t}\n\n\tcomponentDidMount() {\n\t\t/*TEMPLATE_RENDERED_CODE*/\n\n\t\tMeteor.defer(function() {\n\t\t\tglobalOnRendered();\n\t\t});\n\t}\n\n\trender() {\n\t\treturn (\n\t\t\t<div></div>\n\t\t);\n\t}\n}",
 							"gasoline": {
 								"type": "gasoline",
@@ -2260,7 +2268,7 @@
 					"class": "nav navbar-nav",
 					"items": [
 						{
-							"title": "Home",
+							"title": "Audit",
 							"route": "home_private",
 							"icon_class": "fa fa-home"
 						},
@@ -2798,6 +2806,11 @@
 											]
 										},
 										{
+											"name": "color",
+											"title": "Color",
+											"type": "string"
+										},
+										{
 											"name": "enabled",
 											"title": "Enabled",
 											"type": "string",
@@ -2828,6 +2841,141 @@
 											"cancel_route": "admin.monitoring_controls",
 											"submit_code": "\nif (Session.get('monitoringcontrolId').length === 6) {    \n\tMeteor.call(\"registrycontrolsInsert\", values, function(e, r) {\n         if(e) console.log('error'); \n         else \n         Meteor.call(\"registrycontrolsUpdate\", r, values, function(e, r) { if(e) errorAction(e); else submitAction(r); });\n   });\n}\nelse",
 											"submit_button_title": "Save",
+											"fields": [
+												{
+													"name": "area",
+													"title": "Area",
+													"type": "string",
+													"exportable": true,
+													"input_group_class": "col-sm-4 col-md-4"
+												},
+												{
+													"name": "title",
+													"title": "Control title",
+													"type": "string",
+													"exportable": true,
+													"input_group_class": "col-sm-4 col-md-4"
+												},
+												{
+													"name": "periodicity",
+													"title": "Periodicity",
+													"type": "string",
+													"exportable": true,
+													"input": "radio",
+													"input_group_class": "col-sm-4 col-md-4",
+													"input_items": [
+														{
+															"value": "monthly",
+															"title": "monthly"
+														},
+														{
+															"value": "quarterly",
+															"title": "quarterly"
+														},
+														{
+															"value": "semiannual",
+															"title": "semiannual"
+														},
+														{
+															"value": "yearly",
+															"title": "yearly"
+														}
+													]
+												},
+												{
+													"name": "control_description",
+													"title": "Control description",
+													"type": "string",
+													"exportable": true,
+													"input": "textarea"
+												},
+												{
+													"name": "controller",
+													"title": "Control owner",
+													"type": "string",
+													"exportable": true,
+													"input": "select",
+													"input_group_class": "col-sm-4 col-md-4",
+													"lookup_query_name": "q_users",
+													"lookup_key": "profile.name",
+													"lookup_field": "profile.name"
+												},
+												{
+													"name": "charttype",
+													"title": "Chart type",
+													"type": "string",
+													"exportable": true,
+													"input": "radio",
+													"input_group_class": "col-sm-4 col-md-4",
+													"input_items": [
+														{
+															"value": "line",
+															"title": "line"
+														},
+														{
+															"value": "spline",
+															"title": "spline"
+														},
+														{
+															"value": "step",
+															"title": "step"
+														},
+														{
+															"value": "area",
+															"title": "area"
+														},
+														{
+															"value": "area-spline",
+															"title": "area-spline"
+														},
+														{
+															"value": "bar",
+															"title": "bar"
+														},
+														{
+															"value": "scatter",
+															"title": "scatter"
+														},
+														{
+															"value": "pie",
+															"title": "pie"
+														},
+														{
+															"value": "donut",
+															"title": "donut"
+														},
+														{
+															"value": "gauge",
+															"title": "gauge"
+														}
+													]
+												},
+												{
+													"name": "color",
+													"title": "Color",
+													"type": "string",
+													"default": "coral",
+													"input_group_class": "col-sm-4 col-md-4"
+												},
+												{
+													"name": "enabled",
+													"title": "Enabled",
+													"type": "string",
+													"exportable": true,
+													"input": "radio",
+													"input_group_class": "col-sm-4 col-md-4",
+													"input_items": [
+														{
+															"value": "true",
+															"title": "Enable"
+														},
+														{
+															"value": "false",
+															"title": "Disable"
+														}
+													]
+												}
+											],
 											"object_type": "form"
 										}
 									],
@@ -4172,7 +4320,6 @@
 											"type": "form",
 											"class": "col-sm-8 col-md-9",
 											"title": "Create a new test",
-											"events_code": "\"submit\": function(e, t) {\n\t\te.preventDefault();\n  \t\tconsole.log(\"AAAAAAAAAAAAAAAAA\");\n}\n  ",
 											"helpers_code": "\"nextAttivitaNumber\": function() {\n  var max = 0;\n  var attivitaNumbers = Tests.find({activityId: Session.get('activity')._id}, {fields: {attivitaId:1}}).fetch();\n  _.each(attivitaNumbers, function(doc) { var intNum = parseInt(doc.attivitaId);\n                                          if(!isNaN(intNum) && intNum > max) max = intNum; });\n  \t\t\t\t\t\t\t\t\t      console.log('nextAttivitàNumber');\n                                          return (max + 1);\n                                        },\n\n\"test\":  function() { \n\tif (Session.get('titleVerifica'))\n\t\t\t{var x = ({\"title\":Session.get('titleVerifica'),\"objective\":Session.get('descriptionVerifica')});return x;}\n\telse {return Tests.findOne({_id:this.params.testId}); }\n  }",
 											"query_name": "test",
 											"mode": "update",
