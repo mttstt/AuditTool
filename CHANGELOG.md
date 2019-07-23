@@ -1,4 +1,9 @@
-### 0.0.15 (XX-XX-XXX)
+### 0.0.16 (23-07-2019)
+##### Code
+* Fixed bug (upload fies attachments)
+
+
+### 0.0.15 (23-07-2019)
 ##### Enhanced features
 * Text colored on monitoring cards
 * Modified Dashboard title to Audit Dashboard
