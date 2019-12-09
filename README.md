@@ -7,6 +7,13 @@ Web Application for audits, the main function are:
 This application is implemented with the support of Group Internal Audit. The application is realized with the Meteor-Kitchen framework.
 
 
+### Startup
+    
+    DEFAULT:mantain data (MongoDB and JReport) and update AuditTool 
+    CONFIG: reset all (included MongoDB and JReport) and start a new config implementation  
+    DEMO: reset all  (included MongoDB and JReport) and start a new demo implementation
+  
+ 
 ### Quick start with docker-compose
 (Prerequisites: docker, docker-compose)
 
